@@ -25,7 +25,6 @@ technische Betreuung aller Softwaresysteme erfolgt über Mitarbeiter im Rechenze
 
 ## Vorbereitende Aufgaben
 
-<<<<<<< HEAD
 1. Wer arbeitet mit dem Softwaresystem?
 2. Welcher Benutzer benötigt welche Funktionen?
 3. Welche Informationen müssen zu einer Person/Benutzer gespeichert werden, um einen
@@ -33,7 +32,7 @@ Geschäftsprozess, z. B. das Planen von Kursen, mit dem System abzuwickeln?
 4. Welche im Szenario nicht genannten Funktionen werden von dem Softwaresystem benötigt,
 um heutigen Anforderungen zu entsprechen? Nennen Sie beispielhaft fünf Funktionen!
 5. Was ist ein Anwendungsfall und welche Beziehungen zwischen Anwendungsfällen beschreibt
-der Standard [1]?
+der Standard "UML Superstructure"?
 6. Beschreiben Sie die Anwendungsfälle „Teilnehmer anmelden“ und „Kurs planen“ nach dem
 folgenden Muster:
 	- **use case** Teilnehmer anmelden
@@ -46,8 +45,3 @@ folgenden Muster:
 	- **exceptional flow 2** Beschreibung der Ausnahme 2
 	- **postcondition** Ergebnis der Ausnahmesituationen
 	- **end** Teilnehmer anmelden
-=======
-Hier ist Sven
-
-Test Theresa HfTL
->>>>>>> master
