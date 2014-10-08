@@ -25,6 +25,7 @@ technische Betreuung aller Softwaresysteme erfolgt über Mitarbeiter im Rechenze
 
 ## Vorbereitende Aufgaben
 
+<<<<<<< HEAD
 1. Wer arbeitet mit dem Softwaresystem?
 2. Welcher Benutzer benötigt welche Funktionen?
 3. Welche Informationen müssen zu einer Person/Benutzer gespeichert werden, um einen
@@ -45,3 +46,8 @@ folgenden Muster:
 	- **exceptional flow 2** Beschreibung der Ausnahme 2
 	- **postcondition** Ergebnis der Ausnahmesituationen
 	- **end** Teilnehmer anmelden
+=======
+Hier ist Sven
+
+Test Theresa HfTL
+>>>>>>> master
