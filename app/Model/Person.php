@@ -10,7 +10,7 @@ class Person extends AppModel {
  * Primary key field
  *
  * @var string
- */
+**/
 	public $primaryKey = 'accountid';
 
 /**
@@ -30,8 +30,8 @@ class Person extends AppModel {
 			'email' => array(
 				'rule' => array('email'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => true,
+				'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -60,8 +60,8 @@ class Person extends AppModel {
 			'phone' => array(
 				'rule' => array('phone'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => true,
+				'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -126,11 +126,18 @@ class Person extends AppModel {
 			'date' => array(
 				'rule' => array('date'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => true,
+				'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);
+
+    public $belongsTo = array(
+        'Account' => array(
+            'className' => 'Account',
+            'foreignKey' => 'accountid'
+        )
+    );
 }

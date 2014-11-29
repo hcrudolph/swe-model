@@ -98,4 +98,12 @@ class Account extends AppModel {
 			),
 		),
 	);
+
+    public $hasOne = array(
+        'Person' => array(
+            'className' => 'Person',
+            'foreignKey' => 'accountid',
+            'dependent' => true
+        )
+    );
 }
