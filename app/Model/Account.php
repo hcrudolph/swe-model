@@ -1,10 +1,19 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 /**
  * Account Model
  *
  */
 class Account extends AppModel {
+
+    public function beforeSave($options = array()) {
+        if (!empty($this->data[$this->alias]['password'])) {
+            $passwordHasher = new BlowfishPasswordHasher();
+            $this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);
+        }
+        return true;
+    }
 
 /**
  * Display field
@@ -29,7 +38,7 @@ class Account extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'minLength' => array(
-				'rule' => array('minLength'),
+				'rule' => array('minLength', '3'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -37,7 +46,7 @@ class Account extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'maxLength' => array(
-				'rule' => array('maxLength'),
+				'rule' => array('maxLength', '20'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -55,7 +64,7 @@ class Account extends AppModel {
 		),
 		'password' => array(
 			'maxLength' => array(
-				'rule' => array('maxLength'),
+				'rule' => array('maxLength', '24'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -63,7 +72,7 @@ class Account extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'minLength' => array(
-				'rule' => array('minLength'),
+				'rule' => array('minLength', '8'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -80,14 +89,6 @@ class Account extends AppModel {
 			),
 		),
 		'role' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
