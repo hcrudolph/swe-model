@@ -13,7 +13,8 @@ class CoursesControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.course'
+		'app.course',
+		'app.course_room_time'
 	);
 
 /**

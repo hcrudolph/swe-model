@@ -37,7 +37,7 @@ class CourseFixture extends CakeTestFixture {
 			'maxcount' => 1,
 			'mincount' => 1,
 			'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2014-11-28 19:53:05'
+			'created' => '2014-11-29 12:37:46'
 		),
 	);
 

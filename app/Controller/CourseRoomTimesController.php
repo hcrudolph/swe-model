@@ -56,6 +56,8 @@ class CourseRoomTimesController extends AppController {
 				$this->Session->setFlash(__('The course room time could not be saved. Please, try again.'));
 			}
 		}
+		$courses = $this->CourseRoomTime->Course->find('list');
+		$this->set(compact('courses'));
 	}
 
 /**
@@ -80,6 +82,8 @@ class CourseRoomTimesController extends AppController {
 			$options = array('conditions' => array('CourseRoomTime.' . $this->CourseRoomTime->primaryKey => $id));
 			$this->request->data = $this->CourseRoomTime->find('first', $options);
 		}
+		$courses = $this->CourseRoomTime->Course->find('list');
+		$this->set(compact('courses'));
 	}
 
 /**

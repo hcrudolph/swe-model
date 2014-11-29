@@ -21,5 +21,7 @@
 
 		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('CourseRoomTime.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('CourseRoomTime.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Course Room Times'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

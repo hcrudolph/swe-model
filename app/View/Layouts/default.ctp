@@ -18,11 +18,23 @@
 <body>
 	<div id="container">
 		<div id="header">
-            header
+           <a href="/swe-project/">header</a>
 		</div>
 
         <div id="sidebar">
-            sidebar
+        <ul>
+        <?php
+            $this->start('sidebar');
+            echo $this->element('sidebar/calendar');
+            echo $this->element('sidebar/news');
+            echo $this->element('sidebar/courses');
+            echo $this->element('sidebar/courseroomtimes');
+            echo $this->element('sidebar/accounts');
+            $this->end();
+
+            echo $this->fetch('sidebar');
+        ?>
+        </ul>
         </div>
 
 		<div id="content">

@@ -13,7 +13,8 @@ class CourseRoomTimeTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.course_room_time'
+		'app.course_room_time',
+		'app.course'
 	);
 
 /**

@@ -38,10 +38,10 @@ class CourseRoomTimeFixture extends CakeTestFixture {
 			'courseid' => 1,
 			'roomid' => 'Lorem ip',
 			'director' => 1,
-			'begin' => '2014-11-28 19:57:42',
-			'end' => '2014-11-28 19:57:42',
-			'presetup' => '2014-11-28 19:57:42',
-			'postsetup' => '2014-11-28 19:57:42'
+			'begin' => '2014-11-29 12:40:08',
+			'end' => '2014-11-29 12:40:08',
+			'presetup' => '2014-11-29 12:40:08',
+			'postsetup' => '2014-11-29 12:40:08'
 		),
 	);
 

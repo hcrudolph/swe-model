@@ -18,7 +18,9 @@
 	<?php foreach ($courseRoomTimes as $courseRoomTime): ?>
 	<tr>
 		<td><?php echo h($courseRoomTime['CourseRoomTime']['id']); ?>&nbsp;</td>
-		<td><?php echo h($courseRoomTime['CourseRoomTime']['courseid']); ?>&nbsp;</td>
+		<td>
+			<?php echo $this->Html->link($courseRoomTime['Course']['name'], array('controller' => 'courses', 'action' => 'view', $courseRoomTime['Course']['id'])); ?>
+		</td>
 		<td><?php echo h($courseRoomTime['CourseRoomTime']['roomid']); ?>&nbsp;</td>
 		<td><?php echo h($courseRoomTime['CourseRoomTime']['director']); ?>&nbsp;</td>
 		<td><?php echo h($courseRoomTime['CourseRoomTime']['begin']); ?>&nbsp;</td>
@@ -52,5 +54,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Course Room Time'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

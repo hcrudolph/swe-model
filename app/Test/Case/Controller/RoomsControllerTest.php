@@ -1,11 +1,11 @@
 <?php
-App::uses('CourseRoomTimesController', 'Controller');
+App::uses('RoomsController', 'Controller');
 
 /**
- * CourseRoomTimesController Test Case
+ * RoomsController Test Case
  *
  */
-class CourseRoomTimesControllerTest extends ControllerTestCase {
+class RoomsControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
@@ -13,8 +13,7 @@ class CourseRoomTimesControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.course_room_time',
-		'app.course'
+		'app.room'
 	);
 
 /**

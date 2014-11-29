@@ -19,5 +19,7 @@
 	<ul>
 
 		<li><?php echo $this->Html->link(__('List Course Room Times'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

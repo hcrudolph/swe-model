@@ -1,11 +1,11 @@
 <?php
-App::uses('Course', 'Model');
+App::uses('Room', 'Model');
 
 /**
- * Course Test Case
+ * Room Test Case
  *
  */
-class CourseTest extends CakeTestCase {
+class RoomTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -13,8 +13,7 @@ class CourseTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.course',
-		'app.course_room_time'
+		'app.room'
 	);
 
 /**
@@ -24,7 +23,7 @@ class CourseTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Course = ClassRegistry::init('Course');
+		$this->Room = ClassRegistry::init('Room');
 	}
 
 /**
@@ -33,7 +32,7 @@ class CourseTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Course);
+		unset($this->Room);
 
 		parent::tearDown();
 	}

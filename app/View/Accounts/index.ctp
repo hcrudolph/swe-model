@@ -5,7 +5,6 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('username'); ?></th>
-			<th><?php echo $this->Paginator->sort('password'); ?></th>
 			<th><?php echo $this->Paginator->sort('role'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -16,7 +15,6 @@
 	<tr>
 		<td><?php echo h($account['Account']['id']); ?>&nbsp;</td>
 		<td><?php echo h($account['Account']['username']); ?>&nbsp;</td>
-		<td><?php echo h($account['Account']['password']); ?>&nbsp;</td>
 		<td><?php echo h($account['Account']['role']); ?>&nbsp;</td>
 		<td><?php echo h($account['Account']['created']); ?>&nbsp;</td>
 		<td class="actions">

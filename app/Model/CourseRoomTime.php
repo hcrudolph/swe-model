@@ -3,6 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * CourseRoomTime Model
  *
+ * @property Course $Course
  */
 class CourseRoomTime extends AppModel {
 
@@ -11,7 +12,7 @@ class CourseRoomTime extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'courseid';
+	public $displayField = 'id';
 
 /**
  * Validation rules
@@ -19,35 +20,17 @@ class CourseRoomTime extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'roomid' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'director' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'numeric' => array(
-				'rule' => array('numeric'),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -127,5 +110,22 @@ class CourseRoomTime extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+	);
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Course' => array(
+			'className' => 'Course',
+			'foreignKey' => 'courseid',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
 }
