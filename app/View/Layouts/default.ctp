@@ -6,7 +6,7 @@
 		<?php echo $this->fetch('title'); ?>
 	</title>
 	<?php
-		echo $this->Html->script('webcomponents');
+		echo $this->Html->script('webcomponentsjs/webcomponents');
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
