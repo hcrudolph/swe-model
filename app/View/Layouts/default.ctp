@@ -14,7 +14,7 @@
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 		//test
-		echo $this->fetch('polymerimports');
+		echo $this->fetch('polymer');
 	?>
 </head>
 <body>
