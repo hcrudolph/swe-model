@@ -10,7 +10,7 @@ class GitController extends AppController {
     echo shell_exec("git pull");
     echo "<br />";
     echo "Hello World!<br />";
-    echo "ging das Update?";
+    echo shell_exec("echo 'hallo'");
   }
 }
 ?>
