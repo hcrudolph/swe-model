@@ -3,10 +3,13 @@ App::uses('AppController', 'Controller');
 
 class GitController extends AppController {
 
-public function pull()
-{
-$this->autoRender = false;
-echo getcwd()."\n";
-echo shell_exec("git pull");
+  public function pull()
+  {
+    $this->autoRender = false;
+    echo getcwd()."<br />";
+    echo shell_exec("git pull");
+    echo "<br />";
+    echo "Hello World!";
+  }
 }
-}
+?>
