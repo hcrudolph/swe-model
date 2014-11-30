@@ -16,11 +16,11 @@
 		//test
 		echo $this->Html->meta(array(
     			'rel' => 'import',
-    			'href' => 'polymer/login.html',
+    			'href' => './polymer/login.html',
 		));
 		echo $this->Html->meta(array(
     			'rel' => 'import',
-    			'href' => 'polymer/sidebar.html',
+    			'href' => './polymer/sidebar.html',
 		));
 	?>
 </head>
