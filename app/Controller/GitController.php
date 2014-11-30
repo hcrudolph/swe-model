@@ -7,10 +7,7 @@ class GitController extends AppController {
   {
     $this->autoRender = false;
     echo getcwd();
-    echo shell_exec("git pull");
-    echo "<br />";
-    echo "Hello World!<br />";
-    echo shell_exec("echo 'hello from Console'");;
+    echo exec("git pull");
   }
 }
 ?>
