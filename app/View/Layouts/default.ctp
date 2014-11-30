@@ -17,6 +17,11 @@
 		
 		echo $this->Html->meta(array(
     			'rel' => 'import',
+    			'href' => './polymer/polymer.html',
+		));
+		
+		echo $this->Html->meta(array(
+    			'rel' => 'import',
     			'href' => './polymer/login.html',
 		));
 		echo $this->Html->meta(array(
