@@ -13,6 +13,8 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+		//test
+		echo $this->fetch('polymerimports');
 	?>
 </head>
 <body>
