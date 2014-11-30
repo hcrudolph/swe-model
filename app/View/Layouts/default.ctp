@@ -5,6 +5,8 @@
 	<title>
 		<?php echo $this->fetch('title'); ?>
 	</title>
+	<script type="text/javascript" src="./webcomponenets.js"></script>
+	
 	<?php
 		echo $this->Html->meta('icon');
 
@@ -13,8 +15,7 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-		//test
-		echo $this->Html->script('webcomponenets', array('inline' => false));
+		
 		echo $this->Html->meta(array(
     			'rel' => 'import',
     			'href' => './polymer/login.html',
