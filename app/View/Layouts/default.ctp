@@ -14,7 +14,14 @@
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 		//test
-		echo $this->fetch('polymer');
+		echo $this->Html->meta(array(
+    			'rel' => 'import',
+    			'href' => 'polymer/login.html',
+		));
+		echo $this->Html->meta(array(
+    			'rel' => 'import',
+    			'href' => 'polymer/sidebar.html',
+		));
 	?>
 </head>
 <body>
