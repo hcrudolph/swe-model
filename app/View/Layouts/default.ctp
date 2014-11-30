@@ -5,9 +5,8 @@
 	<title>
 		<?php echo $this->fetch('title'); ?>
 	</title>
-	<script type="text/javascript" src="./webcomponenets.js"></script>
-	
 	<?php
+		echo $this->Html->script('webcomponenets');
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
