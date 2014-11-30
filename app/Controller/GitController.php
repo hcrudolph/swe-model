@@ -8,6 +8,7 @@ class GitController extends AppController {
     $this->autoRender = false;
     echo getcwd();
     echo exec("git pull");
+    echo exec("whoami");
   }
 }
 ?>
