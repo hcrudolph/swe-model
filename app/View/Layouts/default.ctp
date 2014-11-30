@@ -14,6 +14,7 @@
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 		//test
+		$this->Html->script('webcomponenets', array('inline' => false));
 		echo $this->Html->meta(array(
     			'rel' => 'import',
     			'href' => './polymer/login.html',
