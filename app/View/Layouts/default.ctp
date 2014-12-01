@@ -26,12 +26,14 @@
     			'href' => './polymer/polymer.html',
 		));*/
 	?>
+	<link rel="import" href="polymer/elements/application-sidebar.html">
 </head>
 <body>
 	<div id="container">
 		<div id="header">
            <a href="/swe-project/">header</a>
 		</div>
+	<application-sidebar id="appsidebar"></application-sidebar>
 
         <div id="sidebar">
         <ul>
