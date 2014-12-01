@@ -9,7 +9,7 @@ class GitController extends AppController {
     $this->autoRender = false;
     echo getcwd()."<br />";
     $output = array();
-    exec("git pull", $output);
+    exec("git pull 2>&1", $output);
     foreach($output as $line)
     {
       echo $line;
