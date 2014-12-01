@@ -5,8 +5,8 @@
 	<title>
 		<?php echo $this->fetch('title'); ?>
 	</title>
+	<link rel="import" href="./polymerdata/polymer/polymer.html">
 	<?php
-		echo $this->Html->polymer('polymer/polymer');
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
