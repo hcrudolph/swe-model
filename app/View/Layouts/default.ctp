@@ -21,15 +21,12 @@
     			'rel' => 'import',
     			'href' => './polymer/polymer.html',
 		));
-		
+        <link rel="import" href="components/polymer/polymer.html">
+		*/
 		echo $this->Html->meta(array(
     			'rel' => 'import',
-    			'href' => './polymer/login.html',
+    			'href' => '/polymerdata/polymer/polymer.html',
 		));
-		echo $this->Html->meta(array(
-    			'rel' => 'import',
-    			'href' => './polymer/sidebar.html',
-		));*/
 	?>
 </head>
 <body>
