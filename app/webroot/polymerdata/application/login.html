@@ -1,0 +1,57 @@
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../core-icons/core-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+ 
+<polymer-element name="application-login">
+ 
+  <template>
+    <style>    
+      :host {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+      }
+      #input {
+        padding: 15px;
+        left: 500px;
+        top: 40px;
+        position: absolute;
+      }
+      #paper_input {
+        left: 10px;
+        top: 0px;
+        position: absolute;
+        width: 110px;
+        height: 40px;
+      }
+      #paper_input1 {
+        left: 10px;
+        top: 40px;
+        position: absolute;
+        width: 110px;
+        height: 40px;
+      }
+      #paper_icon_button {
+        left: 0px;
+        top: 80px;
+        position: absolute;
+        opacity: 1;
+      }
+    </style>
+    <paper-input label="Username" id="paper_input"></paper-input>
+    <paper-input label="Passwort" id="paper_input1"></paper-input>
+    <paper-icon-button icon="input" id="paper_icon_button"></paper-icon-button>
+  </template>
+ 
+  <script>
+
+    Polymer({
+      
+    });
+
+  </script>
+ 
+</polymer-element>
