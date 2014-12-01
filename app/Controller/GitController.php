@@ -7,7 +7,12 @@ class GitController extends AppController {
   {
     $this->autoRender = false;
     echo getcwd()."<br />";
-    echo exec("git pull")."<br />";
+    $output = array();
+    exec("git pull", $output);
+    foreach($output as $line)
+    {
+      echo $line.'<br />';
+    }
     echo exec("whoami");
   }
 }
