@@ -384,8 +384,3 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
-
-/**
- * Web path to the polymer files directory under webroot.
- */
-Configure::write('App.polymerBaseUrl', 'polymerdata/');
