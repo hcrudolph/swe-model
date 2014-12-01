@@ -11,7 +11,8 @@ class GitController extends AppController {
     exec("git pull", $output);
     foreach($output as $line)
     {
-      echo $line.'<br />';
+      echo $line;
+      echo '<br />';
     }
     echo exec("whoami");
   }
