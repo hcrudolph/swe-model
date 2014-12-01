@@ -5,8 +5,8 @@
 	<title>
 		<?php echo $this->fetch('title'); ?>
 	</title>
-	<!--<link rel="import" href="polymerdata/polymer/polymer.html">
-	<script src="polymerdata/webcomponentsjs/webcomponents.js"></script>-->
+	<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="polymer/components/polymer/polymer.html">
 
 	<?php
 		echo $this->Html->meta('icon');
