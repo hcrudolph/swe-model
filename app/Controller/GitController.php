@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 App::uses('AppController', 'Controller');
 
 class GitController extends AppController {
