@@ -101,7 +101,8 @@ class HtmlHelper extends AppHelper {
 		'javascriptblock' => '<script%s>%s</script>',
 		'javascriptstart' => '<script>',
 		'javascriptlink' => '<script type="text/javascript" src="%s"%s></script>',
-		'javascriptend' => '</script>'
+		'javascriptend' => '</script>',
+		'polymer' => '<link rel="import" href="%s">'
 	);
 
 /**
@@ -1244,6 +1245,32 @@ class HtmlHelper extends AppHelper {
 			$this->_minimizedAttributeFormat = $configs['minimizedAttributeFormat'];
 		}
 		return $configs;
+	}
+	
+/*
+ * Definition for Polymer-Object
+*/
+	public function polymer($path) {
+
+
+		if (is_array($path)) {
+			$out = '';
+			foreach ($path as $i) {
+				$out .= "\n\t" . $this->polymer($i);
+			}
+			return;
+		}
+
+		if (strpos($path, '//') !== false) {
+			$url = $path;
+		} else {
+			$url = $this->assetUrl($path, array('pathPrefix' => Configure::read('App.polymerBaseUrl'), 'ext' => '.html'));
+			
+		$out = sprintf($this->_tags['polymer'], $url));
+
+		}
+
+		$this->_View->append($options['block'], $out);
 	}
 
 }
