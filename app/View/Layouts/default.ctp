@@ -6,7 +6,7 @@
 		<?php echo $this->fetch('title'); ?>
 	</title>
 	<?php
-		
+		echo $this->Html->polymer('polymer/polymer');
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
@@ -15,18 +15,14 @@
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 		
+		
+		
 		/*
 		echo $this->Html->script('webcomponentsjs/webcomponents');
 		echo $this->Html->meta(array(
     			'rel' => 'import',
     			'href' => './polymer/polymer.html',
-		));
-        <link rel="import" href="components/polymer/polymer.html">
-		*/
-		echo $this->Html->meta(array(
-    			'rel' => 'import',
-    			'href' => '/polymerdata/polymer/polymer.html',
-		));
+		));*/
 	?>
 </head>
 <body>
