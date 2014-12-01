@@ -1,7 +1,7 @@
 <?php
 
-App::uses('AppController', 'Controller');class GitController extends AppController {      public function pull()    {      $this->autoRender = false;      echo getcwd()."<br />"; 
-     echo exec("git pull")."<br />"; 
-    echo exec("whoami");    } 
+App::uses('AppController', 'Controller');class ModeController extends AppController {      public function safe()    {      $this->autoRender = false;      echo getcwd()."<br />"; 
+     if(ini_get('safe_mode')){echo 'safe-mode is on';}else{echo 'safe-mode is off';}
+       } 
 
 ?>
