@@ -11,4 +11,5 @@ class ModeController extends AppController {
                echo 'safe-mode is off';
           }
      }
+}
 ?>
