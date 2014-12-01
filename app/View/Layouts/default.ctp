@@ -33,7 +33,7 @@
 		<div id="header">
            <a href="/swe-project/">header</a>
 		</div>
-	<application-sidebar id="appsidebar"></application-sidebar>
+	<application-sidebar id="appsidebar" style="right:5px;"></application-sidebar>
 
         <div id="sidebar">
         <ul>
