@@ -8,6 +8,10 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<!-- polymer-data start-->
+	<?php
+		//echo echo $this->Html->script('polymer/components/webcomponentsjs/webcomponents.js');
+		//polymertag with right _tag-usage
+	?>
 	<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="polymer/components/polymer/polymer.html">
   <link rel="import" href="polymer/elements/application-sidebar.html">
