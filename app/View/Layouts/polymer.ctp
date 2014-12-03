@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>
 	<?php
   		echo $this->Html->polymerTemplate('components/polymer/polymer.html');
-  		echo $this->Html->polymerTemplate('components/elements/application-sidebar.html');
+  		echo $this->Html->polymerTemplate('elements/application-sidebar.html');
   	?>
   <!-- polymer-data end-->
   
