@@ -2,7 +2,7 @@
 App::uses('Helper', 'Html');
 class ApplicationHtmlHelper extends HtmlHelper {
 
-    public $_tags['polymertemplate'] = '<link rel="import" href="%s">';
+    $_tags['polymertemplate'] = '<link rel="import" href="%s">';
 
 /*
  * Add polymer-template
