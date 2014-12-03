@@ -1,6 +1,6 @@
 <?php
 //App::uses('HtmlHelper', 'View/Helper');
-class PolymerHelper extends HtmlHelper {
+class PolymerHelper extends AppHelper {
 /*
  * Add polymer-template
 */
