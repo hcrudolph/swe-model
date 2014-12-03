@@ -37,7 +37,7 @@
 	<div id="container">
 		<div id="header">
 			<a href="/swe-project/">header</a>
-			<application-login></application-login>
+			<application-login id="login"></application-login>
 		</div>
 		<core-menu selected="0" selectedindex="0" id="sidebar">
 			<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>
