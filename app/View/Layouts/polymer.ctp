@@ -12,8 +12,9 @@
 		//echo echo $this->Html->script('polymer/components/webcomponentsjs/webcomponents.js');
 		//polymertag with right _tag-usage
 	?>
-	<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>
+	<!--<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>-->
 	<?php
+		echo $this->Polymer->script('components/polymer/components/webcomponentsjs/webcomponents');
   		echo $this->Polymer->template('components/polymer/polymer.html');
   		echo $this->Polymer->template('elements/application-sidebar.html');
   	?>
