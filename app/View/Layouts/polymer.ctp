@@ -11,6 +11,13 @@
 		echo $this->Html->script('/polymer/components/webcomponentsjs/webcomponents');
   		echo $this->Polymer->template('components/polymer/polymer.html');
   		echo $this->Polymer->template('elements/application-login.html');
+  		
+  		
+		echo $this->Polymer->template('components/core-menu/core-submenu.html');
+		echo $this->Polymer->template('components/core-icons/core-icons.html');
+		echo $this->Polymer->template('components/core-icon/core-icon.html');
+		echo $this->Polymer->template('components/core-item/core-item.html');
+  		
   	?>
   <!-- polymer-data end-->
     <?php
