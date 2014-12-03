@@ -14,7 +14,7 @@
 	?>
 	<!--<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>-->
 	<?php
-		echo $this->Html->script('/polymer/components/polymer/components/webcomponentsjs/webcomponents');
+		echo $this->Html->script('/polymer/components/webcomponentsjs/webcomponents');
   		echo $this->Polymer->template('components/polymer/polymer.html');
   		echo $this->Polymer->template('elements/application-sidebar.html');
   	?>
