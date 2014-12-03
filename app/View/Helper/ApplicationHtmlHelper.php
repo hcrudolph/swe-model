@@ -1,3 +1,4 @@
+<?php
 App::uses('HtmlHelper', 'View/Helper');
 class ApplicationHtmlHelper extends HtmlHelper {
 
@@ -26,3 +27,4 @@ class ApplicationHtmlHelper extends HtmlHelper {
 	return sprintf($this->_tags['polymertemplate'], $url);
     }
 }
+?>
