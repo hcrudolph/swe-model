@@ -1,10 +1,10 @@
 <?php
 App::uses('HtmlHelper', 'View/Helper');
 class ApplicationHtmlHelper extends HtmlHelper {
-	function __construct()
+	/*function __construct()
 	{
 		$_tags['polymertemplate'] = '<link rel="import" href="%s">';
-	}
+	}*/
 /*
  * Add polymer-template
 */
@@ -25,7 +25,8 @@ class ApplicationHtmlHelper extends HtmlHelper {
 	} else {
 		$url = $this->assetUrl($path, array('pathPrefix' => 'polymer'));
 	}
-	return sprintf($this->_tags['polymertemplate'], $url);
+	return sprintf('<link rel="import" href="%s">', $url);
+	//return sprintf($this->_tags['polymertemplate'], $url);
     }
 }
 ?>
