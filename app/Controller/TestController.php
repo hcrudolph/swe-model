@@ -5,7 +5,7 @@ class AccountsController extends AppController {
 
 	public $components = array('Paginator', 'Session');
 	
-	private $helpers = array('Html' => array('className' => 'HtmlApp'));
+	public $helpers = array('Html' => array('className' => 'HtmlApp'));
 	
 	public function index() {
 		$this->layout = 'polymer';
