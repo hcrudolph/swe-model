@@ -1,14 +1,10 @@
 <?php
-App::uses('HtmlHelper', 'View/Helper');
-class ApplicationHtmlHelper extends HtmlHelper {
-	/*function __construct()
-	{
-		$_tags['polymertemplate'] = '<link rel="import" href="%s">';
-	}*/
+//App::uses('HtmlHelper', 'View/Helper');
+class PolymerHelper extends HtmlHelper {
 /*
  * Add polymer-template
 */
-    public function polymerTemplate($path) {
+    public function template($path) {
         //Load path-array
         if(is_array($path))
         {
