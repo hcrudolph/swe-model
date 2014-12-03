@@ -25,7 +25,7 @@ class PolymerHelper extends AppHelper {
 	return sprintf('<link rel="import" href="%s">', $url);
     }
     
-    public function js($path) {
+    public function script($path) {
         //Load path-array
         if(is_array($path))
         {
