@@ -23,7 +23,7 @@ class ApplicationHtmlHelper extends HtmlHelper {
         if (strpos($path, '//') !== false) {
 		$url = $path;
 	} else {
-		$url = $this->assetUrl($path, array('pathPrefix' => 'polymer'));
+		$url = $this->assetUrl($path, array('pathPrefix' => 'polymer/'));
 	}
 	return sprintf('<link rel="import" href="%s">', $url);
 	//return sprintf($this->_tags['polymertemplate'], $url);
