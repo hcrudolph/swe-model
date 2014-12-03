@@ -14,8 +14,8 @@
 	?>
 	<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>
 	<?php
-  		echo $this->Html->polymerTemplate('components/polymer/polymer.html');
-  		echo $this->Html->polymerTemplate('elements/application-sidebar.html');
+  		echo $this->Polymer->template('components/polymer/polymer.html');
+  		echo $this->Polymer->template('elements/application-sidebar.html');
   	?>
   <!-- polymer-data end-->
   
@@ -33,7 +33,16 @@
 		<div id="header">
            <a href="/swe-project/">header</a>
 		</div>
-	<application-sidebar id="appsidebar" style="right:5px;"></application-sidebar>
+	<core-menu selected="2" selectedindex="2" id="sidebar">
+		<core-submenu id="submenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>
+		<core-submenu id="submenuKalender" icon="today" label="Kalender"></core-submenu>
+		<core-submenu id="submenuListen" icon="account-circle" label="Listen"></core-submenu>
+		<core-submenu id="submenuStudio" icon="settings" label="Studiomanagement"></core-submenu>
+		<core-submenu id="submenuUser" icon="settings" label="Usermanagement"></core-submenu>
+		<core-submenu id="submenuKurs" icon="settings" label="Kursmanagement"></core-submenu>
+	</core-menu>
+	
+	<!--<application-sidebar id="appsidebar" style="right:5px;"></application-sidebar>-->
 
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
