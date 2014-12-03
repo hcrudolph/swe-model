@@ -10,7 +10,7 @@
 	<?php
 		echo $this->Html->script('/polymer/components/webcomponentsjs/webcomponents');
   		echo $this->Polymer->template('components/polymer/polymer.html');
-  		echo $this->Polymer->template('elements/application-sidebar.html');
+  		echo $this->Polymer->template('elements/application-login.html');
   	?>
   <!-- polymer-data end-->
     <?php
