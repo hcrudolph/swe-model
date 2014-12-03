@@ -1,7 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class AccountsController extends AppController {
+class TestController extends AppController {
 
 	public $components = array('Paginator', 'Session');
 	
