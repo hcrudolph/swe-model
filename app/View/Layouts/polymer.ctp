@@ -13,10 +13,14 @@
   		echo $this->Polymer->template('elements/application-sidebar.html');
   	?>
   <!-- polymer-data end-->
+    <?php
+        echo $this->Html->css('application');
+        echo $this->Html->script('application');
+    ?>
+    <!--Application-data start -->
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('cake.generic');
-		echo $this->Html->css('application.css');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
