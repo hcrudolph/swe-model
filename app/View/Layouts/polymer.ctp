@@ -39,7 +39,7 @@
 			<a href="/swe-project/">header</a>
 		</div>
 		<core-menu selected="1" selectedindex="1" id="sidebar">
-			<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>
+			<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten" class="core-selected" active></core-submenu>
 			<core-submenu id="sidebarSubmenuKalender" icon="today" label="Kalender"></core-submenu>
 			<core-submenu id="sidebarSubmenuListen" icon="account-circle" label="Listen"></core-submenu>
 			<core-submenu id="sidebarSubmenuStudio" icon="settings" label="Studiomanagement"></core-submenu>
