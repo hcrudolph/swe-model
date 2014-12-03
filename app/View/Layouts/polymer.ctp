@@ -13,8 +13,10 @@
 		//polymertag with right _tag-usage
 	?>
 	<script type="text/javascript" src="polymer/components/webcomponentsjs/webcomponents.js"></script>
-	<link rel="import" href="polymer/components/polymer/polymer.html">
-  <link rel="import" href="polymer/elements/application-sidebar.html">
+	<?php
+  		echo $this->Html->polymerTemplate('components/polymer/polymer.html');
+  		echo $this->Html->polymerTemplate('components/elements/application-sidebar.html');
+  	?>
   <!-- polymer-data end-->
   
 	<?php
