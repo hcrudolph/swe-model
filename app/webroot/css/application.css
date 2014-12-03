@@ -3,3 +3,10 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px;
   background-color: rgb(0, 188, 212);
 }
+#footer {
+    clear:left;
+    margin-top:1em;
+    background:#efefef;
+    text-align:center;
+    padding:10px;
+}
