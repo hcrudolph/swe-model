@@ -19,10 +19,10 @@ class HtmlAppHelper extends HtmlHelper {
         
         //Create Import-URL
         if (strpos($path, '//') !== false) {
-			$url = $path;
-		} else {
-			$url = $this->assetUrl($path, array('pathPrefix' => 'polymer'));
-		}
-		return sprintf($this->_tags['polymertemplate'], $url);
+		$url = $path;
+	} else {
+		$url = $this->assetUrl($path, array('pathPrefix' => 'polymer'));
+	}
+	return sprintf($this->_tags['polymertemplate'], $url);
     }
 }
