@@ -1,5 +1,5 @@
 <?php
-App::uses('HtmlHelper', 'View/Helper');
+App::use('Helper', 'Html');
 class ApplicationHtmlHelper extends HtmlHelper {
 
     $_tags['polymertemplate'] = '<link rel="import" href="%s">';
