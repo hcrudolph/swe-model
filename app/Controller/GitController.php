@@ -29,19 +29,9 @@ class GitController extends AppController {
     echo '<table>';
     echo "<tr><td>current directory</td><td>";
     echo getcwd()."</td></tr>";
-    echo "<tr><td>git fetch all</td><td>";
+    echo "<tr><td>git fetch --all</td><td>";
     $output = array();
-    exec("git fetch all 2>&1", $output);
-    foreach($output as $line)
-    {
-      echo $line;
-      echo '<br />';
-    }
-    echo "</td></tr>";
-    
-    echo "<tr><td>git fetch all</td><td>";
-    $output = array();
-    exec("git fetch all 2>&1", $output);
+    exec("git fetch --all 2>&1", $output);
     foreach($output as $line)
     {
       echo $line;
