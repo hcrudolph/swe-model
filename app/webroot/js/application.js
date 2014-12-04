@@ -1,1 +1,1 @@
-Polymer.addEventListener(document.getElementById('sidebarSubmenuNews'), 'tap', alert('Neuigkeiten!'));
+Polymer.addEventListener(document.getElementById('sidebarSubmenuNews'), 'ontap', alert('Neuigkeiten!'));
