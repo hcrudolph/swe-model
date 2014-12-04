@@ -41,21 +41,13 @@
 		</div>
 		<core-menu selected="0" selectedindex="0" id="sidebar">
 			<?php
-			/*$this->start('sidebar');
-		            echo $this->element('sidebar/calendar');
-		            echo $this->element('sidebar/news');
-		            echo $this->element('sidebar/courses');
-		            echo $this->element('sidebar/courseroomtimes');
-		            echo $this->element('sidebar/accounts');
-		            $this->end();*/
 		            echo $this->element('sidebar/submenuNews');
+		            echo $this->element('submenuKalender');
+		            echo $this->element('submenuListen');
+		            echo $this->element('submenuStudio');
+		            echo $this->element('submenuUser');
+		            echo $this->element('submenuKurs');
 			?>
-			<!--<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>-->
-			<core-submenu id="sidebarSubmenuKalender" icon="today" label="Kalender"></core-submenu>
-			<core-submenu id="sidebarSubmenuListen" icon="account-circle" label="Listen"></core-submenu>
-			<core-submenu id="sidebarSubmenuStudio" icon="settings" label="Studiomanagement"></core-submenu>
-			<core-submenu id="sidebarSubmenuUser" icon="settings" label="Usermanagement"></core-submenu>
-			<core-submenu id="sidebarSubmenuKurs" icon="settings" label="Kursmanagement"></core-submenu>
 		</core-menu>
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
