@@ -42,11 +42,11 @@
 		<core-menu selected="0" selectedindex="0" id="sidebar">
 			<?php
 		            echo $this->element('sidebar/submenuNews');
-		            echo $this->element('submenuKalender');
-		            echo $this->element('submenuListen');
-		            echo $this->element('submenuStudio');
-		            echo $this->element('submenuUser');
-		            echo $this->element('submenuKurs');
+		            echo $this->element('sidebar/submenuKalender');
+		            echo $this->element('sidebar/submenuListen');
+		            echo $this->element('sidebar/submenuStudio');
+		            echo $this->element('sidebar/submenuUser');
+		            echo $this->element('sidebar/submenuKurs');
 			?>
 		</core-menu>
 		<div id="content">
