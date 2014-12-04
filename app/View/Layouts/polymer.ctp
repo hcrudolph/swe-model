@@ -40,7 +40,17 @@
 			<application-login id="login"></application-login>
 		</div>
 		<core-menu selected="0" selectedindex="0" id="sidebar">
-			<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>
+			<?php
+			/*$this->start('sidebar');
+		            echo $this->element('sidebar/calendar');
+		            echo $this->element('sidebar/news');
+		            echo $this->element('sidebar/courses');
+		            echo $this->element('sidebar/courseroomtimes');
+		            echo $this->element('sidebar/accounts');
+		            $this->end();*/
+		            echo $this->element('sidebar/submenuNews');
+			?>
+			<!--<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>-->
 			<core-submenu id="sidebarSubmenuKalender" icon="today" label="Kalender"></core-submenu>
 			<core-submenu id="sidebarSubmenuListen" icon="account-circle" label="Listen"></core-submenu>
 			<core-submenu id="sidebarSubmenuStudio" icon="settings" label="Studiomanagement"></core-submenu>
