@@ -5,7 +5,6 @@ App::uses('AppController', 'Controller');
  *
  * @property Person $Person
  * @property PaginatorComponent $Paginator
- * @property SessionComponent $Session
  */
 class PeopleController extends AppController {
 
@@ -14,7 +13,7 @@ class PeopleController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	public $components = array('Paginator');
 
 /**
  * index method
@@ -56,6 +55,8 @@ class PeopleController extends AppController {
 				$this->Session->setFlash(__('The person could not be saved. Please, try again.'));
 			}
 		}
+		$accounts = $this->Person->Account->find('list');
+		$this->set(compact('accounts'));
 	}
 
 /**
@@ -80,6 +81,8 @@ class PeopleController extends AppController {
 			$options = array('conditions' => array('Person.' . $this->Person->primaryKey => $id));
 			$this->request->data = $this->Person->find('first', $options);
 		}
+		$accounts = $this->Person->Account->find('list');
+		$this->set(compact('accounts'));
 	}
 
 /**

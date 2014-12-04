@@ -1,17 +1,18 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Certificate Model
+ * AccountsTraining Model
  *
+ * @property Account $Account
  */
-class Certificate extends AppModel {
+class AccountsTraining extends AppModel {
 
 /**
  * Display field
  *
  * @var string
  */
-	public $displayField = 'name';
+	public $displayField = 'id';
 
 /**
  * Validation rules
@@ -19,7 +20,7 @@ class Certificate extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
+		'downloadlink' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -28,8 +29,8 @@ class Certificate extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'maxLength' => array(
-				'rule' => array('maxLength', '50'),
+			'url' => array(
+				'rule' => array('url'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -37,15 +38,22 @@ class Certificate extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'description' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+	);
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Account' => array(
+			'className' => 'Account',
+			'foreignKey' => 'account_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
 }

@@ -1,11 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * CourseRoomTime Model
+ * Bill Model
  *
- * @property Course $Course
+ * @property Account $Account
+ * @property Tariff $Tariff
  */
-class CourseRoomTime extends AppModel {
+class Bill extends AppModel {
 
 /**
  * Display field
@@ -20,9 +21,9 @@ class CourseRoomTime extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'director' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
+		'year' => array(
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -38,9 +39,9 @@ class CourseRoomTime extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'begin' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
+		'month' => array(
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -56,45 +57,9 @@ class CourseRoomTime extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'end' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'presetup' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'postsetup' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
+		'payed' => array(
+			'boolean' => array(
+				'rule' => array('boolean'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -120,9 +85,16 @@ class CourseRoomTime extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Course' => array(
-			'className' => 'Course',
-			'foreignKey' => 'courseid',
+		'Account' => array(
+			'className' => 'Account',
+			'foreignKey' => 'account_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Tariff' => array(
+			'className' => 'Tariff',
+			'foreignKey' => 'tariff_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

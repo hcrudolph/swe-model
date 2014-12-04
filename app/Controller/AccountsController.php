@@ -5,7 +5,6 @@ App::uses('AppController', 'Controller');
  *
  * @property Account $Account
  * @property PaginatorComponent $Paginator
- * @property SessionComponent $Session
  */
 class AccountsController extends AppController {
 
@@ -14,7 +13,7 @@ class AccountsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	public $components = array('Paginator');
 
 /**
  * index method
@@ -56,6 +55,9 @@ class AccountsController extends AppController {
 				$this->Session->setFlash(__('The account could not be saved. Please, try again.'));
 			}
 		}
+		$certificates = $this->Account->Certificate->find('list');
+		$dates = $this->Account->Date->find('list');
+		$this->set(compact('certificates', 'dates'));
 	}
 
 /**
@@ -80,6 +82,9 @@ class AccountsController extends AppController {
 			$options = array('conditions' => array('Account.' . $this->Account->primaryKey => $id));
 			$this->request->data = $this->Account->find('first', $options);
 		}
+		$certificates = $this->Account->Certificate->find('list');
+		$dates = $this->Account->Date->find('list');
+		$this->set(compact('certificates', 'dates'));
 	}
 
 /**

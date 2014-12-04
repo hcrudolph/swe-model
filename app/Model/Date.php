@@ -1,18 +1,20 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Course Model
+ * Date Model
  *
- * @property Date $Date
+ * @property Course $Course
+ * @property Room $Room
+ * @property Account $Account
  */
-class Course extends AppModel {
+class Date extends AppModel {
 
 /**
  * Display field
  *
  * @var string
  */
-	public $displayField = 'name';
+	public $displayField = 'id';
 
 /**
  * Validation rules
@@ -20,7 +22,15 @@ class Course extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
+		'begin' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -30,7 +40,15 @@ class Course extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'category' => array(
+		'end' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -39,8 +57,10 @@ class Course extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'numeric' => array(
-				'rule' => array('numeric'),
+		),
+		'presetup' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -48,29 +68,9 @@ class Course extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'maxcount' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'mincount' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'description' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+		'postsetup' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -83,23 +83,45 @@ class Course extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * hasMany associations
+ * belongsTo associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'Date' => array(
-			'className' => 'Date',
+	public $belongsTo = array(
+		'Course' => array(
+			'className' => 'Course',
 			'foreignKey' => 'course_id',
-			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Room' => array(
+			'className' => 'Room',
+			'foreignKey' => 'room_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+	public $hasAndBelongsToMany = array(
+		'Account' => array(
+			'className' => 'Account',
+			'joinTable' => 'accounts_dates',
+			'foreignKey' => 'date_id',
+			'associationForeignKey' => 'account_id',
+			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
-			'exclusive' => '',
 			'finderQuery' => '',
-			'counterQuery' => ''
 		)
 	);
 

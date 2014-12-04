@@ -45,18 +45,18 @@
 		<li><?php echo $this->Form->postLink(__('Delete Course'), array('action' => 'delete', $course['Course']['id']), array(), __('Are you sure you want to delete # %s?', $course['Course']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Courses'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Course'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Course Room Times'), array('controller' => 'course_room_times', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Course Room Time'), array('controller' => 'course_room_times', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Dates'), array('controller' => 'dates', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Course Room Times'); ?></h3>
-	<?php if (!empty($course['CourseRoomTime'])): ?>
+	<h3><?php echo __('Related Dates'); ?></h3>
+	<?php if (!empty($course['Date'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Courseid'); ?></th>
-		<th><?php echo __('Roomid'); ?></th>
+		<th><?php echo __('Course Id'); ?></th>
+		<th><?php echo __('Room Id'); ?></th>
 		<th><?php echo __('Director'); ?></th>
 		<th><?php echo __('Begin'); ?></th>
 		<th><?php echo __('End'); ?></th>
@@ -64,20 +64,20 @@
 		<th><?php echo __('Postsetup'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
-	<?php foreach ($course['CourseRoomTime'] as $courseRoomTime): ?>
+	<?php foreach ($course['Date'] as $date): ?>
 		<tr>
-			<td><?php echo $courseRoomTime['id']; ?></td>
-			<td><?php echo $courseRoomTime['courseid']; ?></td>
-			<td><?php echo $courseRoomTime['roomid']; ?></td>
-			<td><?php echo $courseRoomTime['director']; ?></td>
-			<td><?php echo $courseRoomTime['begin']; ?></td>
-			<td><?php echo $courseRoomTime['end']; ?></td>
-			<td><?php echo $courseRoomTime['presetup']; ?></td>
-			<td><?php echo $courseRoomTime['postsetup']; ?></td>
+			<td><?php echo $date['id']; ?></td>
+			<td><?php echo $date['course_id']; ?></td>
+			<td><?php echo $date['room_id']; ?></td>
+			<td><?php echo $date['director']; ?></td>
+			<td><?php echo $date['begin']; ?></td>
+			<td><?php echo $date['end']; ?></td>
+			<td><?php echo $date['presetup']; ?></td>
+			<td><?php echo $date['postsetup']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'course_room_times', 'action' => 'view', $courseRoomTime['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'course_room_times', 'action' => 'edit', $courseRoomTime['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'course_room_times', 'action' => 'delete', $courseRoomTime['id']), array(), __('Are you sure you want to delete # %s?', $courseRoomTime['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'dates', 'action' => 'view', $date['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'dates', 'action' => 'edit', $date['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'dates', 'action' => 'delete', $date['id']), array(), __('Are you sure you want to delete # %s?', $date['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -86,7 +86,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Course Room Time'), array('controller' => 'course_room_times', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>

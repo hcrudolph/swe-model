@@ -3,15 +3,9 @@ App::uses('AppModel', 'Model');
 /**
  * Person Model
  *
+ * @property Account $Account
  */
 class Person extends AppModel {
-
-/**
- * Primary key field
- *
- * @var string
-**/
-	public $primaryKey = 'accountid';
 
 /**
  * Display field
@@ -37,6 +31,22 @@ class Person extends AppModel {
 			),
 		),
 		'name' => array(
+			'maxLength' => array(
+				'rule' => array('maxLength', '24'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'minLength' => array(
+				'rule' => array('minLength', '2'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -47,36 +57,42 @@ class Person extends AppModel {
 			),
 		),
 		'surname' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'maxLength' => array(
+				'rule' => array('maxLength', '24'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-		'phone' => array(
-			'phone' => array(
-				'rule' => array('phone'),
+			'minLength' => array(
+				'rule' => array('minLength', '2'),
 				//'message' => 'Your custom message here',
-				'allowEmpty' => true,
-				'required' => false,
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'plz' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'postal' => array(
+                'rule' => array('postal', null, 'de')
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'postal' => array(
-				'rule' => array('postal'),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -85,6 +101,14 @@ class Person extends AppModel {
 			),
 		),
 		'city' => array(
+			'alphaNumeric' => array(
+				'rule' => array('alphaNumeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -95,6 +119,14 @@ class Person extends AppModel {
 			),
 		),
 		'street' => array(
+			'alphaNumeric' => array(
+				'rule' => array('alphaNumeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -105,6 +137,14 @@ class Person extends AppModel {
 			),
 		),
 		'housenumber' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -113,11 +153,13 @@ class Person extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+		),
+		'hnextra' => array(
+			'alphaNumeric' => array(
+				'rule' => array('alphaNumeric'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => true,
+				'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -134,10 +176,20 @@ class Person extends AppModel {
 		),
 	);
 
-    public $belongsTo = array(
-        'Account' => array(
-            'className' => 'Account',
-            'foreignKey' => 'accountid'
-        )
-    );
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Account' => array(
+			'className' => 'Account',
+			'foreignKey' => 'account_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 }
