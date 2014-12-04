@@ -1,1 +1,1 @@
-<li><a href="/swe-project">News</a></li>
+<li><a href="/dev/swe-project/posts">News</a></li>

@@ -1,1 +1,1 @@
-<li><a href="/swe-project/courses">Kurse</a></li>
+<li><a href="/dev/swe-project/courses">Kurse</a></li>

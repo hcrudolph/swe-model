@@ -29,7 +29,7 @@
             echo $this->element('sidebar/calendar');
             echo $this->element('sidebar/news');
             echo $this->element('sidebar/courses');
-            echo $this->element('sidebar/courseroomtimes');
+            echo $this->element('sidebar/dates');
             echo $this->element('sidebar/accounts');
             $this->end();
 
