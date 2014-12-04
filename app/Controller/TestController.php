@@ -11,4 +11,14 @@ class TestController extends AppController {
 		$this->layout = 'polymer';
 	}
 	
+	public function test() {
+		$this->layout = 'polymer';
+		$this->autoRender = false;
+		/*
+		Count-Abfrage
+		http://stackoverflow.com/questions/3696701/cakephp-using-models-in-different-controllers
+		$this->loadModel('course_room_times');
+		*/
+	}
+	
 }
