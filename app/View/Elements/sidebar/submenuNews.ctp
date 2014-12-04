@@ -1,1 +1,1 @@
-<core-submenu id="submenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>
+<core-submenu id="sidebarSubmenuNews" icon="speaker-notes" label="Neuigkeiten"></core-submenu>
