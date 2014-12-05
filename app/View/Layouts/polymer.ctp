@@ -19,8 +19,9 @@
 		echo $this->Polymer->template('components/core-item/core-item.html');
   		
   	?>
-  <!-- polymer-data end-->
-    <?php
+    <!-- polymer-data end-->
+    <?
+        echo $this->Html->script('jquery-2.1.1.min');
         echo $this->Html->css('application');
         echo $this->Html->script('application');
     ?>

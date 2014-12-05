@@ -1,1 +1,5 @@
-//Polymer.addEventListener(document.getElementById('sidebarSubmenuNews'), 'click', alert('Neuigkeiten!'));
+$(document).ready(function() {
+    $(window).load(function() {
+        //run code after everything is loaded
+    });
+});
