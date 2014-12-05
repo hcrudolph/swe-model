@@ -1,15 +1,22 @@
 .tabviews {
-  color: rgb(255, 255, 255);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px;
-  background-color: rgb(0, 188, 212);
+    color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px;
+    background-color: rgb(0, 188, 212);
 }
 
 #sidebar{
-  width:200px;
-  height:240px;
+    width:200px;
+    height:240px;
+    margin-top: 160px;
 }
+
 #login{
-  left: 400px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    top: 0px;
+    left: 400px;
 }
 
 #footer {

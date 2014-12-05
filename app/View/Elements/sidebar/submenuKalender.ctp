@@ -1,1 +1,1 @@
-<core-submenu id="sidebarSubmenuKalender" icon="today" label="Kalender"></core-submenu>
+<core-submenu id="sidebarSubmenuKalender" icon="today" label="Kalender" ontap="alert('<?php echo $this->webroot?>');"></core-submenu>
