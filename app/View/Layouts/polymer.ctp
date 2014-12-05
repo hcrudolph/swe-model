@@ -24,7 +24,7 @@ $user = $this->Session->read('Auth.User');
   		
   	?>
     <!-- polymer-data end-->
-    <?
+    <?php
         echo $this->Html->script('jquery-2.1.1.min');
         echo $this->Html->css('application');
         echo $this->Html->script('application');
