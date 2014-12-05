@@ -34,6 +34,7 @@ class AppController extends Controller {
     public $components = array(
         'DebugKit.Toolbar',
         'Session',
+        /**
         'Auth' => array(
             'loginAction' => array(
                 'controller' => 'accounts',
@@ -47,8 +48,9 @@ class AppController extends Controller {
             ),
             'authorize' => 'Controller'
         )
+        */
     );
-
+/**
     public function beforeFilter() {
         $this->Auth->allow('index');
     }
@@ -67,6 +69,6 @@ class AppController extends Controller {
         // Default deny
         return false;
     }
-
+ */
 }
 
