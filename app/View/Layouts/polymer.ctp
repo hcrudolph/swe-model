@@ -36,13 +36,13 @@ $user = $this->Session->read('Auth.User');
         echo $this->Html->script('application');
     ?>
     <!--Application-data start -->
-	<?php
-		//echo $this->Html->meta('icon');
-		//echo $this->Html->css('cake.generic');
-		//echo $this->fetch('meta');
-		//echo $this->fetch('css');
-		//echo $this->fetch('script');
-	?>
+    <!--Fullcalendar-data start-->
+    <?php
+        echo $this->Html->script('moment');
+        echo $this->Html->script('fullcalendar.min');
+        echo $this->Html->css('fullcalendar.min');
+    ?>
+    <!--Fullcalendar-data start-->
 </head>
 <body>
 	<div id="container">
@@ -65,6 +65,7 @@ $user = $this->Session->read('Auth.User');
                         echo $this->element('sidebar/submenuUser');
                         echo $this->element('sidebar/submenuKurs');
                     }
+            
 			?>
 		</core-menu>
 		<div id="content">

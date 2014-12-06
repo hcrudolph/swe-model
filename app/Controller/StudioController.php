@@ -20,6 +20,12 @@ class StudioController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->layout = 'polymer';
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+		  $this->layout = 'polymer';
+        }
 	}
 }
