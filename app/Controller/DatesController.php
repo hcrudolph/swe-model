@@ -109,4 +109,11 @@ class DatesController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+    
+    public function events($start, $end)
+    {
+        $this->autoRender = false;
+        
+        echo $start .'-'. $end;//json_encode("hallo");
+    }
 }
