@@ -114,6 +114,18 @@ class DatesController extends AppController {
     {
         $this->autoRender = false;
         
+        $dates = $this->Dates->find('all',
+            'conditions' => array(
+                'and' => array(
+                    array(
+                        'Dates.begin >= ' => $start,
+                        'Dates.end <= ' => $end
+                    ),
+                )
+            )
+        );
+        echo sizeof($dates);
+        
         echo $start .'-'. $end;//json_encode("hallo");
     }
 }
