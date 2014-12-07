@@ -1,6 +1,17 @@
 <?php
 //global vars
 $user = $this->Session->read('Auth.User');
+
+$controllerIndex = array(
+    '' => 0,
+    '' => 1,
+    '' => 2,
+    'studio' => 3,
+    '' => 4,
+    '' => 5
+);
+$sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex))?$controllerIndex[$this->params['controller']]:0);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,7 +65,7 @@ $user = $this->Session->read('Auth.User');
                     //echo '<div id=login></div>';
             ?>
 		</div>
-		<core-menu selected="0" selectedindex="0" id="sidebar">
+		<core-menu selected="<?php echo $sidebarIndex*2 ?>" selectedindex="<?php echo $sidebarIndex*2 ?>" id="sidebar">
 			<?php
 		            echo $this->element('sidebar/submenuNews');
 		            echo $this->element('sidebar/submenuKalender');
