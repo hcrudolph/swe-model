@@ -21,6 +21,13 @@ class PostsController extends AppController {
  * @return void
  */
 	public function index() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        }/* else
+        {
+		  $this->layout = 'polymer';
+        }*/
 		$this->Post->recursive = 0;
 		$this->set('posts', $this->Paginator->paginate());
 	}
@@ -33,6 +40,7 @@ class PostsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
+        
 		if (!$this->Post->exists($id)) {
 			throw new NotFoundException(__('Invalid post'));
 		}

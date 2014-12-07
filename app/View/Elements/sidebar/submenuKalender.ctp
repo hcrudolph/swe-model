@@ -17,7 +17,7 @@ document.querySelector('#sidebarSubmenuKalender').addEventListener('tap', functi
         weekNumbers: true,
         defaultView: 'basicWeek',
         editable: true,
-        events: '<?php echo $this->webroot?>/' 
+        events:'<?php echo $this->webroot?>dates/events' 
     });
 });
 <?php

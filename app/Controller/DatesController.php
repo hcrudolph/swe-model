@@ -110,22 +110,30 @@ class DatesController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
     
-    public function events($start, $end)
+    public function events()
     {
         $this->autoRender = false;
+        $this->response->type('json');
         
-        /*$dates = $this->Dates->find('all',
-            'conditions' => array(
-                'and' => array(
-                    array(
-                        'Dates.begin >= ' => $start,
-                        'Dates.end <= ' => $end
-                    ),
-                )
-            )
-        );
-        echo sizeof($dates);*/
+        $start=$this->request->query['start'];
+        $end = $this->request->query['end'].' 23:59:59';
+
+        $conditions = array('Date.end <=' => $end, 'Date.begin >=' => $start);
+        $fields = array('Date.begin', 'Date.end', 'Course.name');
         
-        echo $start .'-'. $end;//json_encode("hallo");
+        $events = $this->Date->find('all', array('conditions' => $conditions, 'fields' => $fields));
+        
+        echo '[';
+        foreach($events as $event)
+        {
+            $start = new DateTime($event['Date']['begin']);
+            $end = new DateTime($event['Date']['end']);
+            echo '{';
+            echo "title  : '".$event['Course']['name']."',";
+            echo "start  : '".$start->format(DateTime::ISO8601)."',";
+            echo "end  : '".$end->format(DateTime::ISO8601)."'";
+            echo '},';
+        }
+        echo ']';
     }
 }
