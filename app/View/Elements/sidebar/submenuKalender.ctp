@@ -4,6 +4,7 @@ echo $this->Html->scriptStart(array('inline' => true));
 ?>
 document.querySelector('#sidebarSubmenuKalender').addEventListener('tap', function(e) {
     $('#content').html('');
+    $('#content').fullCalendar('destroy');
     $('#content').fullCalendar({
         header: {
 			left: 'prev,next today',
