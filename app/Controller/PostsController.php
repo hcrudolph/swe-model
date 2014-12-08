@@ -28,8 +28,9 @@ class PostsController extends AppController {
         {
 		  $this->layout = 'polymer';
         }*/
-		$this->Post->recursive = 0;
-		$this->set('posts', $this->Paginator->paginate());
+        
+		//$this->Post->recursive = 0;
+		$this->set('posts', $this->Post->find('all', array('order' => array('Post.created' => 'DESC'))));
 	}
 
 /**

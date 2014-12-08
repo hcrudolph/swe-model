@@ -32,6 +32,9 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
 		echo $this->Polymer->template('components/core-icons/core-icons.html');
 		echo $this->Polymer->template('components/core-icon/core-icon.html');
 		echo $this->Polymer->template('components/core-item/core-item.html');
+        //Include Posts
+        echo $this->Polymer->template('components/core-icon-button/core-icon-button.html');
+        echo $this->Polymer->template('components/core-tooltip/core-tooltip.html');
         
         //Include Tabs
         echo $this->Polymer->template('components/paper-tabs/paper-tabs.html');
@@ -51,7 +54,9 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
     <?php
         echo $this->Html->script('moment');
         echo $this->Html->script('fullcalendar.min');
-        echo $this->Html->css('fullcalendar.min');
+        echo $this->Html->script('fullcalendar.lang');
+        echo $this->Html->css('fullcalendar');
+        echo $this->Html->css('fullcalendar.print', array('media' => 'print'));
     ?>
     <!--Fullcalendar-data start-->
 </head>

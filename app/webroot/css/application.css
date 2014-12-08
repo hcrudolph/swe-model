@@ -37,6 +37,35 @@
     width:100%;
 }
 
+
+
+
+
+div.postEntry {
+    width:100%;
+}
+div.postEntry core-item.heading {
+    color:red;
+}
+div.postEntry core-item.body {
+    color:green;
+}
+div.postEntry core-item.user {
+    color:blue;
+}
+div.postEntry core-item.created {
+    color:yellow;
+}
+
+<!--div.postEntry div.buttons core-icon-button.delete{
+
+}
+div.postEntry div.buttons core-icon-button.edit{
+
+}-->
+
+
+
 #footer {
     position: absolute;
     
