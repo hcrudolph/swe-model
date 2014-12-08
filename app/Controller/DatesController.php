@@ -119,20 +119,24 @@ class DatesController extends AppController {
         $end = $this->request->query['end'].' 23:59:59';
 
         $conditions = array('Date.end <=' => $end, 'Date.begin >=' => $start);
-        $fields = array('Date.begin', 'Date.end', 'Course.name');
+        $fields = array('Date.begin', 'Date.end', 'Course.name', 'Date.id');
         
         $events = $this->Date->find('all', array('conditions' => $conditions, 'fields' => $fields));
         
+        $trenner = '';
         echo '[';
         foreach($events as $event)
         {
             $start = new DateTime($event['Date']['begin']);
             $end = new DateTime($event['Date']['end']);
+            echo $trenner;
             echo '{';
-            echo "title  : '".$event['Course']['name']."',";
-            echo "start  : '".$start->format(DateTime::ISO8601)."',";
-            echo "end  : '".$end->format(DateTime::ISO8601)."'";
-            echo '},';
+            echo '"title":"'.$event['Course']['name'].'",';
+            echo '"start":"'.$start->format(DateTime::ISO8601).'",';
+            echo '"end":"'.$end->format(DateTime::ISO8601).'",';
+            echo '"url":"javascript:alert(\''.$event['Date']['id'].'\')"';
+            echo '}';
+            $trenner = ',';
         }
         echo ']';
     }

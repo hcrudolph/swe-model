@@ -6,18 +6,15 @@ document.querySelector('#sidebarSubmenuKalender').addEventListener('tap', functi
     $('#content').html('');
     $('#content').fullCalendar({
         header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,basicWeek,basicDay'
-        },
-        firstDay: 1,
-        axisFormat: 'H:mm - {H:mm}',
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
         lang:'de',
-        allDaySlot: true,
-        weekNumbers: true,
-        defaultView: 'basicWeek',
-        editable: true,
-        events:'<?php echo $this->webroot?>dates/events' 
+        defaultView: 'agendaWeek',
+		editable: false,
+		eventLimit: true,
+		events: '<?php echo $this->webroot?>dates/events'
     });
 });
 <?php
