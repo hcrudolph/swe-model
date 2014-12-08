@@ -24,10 +24,10 @@ class PostsController extends AppController {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
-        }/* else
+        } else
         {
-		  $this->layout = 'polymer';
-        }*/
+	$this->layout = 'polymer';
+        }
         
 		//$this->Post->recursive = 0;
 		$this->set('posts', $this->Post->find('all', array('order' => array('Post.created' => 'DESC'))));
