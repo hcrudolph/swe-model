@@ -58,7 +58,10 @@ class DatesController extends AppController {
 		$courses = $this->Date->Course->find('list');
 		$rooms = $this->Date->Room->find('list');
 		$accounts = $this->Date->Account->find('list');
-		$this->set(compact('courses', 'rooms', 'accounts'));
+        $directors = $this->Date->Account->find('list', array(
+            'conditions' => array('role' => '1')
+        ));
+		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
 	}
 
 /**
@@ -86,7 +89,10 @@ class DatesController extends AppController {
 		$courses = $this->Date->Course->find('list');
 		$rooms = $this->Date->Room->find('list');
 		$accounts = $this->Date->Account->find('list');
-		$this->set(compact('courses', 'rooms', 'accounts'));
+        $directors = $this->Date->Account->find('list', array(
+            'conditions' => array('role' => '1')
+        ));
+		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
 	}
 
     /**

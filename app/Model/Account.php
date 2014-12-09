@@ -209,5 +209,4 @@ class Account extends AppModel {
 			'finderQuery' => '',
 		)
 	);
-
 }
