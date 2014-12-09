@@ -26,7 +26,7 @@ class PostsController extends AppController {
             $this->layout = 'ajax';
         } else
         {
-	$this->layout = 'polymer';
+            $this->layout = 'polymer';
         }
         
 		//$this->Post->recursive = 0;
@@ -55,6 +55,14 @@ class PostsController extends AppController {
  * @return void
  */
 	public function add() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            $this->layout = 'polymer';
+        }
+        
 		if ($this->request->is('post')) {
 			$this->Post->create();
 			if ($this->Post->save($this->request->data)) {

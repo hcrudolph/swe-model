@@ -35,6 +35,7 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
         //Include Posts
         echo $this->Polymer->template('components/core-icon-button/core-icon-button.html');
         echo $this->Polymer->template('components/core-tooltip/core-tooltip.html');
+        echo $this->Polymer->template('components/core-input/core-input.html');
         
         //Include Tabs
         echo $this->Polymer->template('components/paper-tabs/paper-tabs.html');
