@@ -89,6 +89,30 @@ class DatesController extends AppController {
 		$this->set(compact('courses', 'rooms', 'accounts'));
 	}
 
+    /**
+     * signip method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function signup($id = null) {
+        if (!$this->Date->exists($id)) {
+            throw new NotFoundException(__('Invalid date'));
+        }
+        $data = array(
+            'Date' => array('id' => $id),
+            'Account' => array('associated_model_id' => $this->Auth->user('id'))
+        );
+        if($this->Date->saveAssociated($data)){
+            $this->Session->setFlash(__('You have been signed up successfully for this course.'));
+        } else {
+            $this->Session->setFlash(__('Unable to sign you up. Please, try again.'));
+        }
+        return $this->redirect(array('action' => 'index'));
+    }
+
+
 /**
  * delete method
  *

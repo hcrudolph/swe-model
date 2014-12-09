@@ -20,7 +20,7 @@ class Account extends AppModel {
  */
 	public $displayField = 'username';
 
-/**
+    /**
  * beforeSave()
  *
  * @return true
@@ -181,7 +181,7 @@ class Account extends AppModel {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array(
+    public $hasAndBelongsToMany = array(
 		'Certificate' => array(
 			'className' => 'Certificate',
 			'joinTable' => 'accounts_certificates',
@@ -200,7 +200,7 @@ class Account extends AppModel {
 			'joinTable' => 'accounts_dates',
 			'foreignKey' => 'account_id',
 			'associationForeignKey' => 'date_id',
-			'unique' => 'keepExisting',
+			'unique' => 'false',
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',

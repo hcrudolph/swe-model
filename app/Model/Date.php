@@ -16,7 +16,7 @@ class Date extends AppModel {
  */
 	public $displayField = 'id';
 
-/**
+    /**
  * Validation rules
  *
  * @var array
@@ -109,13 +109,13 @@ class Date extends AppModel {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array(
+    public $hasAndBelongsToMany = array(
 		'Account' => array(
 			'className' => 'Account',
 			'joinTable' => 'accounts_dates',
 			'foreignKey' => 'date_id',
 			'associationForeignKey' => 'account_id',
-			'unique' => 'keepExisting',
+			'unique' => 'false',
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
