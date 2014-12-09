@@ -1,27 +1,43 @@
-<div id="postAdd<?php echo ((isset($appId))?$appId:'');?>">
-    <input is="core-input" class="header" placeholder="Betreff">
-    <input is="core-input" class="body" multiline placeholder="Body">
-    <input is="core-input" class="date" multiline placeholder="Date">
+<div id="postAdd<?php echo ((isset($addId))?$addId:'');?>" class="postAdd">
+    <input is="core-input" id="postAddHeading<?php echo ((isset($addId))?$addId:'');?>" class="heading" placeholder="Betreff">
+    <input is="core-input" id="postAddBody<?php echo ((isset($addId))?$addId:'');?>" class="body" multiline placeholder="Body">
+    <input is="core-input" id="postAddDate<?php echo ((isset($addId))?$addId:'');?>" class="date" multiline placeholder="Date">
     <date-picker class="date"></date-picker>
     <core-tooltip label="Eintrag speichern" active pressed>
         <core-icon-button icon="save" class="save" onclick="postAddSubmit(<?php echo $addId;?>)"></core-icon-button>
+    </core-tooltip>
+    <core-tooltip label="Abbrechen" active pressed>
+        <core-icon-button icon="close" class="close" onclick="postAddClose(<?php echo $addId;?>)"></core-icon-button>
     </core-tooltip>
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
     <?php echo $this->Html->scriptEnd(); ?>
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-function postAddSubmit(id)
+function postAddSubmit(addId)
 {
-    alert('Der Eintrag soll gespeichert werden');
-    $.post('<?php echo $this->webroot;?>+posts/add/'+id,
+    $.post('<?php echo $this->webroot;?>posts/add/'+addId,
         {
-            heading:'asd',
-            body: 'asd',
-            date: ''
-        }, function() {
-            
-    });
+            heading:$('#postAddHeading'+addId).val(),
+            body:$('#postAddBody'+addId).val(),
+            //date:""
+        }, function(obj) {
+            if(obj.inserted == true)
+            {
+                $.get('<?php echo $this->webroot."posts/view/"?>'+obj.id, function( data ) {
+                    $('#postEntries').prepend(data);
+                    postAddClose(addId);
+                });
+            } else
+            {
+                alert('wurde nicht eigefügt');
+            }
+        }, 'json');
+}
+
+function postAddClose(addId)
+{
+    $('#postAdd'+addId).remove();
 }
 <?php echo $this->Html->scriptEnd();?>
 

@@ -1,3 +1,7 @@
+<?php
+echo $this->element('post', array('post' => $post));
+?>
+<?php /*
 <div class="posts view">
 <h2><?php echo __('Post'); ?></h2>
 	<dl>
@@ -49,3 +53,4 @@
 		<li><?php echo $this->Html->link(__('New Account'), array('controller' => 'accounts', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+*/ ?>
