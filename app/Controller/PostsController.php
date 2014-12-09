@@ -54,10 +54,12 @@ class PostsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($id = null) {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
+            
+            $this->set('addId', $id);
         } else
         {
             $this->layout = 'polymer';
@@ -84,6 +86,14 @@ class PostsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            $this->layout = 'polymer';
+        }
+        
 		if (!$this->Post->exists($id)) {
 			throw new NotFoundException(__('Invalid post'));
 		}
@@ -109,17 +119,27 @@ class PostsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
-		$this->Post->id = $id;
-		if (!$this->Post->exists()) {
-			throw new NotFoundException(__('Invalid post'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Post->delete()) {
-			$this->Session->setFlash(__('The post has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The post could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
+	public function delete($id = null) {       
+        $this->Post->id = $id;
+        if($this->request->is('ajax'))
+        {
+            $this->autoRender = false;
+            $this->layout = 'ajax';
+            $this->Post->delete();
+        } else
+        {
+            $this->layout = 'polymer';
+            
+            if (!$this->Post->exists()) {
+                throw new NotFoundException(__('Invalid post'));
+            }
+            //$this->request->allowMethod('post', 'delete');
+            if ($this->Post->delete()) {
+                $this->Session->setFlash(__('The post has been deleted.'));
+            } else {
+                $this->Session->setFlash(__('The post could not be deleted. Please, try again.'));
+            }
+            return $this->redirect(array('action' => 'index'));
+        }
 	}
 }
