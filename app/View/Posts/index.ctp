@@ -30,6 +30,7 @@ function postEntryDelete(id)
         $.post('<?php echo $this->webroot."posts/delete/"?>'+id,function(json) {
             if(json.success == true)
             {
+                notificateUser(json.message, 'success');
                 $('#postEntry'+id).remove();
             } else
             {

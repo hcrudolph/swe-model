@@ -24,6 +24,7 @@ function postAddSubmit(addId)
         }, function(obj) {
             if(obj.inserted == true)
             {
+                notificateUser(obj.message, 'success');
                 $.get('<?php echo $this->webroot."posts/view/"?>'+obj.id, function( data ) {
                     $('#postEntries').prepend(data);
                     postAddClose(addId);

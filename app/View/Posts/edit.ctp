@@ -23,6 +23,7 @@ function postEditSave(postId)
         }, function(obj) {
             if(obj.inserted == true)
             {
+                notificateUser(obj.message, 'success');
                 postEditClose(postId);
             } else
             {

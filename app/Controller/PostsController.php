@@ -74,6 +74,7 @@ class PostsController extends AppController {
                 {
                     $answer['inserted'] = true;
                     $answer['id'] = $this->Post->id;
+                    $answer['message'] = 'Der Eintrag wurde gespeichert';
 
                 } else
                 {
@@ -97,12 +98,14 @@ class PostsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+        
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
             if($this->request->is(array('post', 'put')))
             {
-               $this->request->data['account_id'] = 1;
+                $this->request->data['account_id'] = 1;
+                $this->request->data['id'] = $id;
                 $this->autoRender = false;
                 $this->layout=null;
                 $this->response->type('json');
@@ -110,6 +113,7 @@ class PostsController extends AppController {
                 if($this->Post->save($this->request->data))
                 {
                     $answer['inserted'] = true;
+                    $answer['message'] = 'Der Eintrag wurde gespeichert';
                 } else
                 {
                     $answer['inserted'] = false;
@@ -140,10 +144,11 @@ class PostsController extends AppController {
             $this->layout=null;
             $this->response->type('json');
             $answer = array();
-            /*if($this->Post->delete())
+            if($this->Post->delete())
             {
                 $answer['success'] = true;
-            } else*/
+                $answer['message'] = "Der Eintrag wurde gelöscht";
+            } else
             {
                 $answer['success'] = false;
                 $answer['message'] = "Der Eintrag konnte nicht gelöscht werden.";

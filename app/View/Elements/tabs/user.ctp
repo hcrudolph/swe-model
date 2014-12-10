@@ -1,1 +1,0 @@
-<paper-tab class="tabsBarTab" id="tabsUserTab" layout horizontal flex inline center-center>User</paper-tab>
