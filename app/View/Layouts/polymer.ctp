@@ -51,6 +51,15 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
         echo $this->Html->script('application');
     ?>
     <!--Application-data start -->
+    <!--Noty-data start-->
+    <?php
+        echo $this->Html->script('noty/jquery.noty.packaged.min');
+        echo $this->Html->script('noty/topRight');
+        echo $this->Html->script('noty/default');
+    ?>
+    <!--Noty-data end-->
+    
+    
     <!--Fullcalendar-data start-->
     <?php
         echo $this->Html->script('moment');

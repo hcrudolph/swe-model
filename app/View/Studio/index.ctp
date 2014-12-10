@@ -1,12 +1,9 @@
 <paper-tabs noink selected="0" selectedindex="0" class="tabsBar" id="studioTabs" layout center horizontal>
-<?php
-    echo $this->element('tabs/user');
-    echo $this->element('tabs/kurs');
-    echo $this->element('tabs/tarif');
-    echo $this->element('tabs/zertifikat');
-    echo $this->element('tabs/rechnung');
-    echo $this->element('tabs/abrechnung');
-?>
+    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Kurse</paper-tab>
+    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Tarife</paper-tab>
+    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Zertifikate</paper-tab>
+    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Rechnungsdaten</paper-tab>
+    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Abrechnungsdaten</paper-tab>
 </paper-tabs>
 
 

@@ -1,6 +1,22 @@
 $(document).ready(function() {
     $(window).load(function() {
         //run code after everything is loaded
-            //Polymer.addEventListener(document.getElementById('user'), 'tap', alter('lade User-Content'));
+            notificateUser('hallo');
     });
 });
+
+
+//type: error, success, warning
+function notificateUser(message, type)
+{
+    if (typeof type === "undefined") {
+        type='error';
+    }
+    var n = noty({
+        text: message,
+        layout: 'topRight',
+        theme: 'defaultTheme',
+        type: type,
+        timeout: 5000
+    });
+}

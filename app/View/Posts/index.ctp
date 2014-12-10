@@ -27,9 +27,15 @@ function postEntryDelete(id)
 {
     var del = confirm("Post #" + id + " löschen?");
     if (del == true) {
-        $.post('<?php echo $this->webroot."posts/delete/"?>'+id,function() {
-            $('#postEntry'+id).remove();
-        });
+        $.post('<?php echo $this->webroot."posts/delete/"?>'+id,function(json) {
+            if(json.success == true)
+            {
+                $('#postEntry'+id).remove();
+            } else
+            {
+                notificateUser(json.message);
+            }
+        }, 'json');
     }
 }
 
