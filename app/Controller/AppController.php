@@ -48,7 +48,7 @@ class AppController extends Controller {
             ),
             'authorize' => 'Controller'
         )
-        */
+         **/
     );
 /**
     public function beforeFilter() {
@@ -69,6 +69,6 @@ class AppController extends Controller {
         // Default deny
         return false;
     }
- */
+ **/
 }
 
