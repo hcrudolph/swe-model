@@ -13,13 +13,7 @@ class AccountTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.account',
-		'app.person',
-		'app.bill',
-		'app.tariff',
-		'app.post',
-		'app.accounts_date',
-		'app.accounts_certificate'
+		'app.account'
 	);
 
 /**

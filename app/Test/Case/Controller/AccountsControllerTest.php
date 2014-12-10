@@ -13,16 +13,7 @@ class AccountsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.account',
-		'app.person',
-		'app.bill',
-		'app.tariff',
-		'app.post',
-		'app.accounts_date',
-		'app.date',
-		'app.course',
-		'app.room',
-		'app.accounts_certificate'
+		'app.account'
 	);
 
 /**

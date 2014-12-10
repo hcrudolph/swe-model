@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Course $Course
  * @property Room $Room
- * @property AccountsDate $AccountsDate
+ * @property Account $Account
  */
 class Date extends AppModel {
 
@@ -16,7 +16,7 @@ class Date extends AppModel {
  */
 	public $displayField = 'id';
 
-/**
+    /**
  * Validation rules
  *
  * @var array
@@ -105,23 +105,23 @@ class Date extends AppModel {
 	);
 
 /**
- * hasMany associations
+ * hasAndBelongsToMany associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'AccountsDate' => array(
-			'className' => 'AccountsDate',
+    public $hasAndBelongsToMany = array(
+		'Account' => array(
+			'className' => 'Account',
+			'joinTable' => 'accounts_dates',
 			'foreignKey' => 'date_id',
-			'dependent' => false,
+			'associationForeignKey' => 'account_id',
+			'unique' => 'false',
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
-			'exclusive' => '',
 			'finderQuery' => '',
-			'counterQuery' => ''
 		)
 	);
 

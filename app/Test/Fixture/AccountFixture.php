@@ -11,11 +11,11 @@ class AccountFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 32, 'unsigned' => true, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 30, 'key' => 'unique', 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
-		'role' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 5, 'unsigned' => true),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'role' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 8, 'unsigned' => true),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'username' => array('column' => 'username', 'unique' => 1)
@@ -34,7 +34,7 @@ class AccountFixture extends CakeTestFixture {
 			'username' => 'Lorem ipsum dolor sit amet',
 			'password' => 'Lorem ipsum dolor sit amet',
 			'role' => 1,
-			'created' => '2014-12-10 09:21:49'
+			'created' => '2014-11-28 19:39:39'
 		),
 	);
 

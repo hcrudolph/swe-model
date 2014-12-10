@@ -60,6 +60,9 @@ class AccountsController extends AppController {
 				$this->Session->setFlash(__('The account could not be saved. Please, try again.'));
 			}
 		}
+		$certificates = $this->Account->Certificate->find('list');
+		$dates = $this->Account->Date->find('list');
+		$this->set(compact('certificates', 'dates'));
 	}
 
 /**
@@ -84,6 +87,9 @@ class AccountsController extends AppController {
 			$options = array('conditions' => array('Account.' . $this->Account->primaryKey => $id));
 			$this->request->data = $this->Account->find('first', $options);
 		}
+		$certificates = $this->Account->Certificate->find('list');
+		$dates = $this->Account->Date->find('list');
+		$this->set(compact('certificates', 'dates'));
 	}
 
 /**
@@ -107,6 +113,7 @@ class AccountsController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 
+/**
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'logout');
@@ -126,4 +133,5 @@ class AccountsController extends AppController {
         $this->redirect($this->Auth->logout());
         $this->Session->setFlash(__('You have been logged out successfully'));
     }
+**/
 }

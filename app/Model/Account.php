@@ -8,8 +8,8 @@ App::uses('Security', 'Utility');
  * @property Person $Person
  * @property Bill $Bill
  * @property Post $Post
- * @property AccountsDate $AccountsDate
- * @property AccountsCertificate $AccountsCertificate
+ * @property Certificate $Certificate
+ * @property Date $Date
  */
 class Account extends AppModel {
 
@@ -19,6 +19,12 @@ class Account extends AppModel {
  * @var string
  */
 	public $displayField = 'username';
+
+    /**
+ * beforeSave()
+ *
+ * @return true
+ */
 
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
@@ -52,7 +58,7 @@ class Account extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'minLength' => array(
-				'rule' => array('minLength', '3'),
+				'rule' => array('minLength', '4'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -70,7 +76,7 @@ class Account extends AppModel {
 		),
 		'password' => array(
 			'maxLength' => array(
-				'rule' => array('maxLength', '24'),
+				'rule' => array('maxLength', '20'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -112,6 +118,10 @@ class Account extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+        'range' => array(
+            'rule' => array('range', -1, 3),
+            'message' => 'Please enter a number between -1 and 3'
+        )
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -162,33 +172,41 @@ class Account extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
-		'AccountsDate' => array(
-			'className' => 'AccountsDate',
-			'foreignKey' => 'account_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'AccountsCertificate' => array(
-			'className' => 'AccountsCertificate',
-			'foreignKey' => 'account_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
 		)
 	);
 
+
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+    public $hasAndBelongsToMany = array(
+		'Certificate' => array(
+			'className' => 'Certificate',
+			'joinTable' => 'accounts_certificates',
+			'foreignKey' => 'account_id',
+			'associationForeignKey' => 'certificate_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		),
+		'Date' => array(
+			'className' => 'Date',
+			'joinTable' => 'accounts_dates',
+			'foreignKey' => 'account_id',
+			'associationForeignKey' => 'date_id',
+			'unique' => 'false',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
 }
