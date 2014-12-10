@@ -1,4 +1,5 @@
 <paper-tabs noink selected="0" selectedindex="0" class="tabsBar" id="studioTabs" layout center horizontal>
+    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Accounts</paper-tab>
     <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Kurse</paper-tab>
     <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Tarife</paper-tab>
     <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Zertifikate</paper-tab>
@@ -8,24 +9,34 @@
 
 
 <core-pages selected="0" selectedindex="0" notap id="studioTabsPages">
-    <section>Page User</section>
-    <section>Page Kurs</section>
-    <section>Page Tarif</section>
-    <section>Page Zertifikate</section>
-    <section>Page Rechnung</section>
-    <section>Page Abrechnung</section>
+    <div id="studioTabPageAccount"></div>
+    <div id="studioTabPageKurse"></div>
+    <div id="studioTabPageTarife"></div>
+    <div id="studioTabPageZertifikate"></div>
+    <div id="studioTabPageRechnung"></div>
+    <div id="studioTabPageAbrechnung"></div>
 </core-pages>
 
 
 <?php
 echo $this->Html->scriptStart(array('inline' => true));
 ?>
+$('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/index/"?>');
 
 var paperTabs = document.querySelector('#studioTabs');
 var corePages = document.querySelector('#studioTabsPages');
 
 paperTabs.addEventListener('core-select', function(e) {
       if (e.detail.isSelected) {
+        switch(paperTabs.selected)
+        {
+            case 0: $('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/index/"?>'); break;
+            case 1: $('#studioTabPageKurse').load('<?php echo $this->webroot."Courses/index/"?>'); break;
+            case 2: $('#studioTabPageTarife').load('<?php echo $this->webroot."Tariffs/index/"?>'); break;
+            case 3: $('#studioTabPageZertifikate').load('<?php echo $this->webroot."Certificates/index/"?>'); break;
+            case 4: $('#studioTabPageRechnung').html('Page Rechnung');/*load('<?php echo $this->webroot."accounts/index/"?>');*/ break;
+            case 5: $('#studioTabPageAbrechnung').html('Page Abrechnung');/*load('<?php echo $this->webroot."accounts/index/"?>');*/ break;
+        }
         corePages.selected = paperTabs.selected;
       }
     });

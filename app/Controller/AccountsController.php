@@ -21,6 +21,13 @@ class AccountsController extends AppController {
  * @return void
  */
 	public function index() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+		  $this->layout = 'polymer';
+        }
 		$this->Account->recursive = 0;
 		$this->set('accounts', $this->Paginator->paginate());
 	}
