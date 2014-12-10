@@ -96,7 +96,7 @@ class DatesController extends AppController {
 	}
 
     /**
-     * signip method
+     * signup method
      *
      * @throws NotFoundException
      * @param string $id
@@ -106,11 +106,19 @@ class DatesController extends AppController {
         if (!$this->Date->exists($id)) {
             throw new NotFoundException(__('Invalid date'));
         }
-        $data = array(
-            'Date' => array('id' => $id),
-            'Account' => array('associated_model_id' => $this->Auth->user('id'))
-        );
-        if($this->Date->saveAssociated($data)){
+
+        if($this->Date->Account->find('count') == $this->Date->Course->maxcount){
+            $this->Session->setFlash(__('The course limit was reached.'));
+            return $this->redirect(array('action' => 'index'));
+        } elseif($this->Date->Account->getID() == $this->Auth->user('id')) {
+            $this->Session->setFlash(__('You are already signed up for this course.'));
+            return $this->redirect(array('action' => 'index'));
+        }
+
+        $data = $this->Date->find('all');
+        $newdata = array('account_id' => $this->Auth->user('id'));
+        array_push($data[0]['Account'], $newdata);
+        if($this->Date->saveAll($data)){
             $this->Session->setFlash(__('You have been signed up successfully for this course.'));
         } else {
             $this->Session->setFlash(__('Unable to sign you up. Please, try again.'));

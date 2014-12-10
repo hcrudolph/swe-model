@@ -119,7 +119,6 @@ class AccountsController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-
 /**
     public function beforeFilter() {
         parent::beforeFilter();
@@ -140,5 +139,5 @@ class AccountsController extends AppController {
         $this->redirect($this->Auth->logout());
         $this->Session->setFlash(__('You have been logged out successfully'));
     }
-**/
+    **/
 }

@@ -48,9 +48,9 @@ class AppController extends Controller {
             ),
             'authorize' => 'Controller'
         )
-         **/
+        **/
     );
-/**
+    /**
     public function beforeFilter() {
         $this->Auth->allow('index');
     }
@@ -69,6 +69,6 @@ class AppController extends Controller {
         // Default deny
         return false;
     }
- **/
+**/
 }
 
