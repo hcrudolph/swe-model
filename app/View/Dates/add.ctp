@@ -10,7 +10,10 @@
 		echo $this->Form->input('end');
 		echo $this->Form->input('presetup');
 		echo $this->Form->input('postsetup');
-		echo $this->Form->input('Account');
+		echo $this->Form->input('Account', array(
+            'multiple' => 'multiple',
+            'type' => 'select',
+        ));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

@@ -57,8 +57,8 @@ class DatesController extends AppController {
 		}
 		$courses = $this->Date->Course->find('list');
 		$rooms = $this->Date->Room->find('list');
-		$accounts = $this->Date->Account->find('list');
-        $directors = $this->Date->Account->find('list', array(
+        $accounts = $directors = $this->Date->AccountsDate->Account->find('list');
+        $directors = $this->Date->AccountsDate->Account->find('list', array(
             'conditions' => array('role' => '1')
         ));
 		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
@@ -88,11 +88,11 @@ class DatesController extends AppController {
 		}
 		$courses = $this->Date->Course->find('list');
 		$rooms = $this->Date->Room->find('list');
-		$accounts = $this->Date->Account->find('list');
-        $directors = $this->Date->Account->find('list', array(
+        $accounts = $directors = $this->Date->AccountsDate->Account->find('list');
+        $directors = $this->Date->AccountsDate->Account->find('list', array(
             'conditions' => array('role' => '1')
         ));
-		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
+        $this->set(compact('courses', 'rooms', 'accounts', 'directors'));
 	}
 
     /**
@@ -107,17 +107,17 @@ class DatesController extends AppController {
             throw new NotFoundException(__('Invalid date'));
         }
         $data = array(
-            'Date' => array('id' => $id),
-            'Account' => array('associated_model_id' => $this->Auth->user('id'))
+            'Date' => array('id' => $this->Date->id),
+            'Account' => array('account_id' => $this->Auth->user('id'))
         );
-        if($this->Date->saveAssociated($data)){
+        if($this->Date->AccountsDate->create($data)){
+            $this->Date->AccountsDate->saveAssociated($data);
             $this->Session->setFlash(__('You have been signed up successfully for this course.'));
         } else {
             $this->Session->setFlash(__('Unable to sign you up. Please, try again.'));
         }
         return $this->redirect(array('action' => 'index'));
     }
-
 
 /**
  * delete method
@@ -139,35 +139,4 @@ class DatesController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-    
-    public function events()
-    {
-        $this->autoRender = false;
-        $this->response->type('json');
-        
-        $start=$this->request->query['start'];
-        $end = $this->request->query['end'].' 23:59:59';
-
-        $conditions = array('Date.end <=' => $end, 'Date.begin >=' => $start);
-        $fields = array('Date.begin', 'Date.end', 'Course.name', 'Date.id');
-        
-        $events = $this->Date->find('all', array('conditions' => $conditions, 'fields' => $fields));
-        
-        $trenner = '';
-        echo '[';
-        foreach($events as $event)
-        {
-            $start = new DateTime($event['Date']['begin']);
-            $end = new DateTime($event['Date']['end']);
-            echo $trenner;
-            echo '{';
-            echo '"title":"'.$event['Course']['name'].'",';
-            echo '"start":"'.$start->format(DateTime::ISO8601).'",';
-            echo '"end":"'.$end->format(DateTime::ISO8601).'",';
-            echo '"url":"javascript:alert(\''.$event['Date']['id'].'\')"';
-            echo '}';
-            $trenner = ',';
-        }
-        echo ']';
-    }
 }

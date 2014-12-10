@@ -1,11 +1,11 @@
 <?php
-App::uses('Account', 'Model');
+App::uses('AccountsDate', 'Model');
 
 /**
- * Account Test Case
+ * AccountsDate Test Case
  *
  */
-class AccountTest extends CakeTestCase {
+class AccountsDateTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -13,12 +13,15 @@ class AccountTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'app.accounts_date',
+		'app.date',
+		'app.course',
+		'app.room',
 		'app.account',
 		'app.person',
 		'app.bill',
 		'app.tariff',
 		'app.post',
-		'app.accounts_date',
 		'app.accounts_certificate'
 	);
 
@@ -29,7 +32,7 @@ class AccountTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Account = ClassRegistry::init('Account');
+		$this->AccountsDate = ClassRegistry::init('AccountsDate');
 	}
 
 /**
@@ -38,7 +41,7 @@ class AccountTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Account);
+		unset($this->AccountsDate);
 
 		parent::tearDown();
 	}
