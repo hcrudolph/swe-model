@@ -1,18 +1,3 @@
-<?php
-//global vars
-$user = $this->Session->read('Auth.User');
-
-$controllerIndex = array(
-    '' => 0,
-    '' => 1,
-    '' => 2,
-    'studio' => 3,
-    '' => 4,
-    '' => 5
-);
-$sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex))?$controllerIndex[$this->params['controller']]:0);
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +10,9 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
 	<?php
 		echo $this->Html->script('/polymer/components/webcomponentsjs/webcomponents');
   		echo $this->Polymer->template('components/polymer/polymer.html');
-  		echo $this->Polymer->template('elements/application-login.html');
+        
+        //login
+        echo $this->Polymer->template('components/paper-input/paper-input.html');
   		
   		//Include Sidebar
 		echo $this->Polymer->template('components/core-menu/core-submenu.html');
@@ -73,27 +60,18 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
 <body>
 	<div id="container">
 		<div id="header">
-            <?php
-                //if (empty($user))
-                    echo '<application-login id="login"></application-login>';
-                //else
-                    //echo '<div id=login></div>';
-            ?>
+            <div id="authentification">
+                <?php if(empty($user))
+                {
+                    echo $this->element('authentification/login');
+                } else
+                {
+                    echo $this->element('authentification/logout');
+                }
+                ?>
+            </div>
 		</div>
-		<core-menu selected="<?php echo $sidebarIndex*2 ?>" selectedindex="<?php echo $sidebarIndex*2 ?>" id="sidebar">
-			<?php
-		            echo $this->element('sidebar/submenuNews');
-		            echo $this->element('sidebar/submenuKalender');
-		            //if (!empty($user))
-                    {
-                        echo $this->element('sidebar/submenuListen');
-                        echo $this->element('sidebar/submenuStudio');
-                        echo $this->element('sidebar/submenuUser');
-                        echo $this->element('sidebar/submenuKurs');
-                    }
-            
-			?>
-		</core-menu>
+        <?php echo $this->element('sidebar/sidebar'); ?>
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
 			<?php echo $this->fetch('content'); ?>

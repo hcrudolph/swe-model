@@ -178,4 +178,9 @@ class DatesController extends AppController {
         }
         echo ']';
     }
+    
+    public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow('events');
+    }
 }

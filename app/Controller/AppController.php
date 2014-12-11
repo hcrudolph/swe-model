@@ -34,7 +34,6 @@ class AppController extends Controller {
     public $components = array(
         'DebugKit.Toolbar',
         'Session',
-        /**
         'Auth' => array(
             'loginAction' => array(
                 'controller' => 'accounts',
@@ -46,10 +45,17 @@ class AppController extends Controller {
                     'passwordHasher' => 'Blowfish'
                 )
             ),
-            'authorize' => 'Controller'
+            'autoRedirect' => false,
+            //'authorize' => 'Controller'
         )
-        **/
     );
+    
+    public function beforeRender()
+    {
+        $this->set('user', $this->Auth->user());
+    }
+    
+    
     /**
     public function beforeFilter() {
         $this->Auth->allow('index');

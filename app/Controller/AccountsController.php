@@ -124,20 +124,41 @@ class AccountsController extends AppController {
         parent::beforeFilter();
         $this->Auth->allow('add', 'logout');
         $this->Auth->deny('edit', 'delete');
+    }*/
+    
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->Auth->allow();
     }
-
+    
     public function login() {
-        if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
-                return $this->redirect($this->Auth->redirectUrl());
+        if($this->request->is('ajax'))
+        {
+            $this->autoRender = false;
+            $this->layout=null;
+            $this->response->type('json');
+            $answer = array();
+            if ($this->request->is('post')) {
+                if ($this->Auth->login($this->request->data)) {
+                    $view = new View($this, false);
+                    //$content = $view->element('my-element', $params);
+                    $answer['login'] = true;
+                    $answer['message'] = 'Sie wurden erfolgreich eingeloggt';
+                    $answer['logout'] = $view->element('authentification/logout', array('user' => $this->Auth->user()));
+                    $answer['sidebar'] = $view->element('sidebar/sidebar', array('user' => $this->Auth->user()));
+                } else
+                {
+                    $answer['login'] = false;
+                    $answer['message'] = 'Sie konnten nicht eingeloggt werden';
+                }
             }
-            $this->Session->setFlash(__('Invalid username or password, try again'));
+            echo json_encode($answer);
         }
     }
-
+    
     public function logout() {
         $this->redirect($this->Auth->logout());
-        $this->Session->setFlash(__('You have been logged out successfully'));
+        //$this->Session->setFlash(__('You have been logged out successfully'));
     }
-    **/
 }

@@ -27,7 +27,7 @@ function postEditSave(postId)
                 postEditClose(postId);
             } else
             {
-                notificateUser(obj.Message);
+                notificateUser(obj.message);
             }
         }, 'json');
 }

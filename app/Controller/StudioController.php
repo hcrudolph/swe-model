@@ -28,4 +28,9 @@ class StudioController extends AppController {
 		  $this->layout = 'polymer';
         }
 	}
+    
+    public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow();
+    }
 }

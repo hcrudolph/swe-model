@@ -7,6 +7,6 @@
       <core-icon-button icon="delete" onclick="postEntryDelete(<?php echo h($post['Post']['id']); ?>);" class="delete"></core-icon-button>
     </core-tooltip>
     <core-tooltip label="Eintrag bearbeiten" active pressed id="core_tooltip1">
-      <core-icon-button icon="text-format" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);" class="edit"></core-icon-button>
+      <core-icon-button icon="create" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);" class="edit"></core-icon-button>
     </core-tooltip>
 </div>
