@@ -140,9 +140,8 @@ class AccountsController extends AppController {
             $this->response->type('json');
             $answer = array();
             if ($this->request->is('post')) {
-                if ($this->Auth->login($this->request->data)) {
+                if ($this->Auth->login()) {
                     $view = new View($this, false);
-                    //$content = $view->element('my-element', $params);
                     $answer['login'] = true;
                     $answer['message'] = 'Sie wurden erfolgreich eingeloggt';
                     $answer['logout'] = $view->element('authentification/logout', array('user' => $this->Auth->user()));

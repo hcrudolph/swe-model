@@ -1,1 +1,1 @@
-<?php echo $user['username']; ?>
+<?php echo $user['Person']['name']; ?>
