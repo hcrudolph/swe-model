@@ -52,6 +52,12 @@ class GitController extends AppController {
     echo "<tr><td>current user</td><td>".exec("whoami")."</td></tr>";
     echo '</table>';
   }
-  
+    
+    //git benötigt keinen Login
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->Auth->allow();
+    }
 }
 ?>
