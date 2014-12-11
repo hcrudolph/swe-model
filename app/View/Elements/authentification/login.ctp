@@ -1,5 +1,4 @@
 <paper-input label="Username" id="loginUsername"></paper-input>
-<!--<paper-input type="password" label="Passwort" id="loginPassword"></paper-input>-->
 <paper-input-decorator  label="Passwort" id="loginPassword" type="password">
     <input is="core-input" type="password" />
 </paper-input-decorato>
