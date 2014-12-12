@@ -175,5 +175,6 @@ class PostsController extends AppController {
     {
         parent::beforeFilter();
         $this->Auth->allow();
+        $this->Auth->deny(array('delete', 'edit', 'add'));
     }
 }

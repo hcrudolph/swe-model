@@ -56,6 +56,24 @@
         echo $this->Html->css('fullcalendar.print', array('media' => 'print'));
     ?>
     <!--Fullcalendar-data start-->
+    
+    <!--JQuery-Setup: Grundlegende Einstellungen-->
+    <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+        $(function () {
+            //setup ajax error handling
+            $.ajaxSetup({
+                error: function (x, status, error) {
+                    if (x.status === 403) {
+                        notificateUser('Sie dürfen diese Aktion nicht ausführen');
+                    }
+                    else {
+                        alert("Fehler: " + status + "nError: " + error);
+                    }
+                }
+            });
+        });
+    <?php echo $this->Html->scriptEnd(); ?>
+    <!--Jquery-Setup-end-->
 </head>
 <body>
 	<div id="container">

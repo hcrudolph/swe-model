@@ -5,6 +5,7 @@ $(document).ready(function() {
 });
 
 
+
 //type: error, success, warning
 function notificateUser(message, type)
 {
