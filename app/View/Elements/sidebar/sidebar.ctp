@@ -1,11 +1,11 @@
 <?php
 $controllerIndex = array(
-    '' => 0,
+    'posts' => 0,
     'calendar' => 1,
-    '' => 2,
+    'lists' => 2,
     'studio' => 3,
-    '' => 4,
-    '' => 5
+    'user' => 4,
+    'Kurs' => 5
 );
 $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex))?$controllerIndex[$this->params['controller']]:0);
 ?>

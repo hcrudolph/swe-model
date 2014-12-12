@@ -16,6 +16,8 @@
                 notificateUser(json.message, 'success');
                 $('#sidebar').replaceWith(json.sidebar);
                 $('#authentification').html(json.logout);
+                //startpage always posts
+                $('#content').load('<?php echo $this->webroot;?>posts');
             } else
             {
                 notificateUser(json.message);

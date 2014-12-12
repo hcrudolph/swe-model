@@ -13,7 +13,10 @@
         
         //login
         echo $this->Polymer->template('components/paper-input/paper-input.html');
-  		
+
+        //logout
+  		echo $this->Polymer->template('components/paper-button/paper-button.html');
+
   		//Include Sidebar
 		echo $this->Polymer->template('components/core-menu/core-submenu.html');
 		echo $this->Polymer->template('components/core-icons/core-icons.html');

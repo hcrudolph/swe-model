@@ -157,7 +157,26 @@ class AccountsController extends AppController {
     }
     
     public function logout() {
-        $this->redirect($this->Auth->logout());
-        //$this->Session->setFlash(__('You have been logged out successfully'));
+        if($this->request->is('ajax'))
+        {
+            $this->autoRender = false;
+            $this->layout=null;
+            $this->response->type('json');
+            $answer = array();
+            if ($this->request->is('post')) {
+                if ($this->Auth->logout()) {
+                    $view = new View($this, false);
+                    $answer['logout'] = true;
+                    $answer['message'] = 'Sie wurden erfolgreich ausgeloggt';
+                    $answer['login'] = $view->element('authentification/login');
+                    $answer['sidebar'] = $view->element('sidebar/sidebar');
+                } else
+                {
+                    $answer['logout'] = false;
+                    $answer['message'] = 'Sie konnten nicht ausgeloggt werden';
+                }
+            }
+            echo json_encode($answer);
+        }
     }
 }

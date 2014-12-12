@@ -2,7 +2,6 @@
 <?php
 echo $this->Html->scriptStart(array('inline' => true));
 ?>
-document.addEventListener('polymer-ready', function(){
     document.querySelector('#sidebarSubmenuKalender').addEventListener('tap', function(e) {
         $('#content').html('');
         $('#content').fullCalendar('destroy');
@@ -19,7 +18,6 @@ document.addEventListener('polymer-ready', function(){
             events: '<?php echo $this->webroot?>dates/events'
         });
     });
-});
 <?php
 echo $this->Html->scriptEnd();
 ?>
