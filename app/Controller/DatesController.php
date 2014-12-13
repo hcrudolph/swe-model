@@ -106,18 +106,39 @@ class DatesController extends AppController {
         if (!$this->Date->exists($id)) {
             throw new NotFoundException(__('Invalid date'));
         }
+        $account_id = $this->Auth->user('id');
+        $data = $this->Date->findAllById($id);
+        $exists = false;
 
-        if($this->Date->Account->find('count') == $this->Date->Course->maxcount){
-            $this->Session->setFlash(__('The course limit was reached.'));
+        foreach($data[0]['Account'] as $Acc){
+            if($Acc['id'] == $account_id){
+                $exists = true;
+            }
+        }
+
+        if(count($data[0]['Account']) == $this->Date->Course->field('maxcount')){
+            $this->Session->setFlash(__('The course limit was already reached.'));
             return $this->redirect(array('action' => 'index'));
-        } elseif($this->Date->Account->getID() == $this->Auth->user('id')) {
+        } else
+        if($exists) {
             $this->Session->setFlash(__('You are already signed up for this course.'));
             return $this->redirect(array('action' => 'index'));
         }
 
-        $data = $this->Date->find('all');
-        $newdata = array('account_id' => $this->Auth->user('id'));
+        $this->Date->create();
+        $newdata = array(
+            'password' => '*****',
+            'id' => $account_id,
+            'username' => $this->Auth->user('username'),
+            'role' => $this->Auth->user('role'),
+            'created' => $this->Auth->user('created'),
+            'AccountsDate' => array(
+                'date_id' => $id,
+                'account_id' => $account_id
+            )
+        );
         array_push($data[0]['Account'], $newdata);
+
         if($this->Date->saveAll($data)){
             $this->Session->setFlash(__('You have been signed up successfully for this course.'));
         } else {
