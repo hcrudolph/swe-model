@@ -35,12 +35,27 @@
   		
   	?>
     <!-- polymer-data end-->
+    <!--Application-data start -->
     <?php
         echo $this->Html->script('jquery-2.1.1.min');
         echo $this->Html->css('application');
         echo $this->Html->script('application');
     ?>
-    <!--Application-data start -->
+    <!--Application-data end -->
+    <!--Bootstrap-data start -->
+    <?php
+    echo $this->Html->script('bootstrap.min');
+    echo $this->Html->css('bootstrap-theme.min');
+    echo $this->Html->css('bootstrap.min');
+    ?>
+    <!--Bootstrap-data end -->
+    
+    <!--Datepicker-data start -->
+    <?php
+    echo $this->Html->script('datepicker/bootstrap-datepicker');
+    echo $this->Html->css('datepicker3');
+    ?>
+    <!--Datepicker-data end -->
     <!--Noty-data start-->
     <?php
         echo $this->Html->script('noty/jquery.noty.packaged.min');

@@ -2,8 +2,15 @@
 <div id="postEdit<?php echo $postId; ?>">
     <input is="core-input" id="postEditHeading<?php echo $postId;?>" value="<?php echo $data['Post']['heading'];?>" class="heading" placeholder="Betreff">
     <input is="core-input" id="postEditBody<?php echo $postId;?>" value="<?php echo $data['Post']['body'];?>" class="body" multiline placeholder="Body">
-    <input is="core-input" id="postEditDate<?php echo $postId;?>" class="date" multiline placeholder="Date">
-    <date-picker class="date"></date-picker>
+    <!--<input is="core-input" id="postEditDate<?php echo $postId;?>" class="date" multiline placeholder="Date">-->
+    <!--<date-picker class="date"></date-picker>-->
+    
+    <div id="postEditDatepicker<?php echo $postId;?>" class="input-daterange">
+        <input />
+        <span class="add-on">to</span>
+        <input />
+    </div>
+    
     <core-tooltip label="Eintrag speichern" active pressed>
         <core-icon-button icon="save" class="save" onclick="postEditSave(<?php echo $postId; ?>)"></core-icon-button>
     </core-tooltip>
@@ -13,6 +20,15 @@
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+
+$(function(){
+   $('#postEditDatepicker<?php echo $postId;?>').datepicker({
+      format: 'dd.mm.yyyy'
+    });
+});
+
+
+
 function postEditSave(postId)
 {
     $.post('<?php echo $this->webroot;?>posts/edit/'+postId,
