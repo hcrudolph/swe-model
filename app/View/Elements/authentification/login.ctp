@@ -1,27 +1,30 @@
-<paper-input label="Username" id="loginUsername"></paper-input>
-<paper-input-decorator  label="Passwort" id="loginPasswordContainer" type="password">
-    <input is="core-input" id="loginPassword" type="password" />
-</paper-input-decorato>
-<paper-icon-button icon="input" id="loginSubmit" onclick="loginSubmit()"></paper-icon-button>
+<form id="loginForm">
+    <div class="form-group">
+        <input type="input" class="form-control" name="data[Account][username]" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
+    </div>
+    <button type="submit" class="btn btn-default" id="loginSubmit">Login</button>
+</form>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-    function loginSubmit()
-    {
-        $.post('<?php echo $this->webroot;?>accounts/login',
+    $(document).ready(function() {
+        $('#loginForm').submit(function(event)
         {
-            "data[Account][username]":$('#loginUsername').val(),
-            "data[Account][password]":$('#loginPassword').val(),
-        }, function(json) {
-            if(json.login == true)
-            {
-                notificateUser(json.message, 'success');
-                $('#sidebar').replaceWith(json.sidebar);
-                $('#authentification').html(json.logout);
-                //startpage always posts
-                $('#content').load('<?php echo $this->webroot;?>posts');
-            } else
-            {
-                notificateUser(json.message);
-            }
-        }, 'json');
-    }
+            $.post('<?php echo $this->webroot;?>accounts/login', $('#loginForm').serialize(), function(json) {
+                if(json.login == true)
+                {
+                    notificateUser(json.message, 'success');
+                    $('#sidebar').replaceWith(json.sidebar);
+                    $('#authentification').html(json.logout);
+                    //startpage always posts
+                    $('#content').load('<?php echo $this->webroot;?>posts');
+                } else
+                {
+                    notificateUser(json.message);
+                }
+            }, 'json');
+            event.preventDefault();
+        });
+    });
 <?php echo $this->Html->scriptEnd(); ?>

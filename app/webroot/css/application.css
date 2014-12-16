@@ -11,30 +11,6 @@
     box-sizing: border-box;
     left: 880px;
 }
-#loginUsername {
-    left: 10px;
-    top: 0px;
-    position: absolute;
-    width: 110px;
-    height: 40px;
-}
-#loginPasswordContainer {
-    left: 10px;
-    top: 40px;
-    position: absolute;
-    width: 110px;
-    height: 40px;
-}
-#loginSubmit {
-    left: 0px;
-    top: 40px;
-    position: absolute;
-    opacity: 1;
-}
-<!--#logoutButton {
-    width: 20px;
-    height: 20px;
-}-->
 
 #content {
     position: absolute;

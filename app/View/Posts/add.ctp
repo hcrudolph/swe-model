@@ -3,8 +3,8 @@
 ?>
 
 <div id="postAdd<?php echo $addId;?>" class="postAdd">
-    <input is="core-input" id="postAddHeading<?php echo $addId;?>" class="heading" placeholder="Betreff">
-    <input is="core-input" id="postAddBody<?php echo $addId;?>" class="body" multiline placeholder="Body">
+    <input id="postAddHeading<?php echo $addId;?>" class="heading form-control" placeholder="Betreff">
+    <textarea id="postAddBody<?php echo $addId;?>" class="body form-control" rows="3" placeholder="Body"></textarea>
     <div id="postAddDatepicker<?php echo $addId;?>"class="input-append date input-daterange">
         <div class="input-group">
             <span class="input-group-addon">

@@ -5,9 +5,8 @@ $visibleEnd = (is_null($data['Post']['visibleend'])?'':'value="'.date("d.m.Y", s
 
 ?>
 <div id="postEdit<?php echo $postId; ?>">
-    <input is="core-input" id="postEditHeading<?php echo $postId;?>" value="<?php echo $data['Post']['heading'];?>" class="heading" placeholder="Betreff">
-    <input is="core-input" id="postEditBody<?php echo $postId;?>" value="<?php echo $data['Post']['body'];?>" class="body" multiline placeholder="Body">
-    
+    <input id="postEditHeading<?php echo $postId;?>" class="heading form-control" value="<?php echo $data['Post']['heading'];?>">
+    <textarea id="postEditBody<?php echo $postId;?>" class="body form-control" rows="3"><?php echo $data['Post']['body'];?></textarea>
     <div id="postEditDatepicker<?php echo $postId;?>"class="input-append date input-daterange">
         <div class="input-group">
             <span class="input-group-addon">
