@@ -34,8 +34,8 @@ paperTabs.addEventListener('core-select', function(e) {
             case 1: $('#studioTabPageKurse').load('<?php echo $this->webroot."Courses/index/"?>'); break;
             case 2: $('#studioTabPageTarife').load('<?php echo $this->webroot."Tariffs/index/"?>'); break;
             case 3: $('#studioTabPageZertifikate').load('<?php echo $this->webroot."Certificates/index/"?>'); break;
-            case 4: $('#studioTabPageRechnung').html('Page Rechnung');/*load('<?php echo $this->webroot."accounts/index/"?>');*/ break;
-            case 5: $('#studioTabPageAbrechnung').html('Page Abrechnung');/*load('<?php echo $this->webroot."accounts/index/"?>');*/ break;
+            case 4: $('#studioTabPageRechnung').load('<?php echo $this->webroot."bills/index/"?>'); break;
+            case 5: $('#studioTabPageAbrechnung').load('<?php echo $this->webroot."bills/index/"?>'); break;
         }
         corePages.selected = paperTabs.selected;
       }
