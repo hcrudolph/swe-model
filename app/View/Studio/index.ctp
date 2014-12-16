@@ -8,7 +8,7 @@
 </paper-tabs>
 
 
-<core-pages selected="0" selectedindex="0" notap id="studioTabsPages">
+<core-pages selected="0" selectedindex="0" notap class="tabsPages" id="studioTabsPages">
     <div id="studioTabPageAccount"></div>
     <div id="studioTabPageKurse"></div>
     <div id="studioTabPageTarife"></div>
