@@ -36,38 +36,43 @@ class ListsController extends AppController {
     
     public function trainer()
     {
-        $this->autoRender = false;
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        }
         
         $fields = array('DISTINCT Date.director');
         $results = $this->Date->find('all', array('fields' => $fields));
-        
-        echo var_dump($results);
-        
-        echo "alle Trainer";
+        $this->set(compact('results'));
     }
     
     public function mitarbeiter()
     {
-        $this->autoRender = false;
-        
-        
-        $conditions = array('Account.role' => 1, 'Account.role' => 2); //array of conditions
-        $results = $this->Account->find('all', array('conditions' => $conditions));
-        
-        echo var_dump($results);
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        }
+        $conditions = array('Account.role' => 1, 'Account.role' => 2);
+        $fields = array('Account.id', 'Person.*', '');
+        $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
+        $this->set(compact('results'));
     }
     
     public function mitglieder()
     {
-        $this->autoRender = false;
-        $conditions = array('Account.role' => 0,); //array of conditions
-        $results = $this->Account->find('all', array('conditions' => $conditions));
-        
-        echo var_dump($results);
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        }
+        $conditions = array('Account.role' => 0,);
+        $fields = array('Account.id', 'Person.*', '');
+        $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
+        $this->set(compact('results'));
     }
     
-    public function beforeFilter(){
+    public function beforeFilter()
+    {
         parent::beforeFilter();
-        $this->Auth->allow();
+        //$this->Auth->deny(array('index', 'trainer', 'mitarbeiter', 'mitglieder'));
     }
 }
