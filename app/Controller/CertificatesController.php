@@ -22,6 +22,13 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function index() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            $this->layout = 'polymer';
+        }
 		$this->Certificate->recursive = 0;
 		$this->set('certificates', $this->Paginator->paginate());
 	}

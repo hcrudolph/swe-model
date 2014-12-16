@@ -21,6 +21,13 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function index() {
+        if($this->request->is('ajax'))
+    {
+        $this->layout = 'ajax';
+    } else
+    {
+        $this->layout = 'polymer';
+    }
 		$this->Course->recursive = 0;
 		$this->set('courses', $this->Paginator->paginate());
 	}
