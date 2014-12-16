@@ -1,7 +1,11 @@
+<?php
+if(!empty($user))
+{?>
 <core-tooltip label="Eintrag hinzufügen" active pressed id="core_tooltip2">
     <core-icon-button icon="add-circle-outline" id="postsButtonAdd" onclick="postsButtonAddClick();"></core-icon-button>
 </core-tooltip>
 <?php
+}
 echo $this->Html->scriptStart(array('inline' => true));
 ?>
 var addId = 0;

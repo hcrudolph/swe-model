@@ -1,8 +1,32 @@
-<div id="postAdd<?php echo ((isset($addId))?$addId:'');?>" class="postAdd">
-    <input is="core-input" id="postAddHeading<?php echo ((isset($addId))?$addId:'');?>" class="heading" placeholder="Betreff">
-    <input is="core-input" id="postAddBody<?php echo ((isset($addId))?$addId:'');?>" class="body" multiline placeholder="Body">
-    <input is="core-input" id="postAddDate<?php echo ((isset($addId))?$addId:'');?>" class="date" multiline placeholder="Date">
-    <date-picker class="date"></date-picker>
+<?php
+    $addId = ((isset($addId))?$addId:'');
+?>
+
+<div id="postAdd<?php echo $addId;?>" class="postAdd">
+    <input is="core-input" id="postAddHeading<?php echo $addId;?>" class="heading" placeholder="Betreff">
+    <input is="core-input" id="postAddBody<?php echo $addId;?>" class="body" multiline placeholder="Body">
+    <div id="postAddDatepicker<?php echo $addId;?>"class="input-append date input-daterange">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </span>
+            <input id="postAddVisibleBegin<?php echo $addId;?>"type="text" class="form-control">
+            <span class="input-group-addon" onclick="$(function(){$('#visibleBegin<?php echo $addId;?>').val('');});">
+                <i class="glyphicon glyphicon-remove-circle"></i>
+            </span>
+        </div>
+        <span class="add-on">bis</span>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </span>
+            <input id="postAddVisibleEnd<?php echo $addId;?>" type="text" class="form-control">
+            <span class="input-group-addon" onclick="$(function(){$('#visibleEnd<?php echo $addId;?>').val('');});">
+                <i class="glyphicon glyphicon-remove-circle"></i>
+            </span>
+        </div>
+    </div>
+    
     <core-tooltip label="Eintrag speichern" active pressed>
         <core-icon-button icon="save" class="save" onclick="postAddSubmit(<?php echo $addId;?>)"></core-icon-button>
     </core-tooltip>
@@ -14,13 +38,20 @@
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+$(function(){
+   $('#postAddDatepicker<?php echo $addId;?>').datepicker({
+      format: 'dd.mm.yyyy'
+    });
+});
+
 function postAddSubmit(addId)
 {
     $.post('<?php echo $this->webroot;?>posts/add/'+addId,
         {
             heading:$('#postAddHeading'+addId).val(),
             body:$('#postAddBody'+addId).val(),
-            //date:""
+            visiblebegin:$('#postAddVisibleBegin'+addId).val(),
+            visibleend:$('#postAddVisibleEnd'+addId).val(),
         }, function(obj) {
             if(obj.inserted == true)
             {

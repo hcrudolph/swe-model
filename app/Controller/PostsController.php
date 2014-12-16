@@ -61,7 +61,6 @@ class PostsController extends AppController {
  * @return void
  */
 	public function add($addId = null) {
-        $this->request->data['account_id'] = 1;
         if($this->request->is('ajax'))
         {
             if($this->request->is('post'))
@@ -70,6 +69,11 @@ class PostsController extends AppController {
                 $this->layout=null;
                 $this->response->type('json');
                 $answer = array();
+                $this->request->data['account_id'] = $this->Auth->user('id');
+                
+                $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin'])?null:date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
+                $this->request->data['visibleend'] = (empty($this->request->data['visibleend'])?null:date("Y-m-d", strtotime($this->request->data['visibleend'])));
+                
                 if($this->Post->save($this->request->data))
                 {
                     $answer['inserted'] = true;
@@ -104,12 +108,15 @@ class PostsController extends AppController {
             $this->layout = 'ajax';
             if($this->request->is(array('post', 'put')))
             {
-                $this->request->data['account_id'] = 1;
+                $this->request->data['account_id'] = $this->Auth->user('id');
                 $this->request->data['id'] = $id;
+                $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin'])?null:date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
+                $this->request->data['visibleend'] = (empty($this->request->data['visibleend'])?null:date("Y-m-d", strtotime($this->request->data['visibleend'])));
                 $this->autoRender = false;
                 $this->layout=null;
                 $this->response->type('json');
                 $answer = array();
+                
                 if($this->Post->save($this->request->data))
                 {
                     $answer['inserted'] = true;
