@@ -80,6 +80,38 @@ class AccountsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+            if ($this->request->is(array('post', 'put'))) {
+
+            } else
+            {
+                if(is_null($id))
+                {
+                    $id = $this->Auth->user('id');
+                    //Eigenen Account bearbeiten
+                } else
+                {
+                    if($this->Auth->user('role')==0)
+                    {
+                        throw new ForbiddenException;
+                    }
+                    //bearbeiten eines anderen Accounts
+                }
+
+                $conditions = array('Account.id', $id);
+                $result = $this->Account->find('first', array('conditions'=>$conditions));
+                $this->set(compact($result));
+            }
+        } else {
+            throw new NotImplementedException("Diese Anfrage wird nur mit Ajax unterstützt");
+        }
+
+
+
+
+
 		if (!$this->Account->exists($id)) {
 			throw new NotFoundException(__('Invalid account'));
 		}

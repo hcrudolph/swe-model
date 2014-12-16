@@ -1,3 +1,31 @@
+<?php
+foreach ($accounts as $account) {
+?>
+<div>
+    <span><?php echo h($account['Account']['username']); ?></span>
+    <span onclick="loadUser(<?php echo h($account['Account']['id']); ?>)">edit</span>
+    <span>view</span>
+    <span>delete</span>
+</div>
+<?php } ?>
+
+<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+    function loadUser(accountId)
+    {
+        $('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/edit/"?>'+accountId);
+    }
+<?php echo $this->Html->scriptEnd();?>
+
+
+
+
+
+
+
+
+
+
+
 <div class="accounts index">
 	<h2><?php echo __('Accounts'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
