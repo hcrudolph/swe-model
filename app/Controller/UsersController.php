@@ -46,7 +46,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        if ($this->request->is('ajax') || is_null($id)) {
+        if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
             if (is_null($id)) {
                 $id = $this->Auth->user('id');
