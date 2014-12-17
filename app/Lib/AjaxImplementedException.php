@@ -7,8 +7,9 @@
  */
 
 class AjaxImplementedException extends NotImplementedException {
-
-    protected $_messageTemplate = 'Diese Aktion kann nur durch eine Ajax-Anfrage ausgelöst werden.';
+    public function __construct(){
+        super('Diese Aktion kann nur durch eine Ajax-Anfrage ausgelöst werden.');
+    }
 }
 
 ?>
