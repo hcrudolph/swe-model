@@ -8,7 +8,7 @@
 
 class AjaxImplementedException extends NotImplementedException {
     public function __construct(){
-        super('Diese Aktion kann nur durch eine Ajax-Anfrage ausgelöst werden.');
+        parent::__construct('Diese Aktion kann nur durch eine Ajax-Anfrage ausgelöst werden.');
     }
 }
 
