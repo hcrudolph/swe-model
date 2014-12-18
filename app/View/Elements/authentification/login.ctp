@@ -1,10 +1,6 @@
 <form id="loginForm">
-    <div class="form-group">
-        <input type="input" class="form-control" name="data[Account][username]" placeholder="Username">
-    </div>
-    <div class="form-group">
-        <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
-    </div>
+    <input type="input" class="form-control" name="data[Account][username]" placeholder="Username">
+    <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
     <button type="submit" class="btn btn-default" id="loginSubmit">Login</button>
 </form>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
