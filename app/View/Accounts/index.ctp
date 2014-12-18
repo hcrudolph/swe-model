@@ -2,28 +2,31 @@
 foreach ($accounts as $account) {
 ?>
 <div>
-    <span><?php echo h($account['Account']['username']); ?></span>
-    <span onclick="editUser(<?php echo h($account['Account']['id']); ?>)">edit</span>
-    <span onclick="viewUser(<?php echo h($account['Account']['id']); ?>)">view</span>
-    <span onclick="deleteUser(<?php echo h($account['Account']['id']); ?>)">delete</span>
+    <h1><?php echo h($account['Account']['username']); ?></h1>
 </div>
+    <div>
+        <paper-button raised id="UserButton" onclick="editUser(<?php echo h($account['Account']['id']); ?>)"><core-icon icon="settings-applications"></core-icon>edit</paper-button>
+        <paper-button raised id="UserButton" onclick="viewUser(<?php echo h($account['Account']['id']); ?>)"><core-icon icon="visibility"></core-icon>view</paper-button>
+        <paper-button raised id="UserButton" onclick="deleteUser(<?php echo h($account['Account']['id']); ?>)"><core-icon icon="delete"></core-icon>delete</paper-button>
+    </div>
+
 <?php } ?>
 
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
     function editUser(accountId)
     {
         $('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/edit/"?>'+accountId);
     }
 <?php echo $this->Html->scriptEnd();?>
 
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
 function viewUser(accountId)
 {
 $('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/view/"?>'+accountId);
 }
 <?php echo $this->Html->scriptEnd();?>
 
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
 function deleteUser(accountId)
 {
 $('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/delete/"?>'+accountId);
