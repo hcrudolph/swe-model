@@ -56,6 +56,12 @@
     echo $this->Html->css('datepicker3');
     ?>
     <!--Datepicker-data end -->
+    <!--Bootstrap-selector-data start-->
+    <?php
+    echo $this->Html->script('bootstrap-select/bootstrap-select.min');
+    echo $this->Html->css("bootstrap-select.min");
+    ?>
+    <!--Bootstrap-selector-data end-->
     <!--Noty-data start-->
     <?php
         echo $this->Html->script('noty/jquery.noty.packaged.min');
