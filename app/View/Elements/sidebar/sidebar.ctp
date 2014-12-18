@@ -17,7 +17,7 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
     echo $this->element('sidebar/submenuListen');
     if (!empty($user))
     {
-        if($user['rolle'] > 0 ) {
+        if($user['role'] > 0 ) {
             echo $this->element('sidebar/submenuStudio');
         }
         echo $this->element('sidebar/submenuUser');
