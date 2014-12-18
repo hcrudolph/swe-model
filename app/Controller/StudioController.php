@@ -28,7 +28,7 @@ class StudioController extends AppController {
             $this->layout = 'ajax';
         } else
         {
-            $this->layout = 'polymer';
+            throw new AjaxImplementedException;
         }
 	}
     
