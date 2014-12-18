@@ -66,6 +66,8 @@ class UsersController extends AppController
 
     /**
      * add method
+     * Fügt dem System einen neuen Account hinzu
+     *
      *
      * @throws ForbiddenException, AjaxImplementedException
      * @return void
@@ -73,15 +75,40 @@ class UsersController extends AppController
     public function add()
     {
         if ($this->request->is('ajax')) {
-            $this->layout = 'ajax';
             if ($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
                 if ($this->request->is(array('post', 'put'))) {
-                    //Speichern und Validierung
-                } else {
+                    $this->autoRender = false;
+                    $this->layout = null;
+                    $this->response->type('json');
+                    $answer = array();
 
-                    //Ausgabe des Templates
+                    $CreatorRole = $this->Auth->User('role');
+                    $UserRole = $this->request->data->Account->role;
+
+                    if((($CreatorRole == 2 AND $UserRole != 0) OR ($CreatorRole == 1 AND $UserRole == 0)) AND $this->Account->save())
+                    {
+                        if($this->Person->save()) {
+                            $answer['success'] = true;
+                            $answer['id'] = $this->Account->id;
+                            $answer['message'] = "Der User wurde angelegt";
+                        } else{
+                            //Damit beim erneuten Ajax-Senden keine Reste des Accounts existieren
+                            $this->Account->delete();
+                            $answer['success'] = false;
+                            $answer['errors'] = $this->Person->validationErrors;
+                            $answer['message'] = "Der User konnte nicht angelegt werden";
+                        }
+                    } else
+                    {
+                        $answer['success'] = false;
+                        $answer['errors'] = $this->Account->validationErrors;
+                        $answer['message'] = "Der User konnte nicht angelegt werden";
+                    }
+                    return json_encode($answer);
+                } else {
+                    $this->layout = 'ajax';
                 }
             }
         } else {
