@@ -162,7 +162,7 @@ class AccountsController extends AppController {
     {
         parent::beforeFilter();
         $this->Auth->allow('login');
-        $this->Auth->deny('edit', 'delete', 'index', 'add', 'view');
+        $this->Auth->deny('edit', 'delete', 'index',/* 'add',*/ 'view');
     }
     
     public function login() {
