@@ -20,17 +20,20 @@ class StudioController extends AppController {
  * @return void
  */
 	public function index() {
+        if ($this->Auth->user('role') == 0) {
+            throw new ForbiddenException;
+        }
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
         } else
         {
-		  $this->layout = 'polymer';
+            $this->layout = 'polymer';
         }
 	}
     
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->Auth->allow();
+        $this->Auth->deny('index');
     }
 }
