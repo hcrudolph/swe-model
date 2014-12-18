@@ -32,6 +32,7 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $date['Date']['id'])); ?>
             <?php echo $this->Html->link(__('Sign Up'), array('action' => 'signup', $date['Date']['id'])); ?>
+            <?php echo $this->Html->link(__('Sign Off'), array('action' => 'signoff', $date['Date']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $date['Date']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $date['Date']['id']), array(), __('Are you sure you want to delete # %s?', $date['Date']['id'])); ?>
 		</td>

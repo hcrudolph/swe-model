@@ -147,9 +147,48 @@ class DatesController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
+    /**
+     * signoff method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function signoff($id = null)
+    {
+        if (!$this->Date->exists($id)) {
+            throw new NotFoundException(__('Invalid date'));
+        }
+        $account_id = $this->Auth->user('id');
+        $data = $this->Date->findAllById($id);
+        while ($Acc = current($data[0]['Account'])) {
+            if ($Acc['id'] == $account_id) {
+                $key = key($data[0]['Account']);
+                unset($data[0]['Account'][$key]);
+                $this->Date->saveAll($data);
+                $this->Session->setFlash(__('Signed off successfully'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            next($data[0]['Account']);
+        }
+        /**
+        foreach ($data[0]['Account'] as $Acc) {
+            if ($Acc['id'] == $account_id) {
+                unset($data[0]['Account'][1]);
+                $this->Date->saveAll($data);
+                debug($data);
+                print_r($data);
+                $this->Session->setFlash(__('Signed off successfully'));
+                return $this->redirect(array('action' => 'index'));
+            }
+        }
+         */
+        $this->Session->setFlash(__('You are not signed in for this course'));
+        return $this->redirect(array('action' => 'index'));
+    }
 
-/**
- * delete method
+
+ /** delete method
  *
  * @throws NotFoundException
  * @param string $id
