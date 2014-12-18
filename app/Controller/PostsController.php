@@ -36,7 +36,7 @@ class PostsController extends AppController {
 /**
  * view method
  *
- * @throws NotFoundException
+ * @throws AjaxImplementedException
  * @param string $id
  * @return void
  */
@@ -44,60 +44,63 @@ class PostsController extends AppController {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
+            if (!$this->Post->exists($id)) {
+                throw new NotFoundException(__('Invalid post'));
+            }
+            $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
+            $this->set('post', $this->Post->find('first', $options));
         } else
         {
-            $this->layout = 'polymer';
-        }
-		if (!$this->Post->exists($id)) {
-			throw new NotFoundException(__('Invalid post'));
-		}
-		$options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
-		$this->set('post', $this->Post->find('first', $options));
+            throw new AjaxImplementedException;
+	}
 	}
 
 /**
  * add method
- *
+ * @throws AjaxImplementedException, ForbiddenException
+ * @param String $addId
  * @return void
  */
 	public function add($addId = null) {
         if($this->request->is('ajax'))
         {
-            if($this->request->is('post'))
-            {
-                $this->autoRender = false;
-                $this->layout=null;
-                $this->response->type('json');
-                $answer = array();
-                $this->request->data['account_id'] = $this->Auth->user('id');
-                
-                $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin'])?null:date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
-                $this->request->data['visibleend'] = (empty($this->request->data['visibleend'])?null:date("Y-m-d", strtotime($this->request->data['visibleend'])));
-                
-                if($this->Post->save($this->request->data))
-                {
-                    $answer['inserted'] = true;
-                    $answer['id'] = $this->Post->id;
-                    $answer['message'] = 'Der Eintrag wurde gespeichert';
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            } else {
+                if ($this->request->is('post')) {
+                    $this->autoRender = false;
+                    $this->layout = null;
+                    $this->response->type('json');
+                    $answer = array();
+                    $this->request->data['account_id'] = $this->Auth->user('id');
 
-                } else
-                {
-                    $answer['inserted'] = false;
-                    $answer['message'] = "Der Eintrag konnte nicht hinzugefügt werden";
+                    $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin']) ? null : date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
+                    $this->request->data['visibleend'] = (empty($this->request->data['visibleend']) ? null : date("Y-m-d", strtotime($this->request->data['visibleend'])));
+
+                    if ($this->Post->save($this->request->data)) {
+                        $answer['inserted'] = true;
+                        $answer['id'] = $this->Post->id;
+                        $answer['message'] = 'Der Eintrag wurde gespeichert';
+
+                    } else {
+                        $answer['inserted'] = false;
+                        $answer['message'] = "Der Eintrag konnte nicht hinzugefügt werden";
+                    }
+                    echo json_encode($answer);
+                } else {
+                    $this->layout = 'ajax';
+                    $this->set('addId', $addId);
                 }
-                echo json_encode($answer);
-            } else
-            {
-                $this->layout = 'ajax';
-                $this->set('addId', $addId);
             }
+        } else {
+            throw new AjaxImplementedException;
         }
 	}
 
 /**
  * edit method
  *
- * @throws NotFoundException
+ * @throws AjaxImplementedException, ForbiddenException
  * @param string $id
  * @return void
  */
@@ -105,41 +108,43 @@ class PostsController extends AppController {
         
         if($this->request->is('ajax'))
         {
-            $this->layout = 'ajax';
-            if($this->request->is(array('post', 'put')))
-            {
-                $this->request->data['account_id'] = $this->Auth->user('id');
-                $this->request->data['id'] = $id;
-                $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin'])?null:date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
-                $this->request->data['visibleend'] = (empty($this->request->data['visibleend'])?null:date("Y-m-d", strtotime($this->request->data['visibleend'])));
-                $this->autoRender = false;
-                $this->layout=null;
-                $this->response->type('json');
-                $answer = array();
-                
-                if($this->Post->save($this->request->data))
-                {
-                    $answer['inserted'] = true;
-                    $answer['message'] = 'Der Eintrag wurde gespeichert';
-                } else
-                {
-                    $answer['inserted'] = false;
-                    $answer['message'] = 'Der Eintrag konnte nicht gespeichert werden';
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            } else {
+                $this->layout = 'ajax';
+                if ($this->request->is(array('post', 'put'))) {
+                    $this->request->data['account_id'] = $this->Auth->user('id');
+                    $this->request->data['id'] = $id;
+                    $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin']) ? null : date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
+                    $this->request->data['visibleend'] = (empty($this->request->data['visibleend']) ? null : date("Y-m-d", strtotime($this->request->data['visibleend'])));
+                    $this->autoRender = false;
+                    $this->layout = null;
+                    $this->response->type('json');
+                    $answer = array();
+
+                    if ($this->Post->save($this->request->data)) {
+                        $answer['inserted'] = true;
+                        $answer['message'] = 'Der Eintrag wurde gespeichert';
+                    } else {
+                        $answer['inserted'] = false;
+                        $answer['message'] = 'Der Eintrag konnte nicht gespeichert werden';
+                    }
+                    echo json_encode($answer);
+                } else {
+                    $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
+                    $data = $this->Post->find('first', $options);
+                    $this->set(compact('data'));
                 }
-                echo json_encode($answer);
-            } else
-            {
-                $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
-                $data = $this->Post->find('first', $options);
-                $this->set(compact('data'));
             }
+        } else {
+            throw new AjaxImplementedException;
         }
 	}
 
 /**
  * delete method
  *
- * @throws NotFoundException
+ * @throws AjaxImplementedException, ForbiddenException
  * @param string $id
  * @return void
  */
@@ -147,34 +152,24 @@ class PostsController extends AppController {
         $this->Post->id = $id;
         if($this->request->is('ajax'))
         {
-            $this->autoRender = false;
-            $this->layout=null;
-            $this->response->type('json');
-            $answer = array();
-            if($this->Post->delete())
-            {
-                $answer['success'] = true;
-                $answer['message'] = "Der Eintrag wurde gelöscht";
-            } else
-            {
-                $answer['success'] = false;
-                $answer['message'] = "Der Eintrag konnte nicht gelöscht werden.";
-            }
-            echo json_encode($answer);
-        } else
-        {
-            $this->layout = 'polymer';
-            
-            if (!$this->Post->exists()) {
-                throw new NotFoundException(__('Invalid post'));
-            }
-            //$this->request->allowMethod('post', 'delete');
-            if ($this->Post->delete()) {
-                $this->Session->setFlash(__('The post has been deleted.'));
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
             } else {
-                $this->Session->setFlash(__('The post could not be deleted. Please, try again.'));
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+                if ($this->Post->delete()) {
+                    $answer['success'] = true;
+                    $answer['message'] = "Der Eintrag wurde gelöscht";
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = "Der Eintrag konnte nicht gelöscht werden.";
+                }
+                echo json_encode($answer);
             }
-            return $this->redirect(array('action' => 'index'));
+        } else {
+            throw new AjaxImplementedException;
         }
 	}
     
