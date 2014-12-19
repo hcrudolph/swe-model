@@ -215,7 +215,13 @@ class AccountsController extends AppController {
         $this->Acl->allow($role, 'controllers/posts/view');
         $this->Acl->allow($role, 'controllers/courses/view');
         $this->Acl->allow($role, 'controllers/dates/view');
-        $this->Acl->allow($role, 'controllers/dates/add');
+        $this->Acl->allow($role, 'controllers/dates/signup');
+        $this->Acl->allow($role, 'controllers/dates/signoff');
+        $this->Acl->allow($role, 'controllers/people/view');
+        $this->Acl->allow($role, 'controllers/rooms/view');
+        $this->Acl->allow($role, 'controllers/lists/view/trainer');
+        $this->Acl->allow($role, 'controllers/accountstrainings/view');
+        //$this->Acl->allow($role, 'controllers/studio/view');
     }
     $this->Acl->allow($role, 'controllers/users/logout');
 
