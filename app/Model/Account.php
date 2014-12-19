@@ -135,6 +135,7 @@ class Account extends AppModel {
 		'Person' => array(
 			'className' => 'Person',
 			'foreignKey' => 'account_id',
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
