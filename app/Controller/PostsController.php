@@ -148,8 +148,7 @@ class PostsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {       
-        $this->Post->id = $id;
+	public function delete($id = null) {
         if($this->request->is('ajax'))
         {
             if($this->Auth->user('role') == 0) {
@@ -159,12 +158,17 @@ class PostsController extends AppController {
                 $this->layout = null;
                 $this->response->type('json');
                 $answer = array();
-                if ($this->Post->delete()) {
-                    $answer['success'] = true;
-                    $answer['message'] = "Der Eintrag wurde gelöscht";
+                if ($this->request->is(array('post', 'delete'))) {
+                    $this->Post->id = $id;
+                    if ($this->Post->delete()) {
+                        $answer['success'] = true;
+                        $answer['message'] = "Der Eintrag wurde gelöscht";
+                    } else {
+                        $answer['success'] = false;
+                        $answer['message'] = "Der Eintrag konnte nicht gelöscht werden.";
+                    }
                 } else {
-                    $answer['success'] = false;
-                    $answer['message'] = "Der Eintrag konnte nicht gelöscht werden.";
+                    throw new RequestTypeException;
                 }
                 echo json_encode($answer);
             }
