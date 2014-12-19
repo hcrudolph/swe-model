@@ -191,8 +191,39 @@ class AccountsController extends AppController {
         parent::beforeFilter();
         $this->Auth->allow('login', 'add');
         $this->Auth->deny('edit', 'delete', 'index',/* 'add',*/ 'view');
+        $this->Auth->allow('permissions');
+        //$this->Auth->allow('index', 'view');
     }
-    
+
+
+    public function permissions()
+    {
+    $role = $this->Account->role;
+
+    // Admin Allow everything
+    if ($role = 2) {
+        $this->Acl->allow($role, 'controllers');
+    }
+    // Trainer Permissions
+    if ($role = 1) {
+        $this->Acl->allow($role, 'controllers');
+    }
+
+    // Member Permissions
+    if ($role = 0) {
+        $this->Acl->deny($role, 'controllers');
+        $this->Acl->allow($role, 'controllers/posts/view');
+        $this->Acl->allow($role, 'controllers/courses/view');
+        $this->Acl->allow($role, 'controllers/dates/view');
+        $this->Acl->allow($role, 'controllers/dates/add');
+    }
+    $this->Acl->allow($role, 'controllers/users/logout');
+
+    echo "all done";
+    exit;
+    }
+
+
     public function login() {
         if($this->request->is('ajax'))
         {
