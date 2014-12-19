@@ -80,8 +80,8 @@
         echo $this->Html->css('fullcalendar.print', array('media' => 'print'));
     ?>
     <!--Fullcalendar-data start-->
-    
-    <!--JQuery-Setup: Grundlegende Einstellungen-->
+
+    <!--JQuery-Setup: grundlegende Einstellungen-->
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
         $(function () {
             //setup ajax error handling
@@ -89,9 +89,11 @@
                 error: function (x, status, error) {
                     if (x.status === 403) {
                         notificateUser('Sie dürfen diese Aktion nicht ausführen');
+                    } else if(x.status === 501) {
+                        notificateUser('Für diese Aktion existiert keine Implementierung');
                     }
                     else {
-                        alert("Fehler: " + status + "nError: " + error);
+                        notificateUser("Fehler: " + status + "nError: " + error);
                     }
                 }
             });

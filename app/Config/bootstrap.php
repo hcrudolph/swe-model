@@ -28,6 +28,9 @@ Cache::config('default', array('engine' => 'File'));
 //Import AjaxImplementedException
 require(APP . 'Lib' . DS . 'AjaxImplementedException.php');
 
+//Import RequestTypeException
+require(APP . 'Lib' . DS . 'RequestTypeException.php');
+
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
