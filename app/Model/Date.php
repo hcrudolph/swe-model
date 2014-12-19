@@ -61,9 +61,10 @@ class Date extends AppModel {
 		'presetup' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'message' => 'Your custom message postsetup',
+				'allowEmpty' => true,
+				'required' => false,
+                'bothDatesGiven' => 'bothDatesGiven',
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -71,14 +72,21 @@ class Date extends AppModel {
 		'postsetup' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'message' => 'Your custom message presetup',
+                'allowEmpty' => true,
+                'required' => false,
+                'bothDatesGiven' => 'bothDatesGiven',
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);
+
+    function bothDatesGiven(&$data){
+        $presetup = $data['presetup'];
+        $postsetup = $data['postsetup'];
+        return (($presetup == NULL &&  $postsetup == NULL) || ($presetup != NULL &&  $postsetup != NULL));
+    }
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
