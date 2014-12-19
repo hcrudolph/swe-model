@@ -21,7 +21,7 @@
 <?php
 echo $this->Html->scriptStart(array('inline' => true));
 ?>
-$('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/index/"?>');
+$('#studioTabPageAccount').load('<?php echo $this->webroot."Users/listing/"?>');
 
 var paperTabs = document.querySelector('#studioTabs');
 var corePages = document.querySelector('#studioTabsPages');
@@ -30,7 +30,7 @@ paperTabs.addEventListener('core-select', function(e) {
       if (e.detail.isSelected) {
         switch(paperTabs.selected)
         {
-            case 0: $('#studioTabPageAccount').load('<?php echo $this->webroot."Accounts/index/"?>'); break;
+            case 0: $('#studioTabPageAccount').load('<?php echo $this->webroot."Users/listing/"?>'); break;
             case 1: $('#studioTabPageKurse').load('<?php echo $this->webroot."Courses/index/"?>'); break;
             case 2: $('#studioTabPageTarife').load('<?php echo $this->webroot."Tariffs/index/"?>'); break;
             case 3: $('#studioTabPageZertifikate').load('<?php echo $this->webroot."Certificates/index/"?>'); break;
