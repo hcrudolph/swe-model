@@ -103,31 +103,32 @@ class DatesController extends AppController {
      * @return void
      */
     public function signup($id = null) {
+        $this->Date->id = $id;
         if (!$this->Date->exists($id)) {
             throw new NotFoundException(__('Invalid date'));
         }
         $account_id = $this->Auth->user('id');
         $data = $this->Date->findAllById($id);
         $exists = false;
-
+        // Check if User is already signed up
         foreach($data[0]['Account'] as $Acc){
             if($Acc['id'] == $account_id){
                 $exists = true;
             }
         }
-
+        // Check if maxcount of course is already reached
         if(count($data[0]['Account']) == $this->Date->Course->field('maxcount')){
             $this->Session->setFlash(__('The course limit was already reached.'));
             return $this->redirect(array('action' => 'index'));
-        } else
-        if($exists) {
+        } else if($exists) {
             $this->Session->setFlash(__('You are already signed up for this course.'));
             return $this->redirect(array('action' => 'index'));
         }
 
+        // Create new HABTM data record
         $this->Date->create();
         $newdata = array(
-            'password' => '*****',
+            'password' => '',
             'id' => $account_id,
             'username' => $this->Auth->user('username'),
             'role' => $this->Auth->user('role'),
@@ -137,6 +138,7 @@ class DatesController extends AppController {
                 'account_id' => $account_id
             )
         );
+        // add new HABTM data record
         array_push($data[0]['Account'], $newdata);
 
         if($this->Date->saveAll($data)){
@@ -154,36 +156,31 @@ class DatesController extends AppController {
      * @param string $id
      * @return void
      */
-    public function signoff($id = null)
-    {
+    public function signoff($id = null){
+        $this->Date->id = $id;
         if (!$this->Date->exists($id)) {
             throw new NotFoundException(__('Invalid date'));
         }
         $account_id = $this->Auth->user('id');
         $data = $this->Date->findAllById($id);
+
+        //Check if User is signed up for this course
         while ($Acc = current($data[0]['Account'])) {
             if ($Acc['id'] == $account_id) {
                 $key = key($data[0]['Account']);
                 unset($data[0]['Account'][$key]);
+                /**
+                 * Debugging:
+                 * debug($data);
+                 * print_r($data);
+                 */
                 $this->Date->saveAll($data);
                 $this->Session->setFlash(__('Signed off successfully'));
                 return $this->redirect(array('action' => 'index'));
             }
             next($data[0]['Account']);
         }
-        /**
-        foreach ($data[0]['Account'] as $Acc) {
-            if ($Acc['id'] == $account_id) {
-                unset($data[0]['Account'][1]);
-                $this->Date->saveAll($data);
-                debug($data);
-                print_r($data);
-                $this->Session->setFlash(__('Signed off successfully'));
-                return $this->redirect(array('action' => 'index'));
-            }
-        }
-         */
-        $this->Session->setFlash(__('You are not signed in for this course'));
+        $this->Session->setFlash(__('You are currently not signed up for this course'));
         return $this->redirect(array('action' => 'index'));
     }
 
