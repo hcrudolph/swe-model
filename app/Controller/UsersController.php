@@ -38,6 +38,28 @@ class UsersController extends AppController
     }
 
     /**
+     * listing method
+     *
+     * @throws ForbiddenException, AjaxImplementedException
+     * @return void
+     */
+    public function listing()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if ($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            #Sortierung? Anzeige des Templates
+            //$conditions = array('Account.id', $id);
+            $users = $this->Account->find('all'/*, array('conditions' => $conditions)*/);
+            $this->set(compact('users'));
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
+    /**
      * view method
      *
      * @throws ForbiddenException, AjaxImplementedException
@@ -87,7 +109,7 @@ class UsersController extends AppController
                     $CreatorRole = $this->Auth->User('role');
                     $UserRole = $this->request->data->Account->role;
 
-                    if((($CreatorRole == 2 AND $UserRole != 0) OR ($CreatorRole == 1 AND $UserRole == 0)) AND $this->Account->save())
+                    if((($CreatorRole == 2 AND $UserRole >= 0) OR ($CreatorRole == 1 AND $UserRole == 0)) AND $this->Account->save())
                     {
                         if($this->Person->save()) {
                             $answer['success'] = true;
@@ -106,7 +128,7 @@ class UsersController extends AppController
                         $answer['errors'] = $this->Account->validationErrors;
                         $answer['message'] = "Der User konnte nicht angelegt werden";
                     }
-                    return json_encode($answer);
+                    echo json_encode($answer);
                 } else {
                     $this->layout = 'ajax';
                 }
@@ -155,8 +177,25 @@ class UsersController extends AppController
             if ($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
-                if ($this->request->is(array('post', 'put'))) {
-                    //Löschen des Users
+                if ($this->request->is(array('post', 'delete'))) {
+                    $this->autoRender = false;
+                    $this->layout = null;
+                    $this->response->type('json');
+                    $answer = array();
+                    //Löschen des Users über alle verknüpften Models
+                    if(!is_null($id) AND $this->Account->delete($id, true))
+                    {
+                        $answer['success'] = true;
+                        $answer['message'] = "Der Account und alle zugehörigen Daten wurden gelöscht";
+                    } else
+                    {
+                        $answer['success'] = false;
+                        $answer['message'] = "Der Account und alle zugehörigen Daten konnten nicht gelöscht werden";
+                    }
+                    echo json_encode($answer);
+                } else
+                {
+                    throw new RequestTypeException;
                 }
             }
         } else {

@@ -3,7 +3,7 @@
     <input type="password" class="form-control" name="data[Account][password]" placeholder="Password">
 
     <select name="data[Account][role]" class="selectpicker">
-        <option value="0">Mitglied</option>
+        <option value="0" selected="selected">Mitglied</option>
         <?php
         if($user('role')>0){
             echo '<option value="1">Mitarbeiter</option>';
