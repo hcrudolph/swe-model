@@ -99,6 +99,12 @@ class Account extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+			'passwordRepeat' => array(
+				'compare'    => array(
+					'rule'      => array('comparePasswords'),
+					'message' => 'Die Passwörter stimmen nicht überein',
+				)
+			)
 		),
 		'role' => array(
 			'notEmpty' => array(
@@ -124,6 +130,14 @@ class Account extends AppModel {
         )
 	);
 
+
+	public function comparePasswords()
+	{
+		return $this->data[$this->alias]['password'] === $this->data[$this->alias]['passwordRepeat'];
+	}
+
+
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
@@ -135,7 +149,7 @@ class Account extends AppModel {
 		'Person' => array(
 			'className' => 'Person',
 			'foreignKey' => 'account_id',
-			'dependent' => true,
+
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
