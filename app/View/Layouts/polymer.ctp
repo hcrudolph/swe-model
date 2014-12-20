@@ -53,6 +53,7 @@
     <!--Datepicker-data start -->
     <?php
     echo $this->Html->script('datepicker/bootstrap-datepicker');
+    echo $this->Html->script('datepicker/locales/bootstrap-datepicker.de');
     echo $this->Html->css('datepicker3');
     ?>
     <!--Datepicker-data end -->
