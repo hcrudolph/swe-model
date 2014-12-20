@@ -10,7 +10,7 @@
             echo '<div onclick="userInformationToggle('.$accId.')">';
                 echo h($account['username']);
             echo '</div>';
-            echo '<button type="button" class="btn btn-default" onclick="userEdit('.$accId.')"><i class="glyphicon glyphicon-pencil"></i>Edit</button>';
+            echo '<button type="button" class="btn btn-default" onclick="userEdit('.$accId.')"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>';
             echo '<button type="button" class="btn btn-default" onclick="userInformation('.$accId.')"><i class="glyphicon glyphicon-info-sign"></i>Informationen</button>';
             echo '<button type="button" class="btn btn-default" onclick="userDelete('.$accId.')"><i class="glyphicon glyphicon-trash"></i>Löschen</button>';
             echo '<div id="userEntryInformation'.$accId.'" style="display:none;"></div>';
