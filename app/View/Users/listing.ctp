@@ -1,3 +1,8 @@
+<div>
+    <?php
+    echo '<button type="button" class="btn btn-default" onclick="userAdd()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>';
+    ?>
+</div>
 <div id="userEntries">
     <?php
     foreach($usersListing as $userListing)
@@ -29,6 +34,12 @@ function userEdit(accId)
 {
     $('#userEntryInformation'+accId).load('<?php echo $this->webroot."users/edit/"?>'+accId);
     $('#userEntryInformation'+accId).show();
+}
+
+function userAdd()
+{
+    $('#userEntryInformation').load('<?php echo $this->webroot."users/add/"?>');
+    $('#userEntryInformation').show();
 }
 
 function userInformation(accId)
