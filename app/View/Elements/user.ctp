@@ -1,9 +1,10 @@
 <?php
 echo "============================<br>";
-echo var_dump($user);
+$account = $userData['Account'];
+$person = $userData['Person'];
 
-$account = $user;
-$person = $user['Person'];
+echo var_dump($account).'<br>';
+echo var_dump($person).'<br>';
 
 echo "============================<br>";
 ?>

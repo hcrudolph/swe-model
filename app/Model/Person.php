@@ -186,10 +186,7 @@ class Person extends AppModel {
 	public $belongsTo = array(
 		'Account' => array(
 			'className' => 'Account',
-			'foreignKey' => 'account_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
+			'foreignKey' => 'account_id'
 		)
 	);
 }

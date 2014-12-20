@@ -1,10 +1,10 @@
 <div id="userEntries">
     <?php
-    foreach($users as $user)
+    foreach($usersListing as $userListing)
     {
-        $account = $user['Account'];
-        $person = $user['Person'];
-        $accId = $user['Account']['id'];
+        $account = $userListing['Account'];
+        $person = $userListing['Person'];
+        $accId = $account['id'];
 
         echo '<div id="userEntry'.$accId.'">';
             echo '<div onclick="userInformationToggle('.$accId.')">';

@@ -1,28 +1,18 @@
 <?php
-echo var_dump($user);
-$account = $user;
-unset($account['Person']);
-$person = $user['Person'];
+$account = $userResult['Account'];
+$person = $userResult['Person'];
 $accId = $account['id'];
 ?>
 
-
-
 <form id="userEditForm<?php echo $accId; ?>">
     <input type="input" class="form-control" name="data[Account][username]" value="<?php echo $account['username']; ?>" placeholder="Username">
-    <input type="password" class="form-control" name="data[Account][password][0]" placeholder="Passwort">
-    <input type="password" class="form-control" name="data[Account][password][0]" placeholder="Passwort wiederholen">
+    <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
+    <input type="password" class="form-control" name="data[Account][passwordRepeat]" placeholder="Passwort wiederholen">
 
-    <select name="data[Account][role]" class="selectpicker">
-        <option value="0" selected="selected">Mitglied</option>
-        <?php
-        if($account['role'] > 0) {
-            echo '<option value="1">Mitarbeiter</option>';
-        }
-        if($account['role'] == 2) {
-            echo '<option value="2">Administrator</option>';
-        }
-        ?>
+    <select name="data[Account][role]" class="form-control">
+        <option value="0" <?php echo (($account['role']==0)?'selected="selected"':'');?>>Mitglied</option>
+        <option value="1" <?php echo (($account['role']==1)?'selected="selected"':'');?>>Mitarbeiter</option>
+        <option value="2" <?php echo (($account['role']==2)?'selected="selected"':'');?>>Administrator</option>
     </select>
 
 
@@ -52,8 +42,7 @@ $accId = $account['id'];
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 
 $(function(){
-    $('.selectpicker').selectpicker();
-    $('input[name="data[Person][birthdate]"]').datepicker({
+    $('input[name="data[Person][birthday]"]').datepicker({
         format: 'dd.mm.yyyy',
         language: "de"
     });
@@ -61,15 +50,15 @@ $(function(){
 $(document).ready(function() {
     $('#userEditForm<?php echo $accId; ?>').submit(function(event)
     {
-    $.post('<?php echo $this->webroot;?>users/edit', $('#userEditForm<?php echo $accId; ?>').serialize(), function(json) {
-    if(json.success == true)
-    {
-    notifyUser(json.message, 'success');
-    } else {
-    alert(json.errors);
-    notifyUser(json.message);
-    //auswerten der Errors;
-    }
+    $.post('<?php echo $this->webroot;?>users/edit/<?php echo $accId; ?>', $('#userEditForm<?php echo $accId; ?>').serialize(), function(json) {
+        if(json.success == true)
+        {
+            notificateUser(json.message, 'success');
+        } else {
+            //alert(json.errors);
+            notificateUser(json.message);
+            //auswerten der Errors;
+        }
     }, 'json');
     event.preventDefault();
     });

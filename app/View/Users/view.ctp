@@ -1,3 +1,3 @@
 <?php
-echo $this->element('user', array('user' => $user));
+echo $this->element('user', array('userData' => $userResult));
 ?>

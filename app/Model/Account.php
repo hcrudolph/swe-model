@@ -150,10 +150,7 @@ class Account extends AppModel {
 		'Person' => array(
 			'className' => 'Person',
 			'foreignKey' => 'account_id',
-
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
+			'dependent' => true
 		)
 	);
 

@@ -29,8 +29,7 @@ class UsersController extends AppController
                 throw new ForbiddenException;
             }
             #Sortierung? Anzeige des Templates
-            //$conditions = array('Account.id', $id);
-            $users = $this->Account->find('all'/*, array('conditions' => $conditions)*/);
+            $users = $this->Account->find('all');
             $this->set(compact('users'));
         } else {
             throw new AjaxImplementedException;
@@ -51,9 +50,8 @@ class UsersController extends AppController
                 throw new ForbiddenException;
             }
             #Sortierung? Anzeige des Templates
-            //$conditions = array('Account.id', $id);
-            $users = $this->Account->find('all'/*, array('conditions' => $conditions)*/);
-            $this->set(compact('users'));
+            $usersListing = $this->Account->find('all');
+            $this->set(compact('usersListing'));
         } else {
             throw new AjaxImplementedException;
         }
@@ -78,9 +76,9 @@ class UsersController extends AppController
                 }
             }
             #Anzeige eines einzelnen Users
-            $conditions = array('Account.id', $id);
-            $user = $this->Account->find('first', array('conditions' => $conditions));
-            $this->set(compact('user'));
+            $conditions = array('Account.id' => $id);
+            $userResult = $this->Account->find('first', array('conditions' => $conditions));
+            $this->set(compact('userResult'));
         } else {
             throw new AjaxImplementedException;
         }
@@ -154,7 +152,32 @@ class UsersController extends AppController
                     //Mitglied will einen anderen User Speichern
                     throw new ForbiddenException;
                 }
-                #Speichern des Users
+                if (is_null($id)) {
+                    $this->request->data['Account']['id'] = $this->Auth->user('id');
+                    //$this->request->data['Person']['account_id'] = $this->Auth->user('id');
+                } else
+                {
+                    $this->request->data['Account']['id'] = $id;
+                    //$this->request->data['Person']['account_id'] = $id;
+                }
+
+                $this->request->data['Person']['birthdate'] = date("Y-m-d", strtotime($this->request->data['Person']['birthdate']));
+
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+                if($this->Account->saveAssociated($this->request->data))
+                {
+                    $answer['success'] = true;
+                    $answer['message'] = "User erfolgreich bearbeitet";
+                } else
+                {
+                    $answer['success'] = false;
+                    $answer['message'] = "User konnte nicht bearbeitet werden";
+                    $answer['errors'] = $this->validationErrors;
+                }
+                echo json_encode($answer);
             } else {
                 if (is_null($id)) {
                     $id = $this->Auth->user('id');
@@ -163,9 +186,9 @@ class UsersController extends AppController
                         throw new ForbiddenException;
                     }
                 }
-                $conditions = array('Account.id', $id);
-                $user = $this->Account->find('first', array('conditions' => $conditions));
-                $this->set(compact('user'));
+                $conditions = array('Account.id' => $id);
+                $userResult = $this->Account->find('first', array('conditions' => $conditions));
+                $this->set(compact('userResult'));
             }
         } else {
             throw new AjaxImplementedException;

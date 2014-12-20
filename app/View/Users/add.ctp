@@ -2,13 +2,15 @@
     <input type="input" class="form-control" name="data[Account][username]" placeholder="Username">
     <input type="password" class="form-control" name="data[Account][password]" placeholder="Password">
 
-    <select name="data[Account][role]" class="selectpicker">
+    <select name="data[Account][role]" class="form-control">
         <option value="0" selected="selected">Mitglied</option>
         <?php
-        if($user('role') > 0)
+        if($user['role'] > 0) {
             echo '<option value="1">Mitarbeiter</option>';
-        if($user('role') == 2)
+        }
+        if($user['role'] == 2) {
             echo '<option value="2">Administrator</option>';
+        }
         ?>
     </select>
 
@@ -35,7 +37,6 @@
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 $(document).ready(function() {
-    $('.selectpicker').selectpicker();
     $('input[name="data[Person][birthdate]"]').datepicker({
         format: 'dd.mm.yyyy',
         language: "de"
