@@ -163,7 +163,9 @@ class UsersController extends AppController
                         throw new ForbiddenException;
                     }
                 }
-                #Anzeige des Templates
+                $conditions = array('Account.id', $id);
+                $user = $this->Account->find('first', array('conditions' => $conditions));
+                $this->set(compact('user'));
             }
         } else {
             throw new AjaxImplementedException;
