@@ -97,14 +97,15 @@ class Account extends AppModel {
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'passwordRepeat' => array(
-				'compare'    => array(
-					'rule'      => array('comparePasswords'),
-					'message' => 'Die Passwörter stimmen nicht überein',
-				)
+				'on' => 'create', // Limit validation to 'create' or 'update' operations
 			)
+		),
+		'passwordRepeat' => array(
+			'compare'    => array(
+				'rule'      => array('comparePasswords'),
+				'message' => 'Die Passwörter stimmen nicht überein',
+			)
+
 		),
 		'role' => array(
 			'notEmpty' => array(
