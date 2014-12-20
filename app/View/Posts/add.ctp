@@ -39,8 +39,9 @@
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 $(function(){
-   $('#postAddDatepicker<?php echo $addId;?>').datepicker({
-      format: 'dd.mm.yyyy'
+    $('#postAddDatepicker<?php echo $addId;?>').datepicker({
+        format: 'dd.mm.yyyy',
+        language: 'de'
     });
 });
 

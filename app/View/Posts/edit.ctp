@@ -41,7 +41,8 @@ $visibleEnd = (is_null($data['Post']['visibleend'])?'':'value="'.date("d.m.Y", s
 
 $(function(){
    $('#postEditDatepicker<?php echo $postId;?>').datepicker({
-      format: 'dd.mm.yyyy'
+      format: 'dd.mm.yyyy',
+      language: "de"
     });
 });
 
