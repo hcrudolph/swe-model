@@ -1,27 +1,25 @@
-<div>
-    <?php
-    echo '<button type="button" class="btn btn-default" onclick="userAdd()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>';
-    ?>
-</div>
-<div id="userEntries">
-    <?php
-    foreach($usersListing as $userListing)
-    {
-        $account = $userListing['Account'];
-        $person = $userListing['Person'];
-        $accId = $account['id'];
+<div id="userListing">
+    <button type="button" class="btn btn-default" onclick="userAdd()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+    <div id="userEntries">
+        <?php
+        foreach($usersListing as $userListing)
+        {
+            $account = $userListing['Account'];
+            $person = $userListing['Person'];
+            $accId = $account['id'];
 
-        echo '<div id="userEntry'.$accId.'">';
-            echo '<div onclick="userInformationToggle('.$accId.')">';
-                echo h($account['username']);
-            echo '</div>';
-            echo '<button type="button" class="btn btn-default" onclick="userEdit('.$accId.')"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>';
-            echo '<button type="button" class="btn btn-default" onclick="userInformation('.$accId.')"><i class="glyphicon glyphicon-info-sign"></i>Informationen</button>';
-            echo '<button type="button" class="btn btn-default" onclick="userDelete('.$accId.')"><i class="glyphicon glyphicon-trash"></i>Löschen</button>';
-            echo '<div id="userEntryInformation'.$accId.'" style="display:none;"></div>';
-        echo "</div>";
-    }
-    ?>
+            echo '<div id="userEntry'.$accId.'">';
+                echo '<div onclick="userInformationToggle('.$accId.')">';
+                    echo h($account['username']);
+                echo '</div>';
+                echo '<button type="button" class="btn btn-default" onclick="userEdit('.$accId.')"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>';
+                echo '<button type="button" class="btn btn-default" onclick="userInformation('.$accId.')"><i class="glyphicon glyphicon-info-sign"></i>Informationen</button>';
+                echo '<button type="button" class="btn btn-default" onclick="userDelete('.$accId.')"><i class="glyphicon glyphicon-trash"></i>Löschen</button>';
+                echo '<div id="userEntryInformation'.$accId.'" style="display:none;"></div>';
+            echo "</div>";
+        }
+        ?>
+    </div>
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
@@ -38,7 +36,7 @@ function userEdit(accId)
 
 function userAdd()
 {
-    if($('#userAddForm').length > 0)
+    if($('#userAddForm').length == 0)
     {
         $.get('<?php echo $this->webroot."users/add/";?>', function( data ) {
             $('#userEntries').before(data);
