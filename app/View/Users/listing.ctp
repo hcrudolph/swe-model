@@ -1,5 +1,6 @@
 <div id="userListing">
-    <button type="button" class="btn btn-default" onclick="userAdd()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="userAddOpen()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+    <button type="button" id="userAddCloseButton" class="btn btn-default" onclick="userAddClose()" style="display:none;"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
     <div id="userEntries">
         <?php
         foreach($usersListing as $userListing)
@@ -34,14 +35,24 @@ function userEdit(accId)
     $('#userEntryInformation'+accId).show();
 }
 
-function userAdd()
+function userAddOpen()
 {
     if($('#userAddForm').length == 0)
     {
         $.get('<?php echo $this->webroot."users/add/";?>', function( data ) {
             $('#userEntries').before(data);
         });
+    $('#userAddOpenButton').toggle();
+    $('#userAddCloseButton').toggle();
     }
+
+}
+
+function userAddClose()
+{
+    $('#userAddForm').remove();
+    $('#userAddOpenButton').toggle();
+    $('#userAddCloseButton').toggle();
 }
 
 function userInformation(accId)
