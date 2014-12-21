@@ -154,12 +154,16 @@ class UsersController extends AppController
                 }
                 if (is_null($id)) {
                     $this->request->data['Account']['id'] = $this->Auth->user('id');
-                    //$this->request->data['Person']['account_id'] = $this->Auth->user('id');
                 } else
                 {
                     $this->request->data['Account']['id'] = $id;
-                    //$this->request->data['Person']['account_id'] = $id;
                 }
+
+                //related Model needs id
+                $conditions = array('Person.account_id' => $this->request->data['Account']['id']);
+                $fields = array('Person.id');
+                $relatedEntry = $this->Person->find('first', array('conditions' => $conditions, 'fields' => $fields));
+                $this->request->data['Person']['id'] = $relatedEntry['Person']['id'];
 
                 $this->request->data['Person']['birthdate'] = date("Y-m-d", strtotime($this->request->data['Person']['birthdate']));
 
@@ -167,7 +171,7 @@ class UsersController extends AppController
                 $this->layout = null;
                 $this->response->type('json');
                 $answer = array();
-                if($this->Account->saveAssociated($this->request->data))
+                if($this->Account->saveAssociated($this->request->data, array('validate' => 'first', 'deep' => true)))
                 {
                     $answer['success'] = true;
                     $answer['message'] = "User erfolgreich bearbeitet";
@@ -175,7 +179,7 @@ class UsersController extends AppController
                 {
                     $answer['success'] = false;
                     $answer['message'] = "User konnte nicht bearbeitet werden";
-                    $answer['errors'] = $this->validationErrors;
+                    $answer['errors'] = $this->Account->validationErrors;
                 }
                 echo json_encode($answer);
             } else {

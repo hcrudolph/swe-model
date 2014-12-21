@@ -121,7 +121,7 @@ class Person extends AppModel {
 		'street' => array(
 			'alphaNumeric' => array(
 				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Lediglich alphanumerische Zeichen erlaubt',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -186,7 +186,8 @@ class Person extends AppModel {
 	public $belongsTo = array(
 		'Account' => array(
 			'className' => 'Account',
-			'foreignKey' => 'account_id'
+			'foreignKey' => 'account_id',
+			'dependent' => true
 		)
 	);
 }

@@ -14,6 +14,7 @@
         ?>
     </select>
 
+    <input type="input" class="form-control" name="data[Person][email]" placeholder="Email">
     <input type="input" class="form-control" name="data[Person][name]" placeholder="Nachname">
     <input type="input" class="form-control" name="data[Person][surname]" placeholder="Vorname">
     <input type="input" class="form-control" name="data[Person][phone]" placeholder="Telefon/Handy">

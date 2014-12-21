@@ -15,7 +15,7 @@ $accId = $account['id'];
         <option value="2" <?php echo (($account['role']==2)?'selected="selected"':'');?>>Administrator</option>
     </select>
 
-
+    <input type="input" class="form-control" name="data[Person][email]" value="<?php echo $person['email']; ?>" placeholder="Email">
     <input type="input" class="form-control" name="data[Person][name]" value="<?php echo $person['name']; ?>" placeholder="Nachname">
     <input type="input" class="form-control" name="data[Person][surname]" value="<?php echo $person['surname']; ?>" placeholder="Vorname">
     <input type="input" class="form-control" name="data[Person][phone]" value="<?php echo $person['phone']; ?>" placeholder="Telefon/Handy">
