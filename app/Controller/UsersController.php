@@ -105,26 +105,24 @@ class UsersController extends AppController
                     $answer = array();
 
                     $CreatorRole = $this->Auth->User('role');
-                    $UserRole = $this->request->data->Account->role;
+                    $UserRole = $this->request->data['Account']['role'];
 
-                    if((($CreatorRole == 2 AND $UserRole >= 0) OR ($CreatorRole == 1 AND $UserRole == 0)) AND $this->Account->save())
+                    $this->request->data['Person']['birthdate'] = date("Y-m-d", strtotime($this->request->data['Person']['birthdate']));
+
+                    if((($CreatorRole == 2 AND $UserRole >= 0) OR ($CreatorRole == 1 AND $UserRole == 0)) AND $this->Account->saveAssociated($this->request->data, array('validate' => 'first', 'deep' => true)))
                     {
-                        if($this->Person->save()) {
-                            $answer['success'] = true;
-                            $answer['id'] = $this->Account->id;
-                            $answer['message'] = "Der User wurde angelegt";
-                        } else{
-                            //Damit beim erneuten Ajax-Senden keine Reste des Accounts existieren
-                            $this->Account->delete();
-                            $answer['success'] = false;
-                            $answer['errors'] = $this->Person->validationErrors;
-                            $answer['message'] = "Der User konnte nicht angelegt werden";
-                        }
-                    } else
-                    {
+                        $answer['success'] = true;
+                        $answer['id'] = $this->Account->id;
+                        $answer['message'] = "Der User wurde angelegt";
+                    } else{
+
                         $answer['success'] = false;
-                        $answer['errors'] = $this->Account->validationErrors;
                         $answer['message'] = "Der User konnte nicht angelegt werden";
+                        $answer['errors'] = $this->Account->validationErrors;
+                        if(!empty($answer['errors']['Account']['Person'])) {
+                            $answer['errors']['Person'] = $answer['errors']['Account']['Person'];
+                            unset($answer['errors']['Account']['Person']);
+                        }
                     }
                     echo json_encode($answer);
                 } else {
@@ -182,7 +180,7 @@ class UsersController extends AppController
                     $answer['errors']['Account'] = $this->Account->validationErrors;
                     if(!empty($answer['errors']['Account']['Person'])) {
                         $answer['errors']['Person'] = $answer['errors']['Account']['Person'];
-                        unset($answer['errors']['account']['Person']);
+                        unset($answer['errors']['Account']['Person']);
                     }
                 }
                 echo json_encode($answer);

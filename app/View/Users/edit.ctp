@@ -3,16 +3,6 @@ $account = $userResult['Account'];
 $person = $userResult['Person'];
 $accId = $account['id'];
 ?>
-
-<!--<div class="control-group error">
-        <label class="control-label" for="inputError">Input with error</label>
-        <div class="controls">
-            <input type="text" id="inputError">
-            <span class="help-inline">Please correct the error</span>
-        </div>
-    </div>-->
-
-
 <form id="userEditForm<?php echo $accId; ?>">
     <div class="control-group Account">
         <div class="username">
@@ -86,12 +76,14 @@ $(function(){
     });
 });
 $(document).ready(function() {
-    $('#userEditForm<?php echo $accId; ?>').submit(function(event)
-    {
+    $('#userEditForm<?php echo $accId; ?>').submit(function(event) {
     $.post('<?php echo $this->webroot;?>users/edit/<?php echo $accId; ?>', $('#userEditForm<?php echo $accId; ?>').serialize(), function(json) {
         if(json.success == true)
         {
             notificateUser(json.message, 'success');
+            $.get('<?php echo $this->webroot;?>users/view/<?php echo $accId; ?>', function(view) {
+                $('#userEditForm<?php echo $accId; ?>').replaceWith(view);
+            });
         } else {
             notificateUser(json.message);
 
