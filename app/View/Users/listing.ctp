@@ -38,8 +38,12 @@ function userEdit(accId)
 
 function userAdd()
 {
-    $('#userEntryInformation').load('<?php echo $this->webroot."users/add/"?>');
-    $('#userEntryInformation').show();
+    if($('#userAddForm').length > 0)
+    {
+        $.get('<?php echo $this->webroot."users/add/";?>', function( data ) {
+            $('#userEntries').before(data);
+        });
+    }
 }
 
 function userInformation(accId)

@@ -179,7 +179,11 @@ class UsersController extends AppController
                 {
                     $answer['success'] = false;
                     $answer['message'] = "User konnte nicht bearbeitet werden";
-                    $answer['errors'] = $this->Account->validationErrors;
+                    $answer['errors']['Account'] = $this->Account->validationErrors;
+                    if(!empty($answer['errors']['Account']['Person'])) {
+                        $answer['errors']['Person'] = $answer['errors']['Account']['Person'];
+                        unset($answer['errors']['account']['Person']);
+                    }
                 }
                 echo json_encode($answer);
             } else {
