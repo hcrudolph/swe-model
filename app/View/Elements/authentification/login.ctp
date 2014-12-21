@@ -5,8 +5,7 @@
 </form>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
     $(document).ready(function() {
-        $('#loginForm').submit(function(event)
-        {
+        $('#loginForm').submit(function(event) {
             $.post('<?php echo $this->webroot;?>accounts/login', $('#loginForm').serialize(), function(json) {
                 if(json.login == true)
                 {
@@ -20,7 +19,7 @@
                     notificateUser(json.message);
                 }
             }, 'json');
-            event.preventDefault();
+        event.preventDefault();
         });
     });
 <?php echo $this->Html->scriptEnd(); ?>

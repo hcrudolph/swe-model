@@ -1,5 +1,5 @@
 <?php echo $user['Person']['name']; ?>
-<paper-button raised id="logoutButton" onclick="logoutSubmit()">Logout</paper-button>
+<button type="button" class="btn btn-default" id="logoutButton" onclick="logoutSubmit()">Logout</button>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
     function logoutSubmit()
