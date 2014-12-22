@@ -31,6 +31,6 @@ $('#usersTabbar > .nav-tabs a').click(function (e) {
 
 // Content für angezeigten Tab
 $('#usersTabbar > .tab-content > #usersGeneral').load('<?php echo $this->webroot; ?>Users/view',function(result){
-    $('.active a').tab('show');
+    $('#usersTabbar > .active a').tab('show');
 });
 <?php echo $this->Html->scriptEnd(); ?>

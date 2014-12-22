@@ -29,6 +29,6 @@ $('#listsTabbar > .nav-tabs a').click(function (e) {
 
 // Content für angezeigten Tab
 $('#listsTabbar > .tab-content > #studioTrainer').load('<?php echo $this->webroot;?>Lists/trainer/',function(result){
-    $('.active a').tab('show');
+    $('#listsTabbar > .active a').tab('show');
 });
 <?php echo $this->Html->scriptEnd(); ?>

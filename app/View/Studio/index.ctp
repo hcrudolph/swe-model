@@ -35,6 +35,6 @@ $('#studioTabbar > .nav-tabs a').click(function (e) {
 
 // Content für angezeigten Tab
 $('#studioTabbar > .tab-content > #studioAccounts').load('<?php echo $this->webroot; ?>Users/listing',function(result){
-    $('.active a').tab('show');
+    $('#studioTabbar > .active a').tab('show');
 });
 <?php echo $this->Html->scriptEnd(); ?>
