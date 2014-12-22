@@ -53,10 +53,5 @@ class AppController extends Controller {
     public function beforeRender(){
         $this->set('user', $this->Auth->user());
     }
-/**
-    public function beforeSave() {
-        $this->data[$this->alias] = Hash::filter($this->data[$this->alias]);
-    }
- * /
 }
 
