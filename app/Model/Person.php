@@ -23,8 +23,6 @@ class Person extends AppModel {
 
 	public function beforeSave($options = array())
 	{
-		$this->data[$this->alias] = Hash::filter($this->data[$this->alias]);
-
 		if (!empty($this->data[$this->alias]['birthdate'])) {
 			$this->data[$this->alias]['birthdate'] = $this->dateFormatBeforeSave($this->data[$this->alias]['birthdate']);
 		}
