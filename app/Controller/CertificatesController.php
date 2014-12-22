@@ -33,6 +33,21 @@ class CertificatesController extends AppController {
 		$this->set('certificates', $this->Paginator->paginate());
 	}
 
+    public function listing()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if ($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            #Sortierung? Anzeige des Templates
+            $certificatesListing = $this->Certificate->Account->find('all');
+            $this->set(compact('accounts','certificatesListing'));
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
 /**
  * view method
  *

@@ -26,7 +26,7 @@ class AccountsController extends AppController {
             $this->layout = 'ajax';
         } else
         {
-		  $this->layout = 'polymer';
+            throw new NotImplementedException("Diese Anfrage wird nur mit Ajax unterstützt");
         }
 		$this->Account->recursive = 0;
 		$this->set('accounts', $this->Paginator->paginate());

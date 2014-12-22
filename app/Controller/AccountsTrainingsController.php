@@ -22,6 +22,13 @@ class AccountsTrainingsController extends AppController {
  * @return void
  */
 	public function index() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new NotImplementedException("Diese Anfrage wird nur mit Ajax unterstützt");
+        }
 		$this->AccountsTraining->recursive = 0;
 		$this->set('accountsTrainings', $this->Paginator->paginate());
 	}

@@ -33,7 +33,7 @@ paperTabs.addEventListener('core-select', function(e) {
             case 0: $('#studioTabPageAccount').load('<?php echo $this->webroot."Users/listing/"?>'); break;
             case 1: $('#studioTabPageKurse').load('<?php echo $this->webroot."Courses/index/"?>'); break;
             case 2: $('#studioTabPageTarife').load('<?php echo $this->webroot."Tariffs/index/"?>'); break;
-            case 3: $('#studioTabPageZertifikate').load('<?php echo $this->webroot."Certificates/index/"?>'); break;
+            case 3: $('#studioTabPageZertifikate').load('<?php echo $this->webroot."Certificates/listing/"?>'); break;
             case 4: $('#studioTabPageRechnung').load('<?php echo $this->webroot."bills/index/"?>'); break;
             case 5: $('#studioTabPageAbrechnung').load('<?php echo $this->webroot."bills/index/"?>'); break;
         }
