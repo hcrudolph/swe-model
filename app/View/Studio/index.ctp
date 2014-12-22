@@ -1,47 +1,40 @@
-<paper-tabs noink selected="0" selectedindex="0" class="tabsBar" id="studioTabs" layout center horizontal>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Accounts</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Kurse</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Tarife</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Zertifikate</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Rechnungsdaten</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Abrechnungsdaten</paper-tab>
-</paper-tabs>
+<div id="studioTabbar" role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#studioAccounts" data-url="<?php echo $this->webroot; ?>Users/listing/">Accounts</a></li>
+        <li role="presentation"><a href="#studioCourses" data-url="<?php echo $this->webroot;?>Courses/index/">Kurse</a></li>
+        <li role="presentation"><a href="#studioTariffs" data-url="<?php echo $this->webroot; ?>Tariffs/index/">Tarife</a></li>
+        <li role="presentation"><a href="#studioCertificates" data-url="<?php echo $this->webroot; ?>Certificates/listing/">Zertifikate</a></li>
+        <li role="presentation"><a href="#studioRechnungsdaten" data-url="<?php echo $this->webroot;?>bills/index/">Rechnungsdaten</a></li>
+        <li role="presentation"><a href="#studioAbrechnungsdaten" data-url="<?php echo $this->webroot; ?>bills/index/">Abrechnungsdaten</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="studioAccounts"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioCourses"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioTariffs"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioCertificates"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioRechnungsdaten"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioAbrechnungsdaten"></div>
+    </div>
+</div>
 
 
-<core-pages selected="0" selectedindex="0" notap class="tabsPages" id="studioTabsPages">
-    <div id="studioTabPageAccount"></div>
-    <div id="studioTabPageKurse"></div>
-    <div id="studioTabPageTarife"></div>
-    <div id="studioTabPageZertifikate"></div>
-    <div id="studioTabPageRechnung"></div>
-    <div id="studioTabPageAbrechnung"></div>
-</core-pages>
 
+<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+$('#studioTabbar > .nav-tabs a').click(function (e) {
+    e.preventDefault();
 
-<?php
-echo $this->Html->scriptStart(array('inline' => true));
-?>
-$('#studioTabPageAccount').load('<?php echo $this->webroot."Users/listing/"?>');
+    var url = $(this).attr("data-url");
+    var href = this.hash;
+    var pane = $(this);
 
-var paperTabs = document.querySelector('#studioTabs');
-var corePages = document.querySelector('#studioTabsPages');
-
-paperTabs.addEventListener('core-select', function(e) {
-      if (e.detail.isSelected) {
-        switch(paperTabs.selected)
-        {
-            case 0: $('#studioTabPageAccount').load('<?php echo $this->webroot."Users/listing/"?>'); break;
-            case 1: $('#studioTabPageKurse').load('<?php echo $this->webroot."Courses/index/"?>'); break;
-            case 2: $('#studioTabPageTarife').load('<?php echo $this->webroot."Tariffs/index/"?>'); break;
-            case 3: $('#studioTabPageZertifikate').load('<?php echo $this->webroot."Certificates/listing/"?>'); break;
-            case 4: $('#studioTabPageRechnung').load('<?php echo $this->webroot."bills/index/"?>'); break;
-            case 5: $('#studioTabPageAbrechnung').load('<?php echo $this->webroot."bills/index/"?>'); break;
-        }
-        corePages.selected = paperTabs.selected;
-      }
+    // ajax load from data-url
+    $(href).load(url,function(result){
+        pane.tab('show');
     });
+});
 
-
-<?php
-echo $this->Html->scriptEnd();
-?>
+// Content für angezeigten Tab
+$('#studioTabbar > .tab-content > #studioAccounts').load('<?php echo $this->webroot; ?>Users/listing',function(result){
+    $('.active a').tab('show');
+});
+<?php echo $this->Html->scriptEnd(); ?>

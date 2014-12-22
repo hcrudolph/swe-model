@@ -1,40 +1,36 @@
-<paper-tabs noink selected="0" selectedindex="0" class="tabsBar" id="userTabs" layout center horizontal>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Allgemein</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Tarife</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Zertifikate</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Trainingspläne</paper-tab>
-</paper-tabs>
+<div id="usersTabbar" role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#usersGeneral" data-url="<?php echo $this->webroot; ?>Users/view">Allgemein</a></li>
+        <li role="presentation"><a href="#usersTariff" data-url="<?php echo $this->webroot; ?>Users/view">Tarife</a></li>
+        <li role="presentation"><a href="#usersCertificate" data-url="<?php echo $this->webroot; ?>Certificates/index">Zertifikate</a></li>
+        <li role="presentation"><a href="#usersTraining" data-url="<?php echo $this->webroot; ?>Users/view">Trainingspläne</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="usersGeneral">Allgemein</div>
+        <div role="tabpanel" class="tab-pane fade" id="usersTariff">Tarife</div>
+        <div role="tabpanel" class="tab-pane fade" id="usersCertificate">Zertifikate</div>
+        <div role="tabpanel" class="tab-pane fade" id="usersTraining">Trainingspläne</div>
+    </div>
+</div>
 
 
-<core-pages selected="0" selectedindex="0" notap class="tabsPages" id="userTabsPages">
-    <div id="userTabPageAllgemein"></div>
-    <div id="userTabPageTarife"></div>
-    <div id="userTabPageZertifikate"></div>
-    <div id="userTabPageTrainingspläne"></div>
-</core-pages>
 
-<?php
-echo $this->Html->scriptStart(array('inline' => true));
-?>
-$('#userTabPageAllgemein').load('<?php echo $this->webroot."Users/listing/"?>');
+<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+$('#usersTabbar > .nav-tabs a').click(function (e) {
+    e.preventDefault();
 
-    var paperTabs = document.querySelector('#userTabs');
-    var corePages = document.querySelector('#userTabsPages');
+    var url = $(this).attr("data-url");
+    var href = this.hash;
+    var pane = $(this);
 
-    paperTabs.addEventListener('core-select', function(e) {
-    if (e.detail.isSelected) {
-    switch(paperTabs.selected)
-    {
-        case 0: $('#userTabPageAllgemein').load('<?php echo $this->webroot."Account/index/"?>'); break;
-        case 1: $('#userTabPageTarife').load('<?php echo $this->webroot."Tariffs/index/"?>'); break;
-        case 2: $('#userTabPageZertifikate').load('<?php echo $this->webroot."Certificates/listing/"?>'); break;
-        case 3: $('#userTabPageTrainingspläne').load('<?php echo $this->webroot."AccountsTrainings/index/"?>'); break;
-    }
-corePages.selected = paperTabs.selected;
-}
+    // ajax load from data-url
+    $(href).load(url,function(result){
+        pane.tab('show');
+    });
 });
 
-
-<?php
-echo $this->Html->scriptEnd();
-?>
+// Content für angezeigten Tab
+$('#usersTabbar > .tab-content > #usersGeneral').load('<?php echo $this->webroot; ?>Users/view',function(result){
+    $('.active a').tab('show');
+});
+<?php echo $this->Html->scriptEnd(); ?>

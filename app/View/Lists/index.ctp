@@ -1,38 +1,34 @@
-<paper-tabs noink selected="0" selectedindex="0" class="tabsBar" id="ListsTabs" layout center horizontal>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Trainer</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Mitarbeiter</paper-tab>
-    <paper-tab class="tabsBarTab" layout horizontal flex inline center-center>Mitglieder</paper-tab>
-</paper-tabs>
+<div id="listsTabbar" role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#studioTrainer" data-url="<?php echo $this->webroot;?>Lists/trainer/">Trainer</a></li>
+        <li role="presentation"><a href="#studioMitarbeiter" data-url="<?php echo $this->webroot;?>Lists/mitarbeiter/">Mitarbeiter</a></li>
+        <li role="presentation"><a href="#studioMitglieder" data-url="<?php echo $this->webroot;?>Lists/mitglieder/">Mitglieder</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="studioTrainer"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioMitarbeiter"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioMitglieder"></div>
+    </div>
+</div>
 
 
-<core-pages selected="0" selectedindex="0" notap class="tabsPages" id="ListsTabsPages">
-    <div id="ListsTabsPagesTrainer"></div>
-    <div id="ListsTabsPagesMitarbeiter"></div>
-    <div id="ListsTabsPagesMitglieder"></div>
-</core-pages>
 
+<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+$('#listsTabbar > .nav-tabs a').click(function (e) {
+    e.preventDefault();
 
-<?php
-echo $this->Html->scriptStart(array('inline' => true));
-?>
-$('#ListsTabsPagesTrainer').load('<?php echo $this->webroot."Lists/trainer/"?>');
+    var url = $(this).attr("data-url");
+    var href = this.hash;
+    var pane = $(this);
 
-var paperTabs = document.querySelector('#ListsTabs');
-var corePages = document.querySelector('#ListsTabsPages');
-
-paperTabs.addEventListener('core-select', function(e) {
-      if (e.detail.isSelected) {
-        switch(paperTabs.selected)
-        {
-            case 0: $('#ListsTabsPagesTrainer').load('<?php echo $this->webroot."Lists/trainer/"?>'); break;
-            case 1: $('#ListsTabsPagesMitarbeiter').load('<?php echo $this->webroot."Lists/mitarbeiter/"?>'); break;
-            case 2: $('#ListsTabsPagesMitglieder').load('<?php echo $this->webroot."Lists/mitglieder/"?>'); break;
-        }
-        corePages.selected = paperTabs.selected;
-      }
+    // ajax load from data-url
+    $(href).load(url,function(result){
+        pane.tab('show');
     });
+});
 
-
-<?php
-echo $this->Html->scriptEnd();
-?>
+// Content für angezeigten Tab
+$('#listsTabbar > .tab-content > #studioTrainer').load('<?php echo $this->webroot;?>Lists/trainer/',function(result){
+    $('.active a').tab('show');
+});
+<?php echo $this->Html->scriptEnd(); ?>
