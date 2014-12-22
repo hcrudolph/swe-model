@@ -1,20 +1,7 @@
 <?php
-if(!empty($user))
-{?>
+if(!empty($user)) { ?>
     <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="postsAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
-<?php
-}
-echo $this->Html->scriptStart(array('inline' => true));
-?>
-var addId = 0;
-function postsAddButtonClick()
-{
-    $.get('<?php echo $this->webroot."posts/add/";?>'+addId, function( data ) {
-        $('#postEntries').before(data);
-    });
-    addId++;
-}
-<?php echo $this->Html->scriptEnd();?>
+<?php } ?>
 
 <div id="postEntries">
     <?php
@@ -25,15 +12,26 @@ function postsAddButtonClick()
     ?>
 </div>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-function postEntryDelete(id)
+
+var addId = 0;
+function postsAddButtonClick()
 {
-    var del = confirm("Post #" + id + " löschen?");
+    $.get('<?php echo $this->webroot."posts/add/";?>'+addId, function( data ) {
+        $('#postEntries').before(data);
+    });
+addId++;
+}
+
+
+function postEntryDelete(postId)
+{
+    var del = confirm("Post #" + postId + " löschen?");
     if (del == true) {
-        $.post('<?php echo $this->webroot."posts/delete/"?>'+id,function(json) {
+        $.post('<?php echo $this->webroot."posts/delete/"?>'+postId,function(json) {
             if(json.success == true)
             {
                 notificateUser(json.message, 'success');
-                $('#postEntry'+id).remove();
+                $('#postEntry'+postId).remove();
             } else
             {
                 notificateUser(json.message);
@@ -42,10 +40,10 @@ function postEntryDelete(id)
     }
 }
 
-function postEntryEdit(id)
+function postEntryEdit(postId)
 {
-    $.get('<?php echo $this->webroot."posts/edit/"?>'+id, function( data ) {
-        $('#postEntry'+id).replaceWith(data);
+    $.get('<?php echo $this->webroot."posts/edit/"?>'+postId, function( data ) {
+        $('#postEntry'+postId).replaceWith(data);
     });
 }
 
