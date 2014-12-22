@@ -50,31 +50,13 @@ class AppController extends Controller {
         )
     );
     
-    public function beforeRender()
-    {
+    public function beforeRender(){
         $this->set('user', $this->Auth->user());
     }
-    
-    
-    /**
-    public function beforeFilter() {
-        $this->Auth->allow('index');
+/**
+    public function beforeSave() {
+        $this->data[$this->alias] = Hash::filter($this->data[$this->alias]);
     }
-
-    public function isAuthorized($user = null) {
-        // Any registered user can access public functions
-        if (empty($this->request->params['0'])) {
-            return true;
-        }
-
-        // Only admins can access admin functions
-        if (isset($this->request->params['0'])) {
-            return (bool)($user['role'] === '0');
-        }
-
-        // Default deny
-        return false;
-    }
-**/
+ * /
 }
 
