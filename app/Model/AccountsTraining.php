@@ -31,7 +31,7 @@ class AccountsTraining extends AppModel {
 			),
 			'url' => array(
 				'rule' => array('url'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der angegebene Pfad ist keine valide URI.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule

@@ -30,7 +30,7 @@ class Certificate extends AppModel {
 			),
 			'maxLength' => array(
 				'rule' => array('maxLength', '50'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Zertifikatname darf maximal 50 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule

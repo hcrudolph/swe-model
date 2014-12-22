@@ -45,7 +45,7 @@ class Account extends AppModel {
 		'username' => array(
 			'alphaNumeric' => array(
 				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Username darf ausschließlich aus Buchstaben und Zahlen bestehen',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -53,7 +53,7 @@ class Account extends AppModel {
 			),
 			'maxLength' => array(
 				'rule' => array('maxLength', '20'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Username darf maximal 20 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -61,7 +61,7 @@ class Account extends AppModel {
 			),
 			'minLength' => array(
 				'rule' => array('minLength', '4'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Username muss mindestens 4 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -79,7 +79,7 @@ class Account extends AppModel {
 		'password' => array(
 			'maxLength' => array(
 				'rule' => array('maxLength', '20'),
-				//'message' => 'Your custom message here',
+				'message' => 'Das Passwort darf maximal 20 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -87,7 +87,7 @@ class Account extends AppModel {
 			),
 			'minLength' => array(
 				'rule' => array('minLength', '6'),
-				//'message' => 'Your custom message here',
+				'message' => 'Das Passwort muss mindestens 6 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -105,7 +105,7 @@ class Account extends AppModel {
 		'passwordRepeat' => array(
 			'compare'    => array(
 				'rule'      => array('comparePasswords'),
-				'message' => 'Die Passwörter stimmen nicht überein',
+				'message' => 'Die Passwörter stimmen nicht überein.',
 			)
 
 		),
@@ -126,11 +126,11 @@ class Account extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-        'range' => array(
-            'rule' => array('range', -1, 3),
-            'message' => 'Please enter a number between -1 and 3'
-        )
+			'range' => array(
+				'rule' => array('range', -1, 3),
+				'message' => 'Die Rolle muss einer Zahl zwischen 0 und 2 entsprechen.'
+			)
+		)
 	);
 
 

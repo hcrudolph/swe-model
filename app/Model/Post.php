@@ -95,7 +95,7 @@ class Post extends AppModel {
 		'heading' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Sie müssen einen Betreff eingeben',
+				'message' => 'Bitte geben Sie einen Betreff an.',
 				'allowEmpty' => false,
 				'required' => true,
 				'last' => true, // Stop validation after this rule
@@ -113,7 +113,7 @@ class Post extends AppModel {
 		'body' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Der Body muss Text enthalten',
+				'message' => 'Der Post darf nicht leer sein',
 				'allowEmpty' => false,
 				'required' => true,
 				//'last' => false, // Stop validation after this rule
@@ -123,7 +123,7 @@ class Post extends AppModel {
 		'visiblebegin' => array(
 			'date' => array(
 				'rule' => array('date', 'dmy'),
-				'message' => 'Falsches Datenformat',
+				'message' => 'Bitte geben Sie ein valides Datum an.',
 				'allowEmpty' => true,
 				'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -131,13 +131,13 @@ class Post extends AppModel {
 			),
 			'hasEnd'    => array(
 				'rule'      => array('hasEnd'),
-				'message' => 'Sie müssen ein Endedatum angeben',
+				'message' => 'Sie müssen ein Endedatum angeben.',
 			),
 		),
 		'visibleend' => array(
 			'date' => array(
 				'rule' => array('date', 'dmy'),
-				'message' => 'Falsches Datenformat',
+				'message' => 'Bitte geben Sie ein valides Datum an.',
 				'allowEmpty' => true,
 				'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -145,11 +145,11 @@ class Post extends AppModel {
 			),
 			'hasStart'    => array(
 				'rule'      => array('hasStart'),
-				'message' => 'Sie müssen ein Beginndatum angeben',
+				'message' => 'Sie müssen ein Beginndatum angeben.',
 			),
 			'endBigger'    => array(
 				'rule'      => array('endBigger'),
-				'message' => 'Das Endedatum muss nach dem Beginndatum sein',
+				'message' => 'Das Endedatum muss nach dem Beginndatum liegen.',
 			)
 		)
 	);

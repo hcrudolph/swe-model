@@ -46,7 +46,7 @@ class Person extends AppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
+				'message' => 'Bitte geben Sie eine valide EMail-Adresse an.',
 				'allowEmpty' => true,
 				'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -56,7 +56,7 @@ class Person extends AppModel {
 		'name' => array(
 			'maxLength' => array(
 				'rule' => array('maxLength', '24'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Vorname darf maximal 24 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -64,7 +64,7 @@ class Person extends AppModel {
 			),
 			'minLength' => array(
 				'rule' => array('minLength', '2'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Vorname muss mindestens 2 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -82,7 +82,7 @@ class Person extends AppModel {
 		'surname' => array(
 			'maxLength' => array(
 				'rule' => array('maxLength', '24'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Nachname darf maximal 24 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -90,7 +90,7 @@ class Person extends AppModel {
 			),
 			'minLength' => array(
 				'rule' => array('minLength', '2'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Nachname muss mindestens 2 Zeichen lang sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -107,8 +107,8 @@ class Person extends AppModel {
 		),
 		'plz' => array(
 			'postal' => array(
-                'rule' => array('postal', null, 'de')
-				//'message' => 'Your custom message here',
+                'rule' => array('postal', null, 'de'),
+				'message' => 'Bitte geben Sie eine valide Postleitzahl an.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -142,14 +142,6 @@ class Person extends AppModel {
 			),
 		),
 		'street' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				'message' => 'Lediglich alphanumerische Zeichen erlaubt',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -190,7 +182,7 @@ class Person extends AppModel {
 		'birthdate' => array(
 			'date' => array(
 				'rule' => array('date', 'dmy'),
-				'message' => 'Das Datum hat ein falsches Format',
+				'message' => 'Bitte geben Sie ein valides Datum an.',
 				'allowEmpty' => true,
 				'required' => false,
 				//'last' => false, // Stop validation after this rule

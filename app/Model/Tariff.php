@@ -40,7 +40,7 @@ class Tariff extends AppModel {
 			),
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Bitte geben Sie eine valide Zahl an.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -50,7 +50,7 @@ class Tariff extends AppModel {
 		'term' => array(
 			'naturalNumber' => array(
 				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
+				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule

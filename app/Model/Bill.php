@@ -24,7 +24,7 @@ class Bill extends AppModel {
 		'year' => array(
 			'naturalNumber' => array(
 				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
+				'message' => 'Das angegebene Jahr ist keine valide Ganzzahl.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -42,7 +42,7 @@ class Bill extends AppModel {
 		'month' => array(
 			'naturalNumber' => array(
 				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der angegebene Monat ist keine valide Ganzzahl.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
