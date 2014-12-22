@@ -41,8 +41,8 @@ class CertificatesController extends AppController {
                 throw new ForbiddenException;
             }
             #Sortierung? Anzeige des Templates
-            $certificatesListing = $this->Certificate->Account->find('all');
-            $this->set(compact('accounts','certificatesListing'));
+            $certificates = $this->Certificate->find('all');
+            $this->set(compact('certificates'));
         } else {
             throw new AjaxImplementedException;
         }

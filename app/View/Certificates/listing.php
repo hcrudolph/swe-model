@@ -3,10 +3,10 @@
 </div>
 <div id="certificateEntries">
     <?php
-    foreach($certificatesListing as $certificateListing)
+    foreach($certificates as $certificate)
     {
-        $certificate = $certificateListing['Zertifikat'];
-        $description = $certificateListing['Bezeichnung'];
+        $certificate = $certificate['Zertifikat'];
+        $description = $certificate['Bezeichnung'];
         $cetId = $certificate['id'];
 
         echo '<div id="certificateEntry'.$cetId.'">';
