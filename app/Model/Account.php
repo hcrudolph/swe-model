@@ -27,10 +27,7 @@ class Account extends AppModel {
  */
 
     public function beforeSave($options = array()) {
-		if(trim($this->data[$this->alias]['password']) == '')
-		{
-			unset($this->data[$this->alias]['password']);
-		}
+		$this->data[$this->alias] = Hash::filter($this->data[$this->alias]);
 
         if (isset($this->data[$this->alias]['password'])) {
             $passwordHasher = new BlowfishPasswordHasher();

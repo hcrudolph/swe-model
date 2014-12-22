@@ -72,19 +72,17 @@ class PostsController extends AppController {
                     $this->layout = null;
                     $this->response->type('json');
                     $answer = array();
-                    $this->request->data['account_id'] = $this->Auth->user('id');
-
-                    $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin']) ? null : date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
-                    $this->request->data['visibleend'] = (empty($this->request->data['visibleend']) ? null : date("Y-m-d", strtotime($this->request->data['visibleend'])));
+                    $this->request->data['Post']['account_id'] = $this->Auth->user('id');
 
                     if ($this->Post->save($this->request->data)) {
-                        $answer['inserted'] = true;
+                        $answer['success'] = true;
                         $answer['id'] = $this->Post->id;
                         $answer['message'] = 'Der Eintrag wurde gespeichert';
 
                     } else {
-                        $answer['inserted'] = false;
+                        $answer['success'] = false;
                         $answer['message'] = "Der Eintrag konnte nicht hinzugefügt werden";
+                        $answer['errors']['Post'] = $this->Post->validationErrors;
                     }
                     echo json_encode($answer);
                 } else {
@@ -113,27 +111,26 @@ class PostsController extends AppController {
             } else {
                 $this->layout = 'ajax';
                 if ($this->request->is(array('post', 'put'))) {
-                    $this->request->data['account_id'] = $this->Auth->user('id');
-                    $this->request->data['id'] = $id;
-                    $this->request->data['visiblebegin'] = (empty($this->request->data['visiblebegin']) ? null : date("Y-m-d", strtotime($this->request->data['visiblebegin'])));
-                    $this->request->data['visibleend'] = (empty($this->request->data['visibleend']) ? null : date("Y-m-d", strtotime($this->request->data['visibleend'])));
+                    $this->request->data['Post']['account_id'] = $this->Auth->user('id');
+                    $this->request->data['Post']['id'] = $id;
                     $this->autoRender = false;
                     $this->layout = null;
                     $this->response->type('json');
                     $answer = array();
 
                     if ($this->Post->save($this->request->data)) {
-                        $answer['inserted'] = true;
+                        $answer['success'] = true;
                         $answer['message'] = 'Der Eintrag wurde gespeichert';
                     } else {
-                        $answer['inserted'] = false;
+                        $answer['success'] = false;
                         $answer['message'] = 'Der Eintrag konnte nicht gespeichert werden';
+                        $answer['errors']['Post'] = $this->Post->validationErrors;
                     }
                     echo json_encode($answer);
                 } else {
                     $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
-                    $data = $this->Post->find('first', $options);
-                    $this->set(compact('data'));
+                    $post = $this->Post->find('first', $options);
+                    $this->set(compact('post'));
                 }
             }
         } else {

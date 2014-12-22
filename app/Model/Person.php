@@ -14,6 +14,29 @@ class Person extends AppModel {
  */
 	public $displayField = 'name';
 
+
+	/**
+	 * beforeSave()
+	 *
+	 * @return true
+	 */
+
+	public function beforeSave($options = array())
+	{
+		$this->data[$this->alias] = Hash::filter($this->data[$this->alias]);
+
+		if (!empty($this->data[$this->alias]['birthdate'])) {
+			$this->data[$this->alias]['birthdate'] = $this->dateFormatBeforeSave($this->data[$this->alias]['birthdate']);
+		}
+
+		return true;
+	}
+
+	public function dateFormatBeforeSave($dateString) {
+		return date('Y-m-d', strtotime($dateString));
+	}
+
+
 /**
  * Validation rules
  *
@@ -166,8 +189,8 @@ class Person extends AppModel {
 		),
 		'birthdate' => array(
 			'date' => array(
-				'rule' => array('date'),
-				//'message' => 'Your custom message here',
+				'rule' => array('date', 'dmy'),
+				'message' => 'Das Datum hat ein falsches Format',
 				'allowEmpty' => true,
 				'required' => false,
 				//'last' => false, // Stop validation after this rule

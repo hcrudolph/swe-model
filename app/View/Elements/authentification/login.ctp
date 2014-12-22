@@ -1,6 +1,16 @@
 <form id="loginForm">
-    <input type="input" class="form-control" name="data[Account][username]" placeholder="Username">
-    <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </span>
+        <input type="input" class="form-control" name="data[Account][username]" placeholder="Username">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-globe"></i>
+        </span>
+        <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
+    </div>
     <button type="submit" class="btn btn-default" id="loginSubmit">Login</button>
 </form>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>

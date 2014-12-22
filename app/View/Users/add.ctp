@@ -47,9 +47,9 @@
         </div>
         <div class="birthdate">
             <div class="input-group input-append date">
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-calendar"></i>
-            </span>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
                 <input type="text" name="data[Person][birthdate]" class="form-control ">
             </div>
         </div>
