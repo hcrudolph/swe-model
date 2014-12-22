@@ -5,6 +5,11 @@ class CalendarController extends AppController
 {
     public function init()
     {
-        $this->layout = 'ajax';
+        if($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
     }
 }

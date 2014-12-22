@@ -20,6 +20,7 @@ class ListsController extends AppController {
 /**
  * index method
  *
+ * @throws AjaxImplementedException
  * @return void
  */
 	public function index() {
@@ -28,7 +29,7 @@ class ListsController extends AppController {
             $this->layout = 'ajax';
         } else
         {
-		  $this->layout = 'polymer';
+            throw new AjaxImplementedException;
         }
 	}
     
@@ -36,46 +37,56 @@ class ListsController extends AppController {
     
     public function trainer()
     {
-        if($this->request->is('ajax'))
-        {
+        if($this->request->is('ajax')) {
             $this->layout = 'ajax';
+
+
+            //$fields = array("Date.*", 'Person.*');
+            $joins = array(
+                array(
+                    'table' => 'people',
+                    'alias' => 'Person',
+                    'type' => 'INNER',
+                    'conditions' => array('Date.director = Person.account_id')
+                )
+            );
+            $results = $this->Date->find('all', array(/*'fields' => $fields,*/
+                'joins' => $joins));
+            $this->set(compact('results'));
+        } else
+        {
+            throw new AjaxImplementedException;
         }
-        
-        //$fields = array("Date.*", 'Person.*');
-        $joins = array(
-            array(
-                'table' => 'people',
-                'alias' => 'Person',
-                'type' => 'INNER',
-                'conditions' => array('Date.director = Person.account_id')
-            )
-        );
-        $results = $this->Date->find('all', array(/*'fields' => $fields,*/ 'joins' => $joins));
-        $this->set(compact('results'));
     }
     
     public function mitarbeiter()
     {
-        if($this->request->is('ajax'))
-        {
+        if($this->request->is('ajax')) {
             $this->layout = 'ajax';
+
+            $conditions = array('Account.role' => 1, 'Account.role' => 2);
+            $fields = array('Account.id', 'Person.*');
+            $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
+            $this->set(compact('results'));
+        } else
+        {
+            throw new AjaxImplementedException;
         }
-        $conditions = array('Account.role' => 1, 'Account.role' => 2);
-        $fields = array('Account.id', 'Person.*');
-        $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
-        $this->set(compact('results'));
     }
     
     public function mitglieder()
     {
-        if($this->request->is('ajax'))
-        {
+        if($this->request->is('ajax')) {
             $this->layout = 'ajax';
+
+            $conditions = array('Account.role' => 0,);
+            $fields = array('Account.id', 'Person.*');
+            $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
+            $this->set(compact('results'));
+        } else
+        {
+            throw new AjaxImplementedException;
         }
-        $conditions = array('Account.role' => 0,);
-        $fields = array('Account.id', 'Person.*');
-        $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
-        $this->set(compact('results'));
     }
     
     public function beforeFilter()

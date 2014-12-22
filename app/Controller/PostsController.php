@@ -24,9 +24,6 @@ class PostsController extends AppController {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
-        } else
-        {
-            $this->layout = 'polymer';
         }
         
 		//$this->Post->recursive = 0;
