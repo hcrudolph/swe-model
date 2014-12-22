@@ -23,7 +23,7 @@ class AccountsTraining extends AppModel {
 		'downloadlink' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
+				'message' => 'Der Downloadlink darf nicht leer sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule

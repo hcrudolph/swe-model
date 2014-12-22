@@ -103,7 +103,7 @@ class Post extends AppModel {
 			),
 			'maxLength' => array(
 				'rule' => array('maxLength', '50'),
-				'message' => 'Maximal 50 Zeichen',
+				'message' => 'Der Titel darf maximal 50 Zeichen lang sein.',
 				'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -113,7 +113,7 @@ class Post extends AppModel {
 		'body' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Der Post darf nicht leer sein',
+				'message' => 'Der Post darf nicht leer sei.n',
 				'allowEmpty' => false,
 				'required' => true,
 				//'last' => false, // Stop validation after this rule
