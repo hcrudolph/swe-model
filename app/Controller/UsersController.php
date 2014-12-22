@@ -107,7 +107,6 @@ class UsersController extends AppController
                     $CreatorRole = $this->Auth->User('role');
                     $UserRole = $this->request->data['Account']['role'];
 
-                    $this->request->data['Person']['birthdate'] = date("Y-m-d", strtotime($this->request->data['Person']['birthdate']));
 
                     if((($CreatorRole == 2 AND $UserRole >= 0) OR ($CreatorRole == 1 AND $UserRole == 0)) AND $this->Account->saveAssociated($this->request->data, array('validate' => 'first', 'deep' => true)))
                     {
@@ -162,8 +161,6 @@ class UsersController extends AppController
                 $fields = array('Person.id');
                 $relatedEntry = $this->Person->find('first', array('conditions' => $conditions, 'fields' => $fields));
                 $this->request->data['Person']['id'] = $relatedEntry['Person']['id'];
-
-                $this->request->data['Person']['birthdate'] = date("Y-m-d", strtotime($this->request->data['Person']['birthdate']));
 
                 $this->autoRender = false;
                 $this->layout = null;
