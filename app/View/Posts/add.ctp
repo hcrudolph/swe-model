@@ -14,8 +14,8 @@
                 <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </span>
-                <input type="text" name="data[Post][visiblebegin]" class="form-control ">
-                <span class="input-group-addon" onclick="alert('clear');">
+                <input type="text" name="data[Post][visiblebegin]" class="form-control">
+                <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
                     <i class="glyphicon glyphicon-remove-circle"></i>
                 </span>
             </div>
@@ -26,7 +26,7 @@
                     <i class="glyphicon glyphicon-calendar"></i>
                 </span>
                 <input type="text" name="data[Post][visibleend]" class="form-control ">
-                <span class="input-group-addon" onclick="alert('clear');">
+                <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
                     <i class="glyphicon glyphicon-remove-circle"></i>
                 </span>
             </div>
@@ -34,22 +34,12 @@
     </div>
 
 
-    <button type="submit" id="postAddSaveButton" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i>Speichern</button>
-    <button type="button" id="postAddCloseButton" class="btn btn-default" onclick="postAddFormClose(<?php echo $addId;?>)"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
+    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i>Speichern</button>
+    <button type="button" class="btn btn-default" onclick="postAddFormClose(<?php echo $addId;?>)"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
 </form>
 
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+    postAddFormAddDatepicker(<?php echo $addId;?>);
     postAddFormAddSubmitEvent(<?php echo $addId;?>);
-
-    $("#postAddForm<?php echo $addId;?> > .Post > .visiblebegin > .date > .form-control").datepicker({
-        format: 'dd.mm.yyyy',
-        language: 'de'
-    });
-    $("#postAddForm<?php echo $addId;?> > .Post > .visibleend > .date > .form-control").datepicker({
-        format: 'dd.mm.yyyy',
-        language: 'de'
-    });
-
-
 <?php echo $this->Html->scriptEnd();?>

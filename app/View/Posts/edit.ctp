@@ -1,71 +1,47 @@
 <?php
-$postId = $data['Post']['id'];
-$visibleBegin = (is_null($data['Post']['visiblebegin'])?'':'value="'.date("d.m.Y", strtotime($data['Post']['visiblebegin'])).'"');
-$visibleEnd = (is_null($data['Post']['visibleend'])?'':'value="'.date("d.m.Y", strtotime($data['Post']['visibleend'])).'"');
+$postId = $post['Post']['id'];
+$visibleBegin = $post['Post']['visiblebegin'];
+$visibleEnd = $post['Post']['visibleend'];
 
 ?>
-<div id="postEdit<?php echo $postId; ?>">
-    <input id="postEditHeading<?php echo $postId;?>" class="heading form-control" value="<?php echo $data['Post']['heading'];?>">
-    <textarea id="postEditBody<?php echo $postId;?>" class="body form-control" rows="3"><?php echo $data['Post']['body'];?></textarea>
-    <div id="postEditDatepicker<?php echo $postId;?>"class="input-append date input-daterange">
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-calendar"></i>
-            </span>
-            <input id="visibleBegin<?php echo $postId;?>"type="text" class="form-control" <?php echo $visibleBegin;?>>
-            <span class="input-group-addon" onclick="$(function(){$('#visibleBegin<?php echo $postId;?>').val('');});">
-                <i class="glyphicon glyphicon-remove-circle"></i>
-            </span>
+<form id="postEditForm<?php echo $postId;?>">
+    <div class="control-group Post">
+        <div class="heading">
+            <input type="input" class="form-control" name="data[Post][heading]" value="<?php echo $post['Post']['heading'];?>" placeholder="Betreff">
         </div>
-        <span class="add-on">bis</span>
-        <div class="input-group">
+        <div class="body">
+            <textarea name="data[Post][body]" class="body form-control" rows="3" placeholder="Body"><?php echo $post['Post']['body'];?></textarea>
+        </div>
+        <div class="visiblebegin">
+            <div class="input-group input-append date">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-calendar"></i>
             </span>
-            <input id="visibleEnd<?php echo $postId;?>" type="text" class="form-control" <?php echo $visibleEnd;?>>
-            <span class="input-group-addon" onclick="$(function(){$('#visibleEnd<?php echo $postId;?>').val('');});">
+                <input type="text" name="data[Post][visiblebegin]" class="form-control" value="<?php echo $post['Post']['visiblebegin'];?>">
+            <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
                 <i class="glyphicon glyphicon-remove-circle"></i>
             </span>
+            </div>
+        </div>
+        <div class="visibleend">
+            <div class="input-group input-append date">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </span>
+                <input type="text" name="data[Post][visibleend]" class="form-control" value="<?php echo $post['Post']['visibleend'];?>">
+            <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
+                <i class="glyphicon glyphicon-remove-circle"></i>
+            </span>
+            </div>
         </div>
     </div>
 
-    <button type="button" id="postAddSaveButton" class="btn btn-default" onclick="postEditSave(<?php echo $postId; ?>)"><i class="glyphicon glyphicon-floppy-disk"></i>Speichern</button>
-    <button type="button" id="postAddCloseButton" class="btn btn-default" onclick="postEditClose(<?php echo $postId; ?>)"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
-</div>
+
+    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i>Speichern</button>
+    <button type="button" class="btn btn-default" onclick="postEditFormClose(<?php echo $postId; ?>)"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
+</form>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-
-$(function(){
-   $('#postEditDatepicker<?php echo $postId;?>').datepicker({
-      format: 'dd.mm.yyyy',
-      language: "de"
-    });
-});
-
-function postEditSave(postId)
-{
-    $.post('<?php echo $this->webroot;?>posts/edit/'+postId,
-        {
-            heading:$('#postEditHeading'+postId).val(),
-            body:$('#postEditBody'+postId).val(),
-            visiblebegin:$('#visibleBegin'+postId).val(),
-            visibleend:$('#visibleEnd'+postId).val(),
-        }, function(obj) {
-            if(obj.inserted == true)
-            {
-                notificateUser(obj.message, 'success');
-                postEditClose(postId);
-            } else
-            {
-                notificateUser(obj.message);
-            }
-        }, 'json');
-}
-
-function postEditClose(postId)
-{
-    $.get('<?php echo $this->webroot."posts/view/"?>'+postId, function( data ) {
-        $('#postEdit'+postId).replaceWith(data);
-    });
-}
+    postEditFormAddDatepicker(<?php echo $postId;?>);
+    postEditFormAddSubmitEvent(<?php echo $postId;?>);
 <?php echo $this->Html->scriptEnd();?>

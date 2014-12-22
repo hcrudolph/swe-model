@@ -1,13 +1,13 @@
 <?php
 if(!empty($user))
 {?>
-    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="postsButtonAddClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="postsAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
 <?php
 }
 echo $this->Html->scriptStart(array('inline' => true));
 ?>
 var addId = 0;
-function postsButtonAddClick()
+function postsAddButtonClick()
 {
     $.get('<?php echo $this->webroot."posts/add/";?>'+addId, function( data ) {
         $('#postEntries').before(data);
@@ -54,6 +54,18 @@ function postAddFormClose(addId)
     $('#postAddForm'+addId).remove();
 }
 
+function postAddFormAddDatepicker(addId)
+{
+    $("#postAddForm"+addId+" > .Post > .visiblebegin > .date > .form-control").datepicker({
+        format: 'dd.mm.yyyy',
+        language: 'de'
+    });
+    $("#postAddForm"+addId+" > .Post > .visibleend > .date > .form-control").datepicker({
+        format: 'dd.mm.yyyy',
+        language: 'de'
+    });
+}
+
 function postAddFormAddSubmitEvent(addId)
 {
     var addForm = '#postAddForm'+addId;
@@ -89,6 +101,66 @@ function postAddFormAddSubmitEvent(addId)
             }
         }, 'json');
         event.preventDefault();
+    });
+}
+
+
+function postEditFormAddDatepicker(postId)
+{
+    $("#postEditForm"+postId+" > .Post > .visiblebegin > .date > .form-control").datepicker({
+        format: 'dd.mm.yyyy',
+        language: 'de'
+    });
+    $("#postEditForm"+postId+" > .Post > .visibleend > .date > .form-control").datepicker({
+        format: 'dd.mm.yyyy',
+        language: 'de'
+    });
+}
+
+function postEditFormAddSubmitEvent(postId)
+{
+    var editForm = '#postEditForm'+postId;
+    $(editForm).submit(function(event) {
+        $.post('<?php echo $this->webroot;?>posts/edit/'+postId, $(editForm).serialize(), function(json) {
+            if(json.success == true) {
+                notificateUser(json.message, 'success');
+                $.get('<?php echo $this->webroot;?>posts/view/'+postId, function( view ) {
+                    $(editForm).replaceWith(view);
+                });
+            } else {
+            notificateUser(json.message);
+
+            //delete old errors
+            $(editForm).children().each(function() {
+                $(this).children().each(function() {
+                    $(this).removeClass('has-error has-feedback');
+                    $(this).children('.control-label').remove();
+                });
+            })
+
+            for(var controller in json.errors) {
+                for(var key in json.errors[controller]) {
+                    if(json.errors[controller].hasOwnProperty(key)) {
+                        notificateUser(json.errors[controller][key]);
+                        var ele = $(editForm+' > .'+controller+' > .'+key);
+                        ele.addClass('has-error has-feedback');
+                        ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
+                    }
+                }
+            }
+        }
+    }, 'json');
+    event.preventDefault();
+    });
+}
+
+
+
+
+function postEditFormClose(postId)
+{
+    $.get('<?php echo $this->webroot."posts/view/"?>'+postId, function( data ) {
+        $('#postEditForm'+postId).replaceWith(data);
     });
 }
 <?php echo $this->Html->scriptEnd();?>
