@@ -1,9 +1,7 @@
 <?php
 if(!empty($user))
 {?>
-<core-tooltip label="Eintrag hinzufügen" active pressed id="core_tooltip2">
-    <core-icon-button icon="add-circle-outline" id="postsButtonAdd" onclick="postsButtonAddClick();"></core-icon-button>
-</core-tooltip>
+    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="postsButtonAddClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
 <?php
 }
 echo $this->Html->scriptStart(array('inline' => true));
@@ -48,6 +46,49 @@ function postEntryEdit(id)
 {
     $.get('<?php echo $this->webroot."posts/edit/"?>'+id, function( data ) {
         $('#postEntry'+id).replaceWith(data);
+    });
+}
+
+function postAddFormClose(addId)
+{
+    $('#postAddForm'+addId).remove();
+}
+
+function postAddFormAddSubmitEvent(addId)
+{
+    var addForm = '#postAddForm'+addId;
+    $(addForm).submit(function(event) {
+        $.post('<?php echo $this->webroot;?>posts/add/', $(addForm).serialize(), function(json) {
+            if(json.success == true) {
+                notificateUser(json.message, 'success');
+                $.get('<?php echo $this->webroot;?>posts/view/'+json.id, function( view ) {
+                    $('#postEntries').prepend(view);
+                    postAddFormClose(addId);
+                });
+            } else {
+                notificateUser(json.message);
+
+                //delete old errors
+                $(addForm).children().each(function() {
+                    $(this).children().each(function() {
+                        $(this).removeClass('has-error has-feedback');
+                        $(this).children('.control-label').remove();
+                    });
+                })
+
+                for(var controller in json.errors) {
+                    for(var key in json.errors[controller]) {
+                        if(json.errors[controller].hasOwnProperty(key)) {
+                            notificateUser(json.errors[controller][key]);
+                            var ele = $(addForm+' > .'+controller+' > .'+key);
+                            ele.addClass('has-error has-feedback');
+                            ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
+                        }
+                    }
+                }
+            }
+        }, 'json');
+        event.preventDefault();
     });
 }
 <?php echo $this->Html->scriptEnd();?>

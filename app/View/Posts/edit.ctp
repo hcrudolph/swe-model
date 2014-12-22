@@ -28,13 +28,9 @@ $visibleEnd = (is_null($data['Post']['visibleend'])?'':'value="'.date("d.m.Y", s
             </span>
         </div>
     </div>
-    
-    <core-tooltip label="Eintrag speichern" active pressed>
-        <core-icon-button icon="save" class="save" onclick="postEditSave(<?php echo $postId; ?>)"></core-icon-button>
-    </core-tooltip>
-    <core-tooltip label="Abbrechen" active pressed>
-        <core-icon-button icon="close" class="close" onclick="postEditClose(<?php echo $postId; ?>)"></core-icon-button>
-    </core-tooltip>
+
+    <button type="button" id="postAddSaveButton" class="btn btn-default" onclick="postEditSave(<?php echo $postId; ?>)"><i class="glyphicon glyphicon-floppy-disk"></i>Speichern</button>
+    <button type="button" id="postAddCloseButton" class="btn btn-default" onclick="postEditClose(<?php echo $postId; ?>)"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
