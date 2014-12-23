@@ -33,4 +33,15 @@ $('#usersTabbar > .nav-tabs a').click(function (e) {
 $('#usersTabbar > .tab-content > #usersGeneral').load('<?php echo $this->webroot; ?>Users/view',function(result){
     $('#usersTabbar > .active a').tab('show');
 });
+
+function userEdit(accId)
+{
+    $('#usersGeneral').load('<?php echo $this->webroot."users/edit/"?>'+accId);
+}
+
+function userEditClose(accId)
+{
+    $('#usersGeneral').load('<?php echo $this->webroot."users/view/"?>'+accId);
+}
+
 <?php echo $this->Html->scriptEnd(); ?>

@@ -29,42 +29,42 @@ $accId = $account['id'];
             <input type="input" class="form-control" name="data[Person][email]" value="<?php echo $person['email']; ?>" placeholder="Email">
         </div>
         <div class="name">
-            <input type="input" class="form-control" name="data[Person][name]" value="<?php echo $person['name']; ?>" placeholder="Nachname">
+            <input type="input" class="form-control" name="data[Person][name]" value="<?php echo $person['name']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Nachname">
         </div>
         <div class="surname">
-            <input type="input" class="form-control" name="data[Person][surname]" value="<?php echo $person['surname']; ?>" placeholder="Vorname">
+            <input type="input" class="form-control" name="data[Person][surname]" value="<?php echo $person['surname']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Vorname">
         </div>
         <div class="phone">
-            <input type="input" class="form-control" name="data[Person][phone]" value="<?php echo $person['phone']; ?>" placeholder="Telefon/Handy">
+            <input type="input" class="form-control" name="data[Person][phone]" value="<?php echo $person['phone']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Telefon/Handy">
         </div>
         <div class="plz">
-            <input type="input" class="form-control" name="data[Person][plz]" value="<?php echo $person['plz']; ?>" placeholder="PLZ">
+            <input type="input" class="form-control" name="data[Person][plz]" value="<?php echo $person['plz']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="PLZ">
         </div>
         <div class="city">
-            <input type="input" class="form-control" name="data[Person][city]" value="<?php echo $person['city']; ?>" placeholder="Stadt">
+            <input type="input" class="form-control" name="data[Person][city]" value="<?php echo $person['city']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Stadt">
         </div>
         <div class="street">
-            <input type="input" class="form-control" name="data[Person][street]" value="<?php echo $person['street']; ?>" placeholder="Straße">
+            <input type="input" class="form-control" name="data[Person][street]" value="<?php echo $person['street']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Straße">
         </div>
         <div class="housenumber">
-            <input type="input" class="form-control" name="data[Person][housenumber]" value="<?php echo $person['housenumber']; ?>" placeholder="Hausnummer">
+            <input type="input" class="form-control" name="data[Person][housenumber]" value="<?php echo $person['housenumber']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Hausnummer">
         </div>
         <div class="hnextra">
-            <input type="input" class="form-control" name="data[Person][hnextra]" value="<?php echo $person['hnextra']; ?>" placeholder="Zusatz">
+            <input type="input" class="form-control" name="data[Person][hnextra]" value="<?php echo $person['hnextra']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Zusatz">
         </div>
         <div class="birthdate">
             <div class="input-group input-append date">
                 <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </span>
-                <input type="text" name="data[Person][birthdate]" class="form-control "<?php echo (isset($person['birthdate'])?' value="'.$person['birthdate'].'"':'')?>>
+                <input type="text" name="data[Person][birthdate]" class="form-control "<?php echo (isset($person['birthdate'])?' value="'.$person['birthdate'].'"':'')?> <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Geburtsdatum">
             </div>
         </div>
     </div>
 
 
-
-    <button type="submit" class="btn btn-default">Speichern</button>
+    <button type="button" class="btn btn-default" onclick="userEditClose(<?php echo $accId; ?>)"><i class="glyphicon glyphicon-minus"></i> Schließen</button>
+    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i> Speichern</button>
 </form>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>

@@ -25,12 +25,6 @@ class UsersController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            if ($this->Auth->user('role') == 0) {
-                throw new ForbiddenException;
-            }
-            #Sortierung? Anzeige des Templates
-            $users = $this->Account->find('all');
-            $this->set(compact('users'));
         } else {
             throw new AjaxImplementedException;
         }
@@ -71,7 +65,7 @@ class UsersController extends AppController
             if (is_null($id)) {
                 $id = $this->Auth->user('id');
             } else {
-                if ($this->Auth->user('role') == 0) {
+                if (!$this->Auth->user('id') == $id) {
                     throw new ForbiddenException;
                 }
             }
@@ -185,7 +179,7 @@ class UsersController extends AppController
                 if (is_null($id)) {
                     $id = $this->Auth->user('id');
                 } else {
-                    if ($this->Auth->user('role') == 0) {
+                    if (!$this->Auth->user('id') == $id) {
                         throw new ForbiddenException;
                     }
                 }
