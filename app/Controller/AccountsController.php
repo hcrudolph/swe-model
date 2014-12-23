@@ -243,7 +243,7 @@ class AccountsController extends AppController {
                     $answer['login'] = true;
                     $answer['message'] = 'Sie wurden erfolgreich eingeloggt';
                     $answer['logout'] = $view->element('authentification/logout', array('user' => $this->Auth->user()));
-                    $answer['sidebar'] = $view->element('sidebar/sidebar', array('user' => $this->Auth->user()));
+                    $answer['sidebar'] = $view->element('sidebar', array('user' => $this->Auth->user()));
                 } else
                 {
                     $answer['login'] = false;
@@ -267,7 +267,7 @@ class AccountsController extends AppController {
                     $answer['logout'] = true;
                     $answer['message'] = 'Sie wurden erfolgreich ausgeloggt';
                     $answer['login'] = $view->element('authentification/login');
-                    $answer['sidebar'] = $view->element('sidebar/sidebar');
+                    $answer['sidebar'] = $view->element('sidebar');
                 } else
                 {
                     $answer['logout'] = false;
