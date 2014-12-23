@@ -88,7 +88,7 @@
                 ?>
             </div>
 		</div>
-        <?php echo $this->element('sidebar/sidebar'); ?>
+        <?php echo $this->element('sidebar'); ?>
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
 			<?php echo $this->fetch('content'); ?>
