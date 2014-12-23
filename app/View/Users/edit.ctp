@@ -57,7 +57,7 @@ $accId = $account['id'];
                 <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </span>
-                <input type="text" name="data[Person][birthdate]" class="form-control " <?php echo (is_null($person['birthdate'])?'':'value="'.date("d.m.Y", strtotime($person['birthdate'])).'"')?>>
+                <input type="text" name="data[Person][birthdate]" class="form-control "<?php echo (isset($person['birthdate'])?' value="'.$person['birthdate'].'"':'')?>>
             </div>
         </div>
     </div>

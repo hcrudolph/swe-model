@@ -35,6 +35,31 @@ class Person extends AppModel {
 	}
 
 
+	/**
+	 * afterFind()
+	 *
+	 * @return $results
+	 */
+
+	public function afterFind($results, $primary = false) {
+		foreach ($results as $key => $val) {
+			if (isset($val['Person']['birthdate'])) {
+				$results[$key]['Person']['birthdate'] = $this->dateFormatAfterFind($val['Person']['birthdate']);
+			}
+		}
+		return $results;
+	}
+
+	/**
+	 * dateFormatAfterFind()
+	 *
+	 * @return $dateString
+	 */
+	public function dateFormatAfterFind($dateString) {
+		return date('d.m.Y', strtotime($dateString));
+	}
+
+
 /**
  * Validation rules
  *
