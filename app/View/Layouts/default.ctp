@@ -70,6 +70,13 @@
 <body>
 	<div id="container">
 		<div id="header">
+            <div id="postsBar">
+            </div>
+            <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+                $(function () {
+                    $('#postsBar').load('<?php echo $this->webroot; ?>posts/slider');
+                });
+            <?php echo $this->Html->scriptEnd(); ?>
             <div id="authentification">
                 <?php if(empty($user))
                 {

@@ -26,7 +26,7 @@ class PostsController extends AppController {
             $this->layout = 'ajax';
         }
         
-		//$this->Post->recursive = 0;
+		$this->Post->recursive = 0;
 		$this->set('posts', $this->Post->find('all', array('order' => array('Post.created' => 'DESC'))));
 	}
 
@@ -170,6 +170,26 @@ class PostsController extends AppController {
             throw new AjaxImplementedException;
         }
 	}
+
+    /**
+     * slider method
+     *
+     * @throws AjaxImplementedException
+     * @param string $id
+     * @return void
+     */
+    public function slider() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+            $this->Post->recursive = 0;
+            $conditions = array('visiblebegin <=' => date("Y-m-d"), 'visibleend >=' => date("Y-m-d"));
+            $posts = $this->Post->find('all', array('conditions' => $conditions));
+            $this->set(compact('posts'));
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
     
     public function beforeFilter()
     {

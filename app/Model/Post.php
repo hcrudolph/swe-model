@@ -146,8 +146,8 @@ class Post extends AppModel {
 				'message' => 'Sie müssen ein Beginndatum angeben.',
 			),
 			'endBigger'    => array(
-				'rule'      => array('endBigger'),
-				'message' => 'Das Endedatum muss nach dem Beginndatum liegen.',
+				'rule'      => array('endBiggerEqual'),
+				'message' => 'Das Endedatum muss mindestens dem Beginndatum entsprechen.',
 			)
 		)
 	);
@@ -162,9 +162,9 @@ class Post extends AppModel {
 		return (!empty($this->data[$this->alias]['visibleend']) AND !empty($this->data[$this->alias]['visiblebegin']));
 	}
 
-	public function endBigger()
+	public function endBiggerEqual()
 	{
-		return ((new DateTime($this->data[$this->alias]['visibleend'])) > (new DateTime($this->data[$this->alias]['visiblebegin'])));
+		return ((new DateTime($this->data[$this->alias]['visibleend'])) >= (new DateTime($this->data[$this->alias]['visiblebegin'])));
 	}
 
 
