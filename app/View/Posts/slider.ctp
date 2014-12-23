@@ -1,8 +1,7 @@
 <?php
-
+$listObjects = '';
+$carouselObjects = '';
 if(sizeof($posts) > 0) {
-    $listObjects = '';
-    $carouselObjects = '';
     for ($i = 0; $i < sizeof($posts); $i++) {
         $post = $posts[$i]['Post'];
         $listObjects .= '<li data-target="#postsBarCarousel" data-slide-to="' . $i . '" class="' . (($i == 0) ? 'active' : '') . '"></li>';
@@ -30,7 +29,7 @@ if(sizeof($posts) > 0) {
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <?php
-        echo $listObjects
+        echo $listObjects;
         ?>
     </ol>
 
