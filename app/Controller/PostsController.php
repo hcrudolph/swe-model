@@ -25,9 +25,14 @@ class PostsController extends AppController {
         {
             $this->layout = 'ajax';
         }
-        
-		$this->Post->recursive = 0;
-		$this->set('posts', $this->Post->find('all', array('order' => array('Post.created' => 'DESC'))));
+
+        $this->Post->Behaviors->load('Containable');
+        $order = array('Post.created' => 'DESC');
+        $contain = array(
+            'Account'=>array(
+                'Person'=>array()
+            ));
+		$this->set('posts', $this->Post->find('all', array('contain'=>$contain, 'order' => $order)));
 	}
 
 /**
@@ -42,10 +47,15 @@ class PostsController extends AppController {
         {
             $this->layout = 'ajax';
             if (!$this->Post->exists($id)) {
-                throw new NotFoundException(__('Invalid post'));
+                throw new NotFoundException;
             }
-            $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
-            $this->set('post', $this->Post->find('first', $options));
+            $this->Post->Behaviors->load('Containable');
+            $contain = array(
+                'Account'=>array(
+                    'Person'=>array()
+                ));
+            $conditions = array('Post.' . $this->Post->primaryKey => $id);
+            $this->set('post', $this->Post->find('first', array('conditions' => $conditions,'contain' =>$contain)));
         } else
         {
             throw new AjaxImplementedException;
@@ -108,6 +118,10 @@ class PostsController extends AppController {
             } else {
                 $this->layout = 'ajax';
                 if ($this->request->is(array('post', 'put'))) {
+                    if($this->Post->exists($id))
+                    {
+                        throw new NotFoundException;
+                    }
                     $this->request->data['Post']['account_id'] = $this->Auth->user('id');
                     $this->request->data['Post']['id'] = $id;
                     $this->autoRender = false;
@@ -148,6 +162,10 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
+                if($this->Post->exists($id))
+                {
+                    throw new NotFoundException;
+                }
                 $this->autoRender = false;
                 $this->layout = null;
                 $this->response->type('json');
