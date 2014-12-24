@@ -206,7 +206,26 @@ class AccountsController extends AppController {
     }
     // Trainer Permissions
     if ($role = 1) {
-        $this->Acl->allow($role, 'controllers');
+        $this->Acl->deny($role, 'controllers');
+        $this->Acl->allow($role, 'controllers/posts');
+        $this->Acl->allow($role, 'controllers/courses');
+        $this->Acl->allow($role, 'controllers/dates');
+        $this->Acl->allow($role, 'controllers/rooms');
+        $this->Acl->allow($role, 'controllers/people/view');
+        $this->Acl->allow($role, 'controllers/people/add');
+        $this->Acl->allow($role, 'controllers/people/edit');
+        $this->Acl->allow($role, 'controllers/AccountsTrainings');
+        $this->Acl->allow($role, 'controllers/bills/view');
+        $this->Acl->allow($role, 'controllers/bills/add');
+        $this->Acl->allow($role, 'controllers/calendar');
+        $this->Acl->allow($role, 'controllers/lists');
+        $this->Acl->allow($role, 'controllers/users/view');
+        $this->Acl->allow($role, 'controllers/users/add');
+        $this->Acl->allow($role, 'controllers/users/edit');
+        $this->Acl->allow($role, 'controllers/tariffs');
+        $this->Acl->allow($role, 'controllers/accounts/view');
+        $this->Acl->allow($role, 'controllers/accounts/edit');
+        $this->Acl->allow($role, 'controllers/accounts/add');
     }
 
     // Member Permissions
@@ -220,7 +239,9 @@ class AccountsController extends AppController {
         $this->Acl->allow($role, 'controllers/people/view');
         $this->Acl->allow($role, 'controllers/rooms/view');
         $this->Acl->allow($role, 'controllers/lists/view/trainer');
-        $this->Acl->allow($role, 'controllers/accountstrainings/view');
+        $this->Acl->allow($role, 'controllers/AccountsTrainings/view');
+        $this->Acl->allow($role, 'controllers/calendar/view');
+
         //$this->Acl->allow($role, 'controllers/studio/view');
     }
     $this->Acl->allow($role, 'controllers/users/logout');
