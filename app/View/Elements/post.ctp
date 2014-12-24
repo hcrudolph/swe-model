@@ -3,9 +3,16 @@
         <div class="panel-heading">
             <h3 class="panel-title" style="display:inline;"><?php echo h($post['Post']['heading']); ?></h3>
             <?php if(!empty($user)){?>
-                <div style="display:inline; right:0px;">
-                    <button type="button" class="btn btn-default" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>
-                    <button type="button" class="btn btn-default" onclick="postEntryDelete(<?php echo h($post['Post']['id']); ?>);"><i class="glyphicon glyphicon-trash"></i>Löschen</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);">Bearbeiten</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0)" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);">Bearbeiten</a></li>
+                        <li><a href="javascript:void(0)" onclick="postEntryDelete(<?php echo h($post['Post']['id']); ?>);">Löschen</a></li>
+                    </ul>
                 </div>
             <?php } ?>
         </div>
