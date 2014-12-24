@@ -35,6 +35,31 @@ class Person extends AppModel {
 	}
 
 
+	/**
+	 * afterFind()
+	 *
+	 * @return $results
+	 */
+
+	public function afterFind($results, $primary = false) {
+		foreach ($results as $key => $val) {
+			if (isset($val['Person']['birthdate'])) {
+				$results[$key]['Person']['birthdate'] = $this->dateFormatAfterFind($val['Person']['birthdate']);
+			}
+		}
+		return $results;
+	}
+
+	/**
+	 * dateFormatAfterFind()
+	 *
+	 * @return $dateString
+	 */
+	public function dateFormatAfterFind($dateString) {
+		return date('d.m.Y', strtotime($dateString));
+	}
+
+
 /**
  * Validation rules
  *
@@ -122,14 +147,6 @@ class Person extends AppModel {
 			),
 		),
 		'city' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				'message' => 'Der Ortsname darf nur aus Buchstaben bestehen.',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Der Ortsname darf nicht leer sein.',

@@ -12,6 +12,7 @@
     width: 120px;
     box-sizing: border-box;
     left: 880px;
+    height: 160px;
 }
 
 #content {
@@ -25,29 +26,20 @@
     border-left: 2px double #000000;
 }
 
-.tabsBarTab {
-    width: 120px;
-    height: 40px;
-}
-.tabsBar {
-    color: rgb(255, 255, 255);
-    height: 38px;
-    width: 780px;
-    box-shadow: 0px 3px 2px rgba(0,0,0,0.2);
-    background-color: rgb(0, 188, 212);
-    padding: 0px 0px 0px 0px;
-    border: 5px;
-    border-bottom-color: #000066;
-}
-
-.tabsPages {
+#postsBar {
     position: absolute;
-    top: 60px;
-    width:100%;
+    width: 660px;
+    box-sizing: border-box;
+    left: 0px;
+    height: 160px;
+}
+#postsBarCarousel {
+    background-color: #0070a3;
 }
 
-
-
+.carousel-image-placeholder {
+    height:160px;
+}
 
 
 div.postEntry {
@@ -79,8 +71,8 @@ div.postEntry div.buttons core-icon-button.edit{
     #background-image: image();
 }
 
+
 #footer {
     position: absolute;
-    top: 0px;
-
+    
 }

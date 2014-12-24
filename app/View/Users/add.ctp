@@ -12,7 +12,7 @@
         <div class="role">
             <select name="data[Account][role]" class="form-control">
                 <option value="0" selected="selected">Mitglied</option>
-                <?php echo (($user['role']>0)?'<option value="1">Mitarbeiter</option>':'')?>
+                <?php echo (($user['role']==2)?'<option value="1">Mitarbeiter</option>':'')?>
                 <?php echo (($user['role']==2)?'<option value="2">Administrator</option>':'')?>
             </select>
         </div>
@@ -50,7 +50,7 @@
                 <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </span>
-                <input type="text" name="data[Person][birthdate]" class="form-control ">
+                <input type="text" name="data[Person][birthdate]" class="form-control " placeholder="Geburtsdatum">
             </div>
         </div>
     </div>
