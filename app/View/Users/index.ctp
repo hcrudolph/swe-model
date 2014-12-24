@@ -1,15 +1,15 @@
 <div id="usersTabbar" role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#usersGeneral" data-url="<?php echo $this->webroot; ?>Users/view">Allgemein</a></li>
-        <li role="presentation"><a href="#usersTariff" data-url="<?php echo $this->webroot; ?>Users/view">Tarife</a></li>
+        <li role="presentation"><a href="#usersTariff" data-url="<?php echo $this->webroot; ?>tariffs/">Tarife</a></li>
         <li role="presentation"><a href="#usersCertificate" data-url="<?php echo $this->webroot; ?>Certificates/index">Zertifikate</a></li>
         <li role="presentation"><a href="#usersTraining" data-url="<?php echo $this->webroot; ?>Users/view">Trainingspläne</a></li>
     </ul>
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="usersGeneral">Allgemein</div>
-        <div role="tabpanel" class="tab-pane fade" id="usersTariff">Tarife</div>
-        <div role="tabpanel" class="tab-pane fade" id="usersCertificate">Zertifikate</div>
-        <div role="tabpanel" class="tab-pane fade" id="usersTraining">Trainingspläne</div>
+        <div role="tabpanel" class="tab-pane fade in active" id="usersGeneral"></div>
+        <div role="tabpanel" class="tab-pane fade" id="usersTariff"></div>
+        <div role="tabpanel" class="tab-pane fade" id="usersCertificate"></div>
+        <div role="tabpanel" class="tab-pane fade" id="usersTraining"></div>
     </div>
 </div>
 
