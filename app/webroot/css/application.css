@@ -4,7 +4,7 @@
     top: 160px;
     position: absolute;
     padding: 2px;
-    border-top: 2px double #000000;
+    border-top: 2px double darkgray;
 }
 
 #authentification{
@@ -15,15 +15,23 @@
     height: 160px;
 }
 
+#container {
+    width: 1000px;
+}
+
 #content {
     position: absolute;
     left: 200px;
     top: 160px;
-    width: 800px;
+    width: 788px;
     height: 600px;
     padding: 8px;
-    border-top: 2px double #000000;
-    border-left: 2px double #000000;
+    border-top: 2px double darkgray;
+    border-left: 2px double darkgray;
+   <!-- background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-image: url(app/webroot/img/background.jpg);-->
 }
 
 #postsBar {
@@ -31,19 +39,22 @@
     width: 660px;
     box-sizing: border-box;
     left: 0px;
-    height: 160px;
+    height: 158px;
 }
 #postsBarCarousel {
     background-color: #0070a3;
 }
 
 .carousel-image-placeholder {
-    height:160px;
+    height:158px;
 }
 
 
 div.postEntry {
     width:100%;
+    margin-top: 10px;
+    padding: 2px;
+    border: 2px solid darkgray;
 }
 div.postEntry core-item.heading {
     color:red;
@@ -68,11 +79,12 @@ div.postEntry div.buttons core-icon-button.edit{
 #header {
     height: 160px;
     width: 1000px;
-    #background-image: image();
+    padding-bottom: 2px;
 }
 
 
 #footer {
     position: absolute;
+    visibility: hidden;
     
 }
