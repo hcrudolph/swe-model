@@ -18,9 +18,10 @@ class PostsController extends AppController {
 /**
  * index method
  *
+ * @param string $page
  * @return void
  */
-	public function index() {
+	public function index($page = 0) {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
@@ -33,8 +34,14 @@ class PostsController extends AppController {
                 'Person'=>array(
                     'fields' => array('name', 'surname'),
                 )
-            ));
-		$this->set('posts', $this->Post->find('all', array('contain'=>$contain, 'order' => $order)));
+            )
+        );
+        $limit = 5;
+
+        $this->set(compact('limit'));
+        $this->set('postCount', $this->Post->find('count'));
+        $this->set(compact('page'));
+		$this->set('posts', $this->Post->find('all', array('contain'=>$contain,'limit'=>$limit,'page'=>$page+1, 'order' => $order)));
 	}
 
 /**
@@ -61,7 +68,7 @@ class PostsController extends AppController {
         } else
         {
             throw new AjaxImplementedException;
-	}
+	    }
 	}
 
 /**
