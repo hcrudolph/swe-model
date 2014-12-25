@@ -1,4 +1,4 @@
-<form id="cerificateAddForm">
+<form id="certificateAddForm">
     <div class="control-group Certificate">
         <div class="name">
             <input type="input" class="form-control" placeholder="Name">
@@ -12,19 +12,19 @@
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 
     $(document).ready(function() {
-        $('#cerificateAddForm').submit(function(event) {
-            $.post('<?php echo $this->webroot;?>cerificates/add/', $('#cerificateAddForm').serialize(), function(json) {
+        $('#certificateAddForm').submit(function(event) {
+            $.post('<?php echo $this->webroot;?>certificates/add/', $('#certificateAddForm').serialize(), function(json) {
                 if(json.success == true) {
-                    notificatecerificate(json.message, 'success');
+                    notificatecertificate(json.message, 'success');
 
-                    $.get('<?php echo $this->webroot?>cerificates/listing/', function( data ) {
-                    $('#cerificateListing').replaceWith(data);
+                    $.get('<?php echo $this->webroot?>certificates/listing/', function( data ) {
+                    $('#certificateListing').replaceWith(data);
                 });
                 } else {
-                    notificatecerificate(json.message);
+                    notificatecertificate(json.message);
 
                     //delete old errors
-                    $('#cerificateAddForm').children().each(function() {
+                    $('#certificateAddForm').children().each(function() {
                         $(this).children().each(function() {
                             $(this).removeClass('has-error has-feedback');
                             $(this).children('.glyphicon').remove();
@@ -38,8 +38,8 @@
                         {
                             if(json.errors[controller].hasOwnProperty(key))
                             {
-                                notificatecerificate(json.errors[controller][key]);
-                                var ele = $('#cerificateAddForm > .'+controller+' > .'+key);
+                                notificatecertificate(json.errors[controller][key]);
+                                var ele = $('#certificateAddForm > .'+controller+' > .'+key);
                                 ele.addClass('has-error has-feedback');
                                 ele.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
                                 ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
