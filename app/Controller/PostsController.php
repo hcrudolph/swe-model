@@ -30,7 +30,9 @@ class PostsController extends AppController {
         $order = array('Post.created' => 'DESC');
         $contain = array(
             'Account'=>array(
-                'Person'=>array()
+                'Person'=>array(
+                    'fields' => array('name', 'surname'),
+                )
             ));
 		$this->set('posts', $this->Post->find('all', array('contain'=>$contain, 'order' => $order)));
 	}
