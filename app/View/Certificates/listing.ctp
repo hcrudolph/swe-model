@@ -1,60 +1,80 @@
-<div>
-    <button type="button" class="btn btn-default" onclick="certificateAdd()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
-</div>
-<div id="certificateEntries">
-    <?php
-    foreach($certificates as $certificate)
-    {
-        $certificate = $certificate['Zertifikat'];
-        $description = $certificate['Bezeichnung'];
-        $cetId = $certificate['id'];
+<div id="certificate">
+    <button type="button" id="certificateAddButton" class="btn btn-default" onclick="certificateAdd()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+    <button type="button" id="certificateCloseButton" class="btn btn-default" onclick="certificateClose()" style="display:none;"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
 
-        echo '<div id="certificateEntry'.$cetId.'">';
-        echo '<div onclick="certificateInformationToggle('.$cetId.')">';
-        echo h($certificate['certificatename']);
-        echo '</div>';
-        echo '<button type="button" class="btn btn-default" onclick="certificateEdit('.$cetId.')"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>';
-        echo '<button type="button" class="btn btn-default" onclick="certificateInformation('.$cetId.')"><i class="glyphicon glyphicon-info-sign"></i>Informationen</button>';
-        echo '<button type="button" class="btn btn-default" onclick="certificateDelete('.$cetId.')"><i class="glyphicon glyphicon-trash"></i>Löschen</button>';
-        echo '<div id="certificateEntryInformation'.$cetId.'" style="display:none;"></div>';
-        echo "</div>";
-    }
-    ?>
+    <div class="panel-group" id="certificateEntries" role="tablist" aria-multiselectable="true">
+        <?php
+        for($i=0; $i < sizeof($certificates); $i++) {
+            $certificate = $certificates[$i]['Certificate'];
+            $description = $certificates[$i]['Description'];
+            $certId = $certificate['id'];
+            ?>
+
+            <div class="panel panel-default" id="certificateEntry<?php echo $certId; ?>">
+                <div class="panel-heading clearfix" role="tab" id="certificateEntryHeading<?php echo $certId; ?>">
+                    <h4 class="panel-title pull-left">
+                        <a data-toggle="collapse" data-parent="#certificateEntries" data-url="<?php echo $this->webroot;?>certificates/view/<?php echo $certId; ?>" href="#certificateEntryCollapse<?php echo $certId;?>" aria-expanded="false" aria-controls="certificateEntryCollapse<?php echo $certId; ?>">
+                            <?php echo h($certificate['certificatename']); ?>
+                        </a>
+                    </h4>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="certificateDelete(<?php echo $certId; ?>);">Löschen</a>
+                    </div>
+                </div>
+                <div id="certificateEntryCollapse<?php echo $certId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="certificateEntryHeading<?php echo $certId; ?>">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
-function certificateInformationToggle(cetId)
+function certificateInformationToggle(certId)
 {
-    $('#certificateEntryInformation'+cetId).toggle();
+    $('#certificateEntryInformation'+certId).toggle();
 }
 
-function certificateEdit(cetId)
+function certificateEdit(certId)
 {
-    $('#certificateEntryInformation'+cetId).load('<?php echo $this->webroot."certificates/edit/"?>'+cetId);
-    $('#certificateEntryInformation'+cetId).show();
+    $('#certificateEntryInformation'+certId).load('<?php echo $this->webroot."certificates/edit/"?>'+certId);
+    $('#certificateEntryInformation'+certId).show();
 }
 
 function certificateAdd()
 {
-    $(#certificateEntryInformation).load(<?php echo $this->webroot."certificates/add/"?>);
-    $(#certificateEntryInformation).show();
+    if($('#certificateAddForm').length == 0)
+    {
+        $.get('<?php echo $this->webroot."certificates/add/";?>', function( data ) {
+            $('#certificateEntries').before(data);
+        });
+    $('#certificateAddButton').toggle();
+    $('#certificateCloseButton').toggle();
+    }
 }
 
-function certificateInformation(cetId)
+function certificateClose()
 {
-    $('#certificateEntryInformation'+cetId).load('<?php echo $this->webroot."certificates/view/"?>'+cetId);
-    $('#certificateEntryInformation'+cetId).show();
+    $('#certificateAddForm').remove();
+    $('#certificateAddButton').toggle();
+    $('#certificateCloseButton').toggle();
 }
 
-function certificateDelete(cetId)
+function certificateInformation(certId)
 {
-    var del = confirm("certificate #" + cetId + " löschen?");
+    $('#certificateEntryInformation'+certId).load('<?php echo $this->webroot."certificates/view/"?>'+certId);
+    $('#certificateEntryInformation'+certId).show();
+}
+
+function certificateDelete(certId)
+{
+    var del = confirm("certificate #" + certId + " löschen?");
     if (del == true) {
-    $.post('<?php echo $this->webroot."certificates/delete/"?>'+cetId,function(json) {
+    $.post('<?php echo $this->webroot."certificates/delete/"?>'+certId,function(json) {
     if(json.success == true)
     {
         notificatecertificate(json.message, 'success');
-        $('#certificateEntry'+cetId).remove();
+        $('#certificateEntry'+certId).remove();
     } else
     {
         notificatecertificate(json.message);
