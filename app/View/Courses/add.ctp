@@ -1,23 +1,63 @@
-<div class="courses form">
-<?php echo $this->Form->create('Course'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Course'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('category');
-		echo $this->Form->input('maxcount');
-		echo $this->Form->input('mincount');
-		echo $this->Form->input('description');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<form id="courseAddForm">
+    <div class="control-group Course">
+        <div class="name">
+            <input type="input" class="form-control" placeholder="Name">
+        </div>
+        <div class="category">
+            <input type="input" class="form-control" placeholder="Kategorie">
+        </div>
+        <div class="mincount">
+            <input type="input" class="form-control" placeholder="Minimalanzahl der Teilnehmer">
+        </div>
+        <div class="maxcount">
+            <input type="input" class="form-control" placeholder="Maximalanzahl der Teilnehmer">
+        </div>
+        <div class="description">
+            <input type="input" class="form-control" placeholder="Beschreibung">
+        </div>
+        <button type="submit" class="btn btn-default">Speichern</button>
+</form>
 
-		<li><?php echo $this->Html->link(__('List Courses'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Dates'), array('controller' => 'dates', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+
+$(document).ready(function() {
+$('#courseAddForm').submit(function(event) {
+$.post('<?php echo $this->webroot;?>courses/add/', $('#courseAddForm').serialize(), function(json) {
+if(json.success == true) {
+notificatecourse(json.message, 'success');
+
+$.get('<?php echo $this->webroot?>courses/listing/', function( data ) {
+$('#courseListing').replaceWith(data);
+});
+} else {
+notificatecourse(json.message);
+
+//delete old errors
+$('#courseAddForm').children().each(function() {
+$(this).children().each(function() {
+$(this).removeClass('has-error has-feedback');
+$(this).children('.glyphicon').remove();
+$(this).children('.control-label').remove();
+});
+})
+
+for(var controller in json.errors)
+{
+for(var key in json.errors[controller])
+{
+if(json.errors[controller].hasOwnProperty(key))
+{
+notificatecourse(json.errors[controller][key]);
+var ele = $('#courseAddForm > .'+controller+' > .'+key);
+ele.addClass('has-error has-feedback');
+ele.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
+}
+}
+}
+}
+}, 'json');
+event.preventDefault();
+});
+});
+<?php echo $this->Html->scriptEnd(); ?>

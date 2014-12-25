@@ -32,7 +32,22 @@ class CoursesController extends AppController {
 		$this->set('courses', $this->Paginator->paginate());
 	}
 
-/**
+    public function listing()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if ($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            #Sortierung? Anzeige des Templates
+            $courses = $this->Course->find('all');
+            $this->set(compact('courses'));
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
+    /**
  * view method
  *
  * @throws NotFoundException
