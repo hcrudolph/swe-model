@@ -31,16 +31,6 @@
 			<?php echo h($date['Date']['end']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Presetup'); ?></dt>
-		<dd>
-			<?php echo h($date['Date']['presetup']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Postsetup'); ?></dt>
-		<dd>
-			<?php echo h($date['Date']['postsetup']); ?>
-			&nbsp;
-		</dd>
 	</dl>
 </div>
 <div class="actions">

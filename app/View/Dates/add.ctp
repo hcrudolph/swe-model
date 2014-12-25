@@ -8,8 +8,6 @@
         echo $this->Form->input('director');
 		echo $this->Form->input('begin');
 		echo $this->Form->input('end');
-		echo $this->Form->input('presetup');
-		echo $this->Form->input('postsetup');
 		echo $this->Form->input('Account');
 	?>
 	</fieldset>
