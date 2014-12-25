@@ -103,24 +103,25 @@ class CoursesController extends AppController {
 /**
  * edit method
  *
- * @throws NotFoundException
+ * @throws AjaxImplementedException, NotFoundException
  * @param string $id
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->Course->exists($id)) {
-			throw new NotFoundException(__('Invalid course'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Course->save($this->request->data)) {
-				$this->Session->setFlash(__('The course has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The course could not be saved. Please, try again.'));
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+			if (!$this->Course->exists($id)) {
+				throw new NotFoundException;
+			}
+			if ($this->request->is('post')) {
+
+			} else
+			{
+				$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
+				$this->set('course', $this->Course->find('first', $options));
 			}
 		} else {
-			$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
-			$this->request->data = $this->Course->find('first', $options);
+			throw new AjaxImplementedException;
 		}
 	}
 

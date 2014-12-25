@@ -1,25 +1,17 @@
-<div class="courses form">
-<?php echo $this->Form->create('Course'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Course'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('category');
-		echo $this->Form->input('maxcount');
-		echo $this->Form->input('mincount');
-		echo $this->Form->input('description');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Course.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Course.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Courses'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Dates'), array('controller' => 'dates', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
-	</ul>
+<div class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('.modal').remove();"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Kurs bearbeiten</h4>
+			</div>
+			<div class="modal-body">
+				<p>One fine body&hellip;</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.modal').remove();">Close</button>
+				<button type="button" class="btn btn-primary" onclick="courseEditSave(<?php echo $course['Course']['id'];?>)">Save changes</button>
+			</div>
+		</div>
+	</div>
 </div>

@@ -13,8 +13,8 @@
 				</h4>
 				<?php if(isset($user) AND $user['role'] > 0) {?>
 					<div class="btn-group pull-right">
-						<a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="courseEdit(<?php echo $courseId; ?>);">Bearbeiten</a>
-						<a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="courseDelete(<?php echo $courseId; ?>);">Löschen</a>
+						<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseEdit(<?php echo $courseId; ?>);">Bearbeiten</a>
+						<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseDelete(<?php echo $courseId; ?>);">Löschen</a>
 					</div>
 				<?php } ?>
 			</div>
@@ -47,8 +47,16 @@
 
 	function courseEdit(courseId)
 	{
-		alert('Edit Course');
+		$.get('<?php echo $this->webroot?>Courses/edit/'+courseId,function(html) {
+			$('body').append(html);
+			$('body > .modal').modal('show');
+		});
 	}
+
+function courseEditSave(courseId)
+{
+
+}
 
 	function courseDateEdit(dateId)
 	{
