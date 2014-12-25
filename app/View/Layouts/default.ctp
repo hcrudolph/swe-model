@@ -59,7 +59,7 @@
                             notificateUser('Die Ressource wurde nicht gefunden.');
                         }
                         } else if(x.status === 405) {
-                            notificateUser('Die Anfragemthode ist nicht erlaubt..');
+                            notificateUser('Die Anfrage-Methode ist nicht erlaubt..');
                         } else if(x.status === 501) {
                             notificateUser('Für diese Aktion existiert keine Implementierung.');
                         }
