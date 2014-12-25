@@ -1,10 +1,20 @@
 <div id="postEntry<?php echo h($post['Post']['id']); ?>" class="postEntry">
-    <p class="bg-primary"><?php echo h($post['Post']['heading']); ?></p>
-    <p class="bg-info"><?php echo nl2br(h($post['Post']['body'])); ?></p>
-    <p class="bg-success"><?php echo h($post['Account']['username']);?></p>
-    <p class="bg-warning"><?php echo h($post['Post']['created']); ?></p>
-    <?php if(!empty($user)){?>
-        <button type="button" class="btn btn-default" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>
-        <button type="button" class="btn btn-default" onclick="postEntryDelete(<?php echo h($post['Post']['id']); ?>);"><i class="glyphicon glyphicon-trash"></i>Löschen</button>
-    <?php } ?>
+    <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title pull-left"><?php echo h($post['Post']['heading']); ?></h4>
+            <?php if(!empty($user)){?>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);">Bearbeiten</a>
+                    <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="postEntryDelete(<?php echo h($post['Post']['id']); ?>);">Löschen</a>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="panel-body">
+            <?php echo nl2br(h($post['Post']['body'])); ?>
+        </div>
+        <div class="panel-footer">
+            <?php echo h($post['Account']['Person']['surname']);?> <?php echo h($post['Account']['Person']['name']);?>, <?php echo h($post['Post']['created']); ?>
+        </div>
+
+    </div>
 </div>
