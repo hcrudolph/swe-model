@@ -1,92 +1,92 @@
-<div class="courses view">
-<h2><?php echo __('Course'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['name']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Category'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['category']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Maxcount'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['maxcount']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Mincount'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['mincount']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Description'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['description']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($course['Course']['created']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Course'), array('action' => 'edit', $course['Course']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Course'), array('action' => 'delete', $course['Course']['id']), array(), __('Are you sure you want to delete # %s?', $course['Course']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Courses'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Course'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Dates'), array('controller' => 'dates', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Dates'); ?></h3>
-	<?php if (!empty($course['Date'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Course Id'); ?></th>
-		<th><?php echo __('Room Id'); ?></th>
-		<th><?php echo __('Director'); ?></th>
-		<th><?php echo __('Begin'); ?></th>
-		<th><?php echo __('End'); ?></th>
-		<th><?php echo __('Presetup'); ?></th>
-		<th><?php echo __('Postsetup'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($course['Date'] as $date): ?>
-		<tr>
-			<td><?php echo $date['id']; ?></td>
-			<td><?php echo $date['course_id']; ?></td>
-			<td><?php echo $date['room_id']; ?></td>
-			<td><?php echo $date['director']; ?></td>
-			<td><?php echo $date['begin']; ?></td>
-			<td><?php echo $date['end']; ?></td>
-			<td><?php echo $date['presetup']; ?></td>
-			<td><?php echo $date['postsetup']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'dates', 'action' => 'view', $date['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'dates', 'action' => 'edit', $date['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'dates', 'action' => 'delete', $date['id']), array(), __('Are you sure you want to delete # %s?', $date['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
+<?php
+$courseID = $course['Course']['id'];
+?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+<div id="courseEntry<?php echo $courseID; ?>">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Kursbeschreibung</h3>
+        </div>
+        <div class="panel-body">
+            <?php echo h($course['Course']['description']); ?>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Kurszeiten</div>
+        <table class="table">
+            <tr>
+                <th>Beginn</th>
+                <th>Ende</th>
+                <th>Trainer</th>
+                <th>Raum</th>
+                <th>Aktionen</th>
+            </tr>
+            <?php foreach($course['Date'] as $date) { $dateId = $date['id'];?>
+                <tr>
+                    <td><?php echo $date['begin']; ?></td>
+                    <td><?php echo $date['end']; ?></td>
+                    <td><?php echo $date['Trainer']['Person']['surname'].' '.$date['Trainer']['Person']['name']; ?></td>
+                    <td><?php echo $date['Room']['name']; ?></td>
+                    <td><?php
+                        //Check if User is already registered
+                        $userSignedUp = false;
+                        foreach($date['Account'] as $account)
+                        {
+                            if($user['id']==$account['id']){$userSignedUp=true;}
+                        }
+                        $elements = array();
+                        if($userSignedUp) {
+                            $elements[0] = '<button type="button" class="btn btn-default" onclick="courseDateSignOffUser(' . $date['id'] . ')">Abmelden</button>';
+                            $elements[1] = '<li><a href="javascript:void(0)" onclick="courseDateSignOffUser('.$date['id'].')"> Abmelden</a></li>';
+                        } elseif(count($date['Account']) < $course['Course']['maxcount']) {
+                            $elements[0] = '<button type="button" class="btn btn-default" onclick="courseDateSignUpUser('.$date['id'].')">Anmelden</button>';
+                            $elements[1] = '<li><a href="javascript:void(0)" onclick="courseDateSignUpUser(' . $date['id'] . ')"> Anmelden</a></li>';
+                        } else {
+                            $elements[0] = '<span class="btn btn-default">Kurs voll</span>';
+                            $elements[1] = $elements[0];
+                        }
+                        if($user['role'] > 0) {
+                            $elements[0] = '<button type="button" class="btn btn-default" onclick="courseDateEdit('.$date['id'].')">Bearbeiten</button>';
+                            $elements[] = '<li class="divider"></li>';
+                            $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateEdit('.$date['id'].')"> Bearbeiten</a></li>';
+                        }
+                        ?>
+
+                        <div class="btn-group">
+                            <?php echo $elements[0];?>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <?php
+                                for($i=1;$i<count($elements);$i++) {
+                                    echo $elements[$i];
+                                }
+                                ?>
+                            </ul>
+                        </div>
+
+
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Minimale Teilnehmeranzahl</h3>
+        </div>
+        <div class="panel-body">
+            <?php echo h($course['Course']['mincount']); ?>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Maximale Teilnehmeranzahl</h3>
+        </div>
+        <div class="panel-body">
+            <?php echo h($course['Course']['maxcount']); ?>
+        </div>
+    </div>
 </div>

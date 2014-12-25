@@ -8,7 +8,7 @@ App::uses('AppController', 'Controller');
  */
 class DatesController extends AppController {
 
-/**
+    /**
  * Components
  *
  * @var array
@@ -96,92 +96,151 @@ class DatesController extends AppController {
 	}
 
     /**
-     * signup method
+     * signupUser method
      *
-     * @throws NotFoundException
+     * @throws AjaxImplementedException, NotFoundException, MethodNotAllowedException
      * @param string $id
      * @return void
      */
-    public function signup($id = null) {
-        $this->Date->id = $id;
-        if (!$this->Date->exists($id)) {
-            throw new NotFoundException(__('Invalid date'));
-        }
-        $account_id = $this->Auth->user('id');
-        $data = $this->Date->findAllById($id);
-        $exists = false;
-        // Check if User is already signed up
-        foreach($data[0]['Account'] as $Acc){
-            if($Acc['id'] == $account_id){
-                $exists = true;
+    public function signupUser($id = null) {
+        if($this->request->is('ajax')) {
+            if (!$this->Date->exists($id)) {
+                throw new NotFoundException;
             }
-        }
-        // Check if maxcount of course is already reached
-        if(count($data[0]['Account']) == $this->Date->Course->field('maxcount')){
-            $this->Session->setFlash(__('The course limit was already reached.'));
-            return $this->redirect(array('action' => 'index'));
-        } else if($exists) {
-            $this->Session->setFlash(__('You are already signed up for this course.'));
-            return $this->redirect(array('action' => 'index'));
-        }
+            if ($this->request->is('post', 'put')) {
+                $conditions = array('Date.' . $this->Date->primaryKey => $id);
+                $date = $this->Date->find('first', array('conditions' => $conditions));
+                $userSignedUp = false;
+                foreach ($date['Account'] as $account) {
+                    if ($this->Auth->user('id') == $account['id']) {
+                        $userSignedUp = true;
+                    }
+                }
 
-        // Create new HABTM data record
-        $this->Date->create();
-        $newdata = array(
-            'password' => '',
-            'id' => $account_id,
-            'username' => $this->Auth->user('username'),
-            'role' => $this->Auth->user('role'),
-            'created' => $this->Auth->user('created'),
-            'AccountsDate' => array(
-                'date_id' => $id,
-                'account_id' => $account_id
-            )
-        );
-        // add new HABTM data record
-        array_push($data[0]['Account'], $newdata);
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
 
-        if($this->Date->saveAll($data)){
-            $this->Session->setFlash(__('You have been signed up successfully for this course.'));
+
+                if ($userSignedUp) {
+                    $answer['success'] = false;
+                    $answer['error'] = 'warning';
+                    $answer['message'] = 'Sie sind bereits angemeldet.';
+                } elseif (count($date['Account']) < $this->Date->Course->field('maxcount')) {
+                    if($this->Date->habtmAdd('Account', $id, $this->Auth->user('id')))
+                    {
+                        $answer['success'] = true;
+                        $answer['message'] = "Sie wurden erfolgreich angemeldet.";
+
+                    } else{
+                        $answer['success'] = false;
+                        $answer['error'] = 'error';
+                        $answer['message'] = 'Sie konnten nicht am Kurs angemeldet werden';
+                    }
+                } else {
+                    $answer['success'] = false;
+                    $answer['error'] = 'error';
+                    $answer['message'] = 'Der Kurs hat bereits die maximale Teilnehmeranzahl.';
+                }
+                echo json_encode($answer);
+            } else {
+                throw new MethodNotAllowedException;
+            }
         } else {
-            $this->Session->setFlash(__('Unable to sign you up. Please, try again.'));
+            throw new AjaxImplementedException;
         }
-        return $this->redirect(array('action' => 'index'));
     }
 
     /**
-     * signoff method
+     * signoffUser method
      *
-     * @throws NotFoundException
+     * @throws AjaxImplementedException, NotFoundExceptionm MethodNotAllowedException
      * @param string $id
      * @return void
      */
-    public function signoff($id = null){
-        $this->Date->id = $id;
-        if (!$this->Date->exists($id)) {
-            throw new NotFoundException(__('Invalid date'));
-        }
-        $account_id = $this->Auth->user('id');
-        $data = $this->Date->findAllById($id);
-
-        //Check if User is signed up for this course
-        while ($Acc = current($data[0]['Account'])) {
-            if ($Acc['id'] == $account_id) {
-                $key = key($data[0]['Account']);
-                unset($data[0]['Account'][$key]);
-                /**
-                 * Debugging:
-                 * debug($data);
-                 * print_r($data);
-                 */
-                $this->Date->saveAll($data);
-                $this->Session->setFlash(__('Signed off successfully'));
-                return $this->redirect(array('action' => 'index'));
+    public function signoffUser($id = null){
+        if($this->request->is('ajax')) {
+            if (!$this->Date->exists($id)) {
+                throw new NotFoundException;
             }
-            next($data[0]['Account']);
+            if ($this->request->is('post', 'delete')) {
+                $conditions = array('Date.' . $this->Date->primaryKey => $id);
+                $date = $this->Date->find('first', array('conditions' => $conditions));
+                $userSignedUp = false;
+                foreach ($date['Account'] as $account) {
+                    if ($this->Auth->user('id') == $account['id']) {
+                        $userSignedUp = true;
+                    }
+                }
+
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+
+                if ($userSignedUp) {
+                    if($this->Date->habtmDelete('Account', $id, $this->Auth->user('id'))) {
+                        $answer['success'] = true;
+                        $answer['message'] = "Sie wurden erfolgreich abgemeldet";
+                    } else {
+                        $answer['success'] = false;
+                        $answer['message'] = "Sie konnten nicht abgemeldet werden";
+                    }
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Sie sind nicht einmal angemeldet!';
+                }
+                echo json_encode($answer);
+            } else {
+                throw new MethodNotAllowedException;
+            }
+        } else {
+            throw new AjaxImplementedException;
         }
-        $this->Session->setFlash(__('You are currently not signed up for this course'));
-        return $this->redirect(array('action' => 'index'));
+
+
+
+
+
+
+
+
+
+
+        if($this->request->is('ajax')) {
+            if (!$this->Date->exists($id)) {
+                throw new NotFoundException;
+            }
+            if ($this->request->is('post', 'put')) {
+
+                $this->Date->id = $id;
+                $account_id = $this->Auth->user('id');
+                $data = $this->Date->findAllById($id);
+
+                //Check if User is signed up for this course
+                while ($Acc = current($data[0]['Account'])) {
+                    if ($Acc['id'] == $account_id) {
+                        $key = key($data[0]['Account']);
+                        unset($data[0]['Account'][$key]);
+                        /**
+                         * Debugging:
+                         * debug($data);
+                         * print_r($data);
+                         */
+                        $this->Date->saveAll($data);
+                        $this->Session->setFlash(__('Signed off successfully'));
+                        return $this->redirect(array('action' => 'index'));
+                    }
+                    next($data[0]['Account']);
+                }
+            } else {
+                throw new MethodNotAllowedException;
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
     }
 
 

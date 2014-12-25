@@ -18,33 +18,54 @@ class CoursesController extends AppController {
 /**
  * index method
  *
+ * @throws AjaxImplementedException
  * @return void
  */
 	public function index() {
-        if($this->request->is('ajax'))
-    {
-        $this->layout = 'ajax';
-    } else
-    {
-        $this->layout = 'polymer';
-    }
-		$this->Course->recursive = 0;
-		$this->set('courses', $this->Paginator->paginate());
+        if($this->request->is('ajax')) {
+        	$this->layout = 'ajax';
+
+			$fields = array("Course.name", 'Course.id');
+			$courses = $this->Course->find('all', array('fields' => $fields));
+			$this->set(compact('courses'));
+    	} else
+		{
+			throw new AjaxImplementedException;
+		}
 	}
 
 /**
  * view method
  *
- * @throws NotFoundException
+ * @throws AjaxImplementedException, NotFoundException
  * @param string $id
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Course->exists($id)) {
-			throw new NotFoundException(__('Invalid course'));
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+			if(!$this->Course->exists($id)) {
+				throw new NotFoundException;
+			}
+			$this->Course->Behaviors->load('Containable');
+
+			$contain = array(
+					'Date' => array(
+						'Trainer' => array (
+							'Person'
+						),
+						'Room' => array(),
+						'Account' => array()
+					)
+			);
+
+			$conditions = array('Course.'.$this->Course->primaryKey => $id);
+			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+			$this->set(compact('course'));
+		} else
+		{
+			throw new AjaxImplementedException;
 		}
-		$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
-		$this->set('course', $this->Course->find('first', $options));
 	}
 
 /**
