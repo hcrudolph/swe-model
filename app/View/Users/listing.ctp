@@ -12,13 +12,15 @@
         ?>
 
         <div class="panel panel-default" id="userEntry<?php echo $accId; ?>">
-            <div class="panel-heading" role="tab" id="userEntryHeading<?php echo $accId; ?>">
-                <h4 class="panel-title">
+            <div class="panel-heading clearfix" role="tab" id="userEntryHeading<?php echo $accId; ?>">
+                <h4 class="panel-title pull-left">
                     <a data-toggle="collapse" data-parent="#userEntries" data-url="<?php echo $this->webroot;?>Users/view/<?php echo $accId; ?>" href="#userEntryCollapse<?php echo $accId;?>" aria-expanded="false" aria-controls="userEntryCollapse<?php echo $accId; ?>">
                         <?php echo h($account['username']); ?>
                     </a>
-                    <button type="button" class="btn btn-default" onclick="userDelete(<?php echo $accId; ?>)"><i class="glyphicon glyphicon-trash"></i> Löschen</button>
                 </h4>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="userDelete(<?php echo $accId; ?>);">Löschen</a>
+                </div>
             </div>
             <div id="userEntryCollapse<?php echo $accId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="userEntryHeading<?php echo $accId; ?>">
                 <div class="panel-body"></div>
