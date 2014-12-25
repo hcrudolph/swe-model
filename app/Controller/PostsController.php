@@ -74,7 +74,7 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
-                if ($this->request->is('post')) {
+                if ($this->request->is('post', 'put')) {
                     $this->autoRender = false;
                     $this->layout = null;
                     $this->response->type('json');
@@ -162,7 +162,7 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
-                if($this->Post->exists($id))
+                if(!$this->Post->exists($id))
                 {
                     throw new NotFoundException;
                 }
