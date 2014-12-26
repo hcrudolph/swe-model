@@ -7,8 +7,8 @@
 		echo $this->Form->input('account_id');
 		echo $this->Form->input('year');
 		echo $this->Form->input('month');
-		echo $this->Form->input('tariff_id');
 		echo $this->Form->input('payed');
+		echo $this->Form->input('Tariff');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

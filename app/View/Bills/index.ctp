@@ -7,7 +7,6 @@
 			<th><?php echo $this->Paginator->sort('account_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('year'); ?></th>
 			<th><?php echo $this->Paginator->sort('month'); ?></th>
-			<th><?php echo $this->Paginator->sort('tariff_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('payed'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -21,9 +20,6 @@
 		</td>
 		<td><?php echo h($bill['Bill']['year']); ?>&nbsp;</td>
 		<td><?php echo h($bill['Bill']['month']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($bill['Tariff']['id'], array('controller' => 'tariffs', 'action' => 'view', $bill['Tariff']['id'])); ?>
-		</td>
 		<td><?php echo h($bill['Bill']['payed']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $bill['Bill']['id'])); ?>
