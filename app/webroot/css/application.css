@@ -1,6 +1,6 @@
 #sidebar{
     width:200px;
-    height:740px;
+    height:60px;
     top: 160px;
     position: absolute;
     padding: 5px;
@@ -42,7 +42,7 @@
     left: 200px;
     top: 160px;
     width: 788px;
-    height: 840px;
+    height: 600px;
     padding: 8px;
     border-top: 2px double darkgray;
     border-left: 2px double darkgray;
