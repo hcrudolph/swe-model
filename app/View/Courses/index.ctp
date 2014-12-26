@@ -24,30 +24,37 @@ function collapseAddHandler() {
 	});
 }
 
-	function courseDelete(courseId)
-	{
+	function courseDelete(courseId) {
 		alert('Delete Course');
 	}
 
-	function courseEdit(courseId)
-	{
+	function courseEdit(courseId) {
 		$.get('<?php echo $this->webroot?>Courses/edit/'+courseId,function(html) {
 			$('body').append(html);
 			$('body > .modal').modal('show');
 		});
 	}
 
-	function courseDateEdit(dateId)
-	{
+	function courseDateEdit(dateId) {
 		alert('Bearbeiten: '+dateId);
 	}
 
+	function courseDateDelete(dateId) {
+		$.post('<?php echo $this->webroot."dates/delete/"?>'+dateId,function(json) {
+			if(json.success == true) {
+				notificateUser(json.message, 'success');
+				//Alle user benachrichtigt?
+			} else {
+				notificateUser(json.message, json.error);
+			}
+		}, 'json');
+	}
 
-	function courseDateSignUpUser(dateId) {
+
+	function courseDateSignUpUser(courseId, dateId) {
 		$.post('<?php echo $this->webroot."dates/signupUser/"?>'+dateId,function(json) {
 			if(json.success == true) {
 				notificateUser(json.message, 'success');
-				//$('#postEntry'+postId).remove();
 				//Toggle Buttons
 			} else {
 				notificateUser(json.message, json.error);
@@ -55,11 +62,10 @@ function collapseAddHandler() {
 		}, 'json');
 	}
 
-	function courseDateSignOffUser(dateId) {
+	function courseDateSignOffUser(courseId, dateId) {
 		$.post('<?php echo $this->webroot."dates/signoffUser/"?>'+dateId,function(json) {
 			if(json.success == true) {
 				notificateUser(json.message, 'success');
-				//$('#postEntry'+postId).remove();
 				//Toggle Buttons
 			} else {
 				notificateUser(json.message, json.error);

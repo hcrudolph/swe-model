@@ -60,7 +60,8 @@ $courseID = $course['Course']['id'];
                             if($user['role'] > 0) {
                                 $elements[0] = '<button type="button" class="btn btn-default" onclick="courseDateEdit('.$date['id'].')">Bearbeiten</button>';
                                 $elements[] = '<li class="divider"></li>';
-                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateEdit('.$date['id'].')"> Bearbeiten</a></li>';
+                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateEdit('.$courseID.', '.$date['id'].')"> Bearbeiten</a></li>';
+                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateDelete('.$courseID.', '.$date['id'].')"> Löschen</a></li>';
                             }
                             ?>
 

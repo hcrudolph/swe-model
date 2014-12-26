@@ -95,6 +95,51 @@ class DatesController extends AppController {
 		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
 	}
 
+
+
+
+    /** delete method
+     *
+     * @throws AjaxImplementedException, MethodNotAllowedException, NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function delete($id = null) {
+        if($this->request->is('ajax')) {
+            if (!$this->Date->exists($id)) {
+                throw new NotFoundException;
+            }
+            if ($this->request->is('post', 'delete')) {
+
+                $this->Date->id = $id;
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+                if($this->Date->delete()) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Termin wurde erfolgreich gelöscht.';
+                    //Create Post entry
+                    //Senden der Emails
+
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Termin konnte nicht gelöscht werden.';
+                }
+            } else {
+                throw new MethodNotAllowedException;
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
+
+
+
+    #####implemented
+
+
     /**
      * signupUser method
      *
@@ -155,7 +200,7 @@ class DatesController extends AppController {
     /**
      * signoffUser method
      *
-     * @throws AjaxImplementedException, NotFoundExceptionm MethodNotAllowedException
+     * @throws AjaxImplementedException, NotFoundException, MethodNotAllowedException
      * @param string $id
      * @return void
      */
@@ -199,70 +244,7 @@ class DatesController extends AppController {
         } else {
             throw new AjaxImplementedException;
         }
-
-
-
-
-
-
-
-
-
-
-        if($this->request->is('ajax')) {
-            if (!$this->Date->exists($id)) {
-                throw new NotFoundException;
-            }
-            if ($this->request->is('post', 'put')) {
-
-                $this->Date->id = $id;
-                $account_id = $this->Auth->user('id');
-                $data = $this->Date->findAllById($id);
-
-                //Check if User is signed up for this course
-                while ($Acc = current($data[0]['Account'])) {
-                    if ($Acc['id'] == $account_id) {
-                        $key = key($data[0]['Account']);
-                        unset($data[0]['Account'][$key]);
-                        /**
-                         * Debugging:
-                         * debug($data);
-                         * print_r($data);
-                         */
-                        $this->Date->saveAll($data);
-                        $this->Session->setFlash(__('Signed off successfully'));
-                        return $this->redirect(array('action' => 'index'));
-                    }
-                    next($data[0]['Account']);
-                }
-            } else {
-                throw new MethodNotAllowedException;
-            }
-        } else {
-            throw new AjaxImplementedException;
-        }
     }
-
-
- /** delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		$this->Date->id = $id;
-		if (!$this->Date->exists()) {
-			throw new NotFoundException(__('Invalid date'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Date->delete()) {
-			$this->Session->setFlash(__('The date has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The date could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
-	}
     
     public function events()
     {
