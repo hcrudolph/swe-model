@@ -1,10 +1,28 @@
 #sidebar{
     width:200px;
-    height:600px;
+    height:740px;
     top: 160px;
     position: absolute;
     padding: 5px;
     border-top: 2px double darkgray;
+}
+
+#userAddOpenButton
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#logoutButton
+{
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+#loginSubmit
+{
+    margin-top: 10px;
+    margin-left: 59px;
 }
 
 #authentification{
@@ -24,7 +42,7 @@
     left: 200px;
     top: 160px;
     width: 788px;
-    height: 600px;
+    height: 840px;
     padding: 8px;
     border-top: 2px double darkgray;
     border-left: 2px double darkgray;
