@@ -1,7 +1,7 @@
 <?php
-$courseID = $course['Course']['id'];
+$courseId = $course['Course']['id'];
 ?>
-<div id="courseEntry<?php echo $courseID; ?>" class="row">
+<div id="courseEntry<?php echo $courseId; ?>" class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -24,13 +24,25 @@ $courseID = $course['Course']['id'];
     </div>
     <div class="col-xs-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Kurszeiten</div>
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title pull-left">
+                    Termine
+                </h4>
+                <?php if(isset($user) AND $user['role'] > 0) {?>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseDateAdd(<?php echo $courseId; ?>);">Hinzufügen</a>
+                    </div>
+                <?php } ?>
+            </div>
             <table class="table">
                 <tr>
                     <th>Beginn</th>
                     <th>Ende</th>
                     <th>Trainer</th>
                     <th>Raum</th>
+                    <th>Minimale Teilnehmer</th>
+                    <th>Maximale Teilnehmer</th>
+                    <th>Derzeitige Teilnehmer</th>
                     <th>Aktionen</th>
                 </tr>
                 <?php foreach($course['Date'] as $date) { $dateId = $date['id'];?>
@@ -60,8 +72,8 @@ $courseID = $course['Course']['id'];
                             if($user['role'] > 0) {
                                 $elements[0] = '<button type="button" class="btn btn-default" onclick="courseDateEdit('.$date['id'].')">Bearbeiten</button>';
                                 $elements[] = '<li class="divider"></li>';
-                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateEdit('.$courseID.', '.$date['id'].')"> Bearbeiten</a></li>';
-                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateDelete('.$courseID.', '.$date['id'].')"> Löschen</a></li>';
+                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateEdit('.$courseId.', '.$date['id'].')"> Bearbeiten</a></li>';
+                                $elements[] = '<li><a href="javascript:void(0)" onclick="courseDateDelete('.$courseId.', '.$date['id'].')"> Löschen</a></li>';
                             }
                             ?>
 
