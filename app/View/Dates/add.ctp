@@ -6,6 +6,8 @@
 		echo $this->Form->input('course_id');
 		echo $this->Form->input('room_id');
         echo $this->Form->input('director');
+		echo $this->Form->input('mincount');
+		echo $this->Form->input('maxcount');
 		echo $this->Form->input('begin');
 		echo $this->Form->input('end');
 		echo $this->Form->input('Account');

@@ -31,6 +31,16 @@
 			<?php echo h($date['Date']['end']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Mincount'); ?></dt>
+		<dd>
+			<?php echo h($date['Date']['mincount']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Maxcount'); ?></dt>
+		<dd>
+			<?php echo h($date['Date']['maxcount']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

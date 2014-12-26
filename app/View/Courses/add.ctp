@@ -6,12 +6,6 @@
         <div class="category">
             <input type="input" class="form-control" placeholder="Kategorie">
         </div>
-        <div class="mincount">
-            <input type="input" class="form-control" placeholder="Minimalanzahl der Teilnehmer">
-        </div>
-        <div class="maxcount">
-            <input type="input" class="form-control" placeholder="Maximalanzahl der Teilnehmer">
-        </div>
         <div class="description">
             <input type="input" class="form-control" placeholder="Beschreibung">
         </div>

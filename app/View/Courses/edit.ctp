@@ -20,18 +20,6 @@
 								<textarea name="data[Course][description]" class="body form-control panel-body" rows="3" placeholder="Kursbeschreibung"><?php echo $course['Course']['description'];?></textarea>
 							</div>
 						</div>
-						<div class="col-xs-6">
-							<div class="panel panel-default mincount">
-								<div class="panel-heading">Minimale Teilnehmeranzahl</div>
-								<input type="input" class="form-control panel-body" name="data[Course][mincount]" value="<?php echo $course['Course']['mincount'];?>" placeholder="Minimale Teilnehmerzahl">
-							</div>
-						</div>
-						<div class="col-xs-6">
-							<div class="panel panel-default maxcount">
-								<div class="panel-heading">Maximale Teilnehmeranzahl</div>
-								<input type="input" class="form-control panel-body" name="data[Course][maxcount]" value="<?php echo $course['Course']['maxcount'];?>" placeholder="Maximale Teilnehmerzahl">
-							</div>
-						</div>
 					</div>
 				</form>
 			<div class="modal-footer">
