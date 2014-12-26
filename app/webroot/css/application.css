@@ -3,8 +3,38 @@
     height:600px;
     top: 160px;
     position: absolute;
-    padding: 2px;
+    padding: 5px;
     border-top: 2px double darkgray;
+}
+
+#courseAddButton
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#certificateAddButton
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#userAddOpenButton
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#logoutButton
+{
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+#loginSubmit
+{
+    margin-top: 10px;
+    margin-left: 59px;
 }
 
 #authentification{
