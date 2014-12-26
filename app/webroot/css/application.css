@@ -1,10 +1,22 @@
 #sidebar{
     width:200px;
-    height:60px;
+    height:600px;
     top: 160px;
     position: absolute;
     padding: 5px;
     border-top: 2px double darkgray;
+}
+
+#courseAddButton
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#certificateAddButton
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #userAddOpenButton
