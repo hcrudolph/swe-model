@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 26. Dez 2014 um 18:48
+-- Erstellungszeit: 26. Dez 2014 um 18:59
 -- Server Version: 5.1.73
 -- PHP-Version: 5.3.3
 
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `certificates` (
 CREATE TABLE IF NOT EXISTS `courses` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `category` smallint(5) unsigned DEFAULT NULL,
+  `level` smallint(5) unsigned DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
