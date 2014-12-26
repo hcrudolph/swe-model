@@ -33,6 +33,29 @@ class CoursesController extends AppController {
 			throw new AjaxImplementedException;
 		}
 	}
+	/**
+	 * indexElement method
+	 *
+	 * @throws AjaxImplementedException, NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
+	public function indexElement($id=null) {
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+			if(is_null($id)) {
+				throw new NotFoundException;
+			}
+
+			$fields = array("Course.name", 'Course.id');
+			$conditions = array('Course.id' => $id);
+			$this->set('course', $this->Course->find('first', array('conditions'=>$conditions, 'fields' => $fields)));
+		} else
+		{
+			throw new AjaxImplementedException;
+		}
+	}
+
 
     public function listing()
     {
@@ -109,12 +132,30 @@ class CoursesController extends AppController {
  */
 	public function edit($id = null) {
 		if($this->request->is('ajax')) {
-			$this->layout = 'ajax';
-			if (!$this->Course->exists($id)) {
-				throw new NotFoundException;
+			if($this->Auth->user('role') == 0) {
+				throw new ForbiddenException;
 			}
+			$this->layout = 'ajax';
 			if ($this->request->is('post')) {
+				if(!$this->Course->exists($id))
+				{
+					throw new NotFoundException;
+				}
+				$this->request->data['Course']['id'] = $id;
+				$this->autoRender = false;
+				$this->layout = null;
+				$this->response->type('json');
+				$answer = array();
 
+				if ($this->Course->save($this->request->data)) {
+					$answer['success'] = true;
+					$answer['message'] = 'Der Kurs wurde bearbeitet';
+				} else {
+					$answer['success'] = false;
+					$answer['message'] = 'Der Kurs konnte nicht bearbeitet werden';
+					$answer['errors']['Course'] = $this->Course->validationErrors;
+				}
+				echo json_encode($answer);
 			} else
 			{
 				$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));

@@ -1,32 +1,15 @@
-<div class="panel-group" id="courseEntries" role="tablist" aria-multiselectable="true">
+<div id="courseEntries" role="tablist" aria-multiselectable="true">
 	<?php
 	foreach($courses as $course) {
-		$courseId = $course['Course']['id'];
-		?>
-
-		<div class="panel panel-default" id="courseEntry<?php echo $courseId; ?>">
-			<div class="panel-heading clearfix" role="tab" id="courseEntryHeading<?php echo $courseId; ?>">
-				<h4 class="panel-title pull-left">
-					<a data-toggle="collapse" data-parent="#courseEntries" data-url="<?php echo $this->webroot;?>courses/view/<?php echo $courseId; ?>" href="#courseEntryCollapse<?php echo $courseId;?>" aria-expanded="false" aria-controls="courseEntryCollapse<?php echo $courseId; ?>">
-						<?php echo h($course['Course']['name']); ?>
-					</a>
-				</h4>
-				<?php if(isset($user) AND $user['role'] > 0) {?>
-					<div class="btn-group pull-right">
-						<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseEdit(<?php echo $courseId; ?>);">Bearbeiten</a>
-						<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseDelete(<?php echo $courseId; ?>);">Löschen</a>
-					</div>
-				<?php } ?>
-			</div>
-			<div id="courseEntryCollapse<?php echo $courseId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="courseEntryHeading<?php echo $courseId; ?>">
-				<div class="panel-body"></div>
-			</div>
-		</div>
-	<?php } ?>
+		echo $this->element('courseIndexElement', array('course' =>$course));
+	} ?>
 </div>
 
 
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
+collapseAddHandler();
+
+function collapseAddHandler() {
 	$('#courseEntries > .panel > .panel-heading a').click(function (e) {
 		e.preventDefault();
 
@@ -39,6 +22,7 @@
 			pane.tab('show');
 		});
 	});
+}
 
 	function courseDelete(courseId)
 	{
@@ -52,11 +36,6 @@
 			$('body > .modal').modal('show');
 		});
 	}
-
-function courseEditSave(courseId)
-{
-
-}
 
 	function courseDateEdit(dateId)
 	{
@@ -87,4 +66,44 @@ function courseEditSave(courseId)
 			}
 		}, 'json');
 	}
+
+
+function courseEditFormAddSubmitEvent(courseId) {
+	var editForm = '#courseEditForm'+courseId;
+	$(editForm).submit(function(event) {
+		$.post('<?php echo $this->webroot;?>Courses/edit/'+courseId, $(editForm).serialize(), function(json) {
+			if(json.success == true) {
+				notificateUser(json.message, 'success');
+				$.get('<?php echo $this->webroot?>Courses/indexElement/'+courseId, function(view) {
+					$('#courseIndexEntry'+courseId).replaceWith(view);
+				});
+				$('.modal').modal('hide');
+			} else {
+				notificateUser(json.message);
+
+				//delete old errors
+				$(editForm).children().each(function() {
+					$(this).children().each(function() {
+						$(this).children('div').each(function() {
+							$(this).addClass('panel-default').removeClass('panel-danger has-error');
+							$(this).children('.panel-footer').remove();
+						});
+					});
+				});
+
+				for(var controller in json.errors) {
+					for(var key in json.errors[controller]) {
+						if(json.errors[controller].hasOwnProperty(key)) {
+						notificateUser(json.errors[controller][key]);
+						var ele = $(editForm+' > .'+controller+' > div > .'+key);
+						ele.addClass('panel-danger has-error');
+						ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+						}
+					}
+				}
+			}
+		}, 'json');
+		event.preventDefault();
+	});
+}
 <?php echo $this->Html->scriptEnd();?>
