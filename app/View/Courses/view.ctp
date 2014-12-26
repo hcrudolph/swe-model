@@ -85,24 +85,4 @@ $courseID = $course['Course']['id'];
             </table>
         </div>
     </div>
-    <div class="col-xs-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Minimale Teilnehmeranzahl</h3>
-            </div>
-            <div class="panel-body">
-                <?php echo h($course['Course']['mincount']); ?>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Maximale Teilnehmeranzahl</h3>
-            </div>
-            <div class="panel-body">
-                <?php echo h($course['Course']['maxcount']); ?>
-            </div>
-        </div>
-    </div>
 </div>

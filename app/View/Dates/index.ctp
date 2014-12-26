@@ -9,8 +9,8 @@
 			<th><?php echo $this->Paginator->sort('director'); ?></th>
 			<th><?php echo $this->Paginator->sort('begin'); ?></th>
 			<th><?php echo $this->Paginator->sort('end'); ?></th>
-			<th><?php echo $this->Paginator->sort('presetup'); ?></th>
-			<th><?php echo $this->Paginator->sort('postsetup'); ?></th>
+			<th><?php echo $this->Paginator->sort('mincount'); ?></th>
+			<th><?php echo $this->Paginator->sort('maxcount'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -27,8 +27,8 @@
 		<td><?php echo h($date['Date']['director']); ?>&nbsp;</td>
 		<td><?php echo h($date['Date']['begin']); ?>&nbsp;</td>
 		<td><?php echo h($date['Date']['end']); ?>&nbsp;</td>
-		<td><?php echo h($date['Date']['presetup']); ?>&nbsp;</td>
-		<td><?php echo h($date['Date']['postsetup']); ?>&nbsp;</td>
+		<td><?php echo h($date['Date']['mincount']); ?>&nbsp;</td>
+		<td><?php echo h($date['Date']['maxcount']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $date['Date']['id'])); ?>
             <?php echo $this->Html->link(__('Sign Up'), array('action' => 'signup', $date['Date']['id'])); ?>

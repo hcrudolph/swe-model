@@ -21,13 +21,6 @@ class TariffsController extends AppController {
  * @return void
  */
 	public function index() {
-        if($this->request->is('ajax'))
-        {
-            $this->layout = 'ajax';
-        } else
-        {
-            $this->layout = 'polymer';
-        }
 		$this->Tariff->recursive = 0;
 		$this->set('tariffs', $this->Paginator->paginate());
 	}

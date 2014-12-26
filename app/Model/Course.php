@@ -52,26 +52,6 @@ class Course extends AppModel {
 				'message' => 'Die Kategorie muss einer Zahl zwischen 0 und 5 entsprechen.'
 			)
 		),
-		'maxcount' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
-				'allowEmpty' => true,
-				'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'mincount' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
-				'allowEmpty' => true,
-				'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'description' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
