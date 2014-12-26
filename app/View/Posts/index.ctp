@@ -11,7 +11,27 @@ if(!empty($user) AND $user['role'] > 0) { ?>
     }
     ?>
 </div>
+<nav>
+    <ul class="pagination">
+        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        <?php
+        for($i=0;$i<$postCount;$i=$i+$limit)
+        {
+            echo '<li '.(($page==$i/$limit)?'class="active"':'').'><a href="javascript:void(0);" onclick="loadPage('.($i/$limit).')">'.(($i/$limit)+1).'<span class="sr-only">(current)</span></a></li>';
+        }
+        ?>
+        <li <?php echo (($i<$limit)?'class="disabled"':''); ?>>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+
+function loadPage(page) {
+    $('#content').load('<?php echo $this->webroot."posts/index/";?>'+page);
+}
 
 var addId = 0;
 function postsAddButtonClick()

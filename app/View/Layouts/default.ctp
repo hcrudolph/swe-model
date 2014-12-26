@@ -54,9 +54,14 @@
                 $.ajaxSetup({
                     error: function (x, status, error) {
                         if (x.status === 403) {
-                            notificateUser('Sie dürfen diese Aktion nicht ausführen');
+                            notificateUser('Sie dürfen diese Aktion nicht ausführen.');
+                        } else if(x.status === 404) {
+                            notificateUser('Die Ressource wurde nicht gefunden.');
+                        }
+                        } else if(x.status === 405) {
+                            notificateUser('Die Anfrage-Methode ist nicht erlaubt..');
                         } else if(x.status === 501) {
-                            notificateUser('Für diese Aktion existiert keine Implementierung');
+                            notificateUser('Für diese Aktion existiert keine Implementierung.');
                         }
                         else {
                             notificateUser("Fehler: " + status + "nError: " + error);

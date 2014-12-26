@@ -8,6 +8,8 @@ App::uses('AppModel', 'Model');
  * @property Account $Account
  */
 class Date extends AppModel {
+	//For easy HABTM-add and -delete
+	public $actsAs = array('ExtendAssociations');
 
 /**
  * Display field
@@ -15,6 +17,33 @@ class Date extends AppModel {
  * @var string
  */
 	public $displayField = 'id';
+
+
+
+	public function afterFind($results, $primary = false) {
+		foreach ($results as $key => $val) {
+			if (isset($val['Date']['begin'])) {
+				$results[$key]['Date']['begin'] = $this->dateTimeFormatAfterFind($val['Date']['begin']);
+			}
+			if (isset($val['Date']['end'])) {
+				$results[$key]['Date']['end'] = $this->dateTimeFormatAfterFind($val['Date']['end']);
+			}
+		}
+		return $results;
+	}
+
+	/**
+	 * dateFormatAfterFind()
+	 *
+	 * @return $dateString
+	 */
+	public function dateTimeFormatAfterFind($dateString) {
+		return date('d.m.Y H:i:s', strtotime($dateString));
+	}
+
+
+
+
 
     /**
  * Validation rules
@@ -79,6 +108,13 @@ class Date extends AppModel {
 		'Room' => array(
 			'className' => 'Room',
 			'foreignKey' => 'room_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Trainer' => array(
+			'className' => 'Account',
+			'foreignKey' => 'director',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

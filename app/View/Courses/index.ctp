@@ -1,56 +1,90 @@
-<div class="courses index">
-	<h2><?php echo __('Courses'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('category'); ?></th>
-			<th><?php echo $this->Paginator->sort('maxcount'); ?></th>
-			<th><?php echo $this->Paginator->sort('mincount'); ?></th>
-			<th><?php echo $this->Paginator->sort('description'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($courses as $course): ?>
-	<tr>
-		<td><?php echo h($course['Course']['id']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['name']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['category']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['maxcount']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['mincount']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['description']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['created']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $course['Course']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $course['Course']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $course['Course']['id']), array(), __('Are you sure you want to delete # %s?', $course['Course']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
+<div class="panel-group" id="courseEntries" role="tablist" aria-multiselectable="true">
 	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
+	foreach($courses as $course) {
+		$courseId = $course['Course']['id'];
+		?>
+
+		<div class="panel panel-default" id="courseEntry<?php echo $courseId; ?>">
+			<div class="panel-heading clearfix" role="tab" id="courseEntryHeading<?php echo $courseId; ?>">
+				<h4 class="panel-title pull-left">
+					<a data-toggle="collapse" data-parent="#courseEntries" data-url="<?php echo $this->webroot;?>courses/view/<?php echo $courseId; ?>" href="#courseEntryCollapse<?php echo $courseId;?>" aria-expanded="false" aria-controls="courseEntryCollapse<?php echo $courseId; ?>">
+						<?php echo h($course['Course']['name']); ?>
+					</a>
+				</h4>
+				<?php if(isset($user) AND $user['role'] > 0) {?>
+					<div class="btn-group pull-right">
+						<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseEdit(<?php echo $courseId; ?>);">Bearbeiten</a>
+						<a class="btn btn-default btn-sm" href="javascript:void(0);" onclick="courseDelete(<?php echo $courseId; ?>);">Löschen</a>
+					</div>
+				<?php } ?>
+			</div>
+			<div id="courseEntryCollapse<?php echo $courseId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="courseEntryHeading<?php echo $courseId; ?>">
+				<div class="panel-body"></div>
+			</div>
+		</div>
+	<?php } ?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Course'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Dates'), array('controller' => 'dates', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+
+
+<?php echo $this->Html->scriptStart(array('inline' => true));?>
+	$('#courseEntries > .panel > .panel-heading a').click(function (e) {
+		e.preventDefault();
+
+		var url = $(this).attr("data-url");
+		var href = this.hash;
+		var pane = $(this);
+
+		// ajax load from data-url
+		$(href+' > .panel-body').load(url,function(result){
+			pane.tab('show');
+		});
+	});
+
+	function courseDelete(courseId)
+	{
+		alert('Delete Course');
+	}
+
+	function courseEdit(courseId)
+	{
+		$.get('<?php echo $this->webroot?>Courses/edit/'+courseId,function(html) {
+			$('body').append(html);
+			$('body > .modal').modal('show');
+		});
+	}
+
+function courseEditSave(courseId)
+{
+
+}
+
+	function courseDateEdit(dateId)
+	{
+		alert('Bearbeiten: '+dateId);
+	}
+
+
+	function courseDateSignUpUser(dateId) {
+		$.post('<?php echo $this->webroot."dates/signupUser/"?>'+dateId,function(json) {
+			if(json.success == true) {
+				notificateUser(json.message, 'success');
+				//$('#postEntry'+postId).remove();
+				//Toggle Buttons
+			} else {
+				notificateUser(json.message, json.error);
+			}
+		}, 'json');
+	}
+
+	function courseDateSignOffUser(dateId) {
+		$.post('<?php echo $this->webroot."dates/signoffUser/"?>'+dateId,function(json) {
+			if(json.success == true) {
+				notificateUser(json.message, 'success');
+				//$('#postEntry'+postId).remove();
+				//Toggle Buttons
+			} else {
+				notificateUser(json.message, json.error);
+			}
+		}, 'json');
+	}
+<?php echo $this->Html->scriptEnd();?>

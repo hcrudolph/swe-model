@@ -18,9 +18,10 @@ class PostsController extends AppController {
 /**
  * index method
  *
+ * @param string $page
  * @return void
  */
-	public function index() {
+	public function index($page = 0) {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
@@ -33,8 +34,14 @@ class PostsController extends AppController {
                 'Person'=>array(
                     'fields' => array('name', 'surname'),
                 )
-            ));
-		$this->set('posts', $this->Post->find('all', array('contain'=>$contain, 'order' => $order)));
+            )
+        );
+        $limit = 5;
+
+        $this->set(compact('limit'));
+        $this->set('postCount', $this->Post->find('count'));
+        $this->set(compact('page'));
+		$this->set('posts', $this->Post->find('all', array('contain'=>$contain,'limit'=>$limit,'page'=>$page+1, 'order' => $order)));
 	}
 
 /**
@@ -61,7 +68,7 @@ class PostsController extends AppController {
         } else
         {
             throw new AjaxImplementedException;
-	}
+	    }
 	}
 
 /**
@@ -76,7 +83,7 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
-                if ($this->request->is('post')) {
+                if ($this->request->is('post', 'put')) {
                     $this->autoRender = false;
                     $this->layout = null;
                     $this->response->type('json');
@@ -164,7 +171,7 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
-                if($this->Post->exists($id))
+                if(!$this->Post->exists($id))
                 {
                     throw new NotFoundException;
                 }
