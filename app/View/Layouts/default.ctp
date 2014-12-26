@@ -46,7 +46,12 @@
             echo $this->Html->css('fullcalendar.print', array('media' => 'print'));
         ?>
         <!--Fullcalendar-data start-->
-
+        <!--Datetimepicker-data start -->
+        <?php
+        echo $this->Html->script('datetimepicker/bootstrap-datetimepicker.min');
+        echo $this->Html->css('bootstrap-datetimepicker.min');
+        ?>
+        <!--Datetimepicker-data end -->
         <!--JQuery-Setup: grundlegende Einstellungen-->
         <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
             $(function () {
@@ -57,13 +62,11 @@
                             notificateUser('Sie dürfen diese Aktion nicht ausführen.');
                         } else if(x.status === 404) {
                             notificateUser('Die Ressource wurde nicht gefunden.');
-                        }
                         } else if(x.status === 405) {
                             notificateUser('Die Anfrage-Methode ist nicht erlaubt..');
                         } else if(x.status === 501) {
                             notificateUser('Für diese Aktion existiert keine Implementierung.');
-                        }
-                        else {
+                        } else {
                             notificateUser("Fehler: " + status + "nError: " + error);
                         }
                     }
