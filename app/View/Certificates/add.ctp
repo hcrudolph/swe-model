@@ -7,6 +7,7 @@
             <input type="input" class="form-control" placeholder="Beschreibung">
         </div>
     <button type="submit" class="btn btn-default">Speichern</button>
+    </div>
 </form>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>

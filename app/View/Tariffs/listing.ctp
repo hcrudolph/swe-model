@@ -5,8 +5,8 @@
     <div class="panel-group" id="tariffEntries" role="tablist" aria-multiselectable="true">
         <?php
         for($i=0; $i < sizeof($tariffs); $i++) {
-            $tariff = $tariffs[$i]['tariff'];
-            $description = $tariffs[$i]['Description'];
+            $tariff = $tariffs[$i]['description'];
+            $discount = $tariffs[$i]['amount'];
             $tarId = $tariff['id'];
             ?>
 

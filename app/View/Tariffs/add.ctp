@@ -1,15 +1,16 @@
 <form id="tariffAddForm">
     <div class="control-group tariff">
-        <div class="name">
-            <input type="input" class="form-control" placeholder="Name">
-        </div>
         <div class="description">
-            <input type="input" class="form-control" placeholder="Beschreibung">
+            <input type="input" class="form-control" placeholder="Bezeichnung">
         </div>
-        <div class="discount">
+        <div class="amount">
             <input type="input" class="form-control" placeholder="Rabatt">
         </div>
+        <div class="term">
+            <input type="input" class="form-control" placeholder="Laufzeit">
+        </div>
         <button type="submit" class="btn btn-default">Speichern</button>
+    </div>
 </form>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
