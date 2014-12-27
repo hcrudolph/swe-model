@@ -22,7 +22,7 @@ if(json.success == true) {
 notificatetariff(json.message, 'success');
 
 $.get('<?php echo $this->webroot?>tariffs/listing/', function( data ) {
-$('#tariffListing').replaceWith(data);
+$('#tariffs').replaceWith(data);
 });
 } else {
 notificatetariff(json.message);

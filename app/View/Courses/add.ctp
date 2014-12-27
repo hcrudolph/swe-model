@@ -28,7 +28,7 @@ if(json.success == true) {
 notificatecourse(json.message, 'success');
 
 $.get('<?php echo $this->webroot?>courses/listing/', function( data ) {
-$('#courseListing').replaceWith(data);
+$('#courses').replaceWith(data);
 });
 } else {
 notificatecourse(json.message);

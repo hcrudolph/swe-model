@@ -19,7 +19,7 @@
                     notificatecertificate(json.message, 'success');
 
                     $.get('<?php echo $this->webroot?>certificates/listing/', function( data ) {
-                    $('#certificateListing').replaceWith(data);
+                    $('#certificates').replaceWith(data);
                 });
                 } else {
                     notificatecertificate(json.message);
