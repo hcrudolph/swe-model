@@ -19,7 +19,12 @@ class Date extends AppModel {
 	public $displayField = 'id';
 
 
-
+	/**
+	 * dateFormatAfterFind()
+	 *
+	 * @param $results, $primary
+	 * @return $results
+	 */
 	public function afterFind($results, $primary = false) {
 		foreach ($results as $key => $val) {
 			if (isset($val['Date']['begin'])) {
@@ -35,12 +40,38 @@ class Date extends AppModel {
 	/**
 	 * dateFormatAfterFind()
 	 *
-	 * @return $dateString
+	 * @return $dateTimeString
 	 */
-	public function dateTimeFormatAfterFind($dateString) {
-		return date('d.m.Y H:i:s', strtotime($dateString));
+	public function dateTimeFormatAfterFind($dateTimeString) {
+		return date('d.m.Y H:i:s', strtotime($dateTimeString));
 	}
 
+	/**
+	 * beforeSave()
+	 *
+	 * @return true
+	 */
+
+	public function beforeSave($options = array())
+	{
+		if (!empty($this->data[$this->alias]['begin'])) {
+			$this->data[$this->alias]['begin'] = $this->dateTimeFormatBeforeSave($this->data[$this->alias]['begin']);
+		}
+		if (!empty($this->data[$this->alias]['end'])) {
+			$this->data[$this->alias]['end'] = $this->dateTimeFormatBeforeSave($this->data[$this->alias]['end']);
+		}
+
+		return true;
+	}
+
+	/**
+	 * dateTimeFormatBeforeSave()
+	 *
+	 * @return $dateTimeString
+	 */
+	public function dateTimeFormatBeforeSave($dateTimeString) {
+		return date('Y-m-d H:i:s', strtotime($dateTimeString));
+	}
 
 
 
@@ -52,14 +83,6 @@ class Date extends AppModel {
  */
 	public $validate = array(
 		'begin' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				'message' => 'Bitte geben Sie ein valides Datum an.',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Das Beginndatum darf nicht leer sein.',
@@ -68,16 +91,16 @@ class Date extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-		'end' => array(
 			'datetime' => array(
-				'rule' => array('datetime'),
+				'rule' => array('datetime', 'dmy'),
 				'message' => 'Bitte geben Sie ein valides Datum an.',
 				//'allowEmpty' => false,
-				//'required' => false,
+				//'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+		),
+		'end' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Das Endedatum darf nicht leer sein.',
@@ -85,19 +108,47 @@ class Date extends AppModel {
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'datetime' => array(
+				'rule' => array('datetime', 'dmy'),
+				'message' => 'Bitte geben Sie ein valides Datum an.',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'endBigger'    => array(
+				'rule'      => array('endBigger'),
+				'message' => 'Das Endedatum muss größer als das Beginndatum sein.',
 			)
 		),
-				'maxcount' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
-				'allowEmpty' => true,
-				'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'mincount' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Sie müssen eine minimale Teilnehmeranzahl angeben.',
+				'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
+				'allowEmpty' => false,
+				'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'maxcount' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Sie müssen eine maximale Teilnehmeranzahl angeben.',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'numeric' => array(
 				'rule' => array('numeric'),
 				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
@@ -106,8 +157,30 @@ class Date extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+			'maxcountBigger'    => array(
+				'rule'      => array('maxcountBiggerEqual'),
+				'message' => 'Die maximale Teilnehmerzahl muss mindestens der Minimalen entsprechen.',
+			)
+		)
 	);
+
+	/**
+	 * endBigger()
+	 *
+	 * @return boolean
+	 */
+	public function endBigger()
+	{
+		return ((new DateTime($this->data[$this->alias]['end'])) > (new DateTime($this->data[$this->alias]['begin'])));
+	}
+	/**
+	 * maxcountBigger()
+	 *
+	 * @return boolean
+	 */
+	public function maxcountBiggerEqual() {
+		return ($this->data[$this->alias]['maxcount'] >= $this->data[$this->alias]['mincount']);
+	}
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
