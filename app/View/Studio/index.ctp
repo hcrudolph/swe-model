@@ -2,7 +2,7 @@
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#studioAccounts" data-url="<?php echo $this->webroot; ?>Users/listing/">Accounts</a></li>
         <li role="presentation"><a href="#studioCourses" data-url="<?php echo $this->webroot;?>Courses/listing/">Kurse</a></li>
-        <li role="presentation"><a href="#studioTariffs" data-url="<?php echo $this->webroot; ?>Tariffs/index/">Tarife</a></li>
+        <li role="presentation"><a href="#studioTariffs" data-url="<?php echo $this->webroot; ?>Tariffs/listing/">Tarife</a></li>
         <li role="presentation"><a href="#studioCertificates" data-url="<?php echo $this->webroot; ?>Certificates/listing/">Zertifikate</a></li>
         <li role="presentation"><a href="#studioRechnungsdaten" data-url="<?php echo $this->webroot;?>bills/index/">Rechnungsdaten</a></li>
         <li role="presentation"><a href="#studioAbrechnungsdaten" data-url="<?php echo $this->webroot; ?>bills/index/">Abrechnungsdaten</a></li>

@@ -78,7 +78,7 @@ class Tariff extends AppModel {
 	public $hasAndBelongsToMany = array(
 		'Bill' => array(
 			'className' => 'Bill',
-			'joinTable' => 'bills_tariffs',
+			'joinTable' => 'bills',
 			'foreignKey' => 'tariff_id',
 			'associationForeignKey' => 'bill_id',
 			'unique' => 'keepExisting',

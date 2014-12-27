@@ -27,7 +27,7 @@ class CertificatesController extends AppController {
             $this->layout = 'ajax';
         } else
         {
-            $this->layout = 'polymer';
+            throw new AjaxImplementedException;
         }
 		$this->Certificate->recursive = 0;
 		$this->set('certificates', $this->Paginator->paginate());

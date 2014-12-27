@@ -57,6 +57,21 @@ class TariffsController extends AppController {
 		}
 	}
 
+    public function listing()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if ($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            #Sortierung? Anzeige des Templates
+            $tariffs = $this->Tariff->find('all');
+            $this->set(compact('tariffs'));
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
 /**
  * edit method
  *

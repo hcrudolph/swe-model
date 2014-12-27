@@ -7,21 +7,21 @@
         for($i=0; $i < sizeof($courses); $i++) {
             $course = $courses[$i]['course'];
             $description = $courses[$i]['Description'];
-            $certId = $course['id'];
+            $coursId = $course['id'];
             ?>
 
-            <div class="panel panel-default" id="courseEntry<?php echo $certId; ?>">
-                <div class="panel-heading clearfix" role="tab" id="courseEntryHeading<?php echo $certId; ?>">
+            <div class="panel panel-default" id="courseEntry<?php echo $coursId; ?>">
+                <div class="panel-heading clearfix" role="tab" id="courseEntryHeading<?php echo $coursId; ?>">
                     <h4 class="panel-title pull-left">
-                        <a data-toggle="collapse" data-parent="#courseEntries" data-url="<?php echo $this->webroot;?>courses/view/<?php echo $certId; ?>" href="#courseEntryCollapse<?php echo $certId;?>" aria-expanded="false" aria-controls="courseEntryCollapse<?php echo $certId; ?>">
+                        <a data-toggle="collapse" data-parent="#courseEntries" data-url="<?php echo $this->webroot;?>courses/view/<?php echo $coursId; ?>" href="#courseEntryCollapse<?php echo $coursId;?>" aria-expanded="false" aria-controls="courseEntryCollapse<?php echo $coursId; ?>">
                             <?php echo h($course['coursename']); ?>
                         </a>
                     </h4>
                     <div class="btn-group pull-right">
-                        <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="courseDelete(<?php echo $certId; ?>);">Löschen</a>
+                        <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="courseDelete(<?php echo $coursId; ?>);">Löschen</a>
                     </div>
                 </div>
-                <div id="courseEntryCollapse<?php echo $certId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="courseEntryHeading<?php echo $certId; ?>">
+                <div id="courseEntryCollapse<?php echo $coursId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="courseEntryHeading<?php echo $coursId; ?>">
                     <div class="panel-body"></div>
                 </div>
             </div>
@@ -30,15 +30,15 @@
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
-function courseInformationToggle(certId)
+function courseInformationToggle(coursId)
 {
-$('#courseEntryInformation'+certId).toggle();
+$('#courseEntryInformation'+coursId).toggle();
 }
 
-function courseEdit(certId)
+function courseEdit(coursId)
 {
-$('#courseEntryInformation'+certId).load('<?php echo $this->webroot."courses/edit/"?>'+certId);
-$('#courseEntryInformation'+certId).show();
+$('#courseEntryInformation'+coursId).load('<?php echo $this->webroot."courses/edit/"?>'+coursId);
+$('#courseEntryInformation'+coursId).show();
 }
 
 function courseAdd()
@@ -60,21 +60,21 @@ $('#courseAddButton').toggle();
 $('#courseCloseButton').toggle();
 }
 
-function courseInformation(certId)
+function courseInformation(coursId)
 {
-$('#courseEntryInformation'+certId).load('<?php echo $this->webroot."courses/view/"?>'+certId);
-$('#courseEntryInformation'+certId).show();
+$('#courseEntryInformation'+coursId).load('<?php echo $this->webroot."courses/view/"?>'+coursId);
+$('#courseEntryInformation'+coursId).show();
 }
 
-function courseDelete(certId)
+function courseDelete(coursId)
 {
-var del = confirm("course #" + certId + " löschen?");
+var del = confirm("course #" + coursId + " löschen?");
 if (del == true) {
-$.post('<?php echo $this->webroot."courses/delete/"?>'+certId,function(json) {
+$.post('<?php echo $this->webroot."courses/delete/"?>'+coursId,function(json) {
 if(json.success == true)
 {
 notificatecourse(json.message, 'success');
-$('#courseEntry'+certId).remove();
+$('#courseEntry'+coursId).remove();
 } else
 {
 notificatecourse(json.message);
