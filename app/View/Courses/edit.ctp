@@ -8,10 +8,16 @@
 			<div class="modal-body">
 				<form id="courseEditForm<?php echo $course['Course']['id'];?>">
 					<div class="control-group Course row">
-						<div class="col-xs-12">
+						<div class="col-xs-6">
 							<div class="panel panel-default name">
 								<div class="panel-heading">Kursname</div>
 								<input type="input" class="form-control panel-body" name="data[Course][name]" value="<?php echo $course['Course']['name'];?>" placeholder="Kursname">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="panel panel-default level">
+								<div class="panel-heading">Schwierigkeitsgrad</div>
+								<input type="input" class="form-control panel-body" name="data[Course][level]" value="<?php echo $course['Course']['level'];?>" placeholder="Schwierigkeitsgrad">
 							</div>
 						</div>
 						<div class="col-xs-12">
