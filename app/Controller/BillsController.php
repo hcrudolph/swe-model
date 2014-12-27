@@ -21,6 +21,14 @@ class BillsController extends AppController {
  * @return void
  */
 	public function index() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
+
 		$this->Bill->recursive = 0;
 		$this->set('bills', $this->Paginator->paginate());
 	}
