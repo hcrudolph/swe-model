@@ -40,29 +40,6 @@ class DatesController extends AppController {
 		$this->set('date', $this->Date->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Date->create();
-			if ($this->Date->save($this->request->data)) {
-				$this->Session->setFlash(__('The date has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The date could not be saved. Please, try again.'));
-			}
-		}
-		$courses = $this->Date->Course->find('list');
-		$rooms = $this->Date->Room->find('list');
-		$accounts = $this->Date->Account->find('list');
-        $directors = $this->Date->Account->find('list', array(
-            'conditions' => array('role' => '1')
-        ));
-		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
-	}
 
 /**
  * edit method
@@ -139,6 +116,67 @@ class DatesController extends AppController {
 
     #####implemented
 
+    /**
+     * add method
+     *
+     * @throws AjaxImplementedException, ForbiddenException, NotFoundException
+     * @param string $courseId
+     * @return void
+     */
+    public function add($courseId = null) {
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post', 'put')) {
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                if ($this->Date->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Termin wurde erstellt';
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Termin konnte nicht erstellt werden';
+                    $answer['errors']['Date'] = $this->Date->validationErrors;
+                }
+                echo json_encode($answer);
+            } else
+            {
+                $this->Date->Behaviors->load('Containable');
+                $contain = array(
+                    'Account'=>array(
+                        'Person'=>array()
+                    ));
+                if(is_null($courseId)) {
+                    $courses = $this->Date->Course->find('all', array(
+                        'fields' => array('Course.id', 'Course.name', 'Course.level'),
+                        'contain' => false,
+                    ));
+                } else {
+                    $courses = $this->Date->Course->find('all', array(
+                        'fields' => array('Course.id', 'Course.name', 'Course.level'),
+                        'contain' => false,
+                        'condtitions' => array('Course.id'=>$courseId)
+                    ));
+                }
+                $rooms = $this->Date->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
+                $directors = $this->Date->Account->find('all', array(
+                    'conditions' => array('role >' => '0'),
+                    'fields' => array('Account.id', 'Account.username', 'Person.name', 'Person.surname'),
+                    'contain' => array('Account'=>array('Person'=>array())),
+                    'order' => array('Person.name' => 'ASC')
+                ));
+                $this->set(compact('courses', 'rooms', 'directors', 'courseId'));
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
 
     /**
      * signupUser method
@@ -172,7 +210,7 @@ class DatesController extends AppController {
                     $answer['success'] = false;
                     $answer['error'] = 'warning';
                     $answer['message'] = 'Sie sind bereits angemeldet.';
-                } elseif (count($date['Account']) < $this->Date->Course->field('maxcount')) {
+                } elseif (count($date['Account']) < $this->Date->field('maxcount')) {
                     if($this->Date->habtmAdd('Account', $id, $this->Auth->user('id')))
                     {
                         $answer['success'] = true;
