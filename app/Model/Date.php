@@ -52,6 +52,24 @@ class Date extends AppModel {
 	 * @return true
 	 */
 
+	public function beforeValidate($options = array())
+	{
+		if (!empty($this->data[$this->alias]['begin'])) {
+			$this->data[$this->alias]['begin'] = $this->dateTimeFormatBeforeSave($this->data[$this->alias]['begin']);
+		}
+		if (!empty($this->data[$this->alias]['end'])) {
+			$this->data[$this->alias]['end'] = $this->dateTimeFormatBeforeSave($this->data[$this->alias]['end']);
+		}
+
+		return true;
+	}
+
+	/**
+	 * beforeSave()
+	 *
+	 * @return true
+	 */
+
 	public function beforeSave($options = array())
 	{
 		if (!empty($this->data[$this->alias]['begin'])) {
@@ -92,13 +110,19 @@ class Date extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'datetime' => array(
-				'rule' => array('datetime', 'dmy'),
+				'rule' => array('datetime', 'ymd'),
 				'message' => 'Bitte geben Sie ein valides Datum an.',
 				//'allowEmpty' => false,
 				//'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+		),
+		'room_id' => array(
+			'roomFree'    => array(
+				'rule'      => array('roomFree'),
+				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
+			)
 		),
 		'end' => array(
 			'notEmpty' => array(
@@ -110,7 +134,7 @@ class Date extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'datetime' => array(
-				'rule' => array('datetime', 'dmy'),
+				'rule' => array('datetime', 'ymd'),
 				'message' => 'Bitte geben Sie ein valides Datum an.',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -181,6 +205,28 @@ class Date extends AppModel {
 	public function maxcountBiggerEqual() {
 		return ($this->data[$this->alias]['maxcount'] >= $this->data[$this->alias]['mincount']);
 	}
+	public function roomFree() {
+		$conditions = array(
+			'Date.room_id' => $this->data[$this->alias]['room_id'],
+			'OR' => array(
+				'AND' => array()
+			),
+			'Date.room_id' => $this->data[$this->alias]['room_id'],
+			'OR' => array(
+				array(
+					'Date.begin >=' => $this->data[$this->alias]['begin'],
+					'Date.begin <' => $this->data[$this->alias]['end']
+				),
+				array(
+					'Date.end >' => $this->data[$this->alias]['begin'],
+					'Date.end <=' => $this->data[$this->alias]['end']
+				)
+			)
+		);
+		$count = $this->find('count', array('conditions' => $conditions));
+		return (($count==0)?true:false);
+	}
+
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
