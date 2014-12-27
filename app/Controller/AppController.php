@@ -34,6 +34,7 @@ class AppController extends Controller {
     public $components = array(
         'DebugKit.Toolbar',
         'Session',
+        'Acl',
         'Auth' => array(
             'loginAction' => array(
                 'controller' => 'accounts',
@@ -54,4 +55,3 @@ class AppController extends Controller {
         $this->set('user', $this->Auth->user());
     }
 }
-

@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Courses Controller
  *
@@ -182,6 +183,26 @@ class CoursesController extends AppController {
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Course->delete()) {
 			$this->Session->setFlash(__('The course has been deleted.'));
+            /*
+            Noch in Arbeit
+             - Automatische Mail erstellen
+             - Redirect zu Posts
+
+            $this->Session->redirect(
+                array('controller' => 'posts', 'actions' => 'add')
+            );
+
+            $teilnehmer = $this->Course->Date->Account->find('all');
+            $dates = $this->Course->Date->find('all');
+
+            foreach ($teilnehmer) {
+                $email = new CakeEmail('default');
+                $email = from(array('info@fitnesslast.com'));
+                $email = to($this->Account->Email);
+                $email = subject('Kursabsage');
+                $email = send('Die Folgenden Kurse wurde abgesagt: '$dates);
+            }
+            */
 		} else {
 			$this->Session->setFlash(__('The course could not be deleted. Please, try again.'));
 		}
