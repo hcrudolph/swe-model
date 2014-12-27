@@ -69,6 +69,13 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function add() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
 		if ($this->request->is('post')) {
 			$this->Certificate->create();
 			if ($this->Certificate->save($this->request->data)) {

@@ -82,3 +82,4 @@ function certificateDelete(certId)
     }, 'json');
     }
 }
+<?php echo $this->Html->scriptEnd();?>

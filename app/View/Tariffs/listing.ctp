@@ -82,3 +82,4 @@ function tariffDelete(tarId)
     }, 'json');
     }
 }
+<?php echo $this->Html->scriptEnd();?>

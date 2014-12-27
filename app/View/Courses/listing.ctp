@@ -82,3 +82,4 @@ notificatecourse(json.message);
 }, 'json');
 }
 }
+<?php echo $this->Html->scriptEnd();?>

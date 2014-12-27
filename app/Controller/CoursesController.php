@@ -113,6 +113,13 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function add() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
 		if ($this->request->is('post')) {
 			$this->Course->create();
 			if ($this->Course->save($this->request->data)) {
