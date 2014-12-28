@@ -18,9 +18,10 @@ class DatesController extends AppController {
 /**
  * index method
  *
+ * @param $courseId
  * @return void
  */
-	public function index() {
+	public function index($courseId = null) {
 		$this->Date->recursive = 0;
 		$this->set('dates', $this->Paginator->paginate());
 	}

@@ -114,6 +114,52 @@ class CoursesController extends AppController {
 		}
 	}
 
+	/**
+	 * plan method
+	 *
+	 * @throws AjaxImplementedException, NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
+	public function plan($id = null)
+	{
+		if($this->request->is('ajax')) {
+			if($this->Auth->user('role') == 0) {
+				throw new ForbiddenException;
+			}
+			if(!$this->Course->exists($id))
+			{
+				throw new NotFoundException;
+			}
+			$this->layout = 'ajax';
+			$this->Course->Behaviors->load('Containable');
+
+			$contain = array(
+				'Date' => array(
+					'Trainer' => array (
+						'Person'
+					),
+					'Room' => array(),
+					'Account' => array(),
+					'order' => array('Date.begin' => 'DESC')
+				)
+			);
+			if($this->Auth->user('role') == 0) {
+				$contain['Date']['conditions'] = array(
+					'Date.begin >=' => date('Y-m-d')
+				);
+			}
+
+			$conditions = array(
+				'Course.'.$this->Course->primaryKey => $id,
+			);
+			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+			$this->set(compact('course'));
+		} else {
+			throw new AjaxImplementedException;
+		}
+	}
+
 /**
  * add method
  *
