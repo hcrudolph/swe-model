@@ -1,7 +1,5 @@
 <div id="userListing">
     <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="userAddOpen()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
-    <button type="button" id="userAddCloseButton" class="btn btn-default" onclick="userAddClose()" style="display:none;"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
-
 
     <div class="panel-group" id="userEntries" role="tablist" aria-multiselectable="true">
         <?php
@@ -57,22 +55,10 @@ function userEditClose(accId)
 
 function userAddOpen()
 {
-    if($('#userAddForm').length == 0)
-    {
-        $.get('<?php echo $this->webroot."users/add/";?>', function( data ) {
-            $('#userEntries').before(data);
-        });
-    $('#userAddOpenButton').toggle();
-    $('#userAddCloseButton').toggle();
-    }
-
-}
-
-function userAddClose()
-{
-    $('#userAddForm').remove();
-    $('#userAddOpenButton').toggle();
-    $('#userAddCloseButton').toggle();
+    $.get('<?php echo $this->webroot."users/add/";?>', function( view ) {
+        $('body').append(view);
+        $('body > .modal').modal('show');
+    });
 }
 
 function userInformation(accId)

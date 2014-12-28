@@ -44,6 +44,7 @@ class UsersController extends AppController
                 throw new ForbiddenException;
             }
             #Sortierung? Anzeige des Templates
+            $this->Account->recursive = 0;
             $usersListing = $this->Account->find('all');
             $this->set(compact('usersListing'));
         } else {
@@ -54,7 +55,7 @@ class UsersController extends AppController
     /**
      * view method
      *
-     * @throws ForbiddenException, AjaxImplementedException
+     * @throws ForbiddenException, AjaxImplementedException, NotFoundException
      * @param string $id
      * @return void
      */
@@ -65,8 +66,12 @@ class UsersController extends AppController
             if (is_null($id)) {
                 $id = $this->Auth->user('id');
             } else {
-                if (!$this->Auth->user('id') == $id) {
+                if ($this->Auth->user('id') != $id AND $this->Auth->user('role') == 0) {
                     throw new ForbiddenException;
+                }
+                if(!$this->Account->exists($id))
+                {
+                    throw new NotFoundException;
                 }
             }
             #Anzeige eines einzelnen Users
@@ -130,7 +135,7 @@ class UsersController extends AppController
     /**
      * edit method
      *
-     * @throws ForbiddenException, AjaxImplementedException
+     * @throws ForbiddenException, AjaxImplementedException, NotFoundException
      * @param string $id
      * @return void
      */
@@ -138,17 +143,19 @@ class UsersController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            if ($this->request->is(array('post', 'put'))) {
+            if (is_null($id)) {
+                $id = $this->Auth->user('id');
+            } else {
                 if ($id != $this->Auth->user('id') && $this->Auth->user('role') == 0) {
-                    //Mitglied will einen anderen User Speichern
                     throw new ForbiddenException;
                 }
-                if (is_null($id)) {
-                    $this->request->data['Account']['id'] = $this->Auth->user('id');
-                } else
-                {
-                    $this->request->data['Account']['id'] = $id;
-                }
+            }
+            if(!$this->Account->exists($id))
+            {
+                throw new NotFoundException;
+            }
+            if ($this->request->is(array('post', 'put'))) {
+                $this->request->data['Account']['id'] = $id;
 
                 //related Model needs id
                 $conditions = array('Person.account_id' => $this->request->data['Account']['id']);
@@ -179,13 +186,6 @@ class UsersController extends AppController
                 }
                 echo json_encode($answer);
             } else {
-                if (is_null($id)) {
-                    $id = $this->Auth->user('id');
-                } else {
-                    if (!$this->Auth->user('id') == $id) {
-                        throw new ForbiddenException;
-                    }
-                }
                 $conditions = array('Account.id' => $id);
                 $userResult = $this->Account->find('first', array('conditions' => $conditions));
                 $this->set(compact('userResult'));
