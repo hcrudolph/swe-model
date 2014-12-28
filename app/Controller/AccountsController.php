@@ -118,6 +118,10 @@ class AccountsController extends AppController {
                 if(is_null($id))
                 {
                     $id = $this->Auth->user('id');
+                    if(isset($this->data[$this->account]['role']) AND $user['role'] == 0) {
+                        unset($this->data[$this->account]['role']);
+                        throw new ForbiddenException;
+                    }
                     //Eigenen Account bearbeiten
                 } else
                 {
@@ -222,10 +226,12 @@ class AccountsController extends AppController {
         $this->Acl->allow($role, 'controllers/users/view');
         $this->Acl->allow($role, 'controllers/users/add');
         $this->Acl->allow($role, 'controllers/users/edit');
+        $this->Acl->deny($role, 'controllers/users/delete');
         $this->Acl->allow($role, 'controllers/tariffs');
         $this->Acl->allow($role, 'controllers/accounts/view');
-        $this->Acl->allow($role, 'controllers/accounts/edit');
         $this->Acl->allow($role, 'controllers/accounts/add');
+        $this->Acl->allow($role, 'controllers/accounts/edit');
+        $this->Acl->deny($role, 'controllers/accounts/delete');
     }
 
     // Member Permissions
@@ -241,6 +247,8 @@ class AccountsController extends AppController {
         $this->Acl->allow($role, 'controllers/lists/view/trainer');
         $this->Acl->allow($role, 'controllers/AccountsTrainings/view');
         $this->Acl->allow($role, 'controllers/calendar/view');
+        $this->Acl->allow($role, 'controllers/users/logout');
+
 
         //$this->Acl->allow($role, 'controllers/studio/view');
     }

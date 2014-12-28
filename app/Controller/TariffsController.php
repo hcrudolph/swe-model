@@ -46,6 +46,13 @@ class TariffsController extends AppController {
  * @return void
  */
 	public function add() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
 		if ($this->request->is('post')) {
 			$this->Tariff->create();
 			if ($this->Tariff->save($this->request->data)) {
@@ -56,6 +63,21 @@ class TariffsController extends AppController {
 			}
 		}
 	}
+
+    public function listing()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if ($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            #Sortierung? Anzeige des Templates
+            $tariffs = $this->Tariff->find('all');
+            $this->set(compact('tariffs'));
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
 
 /**
  * edit method

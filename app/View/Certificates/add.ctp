@@ -7,6 +7,7 @@
             <input type="input" class="form-control" placeholder="Beschreibung">
         </div>
     <button type="submit" class="btn btn-default">Speichern</button>
+    </div>
 </form>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
@@ -18,7 +19,7 @@
                     notificatecertificate(json.message, 'success');
 
                     $.get('<?php echo $this->webroot?>certificates/listing/', function( data ) {
-                    $('#certificateListing').replaceWith(data);
+                    $('#certificates').replaceWith(data);
                 });
                 } else {
                     notificatecertificate(json.message);

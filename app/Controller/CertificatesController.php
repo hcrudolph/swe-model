@@ -27,7 +27,7 @@ class CertificatesController extends AppController {
             $this->layout = 'ajax';
         } else
         {
-            $this->layout = 'polymer';
+            throw new AjaxImplementedException;
         }
 		$this->Certificate->recursive = 0;
 		$this->set('certificates', $this->Paginator->paginate());
@@ -69,6 +69,13 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function add() {
+        if($this->request->is('ajax'))
+        {
+            $this->layout = 'ajax';
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
 		if ($this->request->is('post')) {
 			$this->Certificate->create();
 			if ($this->Certificate->save($this->request->data)) {

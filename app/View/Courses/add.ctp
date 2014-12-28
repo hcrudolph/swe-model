@@ -6,10 +6,17 @@
         <div class="category">
             <input type="input" class="form-control" placeholder="Kategorie">
         </div>
+        <div class="mincount">
+            <input type="input" class="form-control" placeholder="Minimalanzahl">
+        </div>
+        <div class="maxcount">
+            <input type="input" class="form-control" placeholder="Maximalanzahl">
+        </div>
         <div class="description">
             <input type="input" class="form-control" placeholder="Beschreibung">
         </div>
         <button type="submit" class="btn btn-default">Speichern</button>
+    </div>
 </form>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
@@ -21,7 +28,7 @@ if(json.success == true) {
 notificatecourse(json.message, 'success');
 
 $.get('<?php echo $this->webroot?>courses/listing/', function( data ) {
-$('#courseListing').replaceWith(data);
+$('#courses').replaceWith(data);
 });
 } else {
 notificatecourse(json.message);

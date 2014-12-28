@@ -1,3 +1,79 @@
+<div class="btn-group-vertical">
+    <div>
+    <span class="btn-group-vertical">
+    <label class="control-label">Monat</label>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown" type="button" id="dropdownMenuMonat" data-toggle="dropdown" aria-expanded="true">Monat
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuMonat">
+            <li role="presentation"><a role="menuitem">Januar</a></li>
+            <li role="presentation"><a role="menuitem">Februar</a></li>
+            <li role="presentation"><a role="menuitem">März</a></li>
+            <li role="presentation"><a role="menuitem">April</a></li>
+            <li role="presentation"><a role="menuitem">Mai</a></li>
+            <li role="presentation"><a role="menuitem">Juni</a></li>
+            <li role="presentation"><a role="menuitem">Juli</a></li>
+            <li role="presentation"><a role="menuitem">August</a></li>
+            <li role="presentation"><a role="menuitem">September</a></li>
+            <li role="presentation"><a role="menuitem">Oktober</a></li>
+            <li role="presentation"><a role="menuitem">November</a></li>
+            <li role="presentation"><a role="menuitem">Dezember</a></li>
+        </ul>
+    </div>
+        </span>
+    <span class="btn-group-vertical">
+    <label class="control-label">Jahr</label>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown" type="button" id="dropdownMenuJahr" data-toggle="dropdown" aria-expanded="true">Jahr
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuJahr">
+            <?php
+            for($i=2014; $i < 2021; $i++) {
+            ?>
+            <li role="presentation"><a role="menuitem"><?php echo $i ?></a></li>
+            <?php } ?>
+        </ul>
+    </div>
+        </span>
+    </div>
+    <br>
+
+<div class="btn-group-vertical" role="group" aria-label="...">
+<div id="row" aria-multiselectable="true">
+    <?php
+    for($i=1; $i < 11; $i++) {
+    ?>
+
+        <div id="user-group">
+            <label class="btn btn-primary active" data-toggle="buttons">
+                <input type="checkbox" autocomplete="off" checked> User<?php echo $i?>
+            </label>
+        </div>
+    <?php } ?>
+</div>
+</div>
+    <br>
+    <br>
+<div><button type="button" class="btn btn-default">Rechnung erstellen</button></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+/*
 <div class="bills index">
 	<h2><?php echo __('Bills'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
@@ -54,3 +130,5 @@
 		<li><?php echo $this->Html->link(__('New Tariff'), array('controller' => 'tariffs', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+*/
+?>
