@@ -9,6 +9,21 @@
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
 collapseAddHandler();
 
+$("#courseEntries").on('courseChanged', function(event) {
+	var contentShown = false;
+	if($('#courseIndexEntryCollapse'+event.courseId).hasClass('active')) {
+		contentShown = true;
+	}
+	$.get('<?php echo $this->webroot?>Courses/indexElement/'+event.courseId, function(view) {
+		$('#courseIndexEntry'+event.courseId).replaceWith(view);
+		if(contentShown)
+		{
+			$('#courseIndexEntryHeading'+event.courseId+' > .panel-title  a').trigger("click");
+		}
+	});
+});
+
+
 function collapseAddHandler() {
 	$('#courseEntries > .panel > .panel-heading a').click(function (e) {
 		e.preventDefault();
@@ -42,10 +57,11 @@ function courseEditFormAddSubmitEvent(courseId) {
 		$.post('<?php echo $this->webroot;?>Courses/edit/'+courseId, $(editForm).serialize(), function(json) {
 			if(json.success == true) {
 				notificateUser(json.message, 'success');
-				$.get('<?php echo $this->webroot?>Courses/indexElement/'+courseId, function(view) {
-					$('#courseIndexEntry'+courseId).replaceWith(view);
-				});
 				$('.modal').modal('hide');
+				$( "#courseEntries" ).trigger({
+					type:"courseChanged",
+					courseId:courseId
+				});
 			} else {
 				notificateUser(json.message);
 

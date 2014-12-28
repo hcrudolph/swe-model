@@ -207,6 +207,9 @@ class Date extends AppModel {
 	}
 	public function roomFree() {
 		$conditions = array(
+			'NOT' => array (
+				'Date.id' => array($this->data[$this->alias]['id'])
+			),
 			'Date.room_id' => $this->data[$this->alias]['room_id'],
 			'OR' => array(
 				'AND' => array()

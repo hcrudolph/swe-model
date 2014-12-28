@@ -28,7 +28,7 @@ $courseId = $course['Course']['id'];
                 <h3 class="panel-title">Kursbeschreibung</h3>
             </div>
             <div class="panel-body">
-                <?php echo h($course['Course']['description']); ?>
+                <?php echo nl2br(h($course['Course']['description'])); ?>
             </div>
         </div>
     </div>
@@ -83,10 +83,10 @@ $courseId = $course['Course']['id'];
                                 $elements[1] = '<li><a>Ausgebucht</a></li>';
                             }
                             if($user['role'] > 0) {
-                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateEdit(\''.$this->webroot.'/Dates/edit\', '.$date['id'].')">Bearbeiten</button>';
+                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateEdit(\''.$this->webroot.'/Dates/edit/\', '.$date['id'].')">Bearbeiten</button>';
                                 $elements[] = '<li class="divider"></li>';
-                                $elements[] = '<li><a href="javascript:void(0)" onclick="dateEdit(\''.$this->webroot.'/Dates/edit\', '.$date['id'].')"> Bearbeiten</a></li>';
-                                $elements[] = '<li><a href="javascript:void(0)" onclick="dateDelete(\''.$this->webroot.'dates/delete/\', '.$date['id'].')"> Löschen</a></li>';
+                                $elements[] = '<li><a href="javascript:void(0)" onclick="dateEdit(\''.$this->webroot.'/Dates/edit/\', '.$date['id'].')"> Bearbeiten</a></li>';
+                                $elements[] = '<li><a href="javascript:void(0)" onclick="dateDelete(\''.$this->webroot.'dates/delete/\', '.$date['id'].', '.$courseId.')"> Löschen</a></li>';
                             }
                             ?>
 

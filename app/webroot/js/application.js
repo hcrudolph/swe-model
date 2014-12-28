@@ -25,10 +25,11 @@ function dateAddFormAddSubmitEvent(webroot, courseId) {
         $.post(webroot+'Dates/add/'+courseId, $(dateAddForm).serialize(), function(json) {
             if(json.success == true) {
                 notificateUser(json.message, 'success');
-                //$.get('<?php echo $this->webroot?>Courses/indexElement/'+courseId, function(view) {
-                //$('#courseIndexEntry'+courseId).replaceWith(view);
-                //});
                 $('.modal').modal('hide');
+                $( "#courseEntries" ).trigger({
+                    type:"courseChanged",
+                    courseId:courseId
+                });
             } else {
                 notificateUser(json.message);
 
@@ -67,15 +68,61 @@ function dateAdd(link, courseId) {
 }
 
 function dateEdit(link, dateId) {
-    alert('Bearbeiten: '+dateId);
+    $.get(link+dateId, function(html) {
+        $('body').append(html);
+        $('body > .modal').modal('show');
+    });
+}
+function dateEditFormAddSubmitEvent(webroot, dateId, courseId) {
+    var dateEditForm = '#dateEditForm';
+    $(dateEditForm).submit(function(event) {
+        $.post(webroot+'Dates/edit/'+dateId, $(dateEditForm).serialize(), function(json) {
+            if(json.success == true) {
+                notificateUser(json.message, 'success');
+                $('.modal').modal('hide');
+                $( "#courseEntries" ).trigger({
+                    type:"courseChanged",
+                    courseId:courseId
+                });
+            } else {
+                notificateUser(json.message);
+
+                //delete old errors
+                $(dateEditForm).children().each(function() {
+                    $(this).children().each(function() {
+                        $(this).children('div').each(function() {
+                            $(this).addClass('panel-default').removeClass('panel-danger has-error');
+                            $(this).children('.panel-footer').remove();
+                        });
+                    });
+                });
+
+                for(var controller in json.errors) {
+                    for(var key in json.errors[controller]) {
+                        if(json.errors[controller].hasOwnProperty(key)) {
+                            notificateUser(json.errors[controller][key]);
+                            var ele = $(dateEditForm+' > .'+controller+' > div > .'+key);
+                            ele.addClass('panel-danger has-error');
+                            ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+                        }
+                    }
+                }
+            }
+        }, 'json');
+        event.preventDefault();
+    });
 }
 
-function dateDelete(link, dateId) {
+function dateDelete(link, dateId, courseId) {
     var del = confirm("Date #" + dateId + " löschen?");
     if (del == true) {
-        $.post(link + dateId, function (json) {
+        $.post(link + dateId,{courseId:courseId}, function (json) {
             if (json.success == true) {
                 notificateUser(json.message, 'success');
+                $( "#courseEntries" ).trigger({
+                    type:"courseChanged",
+                    courseId:json.courseId
+                });
                 //Alle user benachrichtigt?
             } else {
                 notificateUser(json.message, json.error);

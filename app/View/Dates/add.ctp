@@ -18,8 +18,10 @@
 								</select>
 							</div>
 						</div>
+					</div>
+					<div class="control-group Date row">
 						<div class="col-xs-6">
-							<div class="panel panel-default room">
+							<div class="panel panel-default room_id">
 								<div class="panel-heading">Raum</div>
 								<select name="data[Date][room_id]" class="form-control panel-body" style="padding:0px;">
 									<?php foreach($rooms as $id => $name) {
@@ -38,6 +40,8 @@
 								</select>
 							</div>
 						</div>
+					</div>
+					<div class="control-group Date row">
 						<div class="col-xs-6">
 							<div class="panel panel-default begin">
 								<div class="panel-heading">Beginn</div>
@@ -66,6 +70,8 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="control-group Date row">
 						<div class="col-xs-6">
 							<div class="panel panel-default mincount">
 								<div class="panel-heading">Minimale Teilnehmerzahl</div>
@@ -103,3 +109,4 @@
 			dateAddFormAddSubmitEvent(<?php echo $this->webroot;?><?php echo ((isset($courseId))?', '.$courseId:'');?>);
 		<?php echo $this->Html->scriptEnd();?>
 	</div>
+</div>

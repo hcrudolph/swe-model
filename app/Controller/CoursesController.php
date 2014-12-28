@@ -1,6 +1,5 @@
 <?php
 App::uses('AppController', 'Controller');
-App::uses('CakeEmail', 'Network/Email');
 /**
  * Courses Controller
  *
@@ -94,11 +93,19 @@ class CoursesController extends AppController {
 							'Person'
 						),
 						'Room' => array(),
-						'Account' => array()
+						'Account' => array(),
+						'order' => array('Date.begin' => 'DESC')
 					)
 			);
+			if($this->Auth->user('role') == 0) {
+				$contain['Date']['conditions'] = array(
+					'Date.begin >=' => date('Y-m-d')
+				);
+			}
 
-			$conditions = array('Course.'.$this->Course->primaryKey => $id);
+			$conditions = array(
+				'Course.'.$this->Course->primaryKey => $id,
+			);
 			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
 			$this->set(compact('course'));
 		} else
@@ -113,13 +120,6 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function add() {
-        if($this->request->is('ajax'))
-        {
-            $this->layout = 'ajax';
-        } else
-        {
-            throw new AjaxImplementedException;
-        }
 		if ($this->request->is('post')) {
 			$this->Course->create();
 			if ($this->Course->save($this->request->data)) {
@@ -190,26 +190,6 @@ class CoursesController extends AppController {
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Course->delete()) {
 			$this->Session->setFlash(__('The course has been deleted.'));
-            /*
-            Noch in Arbeit
-             - Automatische Mail erstellen
-             - Redirect zu Posts
-
-            $this->Session->redirect(
-                array('controller' => 'posts', 'actions' => 'add')
-            );
-
-            $teilnehmer = $this->Course->Date->Account->find('all');
-            $dates = $this->Course->Date->find('all');
-
-            foreach ($teilnehmer) {
-                $email = new CakeEmail('default');
-                $email = from(array('info@fitnesslast.com'));
-                $email = to($this->Account->Email);
-                $email = subject('Kursabsage');
-                $email = send('Die Folgenden Kurse wurde abgesagt: '$dates);
-            }
-            */
 		} else {
 			$this->Session->setFlash(__('The course could not be deleted. Please, try again.'));
 		}

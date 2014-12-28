@@ -41,38 +41,6 @@ class DatesController extends AppController {
 	}
 
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		if (!$this->Date->exists($id)) {
-			throw new NotFoundException(__('Invalid date'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Date->save($this->request->data)) {
-				$this->Session->setFlash(__('The date has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The date could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('Date.' . $this->Date->primaryKey => $id));
-			$this->request->data = $this->Date->find('first', $options);
-		}
-		$courses = $this->Date->Course->find('list');
-		$rooms = $this->Date->Room->find('list');
-		$accounts = $this->Date->Account->find('list');
-        $directors = $this->Date->Account->find('list', array(
-            'conditions' => array('role' => '1')
-        ));
-		$this->set(compact('courses', 'rooms', 'accounts', 'directors'));
-	}
-
-
 
 
     /** delete method
@@ -87,22 +55,38 @@ class DatesController extends AppController {
                 throw new NotFoundException;
             }
             if ($this->request->is('post', 'delete')) {
+                $date = $this->Date->findById($id);
 
-                $this->Date->id = $id;
                 $this->autoRender = false;
                 $this->layout = null;
                 $this->response->type('json');
                 $answer = array();
+                $this->Date->id = $id;
                 if($this->Date->delete()) {
                     $answer['success'] = true;
                     $answer['message'] = 'Der Termin wurde erfolgreich gelöscht.';
-                    //Create Post entry
+                    $answer['courseId'] = $this->request->data['courseId'];
+                    $answer['date'] = $date;
+
+                    $this->Post = ClassRegistry::init('Post');
+                    $this->Post->create();
+                    $post = array('Post' => array(
+                        'account_id' => $this->Auth->user('id'),
+                        'heading' => $date['Course']['name'].' ['.$date['Course']['level'].'] abgesagt',
+                        'body' => $date['Course']['name'].' ['.$date['Course']['level'].'] am '.date('d.m.Y', strtotime($date['Date']['begin'])).' wurde abgesagt.',
+                        'visiblebegin' => date('d.m.Y'),
+                        'visibleend' => date('d.m.Y', strtotime($date['Date']['begin']))
+                    ));
+                    $this->Post->save($post);
+
+
                     //Senden der Emails
 
                 } else {
                     $answer['success'] = false;
                     $answer['message'] = 'Der Termin konnte nicht gelöscht werden.';
                 }
+                echo json_encode($answer);
             } else {
                 throw new MethodNotAllowedException;
             }
@@ -147,10 +131,6 @@ class DatesController extends AppController {
             } else
             {
                 $this->Date->Behaviors->load('Containable');
-                $contain = array(
-                    'Account'=>array(
-                        'Person'=>array()
-                    ));
                 if(is_null($courseId)) {
                     $courses = $this->Date->Course->find('all', array(
                         'fields' => array('Course.id', 'Course.name', 'Course.level'),
@@ -171,6 +151,62 @@ class DatesController extends AppController {
                     'order' => array('Person.name' => 'ASC')
                 ));
                 $this->set(compact('courses', 'rooms', 'directors', 'courseId'));
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
+
+    /**
+     * edit method
+     *
+     * @throws AjaxImplementedException, MethodNotAllowedException, NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function edit($id = null) {
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            if(!$this->Date->exists($id)) {
+                throw new NotFoundException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post', 'put')) {
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                $this->request->data['Date']['id'] = $id;
+                if ($this->Date->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Termin wurde bearbeitet';
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Termin konnte nicht erstellt werden';
+                    $answer['errors']['Date'] = $this->Date->validationErrors;
+                }
+                echo json_encode($answer);
+            } else
+            {
+                $this->Date->Behaviors->load('Containable');
+                $date = $this->Date->findById($id);
+                $courses = $this->Date->Course->find('all', array(
+                    'fields' => array('Course.id', 'Course.name', 'Course.level'),
+                    'contain' => false
+                ));
+
+                $directors = $this->Date->Account->find('all', array(
+                    'conditions' => array('role >' => '0'),
+                    'fields' => array('Account.id', 'Account.username', 'Person.name', 'Person.surname'),
+                    'contain' => array('Account'=>array('Person'=>array())),
+                    'order' => array('Person.name' => 'ASC')
+                ));
+                $rooms = $this->Date->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
+                $this->set(compact('courses', 'date', 'directors', 'rooms'));
             }
         } else {
             throw new AjaxImplementedException;
