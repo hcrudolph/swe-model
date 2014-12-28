@@ -74,10 +74,9 @@ class PostsController extends AppController {
 /**
  * add method
  * @throws AjaxImplementedException, ForbiddenException
- * @param String $addId
  * @return void
  */
-	public function add($addId = null) {
+	public function add() {
         if($this->request->is('ajax'))
         {
             if($this->Auth->user('role') == 0) {
@@ -103,7 +102,6 @@ class PostsController extends AppController {
                     echo json_encode($answer);
                 } else {
                     $this->layout = 'ajax';
-                    $this->set('addId', $addId);
                 }
             }
         } else {
@@ -114,7 +112,7 @@ class PostsController extends AppController {
 /**
  * edit method
  *
- * @throws AjaxImplementedException, ForbiddenException
+ * @throws AjaxImplementedException, ForbiddenException, NotFoundException
  * @param string $id
  * @return void
  */
@@ -124,34 +122,34 @@ class PostsController extends AppController {
         {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
-            } else {
-                $this->layout = 'ajax';
-                if ($this->request->is(array('post', 'put'))) {
-                    if($this->Post->exists($id))
-                    {
-                        throw new NotFoundException;
-                    }
-                    $this->request->data['Post']['account_id'] = $this->Auth->user('id');
-                    $this->request->data['Post']['id'] = $id;
-                    $this->autoRender = false;
-                    $this->layout = null;
-                    $this->response->type('json');
-                    $answer = array();
+            }
+            if(!$this->Post->exists($id))
+            {
+                throw new NotFoundException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is(array('post', 'put'))) {
 
-                    if ($this->Post->save($this->request->data)) {
-                        $answer['success'] = true;
-                        $answer['message'] = 'Der Eintrag wurde gespeichert';
-                    } else {
-                        $answer['success'] = false;
-                        $answer['message'] = 'Der Eintrag konnte nicht gespeichert werden';
-                        $answer['errors']['Post'] = $this->Post->validationErrors;
-                    }
-                    echo json_encode($answer);
+                $this->request->data['Post']['account_id'] = $this->Auth->user('id');
+                $this->request->data['Post']['id'] = $id;
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                if ($this->Post->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Eintrag wurde gespeichert';
                 } else {
-                    $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
-                    $post = $this->Post->find('first', $options);
-                    $this->set(compact('post'));
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Eintrag konnte nicht gespeichert werden';
+                    $answer['errors']['Post'] = $this->Post->validationErrors;
                 }
+                echo json_encode($answer);
+            } else {
+                $options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
+                $post = $this->Post->find('first', $options);
+                $this->set(compact('post'));
             }
         } else {
             throw new AjaxImplementedException;

@@ -55,7 +55,7 @@ class Post extends AppModel {
 	 * @return $dateTimeString
 	 */
 	public function dateTimeFormatAfterFind($dateTimeString) {
-		return date('d.m.Y h:i:s', strtotime($dateTimeString));
+		return date('d.m.Y H:i:s', strtotime($dateTimeString));
 	}
 
 	/**

@@ -1,45 +1,71 @@
-<?php
-    $addId = ((isset($addId))?$addId:'');
-?>
-<form id="postAddForm<?php echo $addId;?>">
-    <div class="control-group Post">
-        <div class="heading">
-            <input type="input" class="form-control" name="data[Post][heading]" placeholder="Betreff">
-        </div>
-        <div class="body">
-            <textarea name="data[Post][body]" class="body form-control" rows="3" placeholder="Body"></textarea>
-        </div>
-        <div class="visiblebegin">
-            <div class="input-group input-append date">
-                <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                </span>
-                <input type="text" name="data[Post][visiblebegin]" class="form-control">
-                <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
-                    <i class="glyphicon glyphicon-remove-circle"></i>
-                </span>
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Post hinzufügen</h4>
             </div>
-        </div>
-        <div class="visibleend">
-            <div class="input-group input-append date">
-                <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                </span>
-                <input type="text" name="data[Post][visibleend]" class="form-control ">
-                <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
-                    <i class="glyphicon glyphicon-remove-circle"></i>
-                </span>
+            <div class="modal-body">
+                <form id="postAddForm">
+                    <div class="control-group Post row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default heading">
+                                <div class="panel-heading">Betreff</div>
+                                <input type="input" class="form-control panel-body" name="data[Post][heading]" placeholder="Betreff">
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-default body">
+                                <div class="panel-heading">Freitext</div>
+                                <textarea name="data[Post][body]" class="panel-body form-control" rows="3" placeholder="Freitext"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-default visiblebegin">
+                                <div class="panel-heading">Anzeigen von</div>
+                                <div class="input-group input-append date">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                    <input type="text" name="data[Post][visiblebegin]" class="form-control">
+                                    <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
+                                        <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-default visibleend">
+                                <div class="panel-heading">Anzeigen bis</div>
+                                <div class="input-group input-append date">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                    <input type="text" name="data[Post][visibleend]" class="form-control ">
+                                    <span class="input-group-addon" onclick="$(this).parent().children('.form-control').val('');">
+                                        <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <button type="submit" class="btn btn-primary" onclick="$('#postAddForm').submit();">Speichern</button>
             </div>
         </div>
     </div>
 
-
-    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i>Speichern</button>
-    <button type="button" class="btn btn-default" onclick="postAddFormClose(<?php echo $addId;?>)"><i class="glyphicon glyphicon-minus"></i>Schließen</button>
-</form>
-
-
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-    postAddFormAddDatepicker(<?php echo $addId;?>);
-    postAddFormAddSubmitEvent(<?php echo $addId;?>);
-<?php echo $this->Html->scriptEnd();?>
+    <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+    postAddFormAddDatepicker();
+    postAddFormAddSubmitEvent();
+    $('.modal').on('hidden.bs.modal', function (e) {
+        $('.modal').remove();
+    });
+    <?php echo $this->Html->scriptEnd();?>
+    <style>
+        .datepicker{z-index:1151 !important;}
+    </style>
+</div>

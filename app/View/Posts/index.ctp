@@ -33,13 +33,12 @@ function loadPage(page) {
     $('#content').load('<?php echo $this->webroot."posts/index/";?>'+page);
 }
 
-var addId = 0;
 function postsAddButtonClick()
 {
-    $.get('<?php echo $this->webroot."posts/add/";?>'+addId, function( data ) {
-        $('#postEntries').before(data);
+    $.get('<?php echo $this->webroot;?>posts/add/', function( view ) {
+        $('body').append(view);
+        $('body > .modal').modal('show');
     });
-addId++;
 }
 
 
@@ -62,38 +61,35 @@ function postEntryDelete(postId)
 
 function postEntryEdit(postId)
 {
-    $.get('<?php echo $this->webroot."posts/edit/"?>'+postId, function( data ) {
-        $('#postEntry'+postId).replaceWith(data);
+    $.get('<?php echo $this->webroot."posts/edit/"?>'+postId, function( view ) {
+        $('body').append(view);
+        $('body > .modal').modal('show');
     });
 }
 
-function postAddFormClose(addId)
-{
-    $('#postAddForm'+addId).remove();
-}
 
-function postAddFormAddDatepicker(addId)
+function postAddFormAddDatepicker()
 {
-    $("#postAddForm"+addId+" > .Post > .visiblebegin > .date > .form-control").datepicker({
+    $("#postAddForm > .Post > div > .visiblebegin > .date > .form-control").datepicker({
         format: 'dd.mm.yyyy',
         language: 'de'
     });
-    $("#postAddForm"+addId+" > .Post > .visibleend > .date > .form-control").datepicker({
+    $("#postAddForm > .Post > div > .visibleend > .date > .form-control").datepicker({
         format: 'dd.mm.yyyy',
         language: 'de'
     });
 }
 
-function postAddFormAddSubmitEvent(addId)
+function postAddFormAddSubmitEvent()
 {
-    var addForm = '#postAddForm'+addId;
+    var addForm = '#postAddForm';
     $(addForm).submit(function(event) {
         $.post('<?php echo $this->webroot;?>posts/add/', $(addForm).serialize(), function(json) {
             if(json.success == true) {
                 notificateUser(json.message, 'success');
                 $.get('<?php echo $this->webroot;?>posts/view/'+json.id, function( view ) {
                     $('#postEntries').prepend(view);
-                    postAddFormClose(addId);
+                    $('.modal').modal('hide');
                 });
             } else {
                 notificateUser(json.message);
@@ -101,18 +97,20 @@ function postAddFormAddSubmitEvent(addId)
                 //delete old errors
                 $(addForm).children().each(function() {
                     $(this).children().each(function() {
-                        $(this).removeClass('has-error has-feedback');
-                        $(this).children('.control-label').remove();
+                        $(this).children('div').each(function() {
+                            $(this).addClass('panel-default').removeClass('panel-danger has-error');
+                            $(this).children('.panel-footer').remove();
+                        });
                     });
-                })
+                });
 
                 for(var controller in json.errors) {
                     for(var key in json.errors[controller]) {
                         if(json.errors[controller].hasOwnProperty(key)) {
                             notificateUser(json.errors[controller][key]);
-                            var ele = $(addForm+' > .'+controller+' > .'+key);
-                            ele.addClass('has-error has-feedback');
-                            ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
+                            var ele = $(addForm+' > .'+controller+' > div > .'+key);
+                            ele.addClass('panel-danger has-error');
+                            ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
                         }
                     }
                 }
@@ -123,13 +121,13 @@ function postAddFormAddSubmitEvent(addId)
 }
 
 
-function postEditFormAddDatepicker(postId)
+function postEditFormAddDatepicker()
 {
-    $("#postEditForm"+postId+" > .Post > .visiblebegin > .date > .form-control").datepicker({
+    $("#postEditForm > .Post > div > .visiblebegin > .date > .form-control").datepicker({
         format: 'dd.mm.yyyy',
         language: 'de'
     });
-    $("#postEditForm"+postId+" > .Post > .visibleend > .date > .form-control").datepicker({
+    $("#postEditForm > .Post > div > .visibleend > .date > .form-control").datepicker({
         format: 'dd.mm.yyyy',
         language: 'de'
     });
@@ -137,48 +135,40 @@ function postEditFormAddDatepicker(postId)
 
 function postEditFormAddSubmitEvent(postId)
 {
-    var editForm = '#postEditForm'+postId;
+    var editForm = '#postEditForm';
     $(editForm).submit(function(event) {
         $.post('<?php echo $this->webroot;?>posts/edit/'+postId, $(editForm).serialize(), function(json) {
             if(json.success == true) {
                 notificateUser(json.message, 'success');
+                $('.modal').modal('hide');
                 $.get('<?php echo $this->webroot;?>posts/view/'+postId, function( view ) {
-                    $(editForm).replaceWith(view);
+                    $('#postEntry'+postId).replaceWith(view);
                 });
             } else {
             notificateUser(json.message);
 
-            //delete old errors
             $(editForm).children().each(function() {
                 $(this).children().each(function() {
-                    $(this).removeClass('has-error has-feedback');
-                    $(this).children('.control-label').remove();
+                    $(this).children('div').each(function() {
+                        $(this).addClass('panel-default').removeClass('panel-danger has-error');
+                        $(this).children('.panel-footer').remove();
+                    });
                 });
-            })
+            });
 
             for(var controller in json.errors) {
                 for(var key in json.errors[controller]) {
                     if(json.errors[controller].hasOwnProperty(key)) {
                         notificateUser(json.errors[controller][key]);
-                        var ele = $(editForm+' > .'+controller+' > .'+key);
-                        ele.addClass('has-error has-feedback');
-                        ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
+                        var ele = $(editForm+' > .'+controller+' > div > .'+key);
+                        ele.addClass('panel-danger has-error');
+                        ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
                     }
                 }
             }
         }
     }, 'json');
     event.preventDefault();
-    });
-}
-
-
-
-
-function postEditFormClose(postId)
-{
-    $.get('<?php echo $this->webroot."posts/view/"?>'+postId, function( data ) {
-        $('#postEditForm'+postId).replaceWith(data);
     });
 }
 <?php echo $this->Html->scriptEnd();?>
