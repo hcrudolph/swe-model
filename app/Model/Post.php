@@ -33,6 +33,9 @@ class Post extends AppModel {
 			if (isset($val['Post']['created'])) {
 				$results[$key]['Post']['created'] = $this->dateTimeFormatAfterFind($val['Post']['created']);
 			}
+			if (isset($val['Post']['modified'])) {
+				$results[$key]['Post']['modified'] = $this->dateTimeFormatAfterFind($val['Post']['modified']);
+			}
 		}
 		return $results;
 	}

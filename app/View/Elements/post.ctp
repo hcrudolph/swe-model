@@ -13,7 +13,7 @@
             <?php echo nl2br(h($post['Post']['body'])); ?>
         </div>
         <div class="panel-footer">
-            <?php echo h($post['Account']['Person']['surname']);?> <?php echo h($post['Account']['Person']['name']);?>, <?php echo h($post['Post']['created']); ?>
+            <?php echo h($post['Account']['Person']['surname']);?> <?php echo h($post['Account']['Person']['name']);?>, <?php echo h($post['Post']['modified']); ?>
         </div>
 
     </div>
