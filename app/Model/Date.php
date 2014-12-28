@@ -124,6 +124,12 @@ class Date extends AppModel {
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
 			)
 		),
+		'director' => array(
+			'mitarbeiterFree'    => array(
+				'rule'      => array('mitarbeiterFree'),
+				'message' => 'In diesem Zeitraum ist der Mitarbeiter bereits verplant.',
+			)
+		),
 		'end' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -207,13 +213,6 @@ class Date extends AppModel {
 	}
 	public function roomFree() {
 		$conditions = array(
-			'NOT' => array (
-				'Date.id' => array($this->data[$this->alias]['id'])
-			),
-			'Date.room_id' => $this->data[$this->alias]['room_id'],
-			'OR' => array(
-				'AND' => array()
-			),
 			'Date.room_id' => $this->data[$this->alias]['room_id'],
 			'OR' => array(
 				array(
@@ -226,6 +225,36 @@ class Date extends AppModel {
 				)
 			)
 		);
+		if(isset($this->data[$this->alias]['id']))
+		{
+			$conditions['NOT'] = array (
+				'Date.id' => array($this->data[$this->alias]['id'])
+			);
+		}
+		$count = $this->find('count', array('conditions' => $conditions));
+		return (($count==0)?true:false);
+	}
+
+	public function mitarbeiterFree() {
+		$conditions = array(
+			'Date.director' => $this->data[$this->alias]['director'],
+			'OR' => array(
+				array(
+					'Date.begin >=' => $this->data[$this->alias]['begin'],
+					'Date.begin <' => $this->data[$this->alias]['end']
+				),
+				array(
+					'Date.end >' => $this->data[$this->alias]['begin'],
+					'Date.end <=' => $this->data[$this->alias]['end']
+				)
+			)
+		);
+		if(isset($this->data[$this->alias]['id']))
+		{
+			$conditions['NOT'] = array (
+				'Date.id' => array($this->data[$this->alias]['id'])
+			);
+		}
 		$count = $this->find('count', array('conditions' => $conditions));
 		return (($count==0)?true:false);
 	}
