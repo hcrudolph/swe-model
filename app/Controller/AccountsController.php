@@ -118,10 +118,13 @@ class AccountsController extends AppController {
                 if(is_null($id))
                 {
                     $id = $this->Auth->user('id');
-                    if(isset($this->data[$this->account]['role']) AND $user['role'] == 0) {
+                    if(isset($this->data[$this->account]['role']) AND $account['role'] == 0) {
                         unset($this->data[$this->account]['role']);
                         throw new ForbiddenException;
                     }
+                    //elseif(isset($this->data[$this->account]['role']) AND $account['role'] == 1) {
+                    //unset($this->data[$this->account]['role']);
+                    //throw new ForbiddenException;
                     //Eigenen Account bearbeiten
                 } else
                 {
@@ -202,14 +205,16 @@ class AccountsController extends AppController {
 
     public function permissions()
     {
-    $role = $this->Account->role;
 
+    $role = $this->data[$this->account]['role'];
     // Admin Allow everything
-    if ($role = 2) {
+
+
+    if ($role == 2) {
         $this->Acl->allow($role, 'controllers');
     }
     // Trainer Permissions
-    if ($role = 1) {
+    if ($role == 1) {
         $this->Acl->deny($role, 'controllers');
         $this->Acl->allow($role, 'controllers/posts');
         $this->Acl->allow($role, 'controllers/courses');
@@ -235,13 +240,13 @@ class AccountsController extends AppController {
     }
 
     // Member Permissions
-    if ($role = 0) {
+    if ($role == 0) {
         $this->Acl->deny($role, 'controllers');
         $this->Acl->allow($role, 'controllers/posts/view');
         $this->Acl->allow($role, 'controllers/courses/view');
         $this->Acl->allow($role, 'controllers/dates/view');
-        $this->Acl->allow($role, 'controllers/dates/signup');
-        $this->Acl->allow($role, 'controllers/dates/signoff');
+        $this->Acl->allow($role, 'controllers/dates/signupUser');
+        $this->Acl->allow($role, 'controllers/dates/signoffUser');
         $this->Acl->allow($role, 'controllers/people/view');
         $this->Acl->allow($role, 'controllers/rooms/view');
         $this->Acl->allow($role, 'controllers/lists/view/trainer');
@@ -253,6 +258,7 @@ class AccountsController extends AppController {
         //$this->Acl->allow($role, 'controllers/studio/view');
     }
     $this->Acl->allow($role, 'controllers/users/logout');
+        $this->Acl->allow($role, 'controllers/users/login');
 
     echo "all done";
     exit;
