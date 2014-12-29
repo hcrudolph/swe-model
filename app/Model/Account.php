@@ -165,19 +165,6 @@ class Account extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Bill' => array(
-			'className' => 'Bill',
-			'foreignKey' => 'account_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'Post' => array(
 			'className' => 'Post',
 			'foreignKey' => 'account_id',
