@@ -106,7 +106,7 @@
 				});
 			});
 
-			dateAddFormAddSubmitEvent(<?php echo $this->webroot;?><?php echo ((isset($courseId))?', '.$courseId:'');?>);
+			dateAddFormAddSubmitEvent('<?php echo $this->webroot;?>'<?php echo ((isset($courseId))?', '.$courseId:'');?>);
 		<?php echo $this->Html->scriptEnd();?>
 	</div>
 </div>
