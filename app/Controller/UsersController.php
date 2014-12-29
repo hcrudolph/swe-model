@@ -34,18 +34,25 @@ class UsersController extends AppController
      * listing method
      *
      * @throws ForbiddenException, AjaxImplementedException
+     * @param $id
      * @return void
      */
-    public function listing()
+    public function listing($id = null)
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            if ($this->Auth->user('role') == 0) {
-                throw new ForbiddenException;
-            }
-            #Sortierung? Anzeige des Templates
             $this->Account->recursive = 0;
-            $usersListing = $this->Account->find('all');
+            if(!is_null($id)) {
+                if ($this->Auth->user('id') != $id AND $this->Auth->user('role') == 0) {
+                    throw new ForbiddenException;
+                }
+                if (!$this->Account->exists($id)) {
+                    throw new NotFoundException;
+                }
+                $usersListing = $this->Account->find('all', array('conditions'=>array('Account.id' => $id)));
+            } else {
+                $usersListing = $this->Account->find('all', array('order'=>array('Person.name')));
+            }
             $this->set(compact('usersListing'));
         } else {
             throw new AjaxImplementedException;
@@ -167,11 +174,11 @@ class UsersController extends AppController
                 $this->layout = null;
                 $this->response->type('json');
                 $answer = array();
-                CakeLog::write('info', 'Account is being changed..', array('AccountChanges'));
-                CakeLog::write('info', json_encode($this->request->data), array('AccountChanges'));
-                if($this->Account->saveAssociated($this->request->data, array('validate' => 'first', 'deep' => true)))
+                /*CakeLog::write('info', 'Account is being changed..', array('AccountChanges'));
+                CakeLog::write('info', json_encode($this->request->data), array('AccountChanges'));*/
+                if($this->Account->saveAssociated($this->request->data/*, array('validate' => 'first', 'deep' => true)*/))
                 {
-                    CakeLog::write('info', 'Data successfully saved.', array('AccountChanges'));
+                    //CakeLog::write('info', 'Data successfully saved.', array('AccountChanges'));
                     $answer['success'] = true;
                     $answer['message'] = "User erfolgreich bearbeitet";
                 } else

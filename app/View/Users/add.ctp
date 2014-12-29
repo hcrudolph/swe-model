@@ -15,12 +15,6 @@
                             </div>
                         </div>
                         <div class="col-xs-6">
-                            <div class="panel panel-default password">
-                                <div class="panel-heading">Passwort</div>
-                                <input type="password" class="form-control panel-body" name="data[Account][password]" placeholder="Passwort">
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
                             <div class="panel panel-default role">
                                 <div class="panel-heading">Rolle des Nutzers</div>
                                 <select name="data[Account][role]" class="form-control panel-body" style="padding:0px;">
@@ -28,6 +22,12 @@
                                     <?php echo (($user['role']==2)?'<option value="1">Mitarbeiter</option>':'')?>
                                     <?php echo (($user['role']==2)?'<option value="2">Administrator</option>':'')?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-default password">
+                                <div class="panel-heading">Passwort</div>
+                                <input type="password" class="form-control panel-body" name="data[Account][password]" placeholder="Passwort">
                             </div>
                         </div>
                         <div class="col-xs-6">

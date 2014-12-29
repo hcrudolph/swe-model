@@ -1,6 +1,6 @@
 <div id="usersTabbar" role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#usersGeneral" data-url="<?php echo $this->webroot; ?>Users/view">Allgemein</a></li>
+        <li role="presentation" class="active"><a href="#usersGeneral" data-url="<?php echo $this->webroot; ?>Users/listing/<?php echo $user['id']; ?>">Allgemein</a></li>
         <li role="presentation"><a href="#usersTariff" data-url="<?php echo $this->webroot; ?>tariffs/">Tarife</a></li>
         <li role="presentation"><a href="#usersCertificate" data-url="<?php echo $this->webroot; ?>Certificates/index">Zertifikate</a></li>
         <li role="presentation"><a href="#usersTraining" data-url="<?php echo $this->webroot; ?>Users/view">Trainingspläne</a></li>
@@ -30,18 +30,8 @@ $('#usersTabbar > .nav-tabs a').click(function (e) {
 });
 
 // Content für angezeigten Tab
-$('#usersTabbar > .tab-content > #usersGeneral').load('<?php echo $this->webroot; ?>Users/view',function(result){
+$('#usersTabbar > .tab-content > #usersGeneral').load('<?php echo $this->webroot; ?>Users/listing/<?php echo $user['id']; ?>',function(result){
     $('#usersTabbar > .active a').tab('show');
 });
-
-function userEdit(accId)
-{
-    $('#usersGeneral').load('<?php echo $this->webroot."users/edit/"?>'+accId);
-}
-
-function userEditClose(accId)
-{
-    $('#usersGeneral').load('<?php echo $this->webroot."users/view/"?>'+accId);
-}
 
 <?php echo $this->Html->scriptEnd(); ?>
