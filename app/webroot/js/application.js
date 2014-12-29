@@ -152,3 +152,10 @@ function dateSignOffUser(dateId, link) {
         }
     }, 'json');
 }
+
+function userEdit(link, dateId) {
+    $.get(link+dateId, function(html) {
+        $('body').append(html);
+        $('body > .modal').modal('show');
+    });
+}
