@@ -1,10 +1,32 @@
 #sidebar{
     width:200px;
-    height:600px;
+    height: 100%;
     top: 160px;
     position: absolute;
     padding: 5px;
     border-top: 2px double darkgray;
+}
+
+#user-group
+{
+    margin-bottom: 10px;
+}
+
+.panel-default
+{
+    margin-top:10px ;
+}
+
+#studioRechnungsdaten
+{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#studioAbrechnungsdaten
+{
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 #courseAddButton
@@ -54,7 +76,7 @@
     left: 200px;
     top: 160px;
     width: 788px;
-    height: 600px;
+    min-height: 400px;
     padding: 8px;
     border-top: 2px double darkgray;
     border-left: 2px double darkgray;
