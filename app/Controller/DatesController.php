@@ -137,12 +137,14 @@ class DatesController extends AppController {
                         'fields' => array('Course.id', 'Course.name', 'Course.level'),
                         'contain' => false,
                     ));
+                    $this->set('message', 'courseId is null');
                 } else {
                     $courses = $this->Date->Course->find('all', array(
                         'fields' => array('Course.id', 'Course.name', 'Course.level'),
                         'contain' => false,
-                        'condtitions' => array('Course.id'=>$courseId)
+                        'conditions' => array('Course.id'=>$courseId)
                     ));
+                    $this->set('message', 'courseId is NOT null');
                 }
                 $rooms = $this->Date->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
                 $directors = $this->Date->Account->find('all', array(
