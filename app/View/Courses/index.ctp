@@ -7,8 +7,6 @@
 
 
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
-collapseAddHandler();
-
 $("#courseEntries").on('courseChanged', function(event) {
 	var contentShown = false;
 	if($('#courseIndexEntryCollapse'+event.courseId).hasClass('active')) {
@@ -24,8 +22,7 @@ $("#courseEntries").on('courseChanged', function(event) {
 });
 
 
-function collapseAddHandler() {
-	$('#courseEntries > .panel > .panel-heading a').click(function (e) {
+	$('#courseEntries > .panel > .panel-heading > .panel-title a').click(function (e) {
 		e.preventDefault();
 
 		var url = $(this).attr("data-url");
@@ -37,7 +34,6 @@ function collapseAddHandler() {
 			pane.tab('show');
 		});
 	});
-}
 
 	function courseDelete(courseId) {
 		alert('Delete Course');

@@ -37,21 +37,18 @@ $userCount = sizeof($usersListing);
 </div>
 
 <?php echo $this->Html->scriptStart(array('inline' => true));?>
-    userListingAddCollapse();
-    function userListingAddCollapse() {
-        $('#userEntries > .panel > .panel-heading a').click(function (e) {
-            e.preventDefault();
+    $('#userEntries > .panel > .panel-heading > .panel-title a').click(function (e) {
+        e.preventDefault();
 
-            var url = $(this).attr("data-url");
-            var href = this.hash;
-            var pane = $(this);
+        var url = $(this).attr("data-url");
+        var href = this.hash;
+        var pane = $(this);
 
-            // ajax load from data-url
-            $(href+' > .panel-body').load(url,function(result){
-                pane.tab('show');
-            });
+        // ajax load from data-url
+        $(href+' > .panel-body').load(url,function(result){
+            pane.tab('show');
         });
-    }
+    });
 
 function userAddOpen()
 {
@@ -90,8 +87,21 @@ function userDelete(accId)
             contentShown = true;
         }
         $.get('<?php echo $this->webroot?>Users/listing/'+event.accountId, function(view) {
-            $('#userEntry'+event.accountId).replaceWith($(view).find('.panel'));
-            //userListingAddCollapse();
+            var ele = $(view).find('.panel');
+            ele.children(' .panel-heading').children('.panel-title').children('a').click(function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr("data-url");
+                var href = this.hash;
+                var pane = $(this);
+
+                // ajax load from data-url
+                $(href+' > .panel-body').load(url,function(result){
+                pane.tab('show');
+                });
+            });
+            $('#userEntry'+event.accountId).replaceWith(ele);
+
             if(contentShown) {
                 $('#userEntry'+event.accountId+' > .panel-heading > .panel-title  a').trigger("click");
             }
