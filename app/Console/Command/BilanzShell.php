@@ -29,34 +29,34 @@ class BilanzShell extends AppShell {
             )
         ));
 
-        foreach ($mitarbeiter as $key => $value){
-             /**
-            foreach ($mitarbeiter[$key]['Date'] as $date){
-                $date['begin'] = new DateTime($date['begin']);
-                $date['end'] = new DateTime($date['end']);
-                $interval = $date['begin']->diff($date['end']);
-                $total_days = $interval->days;
-                $hours      = $interval->h;
-                if ($total_days !== FALSE) {
-                    $hours += 24 * $total_days;
-                }
-                $minutes    = $interval->i;
-                array_push($date, sprintf('%02d:%02d', $hours, $minutes));
-            }
-              **/
-            unset($mitarbeiter[$key]['Account']['password']);
-            unset($mitarbeiter[$key]['Account']['role']);
-            $newkey = 'mitarbeiter' . $mitarbeiter[$key]['Account']['id'];
-            $mitarbeiter[$newkey] = $mitarbeiter[$key];
-            unset($mitarbeiter[$key]);
-        }
-
         foreach ($mitglieder as $key => $value){
             unset($mitglieder[$key]['Account']['password']);
             unset($mitglieder[$key]['Account']['role']);
+            $mitglieder[$key]['Dates'] = array();
+            foreach ($mitarbeiter[$key]['Date'] as $date){
+                unset($date['director']);
+                array_push($mitglieder[$key]['Dates'], array('Date' => $date));
+            }
+            unset($mitglieder[$key]['Date']);
             $newkey = 'mitglied' . $mitglieder[$key]['Account']['id'];
             $mitglieder[$newkey] = $mitglieder[$key];
             unset($mitglieder[$key]);
+        }
+
+        pr($mitglieder);
+
+        foreach ($mitarbeiter as $key => $value){
+            unset($mitarbeiter[$key]['Account']['password']);
+            unset($mitarbeiter[$key]['Account']['role']);
+            $mitarbeiter[$key]['Dates'] = array();
+            foreach ($mitarbeiter[$key]['Date'] as $date){
+                unset($date['director']);
+                array_push($mitarbeiter[$key]['Dates'], array('Date' => $date));
+            }
+            unset($mitarbeiter[$key]['Date']);
+            $newkey = 'mitarbeiter' . $mitarbeiter[$key]['Account']['id'];
+            $mitarbeiter[$newkey] = $mitarbeiter[$key];
+            unset($mitarbeiter[$key]);
         }
 
         foreach ($admins as $key => $value){
@@ -66,8 +66,6 @@ class BilanzShell extends AppShell {
             $admins[$newkey] = $admins[$key];
             unset($admins[$key]);
         }
-
-        pr($mitarbeiter);
 
         $mitarbeiter = array('mitarbeiters' => $mitarbeiter);
         $mitglieder = array('mitglieder' => $mitglieder);
