@@ -144,16 +144,12 @@ class CoursesController extends AppController {
 					'order' => array('Date.begin' => 'DESC')
 				)
 			);
-			if($this->Auth->user('role') == 0) {
-				$contain['Date']['conditions'] = array(
-					'Date.begin >=' => date('Y-m-d')
-				);
-			}
 
 			$conditions = array(
 				'Course.'.$this->Course->primaryKey => $id,
 			);
 			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+			//$rooms = $this->Course->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
 			$this->set(compact('course'));
 		} else {
 			throw new AjaxImplementedException;

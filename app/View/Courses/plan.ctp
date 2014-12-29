@@ -3,7 +3,7 @@
         <div class="panel-heading">Daten</div>
         <div class="form-group form-horizontal panel-body">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4">
                     <div class="input-group date">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
@@ -14,7 +14,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-4">
                     <div class="input-group date">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
@@ -27,41 +27,141 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-xs-12" style="padding-top:10px;padding-bottom:10px">
+                    <div style="border-bottom: 1px solid #e5e5e5;"></div>
+                </div>
+            </div>
+            <div class="row">
                 <label for="inputEmail" class="control-label col-xs-2">Montag</label>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanMontag" placeholder="h:m-h:m">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanMontagVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanMontagBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
                 </div>
-                <label for="inputEmail" class="control-label col-xs-2">Donnerstag</label>
+                <label for="inputEmail" class="control-label col-xs-2">Freitag</label>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanDonnerstag" placeholder="h:m-h:m">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanFreitagVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanFreitagBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
                 </div>
-                <label for="inputEmail" class="control-label col-xs-2">Sonntag</label>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanSonntag" placeholder="h:m-h:m">
+                <label for="inputEmail" class="control-label col-xs-1">Raum</label>
+                <div class="col-xs-3">
+                    <select id="coursePlanRoom" class="form-control">
+                        <option value="0">Raum1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:10px;padding-bottom:10px">
+                    <div style="border-bottom: 1px solid #e5e5e5;"></div>
                 </div>
             </div>
             <div class="row">
                 <label for="inputEmail" class="control-label col-xs-2">Dienstag</label>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanDienstag" placeholder="h:m-h:m">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanDienstagVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanDienstagBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
                 </div>
-                <label for="inputEmail" class="control-label col-xs-2">Freitag</label>
+                <label for="inputEmail" class="control-label col-xs-2">Samstag</label>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanFreitag" placeholder="h:m-h:m">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanSamstagVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanSamstagBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                </div>
+                <label for="inputEmail" class="control-label col-xs-1">Trainer</label>
+                <div class="col-xs-3">
+                    <select id="coursePlanTrainer" class="form-control">
+                        <option>Trainer1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:10px;padding-bottom:10px">
+                    <div style="border-bottom: 1px solid #e5e5e5;"></div>
                 </div>
             </div>
             <div class="row">
                 <label for="inputEmail" class="control-label col-xs-2">Mittwoch</label>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanMittwoch" placeholder="h:m-h:m">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanMittwochVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanMittwochBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
                 </div>
-                <label for="inputEmail" class="control-label col-xs-2">Samstag</label>
+                <label for="inputEmail" class="control-label col-xs-2">Sonntag</label>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control" id="coursePlanSamstag" placeholder="h:m-h:m">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanSonntagVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanSonntagBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-default" onclick="courseCreateVorlage();">Vorlagen erstellen</button>
+                    <div class="row">
+                        <label for="inputEmail" class="control-label col-xs-6">Min.Teilnehmer</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="coursePlanTeilnehmerMin" placeholder="min">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="inputEmail" class="control-label col-xs-6">Max.Teilnehmer</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="coursePlanTeilnehmerMax" placeholder="max">
+                        </div>
+                    </div>
                 </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:10px;padding-bottom:10px">
+                    <div style="border-bottom: 1px solid #e5e5e5;"></div>
+                </div>
+            </div>
+            <div class="row">
+                <label for="inputEmail" class="control-label col-xs-2">Donnerstag</label>
+                <div class="col-xs-2">
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanDonnerstagVon" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                    <div class="btn-group">
+                        <input type="text" class="form-control timepicker" id="coursePlanDonnerstagBis" placeholder="hh:mm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </div>
+                </div>
+                <div class="col-xs-5"></div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-primary" onclick="courseCreateVorlage();">Vorlagen erstellen</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -123,11 +223,24 @@ $("#courseEntries").on('courseChanged', function(event) {
     $('#coursePlanExistEntry'+event.dateId).remove();
 });
 
+$('span.glyphicon-remove-circle').click(function() {
+    $(this).parent().children('.form-control').val('');
+});
+
+$('.timepicker').datetimepicker({
+    language: 'de',
+    pickDate: false,
+    pickTime: true,
+});
+
 
 function courseCreateVorlage() {
+    var room = $('#coursePlanRoom').children('option:selected');
     var from = $('#coursePlanDateFrom').val();
     var to = $('#coursePlanDateTo').val();
-    if(from != '' && to != '') {
+    var mincount = $('#coursePlanTeilnehmerMin').val();
+    var maxcount = $('#coursePlanTeilnehmerMax').val();
+    if(from != '' && to != '' && mincount != '' && maxcount != '') {
         var dateFrom = parseDate(from);
         var dateTo = parseDate(to);
 
@@ -136,10 +249,10 @@ function courseCreateVorlage() {
             var beg = '<td>Beginn</td>';
             var end = '<td>Ende</td>';
             var trainer = '<td>Trainer</td>';
-            var raum = '<td>Raum</td>';
-            var min = '<td>Min</td>';
-            var max = '<td>Max</td>';
-            var check = '<td><button class="btn btn-default" onclick="courseAddVorlageEntry('+courseId+','+courseId+','+courseId+','+courseId+','+courseId+','+courseId+','+courseId+')">Validieren</button></td>';
+            var raum = '<td>'+room.text()+'</td>';
+            var min = '<td>'+mincount+'</td>';
+            var max = '<td>'+maxcount+'</td>';
+            var check = '<td><button class="btn btn-default" onclick="courseAddVorlageEntry('+courseId+','+courseId+','+courseId+','+courseId+','+room+','+mincount+','+maxcount+')">Validieren</button></td>';
             
             $('#coursePlanTable').append('<tr>'+beg+end+trainer+raum+min+max+check+'</tr>');
         }
@@ -165,6 +278,17 @@ function courseAddVorlageEntry(courseId, begin, end, director, room_id, mincount
 <?php echo $this->Html->scriptEnd();?>
 <style>
     .datepicker{z-index:1151 !important;}
+    span.glyphicon-remove-circle {
+        position: absolute;
+        right: 5px;
+        top: 0;
+        bottom: 0;
+        height: 14px;
+        margin: auto;
+        font-size: 14px;
+        cursor: pointer;
+        color: #ccc;
+    }
 </style>
 
 
@@ -177,4 +301,3 @@ foreach($course['Date'] as $date)
 
 
 ?>
-
