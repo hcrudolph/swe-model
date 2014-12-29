@@ -91,7 +91,7 @@ function userDelete(accId)
         }
         $.get('<?php echo $this->webroot?>Users/listing/'+event.accountId, function(view) {
             $('#userEntry'+event.accountId).replaceWith($(view).find('.panel'));
-            userListingAddCollapse();
+            //userListingAddCollapse();
             if(contentShown) {
                 $('#userEntry'+event.accountId+' > .panel-heading > .panel-title  a').trigger("click");
             }
