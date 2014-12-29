@@ -16,9 +16,14 @@
 			<?php echo h($tariff['Tariff']['amount']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Term'); ?></dt>
+		<dt><?php echo __('Role'); ?></dt>
 		<dd>
-			<?php echo h($tariff['Tariff']['term']); ?>
+			<?php echo h($tariff['Tariff']['role']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Course'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($tariff['Course']['name'], array('controller' => 'courses', 'action' => 'view', $tariff['Course']['id'])); ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -30,5 +35,7 @@
 		<li><?php echo $this->Form->postLink(__('Delete Tariff'), array('action' => 'delete', $tariff['Tariff']['id']), array(), __('Are you sure you want to delete # %s?', $tariff['Tariff']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tariffs'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tariff'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
