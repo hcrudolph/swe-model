@@ -6,7 +6,8 @@
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
 			<th><?php echo $this->Paginator->sort('amount'); ?></th>
-			<th><?php echo $this->Paginator->sort('term'); ?></th>
+			<th><?php echo $this->Paginator->sort('role'); ?></th>
+			<th><?php echo $this->Paginator->sort('course_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -16,7 +17,10 @@
 		<td><?php echo h($tariff['Tariff']['id']); ?>&nbsp;</td>
 		<td><?php echo h($tariff['Tariff']['description']); ?>&nbsp;</td>
 		<td><?php echo h($tariff['Tariff']['amount']); ?>&nbsp;</td>
-		<td><?php echo h($tariff['Tariff']['term']); ?>&nbsp;</td>
+		<td><?php echo h($tariff['Tariff']['role']); ?>&nbsp;</td>
+		<td>
+			<?php echo $this->Html->link($tariff['Course']['name'], array('controller' => 'courses', 'action' => 'view', $tariff['Course']['id'])); ?>
+		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $tariff['Tariff']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $tariff['Tariff']['id'])); ?>
@@ -44,5 +48,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Tariff'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
