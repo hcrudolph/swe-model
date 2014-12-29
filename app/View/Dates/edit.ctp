@@ -12,9 +12,9 @@
 							<div class="panel panel-default course_id">
 								<div class="panel-heading">Kurs</div>
 								<select name="data[Date][course_id]" class="form-control panel-body" style="padding:0px;">
-									<?php foreach($courses as $course) {
-										echo '<option value="'.$course['Course']['id'].'" '.(($course['Course']['id'] == $date['Date']['course_id'])?'selected="selected"':'').'>'.$course['Course']['name'].' (Schwierigkeit: '.$course['Course']['level'].')</option>';
-									} ?>
+									<?php
+									echo '<option value="'.$date['Course']['id'].'" selected="selected">'.$date['Course']['name'].' (Schwierigkeit: '.$date['Course']['level'].')</option>';
+									?>
 								</select>
 							</div>
 						</div>

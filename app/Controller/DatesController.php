@@ -197,11 +197,6 @@ class DatesController extends AppController {
             {
                 $this->Date->Behaviors->load('Containable');
                 $date = $this->Date->findById($id);
-                $courses = $this->Date->Course->find('all', array(
-                    'fields' => array('Course.id', 'Course.name', 'Course.level'),
-                    'contain' => false
-                ));
-
                 $directors = $this->Date->Account->find('all', array(
                     'conditions' => array('role >' => '0'),
                     'fields' => array('Account.id', 'Account.username', 'Person.name', 'Person.surname'),
