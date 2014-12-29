@@ -106,7 +106,7 @@
 			});
 		});
 
-		dateEditFormAddSubmitEvent(<?php echo $this->webroot;?>, <?php echo $date['Date']['id'];?>, <?php echo $date['Date']['course_id'];?>);
+		dateEditFormAddSubmitEvent('<?php echo $this->webroot;?>, <?php echo $date['Date']['id'];?>', <?php echo $date['Date']['course_id'];?>);
 		<?php echo $this->Html->scriptEnd();?>
 	</div>
 </div>
