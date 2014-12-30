@@ -1,30 +1,20 @@
-Prototypansicht für Trainer, Mitarbeiter, Kurse, Tarife, Popover liefert dann zusätzliche Infos, weitere Funktionalität zu implementieren!!!
+<div id="trainer">
+    <?php
+    ob_start();
+    foreach ($results as $result) {
+        $trname = $result['Person']['name'];
+        $trsurname = $result['Person']['surname'];
+        $tremail = $result['Person']['email'];
+        $trid = $result['Person']['account_id'];
+        ?>
 
-<div class="row">
-    <div class="col-xs-3">
-        <div class = thumbnail>
-            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png" alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png">
-            <h3>Igor Muskelmann</h3>
-    </div>
-    </div>
-    <div class="col-xs-3">
-        <div class="thumbnail">
-            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png" alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png">
-            <h3>Gabor Eisenfaust</h3>
+        <div class="col-xs-3">
+            <div class="thumbnail">
+                <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/<?php echo $trid ?>.png" alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png" onError="this.onerror=null; this.src='<?php echo $this->webroot ?>/img/Mitarbeiter/default.png';" />
+                <h3><?php echo $trsurname . " " . $trname ?></h3>
+            </div>
         </div>
-    </div>
-
-    <div class="col-xs-3">
-        <div class="thumbnail">
-            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png" alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png">
-            <h3>Jürgen Stemmeisen</h3>
-        </div>
-    </div>
-
-    <div class="col-xs-3">
-        <div href="#" class="thumbnail">
-            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png" alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png">
-            <h3>Hartmut Hantelbank</h3>
-        </div>
-    </div>
+    <?php }
+    ob_end_flush();
+    ?>
 </div>
