@@ -13,6 +13,7 @@ $city = $userResult['Person']['city'];
 $phone = $userResult['Person']['phone'];
 ?>
 
+<div class="row">
 <div class="col-xs-7">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -51,6 +52,8 @@ $phone = $userResult['Person']['phone'];
         </div>
     </div>
 </div>
+    </div>
+<div class="row">
 <div class="col-xs-6">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -83,6 +86,8 @@ $phone = $userResult['Person']['phone'];
         </div>
     </div>
 </div>
+    </div>
+<div class="row">
 <div class="col-xs-8">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -115,6 +120,8 @@ $phone = $userResult['Person']['phone'];
         </div>
     </div>
 </div>
+    </div>
+<div class="row">
 <div class="col-xs-6">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -163,6 +170,8 @@ $phone = $userResult['Person']['phone'];
         </div>
     </div>
 </div>
+    </div>
+<div class="row">
 <div class="col-xs-4">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -195,6 +204,8 @@ $phone = $userResult['Person']['phone'];
         </div>
     </div>
 </div>
+    </div>
+<div class="row">
 <div class="col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -211,3 +222,4 @@ $phone = $userResult['Person']['phone'];
         </div>
     </div>
 </div>
+    </div>
