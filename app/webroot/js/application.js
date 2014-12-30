@@ -135,7 +135,10 @@ function dateSignUpUser(dateId, link) {
     $.post(link+dateId,function(json) {
         if(json.success == true) {
             notificateUser(json.message, 'success');
-            //Toggle Buttons
+            $( "#courseEntries" ).trigger({
+                type:"courseChanged",
+                courseId:json.courseId
+            });
         } else {
             notificateUser(json.message, json.error);
         }
@@ -146,7 +149,10 @@ function dateSignOffUser(dateId, link) {
     $.post(link+dateId,function(json) {
         if(json.success == true) {
             notificateUser(json.message, 'success');
-            //Toggle Buttons
+            $( "#courseEntries" ).trigger({
+                type:"courseChanged",
+                courseId:json.courseId
+            });
         } else {
             notificateUser(json.message, json.error);
         }

@@ -221,6 +221,7 @@ class DatesController extends AppController {
                     {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich angemeldet.";
+                        $answer['courseId'] = $date['Date']['course_id'];
 
                     } else{
                         $answer['success'] = false;
@@ -273,6 +274,7 @@ class DatesController extends AppController {
                     if($this->Date->habtmDelete('Account', $id, $this->Auth->user('id'))) {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich abgemeldet";
+                        $answer['courseId'] = $date['Date']['course_id'];
                     } else {
                         $answer['success'] = false;
                         $answer['message'] = "Sie konnten nicht abgemeldet werden";
