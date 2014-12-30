@@ -15,35 +15,6 @@ class DatesController extends AppController {
  */
 	public $components = array('Paginator');
 
-/**
- * index method
- *
- * @param $courseId
- * @return void
- */
-	public function index($courseId = null) {
-		$this->Date->recursive = 0;
-		$this->set('dates', $this->Paginator->paginate());
-	}
-
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Date->exists($id)) {
-			throw new NotFoundException(__('Invalid date'));
-		}
-		$options = array('conditions' => array('Date.' . $this->Date->primaryKey => $id));
-		$this->set('date', $this->Date->find('first', $options));
-	}
-
-
-
-
     /** delete method
      *
      * @throws AjaxImplementedException, MethodNotAllowedException, NotFoundException
