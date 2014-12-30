@@ -3,6 +3,14 @@ App::uses('Xml', 'Utility');
 class BilanzShell extends AppShell {
     public $uses = array('Course', 'Account', 'Person', 'Courses', 'Tariff');
 
+    public function findRelatedTariff($course_id){
+        $related_tariff = $this->Tariff->find('first', array(
+            'condition' => array('course_id' => $course_id),
+            'recursive' => -1
+        ));
+        return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
+    }
+
     public function main(){
         $this->Account->Behaviors->load('Containable');
 
@@ -49,14 +57,8 @@ class BilanzShell extends AppShell {
             $mitarbeiter[$key]['Dates'] = array();
             foreach ($mitarbeiter[$key]['Date'] as $date){
                 unset($date['director']);
+                // push all <Date> tags to <Dates>
                 array_push($mitarbeiter[$key]['Dates'], array('Date' => $date));
-
-                $related_tariff = $this->Tariff->find('first', array(
-                    'condition' => array('course_id' => $date['course_id']),
-                    'recursive' => -1
-                ));
-                array_merge($date, array( 'amount' => $related_tariff['Tariff']['amount']));
-                unset($date['course_id']);
             }
             unset($mitarbeiter[$key]['Date']);
             $newkey = 'employee' . $mitarbeiter[$key]['Account']['id'];
@@ -92,10 +94,12 @@ class BilanzShell extends AppShell {
         // Put all <Date> tags in one single <Dates> element
         $toFind = '</Dates><Dates>';
         $mitarbeiterString = preg_replace("/" .preg_quote($toFind, '/') . "/", '', $mitarbeiterString, -1);
+        // add respective tariff to date
+        $mitarbeiterString = preg_replace('/<course_id>(\d+)<\/course_id>/', $this->findRelatedTariff('$1'), $mitarbeiterString);
 
         // print out XML
-        print $mitgliederString;
+        //print $mitgliederString;
         print $mitarbeiterString;
-        print $adminString;
+        //print $adminString;
     }
 }
