@@ -51,8 +51,13 @@ class DatesController extends AppController {
                     ));
                     $this->Post->save($post);
 
+                    $dateDateTime = new DateTime($date['Date']['begin']);
+                    $nowDateTime = new DateTime();
 
-                    //Senden der Emails
+                    if($dateDateTime >= $nowDateTime) {
+                        //Senden der Emails
+                        //Liste von Leuten ohne Email-adresse
+                    }
 
                 } else {
                     $answer['success'] = false;
