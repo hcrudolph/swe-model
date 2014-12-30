@@ -216,7 +216,11 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'php',
+        'timeout' => 30, // Timeout nach 30 Min Inaktivität
+        'cookieTimeout' => 1440, // Session Cookie bleibt für 24h erhalten, danach wird der User definitiv ausgeloggt
+        'checkAgent' => false,
+        'autoRegenerate' => true, // Bei Seitenaufruf wird das timeout zurückgesetzt
 	));
 
 /**
