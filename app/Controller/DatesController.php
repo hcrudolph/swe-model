@@ -123,6 +123,7 @@ class DatesController extends AppController {
                 if ($this->Date->save($this->request->data)) {
                     $answer['success'] = true;
                     $answer['message'] = 'Der Termin wurde erstellt';
+                    $answer['dateId'] = $this->Date->id;;
                 } else {
                     $answer['success'] = false;
                     $answer['message'] = 'Der Termin konnte nicht erstellt werden';

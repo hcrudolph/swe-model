@@ -149,8 +149,16 @@ class CoursesController extends AppController {
 				'Course.'.$this->Course->primaryKey => $id,
 			);
 			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
-			//$rooms = $this->Course->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
-			$this->set(compact('course'));
+			$this->loadModel('Room');
+			$rooms = $this->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
+			$this->loadModel('Account');
+			$directors = $this->Account->find('all', array(
+				'conditions' => array('role >' => '0'),
+				'fields' => array('Account.id', 'Account.username', 'Person.name', 'Person.surname'),
+				'contain' => array('Account'=>array('Person'=>array())),
+				'order' => array('Person.name' => 'ASC')
+			));
+			$this->set(compact('course', 'rooms', 'directors'));
 		} else {
 			throw new AjaxImplementedException;
 		}
