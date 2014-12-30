@@ -157,6 +157,13 @@ class UsersController extends AppController
                     throw new ForbiddenException;
                 }
             }
+            if ($id != $this->Auth->user('id') && $this->Auth->user('role') == 1) {
+                if(empty($this->request->data['Account']['password']))
+                    unset($this->request->data['Account']['password']);
+
+                if(isset($this->request->data['Account']['role']))
+                    unset($this->request->data['Account']['role']);
+            }
             if(!$this->Account->exists($id))
             {
                 throw new NotFoundException;
