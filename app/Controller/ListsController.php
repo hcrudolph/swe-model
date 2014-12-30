@@ -1,43 +1,43 @@
 <?php
 App::uses('AppController', 'Controller');
+
 /**
  * Lists Controller
  *
  * @property PaginatorComponent $Paginator
  */
-class ListsController extends AppController {
+class ListsController extends AppController
+{
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
+    /**
+     * Components
+     *
+     * @var array
+     */
+    public $components = array('Paginator');
 
     var $uses = array('Date', 'Account', 'Person');
-    
-    
-/**
- * index method
- *
- * @throws AjaxImplementedException
- * @return void
- */
-	public function index() {
-        if($this->request->is('ajax'))
-        {
+
+
+    /**
+     * index method
+     *
+     * @throws AjaxImplementedException
+     * @return void
+     */
+    public function index()
+    {
+        if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-        } else
-        {
+        } else {
             throw new AjaxImplementedException;
         }
-	}
-    
-    
-    
+    }
+
+
     public function trainer()
     {
-        if($this->request->is('ajax')) {
+        if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
             //$fields = array("Date.*", 'Person.*');
@@ -58,42 +58,47 @@ class ListsController extends AppController {
                 )
             ));
             $this->set(compact('results'));
-        } else
-        {
+        } else {
             throw new AjaxImplementedException;
         }
     }
-    
+
     public function mitarbeiter()
     {
-        if($this->request->is('ajax')) {
+        if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
             $conditions = array('Account.role' => 1, 'Account.role' => 2);
             $fields = array('Account.id', 'Person.*');
             $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
             $this->set(compact('results'));
-        } else
-        {
+        } else {
             throw new AjaxImplementedException;
         }
     }
-    
-    public function mitglieder()
+
+    public function kurse()
     {
-        if($this->request->is('ajax')) {
+        if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-            $conditions = array('Account.role' => 0,);
-            $fields = array('Account.id', 'Person.*');
-            $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
-            $this->set(compact('results'));
-        } else
-        {
+            //DB Abfrage
+        } else {
             throw new AjaxImplementedException;
         }
     }
-    
+
+    public function tarife()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+
+            //DB Abfrage
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
     public function beforeFilter()
     {
         parent::beforeFilter();
