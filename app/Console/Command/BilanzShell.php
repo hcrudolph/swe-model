@@ -43,8 +43,6 @@ class BilanzShell extends AppShell {
             unset($mitglieder[$key]);
         }
 
-        pr($mitglieder);
-
         foreach ($mitarbeiter as $key => $value){
             unset($mitarbeiter[$key]['Account']['password']);
             unset($mitarbeiter[$key]['Account']['role']);
@@ -52,12 +50,20 @@ class BilanzShell extends AppShell {
             foreach ($mitarbeiter[$key]['Date'] as $date){
                 unset($date['director']);
                 array_push($mitarbeiter[$key]['Dates'], array('Date' => $date));
+
+                $related_tariff = $this->Tariff->find('first', array(
+                    'condition' => array('course_id' => $date['course_id']),
+                    'recursive' => -1
+                ));
+                array_merge($date, array( 'amount' => $related_tariff['Tariff']['amount']));
+                unset($date['course_id']);
             }
             unset($mitarbeiter[$key]['Date']);
-            $newkey = 'mitarbeiter' . $mitarbeiter[$key]['Account']['id'];
+            $newkey = 'employee' . $mitarbeiter[$key]['Account']['id'];
             $mitarbeiter[$newkey] = $mitarbeiter[$key];
             unset($mitarbeiter[$key]);
         }
+
 
         foreach ($admins as $key => $value){
             unset($admins[$key]['Account']['password']);
@@ -67,20 +73,29 @@ class BilanzShell extends AppShell {
             unset($admins[$key]);
         }
 
-        $mitarbeiter = array('mitarbeiters' => $mitarbeiter);
+        // Wrap in root elements and build core
         $mitglieder = array('mitglieder' => $mitglieder);
+        $mitgliederObject = Xml::build($mitglieder);
+        $mitgliederString = $mitgliederObject->asXML();
+
+        $mitarbeiter = array('employees' => $mitarbeiter);
+        $mitarbeiterObject = Xml::build($mitarbeiter);
+        $mitarbeiterString = $mitarbeiterObject->asXML();
+
         $admins = array('admins' => $admins);
+        $adminObject = Xml::build($admins);
+        $adminString = $adminObject->asXML();
 
-        $xmlObject = Xml::build($mitarbeiter);
-        $xmlString = $xmlObject->asXML();
-        print $xmlString;
+        // Refactor
+        // Replace tag <emloyeeXY> with <emloyee>
+        $mitarbeiterString = preg_replace('/employee\\d+/', 'employee', $mitarbeiterString, -1);
+        // Put all <Date> tags in one single <Dates> element
+        $toFind = '</Dates><Dates>';
+        $mitarbeiterString = preg_replace("/" .preg_quote($toFind, '/') . "/", '', $mitarbeiterString, -1);
 
-        $xmlObject = Xml::build($mitglieder);
-        $xmlString2 = $xmlObject->asXML();
-        print $xmlString2;
-
-        $xmlObject = Xml::build($admins);
-        $xmlString2 = $xmlObject->asXML();
-        print $xmlString2;
+        // print out XML
+        print $mitgliederString;
+        print $mitarbeiterString;
+        print $adminString;
     }
 }
