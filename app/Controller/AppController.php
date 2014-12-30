@@ -48,6 +48,13 @@ class AppController extends Controller {
             ),
             'autoRedirect' => false,
             //'authorize' => 'Controller'
+            /*
+            'logoutRedirect' => array(
+            'controller' => 'posts', 'action' => 'login'
+            ),
+            // Falls Redirect bei Timeout nicht funktioniert wäre hier noch ein Lösungsansatz
+            // Greift aber für auch für normales Logout
+             */
         )
     );
     
