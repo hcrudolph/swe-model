@@ -40,18 +40,23 @@ class ListsController extends AppController {
         if($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-
             //$fields = array("Date.*", 'Person.*');
             $joins = array(
                 array(
-                    'table' => 'people',
-                    'alias' => 'Person',
+                    'table' => 'dates',
+                    'alias' => 'Date',
                     'type' => 'INNER',
-                    'conditions' => array('Date.director = Person.account_id')
+                    'conditions' => array('Date.director = Account.id')
                 )
             );
-            $results = $this->Date->find('all', array(/*'fields' => $fields,*/
-                'joins' => $joins));
+            $results = $this->Account->find('all', array(/*'fields' => $fields,*/
+                'joins' => $joins,
+                'group' => array('Date.director'),
+                'contain' => array(
+                    'Person' => array(),
+                    'Certificates' => array()
+                )
+            ));
             $this->set(compact('results'));
         } else
         {
