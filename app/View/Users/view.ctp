@@ -171,7 +171,7 @@ $phone = $userResult['Person']['phone'];
         <div class="panel-body">
             <?php
             if ($plz == Null) {
-                echo " ";
+                echo "--";
             } else {
                 echo $plz;
             }
