@@ -5,36 +5,39 @@
         $trsurname = $result['Person']['surname'];
         $tremail = $result['Person']['email'];
         $trid = $result['Person']['account_id'];
+
         ?>
 
         <div class="col-xs-3">
             <div class="thumbnail">
-                <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/<?php echo $trid ?>.png"
-                     alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png"
-                     onError="this.onerror=null; this.src='<?php echo $this->webroot ?>/img/Mitarbeiter/default.png';"/>
+                <a href="#" id="trainerPOP">
+                    <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/<?php echo $trid ?>.png"
+                         alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png"
+                         onError="this.onerror=null; this.src='<?php echo $this->webroot ?>/img/Mitarbeiter/default.png';"/>
 
-                <h3><?php echo $trsurname . " " . $trname ?></h3>
-            </div>
+                    <h3><?php echo $trsurname . "</br>" . $trname ?></h3>
+                </a></div>
         </div>
     <?php }
     ?>
 </div>
 
-
-<div class="col-xs-3">
-    <div class="thumbnail">
-        <a href="#" id="trainerPOP">
-            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png">
-
-            <h3>Here goes the name</h3>
-        </a></div>
+<div id="popContent" style="display: none">
+    <h3><?php echo
+            /* placeholder for certificates */
+            $trsurname . "</br>" . $trname ?>
+    </h3>
 </div>
 
 <script>
     $(function () {
         $("#trainerPOP").popover({
-            title: 'Here goes the Trainer name',
-            content: "Here goes the additional information e.g. certificates etc..."
+            placement: 'bottom',
+            trigger: 'hover',
+            html: true,
+            content: function () {
+                return $('#popContent').html();
+            }
         });
     });
 </script>
