@@ -24,7 +24,7 @@
 <div class="col-xs-3">
     <div class="thumbnail">
         <a href="#" id="trainerPOP">
-            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png" width="200" height="200">
+            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png">
 
             <h3>Here goes the name</h3>
         </a></div>
