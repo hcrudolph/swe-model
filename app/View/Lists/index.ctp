@@ -5,13 +5,16 @@
         </li>
         <li role="presentation"><a href="#studioMitarbeiter" data-url="<?php echo $this->webroot; ?>Lists/mitarbeiter/">Mitarbeiter</a>
         </li>
-        <li role="presentation"><a href="#studioMitglieder" data-url="<?php echo $this->webroot; ?>Lists/mitglieder/">Mitglieder</a>
+        <li role="presentation"><a href="#studioKurse" data-url="<?php echo $this->webroot; ?>Lists/kurse/">Kurse</a>
+        </li>
+        <li role="presentation"><a href="#studioKurse" data-url="<?php echo $this->webroot; ?>Lists/tarife">Tarife</a>
         </li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="studioTrainer"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioMitarbeiter"></div>
-        <div role="tabpanel" class="tab-pane fade" id="studioMitglieder"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioKurse"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioTarife"></div>
     </div>
 </div>
 
