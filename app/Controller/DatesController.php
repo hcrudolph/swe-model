@@ -71,11 +71,21 @@ class DatesController extends AppController {
                             $person = $account['Person'];
                             if(!empty($person['email'])) {
                                 $email = new CakeEmail('noreplay');
-                                $email->to($person['email'])
-                                    ->subject('Kurs abgesagt')
-                                    ->send("My Message");
+                                $email->to($person['email']);
+                                $email->subject('[Abgesagt]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].')');
+                                if($email->send("My Message")) {
+                                    $answer['mail'][$account['id']]['success'] = true;
+                                }
                             } else {
-
+                                $answer['mail'][$account['id']]['success'] = false;
+                                $answer['mail'][$account['id']]['name'] = $person['name'];
+                                $answer['mail'][$account['id']]['surname'] = $person['surname'];
+                                $answer['mail'][$account['id']]['phone'] = $person['phone'];
+                                $answer['mail'][$account['id']]['adress']['plz']= $person['plz'];
+                                $answer['mail'][$account['id']]['adress']['city'] = $person['city'];
+                                $answer['mail'][$account['id']]['adress']['street'] = $person['street'];
+                                $answer['mail'][$account['id']]['adress']['hnextra'] = $person['hnextra'];
+                                $answer['mail'][$account['id']]['adress']['housenumber'] = $person['housenumber'];
                             }
                         }
                         //$date['Account']//Senden der Emails
