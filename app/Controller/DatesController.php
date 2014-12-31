@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Dates Controller
  *
@@ -27,7 +28,17 @@ class DatesController extends AppController {
                 throw new NotFoundException;
             }
             if ($this->request->is('post', 'delete')) {
-                $date = $this->Date->findById($id);
+
+                $this->Date->Behaviors->load('Containable');
+                $contain = array(
+                    'Account' => array(
+                        'Person' => array(),
+                        'fields' => array('Account.id')
+                    ),
+                    'Course' => array()
+                );
+                $conditions = array('Date.id' => $id);
+                $date = $this->Date->find('first', array('contain' => $contain, 'conditions' => $conditions));
 
                 $this->autoRender = false;
                 $this->layout = null;
@@ -55,7 +66,19 @@ class DatesController extends AppController {
                     $nowDateTime = new DateTime();
 
                     if($dateDateTime >= $nowDateTime) {
-                        //Senden der Emails
+                        foreach($date['Account'] as $account)
+                        {
+                            $person = $account['Person'];
+                            if(!empty($person['email'])) {
+                                $email = new CakeEmail('noreplay');
+                                $email->to($person['email'])
+                                    ->subject('Kurs abgesagt')
+                                    ->send("My Message");
+                            } else {
+
+                            }
+                        }
+                        //$date['Account']//Senden der Emails
                         //Liste von Leuten ohne Email-adresse
                     }
 
