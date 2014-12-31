@@ -30,10 +30,10 @@ class Course extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'category' => array(
+		'level' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Die Kategorie darf nicht leer sein.',
+				'message' => 'Der Schwierigkeitsgrad darf nicht leer sein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -49,7 +49,7 @@ class Course extends AppModel {
 			),
 			'range' => array(
 				'rule' => array('range', -1, 6),
-				'message' => 'Die Kategorie muss einer Zahl zwischen 0 und 5 entsprechen.'
+				'message' => 'Der Schwierigkeitsgrad muss einer Zahl zwischen 0 und 5 entsprechen.'
 			)
 		),
 		'description' => array(
