@@ -1,64 +1,90 @@
-<form id="courseAddForm">
-    <div class="control-group Course">
-        <div class="name">
-            <input type="input" class="form-control" placeholder="Name">
+<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Kurs erstellen</h4>
+            </div>
+            <div class="modal-body">
+                <form id="courseAddForm">
+                    <div class="control-group Course row">
+                        <div class="col-xs-6">
+                            <div class="panel panel-default name">
+                                <div class="panel-heading">Kursname</div>
+                                <input type="input" class="form-control panel-body" name="data[Course][name]" placeholder="Kursname">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel panel-default level">
+                                <div class="panel-heading">Schwierigkeitsgrad</div>
+                                <select name="data[Course][level]" class="form-control panel-body" style="padding:0px;">
+                                    <option selected>Schwierigkeitsgrad</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-default description">
+                                <div class="panel-heading">Beschreibung</div>
+                                <textarea name="data[Course][description]" class="body form-control panel-body" rows="3" placeholder="Kursbeschreibung"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-primary" onclick="$('#courseAddForm').submit();">Speichern</button>
+            </div>
         </div>
-        <div class="category">
-            <input type="input" class="form-control" placeholder="Kategorie">
-        </div>
-        <div class="mincount">
-            <input type="input" class="form-control" placeholder="Minimalanzahl">
-        </div>
-        <div class="maxcount">
-            <input type="input" class="form-control" placeholder="Maximalanzahl">
-        </div>
-        <div class="description">
-            <input type="input" class="form-control" placeholder="Beschreibung">
-        </div>
-        <button type="submit" class="btn btn-default">Speichern</button>
     </div>
-</form>
 
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+    <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 
-$(document).ready(function() {
-    $('#courseAddForm').submit(function(event) {
-        $.post('<?php echo $this->webroot;?>courses/add/', $('#courseAddForm').serialize(), function(json) {
-            if(json.success == true) {
-                notificatecourse(json.message, 'success');
+        $('.modal').on('hidden.bs.modal', function (e) {
+            $('.modal').remove();
+        });
 
-                $.get('<?php echo $this->webroot?>courses/listing/', function( data ) {
-                    $('#courses').replaceWith(data);
-                });
-            } else {
-                notificatecourse(json.message);
+        $('#courseAddForm').submit(function(event) {
+            $.post('<?php echo $this->webroot;?>courses/add/', $('#courseAddForm').serialize(), function(json) {
+                if(json.success == true) {
+                    notificateUser(json.message, 'success');
 
-                //delete old errors
-                $('#courseAddForm').children().each(function() {
-                    $(this).children().each(function() {
-                        $(this).removeClass('has-error has-feedback');
-                        $(this).children('.glyphicon').remove();
-                        $(this).children('.control-label').remove();
+                    $.get('<?php echo $this->webroot?>courses/listing/', function( data ) {
+                        $('#courses').replaceWith(data);
+                        $('.modal').modal('hide');
                     });
-                })
+                } else {
+                    notificateUser(json.message);
 
-                for(var controller in json.errors)
-                {
-                    for(var key in json.errors[controller])
-                    {
-                        if(json.errors[controller].hasOwnProperty(key))
-                        {
-                            notificatecourse(json.errors[controller][key]);
-                            var ele = $('#courseAddForm > .'+controller+' > .'+key);
-                            ele.addClass('has-error has-feedback');
-                            ele.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-                            ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
+                    //delete old errors
+                    $('#courseAddForm').children().each(function() {
+                        $(this).children().each(function() {
+                            $(this).children('div').each(function() {
+                                $(this).addClass('panel-default').removeClass('panel-danger has-error');
+                                $(this).children('.panel-footer').remove();
+                            });
+                        });
+                    });
+
+                    for(var controller in json.errors) {
+                        for(var key in json.errors[controller]) {
+                            if(json.errors[controller].hasOwnProperty(key)) {
+                                notificateUser(json.errors[controller][key]);
+                                var ele = $('#courseAddForm > .'+controller+' > div > .'+key);
+                                ele.addClass('panel-danger has-error');
+                                ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+                            }
                         }
                     }
                 }
-            }
-        }, 'json');
-        event.preventDefault();
-    });
-});
-<?php echo $this->Html->scriptEnd(); ?>
+            }, 'json');
+            event.preventDefault();
+        });
+    <?php echo $this->Html->scriptEnd(); ?>
+</div>

@@ -154,14 +154,30 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->Course->create();
-			if ($this->Course->save($this->request->data)) {
-				$this->Session->setFlash(__('The course has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The course could not be saved. Please, try again.'));
+		if($this->request->is('ajax')) {
+			if($this->Auth->user('role') == 0) {
+				throw new ForbiddenException;
 			}
+			$this->layout = 'ajax';
+			if ($this->request->is('post', 'put')) {
+				$this->autoRender = false;
+				$this->layout = null;
+				$this->response->type('json');
+				$answer = array();
+
+				if ($this->Course->save($this->request->data)) {
+					$answer['success'] = true;
+					$answer['message'] = 'Der Kurs wurde bearbeitet';
+				} else {
+					$answer['success'] = false;
+					$answer['message'] = 'Der Kurs konnte nicht bearbeitet werden';
+					$answer['errors']['Course'] = $this->Course->validationErrors;
+				}
+				echo json_encode($answer);
+			} else
+			{}
+		} else {
+			throw new AjaxImplementedException;
 		}
 	}
 
