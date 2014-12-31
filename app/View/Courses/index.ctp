@@ -1,3 +1,6 @@
+<?php if(!empty($user) AND $user['role'] > 0) { ?>
+	<button type="button" id="userAddOpenButton" class="btn btn-default" onclick="courseAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+<?php } ?>
 <div id="courseEntries" role="tablist" aria-multiselectable="true">
 	<?php
 	foreach($courses as $course) {
@@ -13,7 +16,11 @@ $("#courseEntries").on('courseChanged', function(event) {
 		contentShown = true;
 	}
 	$.get('<?php echo $this->webroot?>Courses/indexElement/'+event.courseId, function(view) {
-		$('#courseIndexEntry'+event.courseId).replaceWith(view);
+		if($('#courseIndexEntry'+event.courseId).length) {
+			$('#courseIndexEntry'+event.courseId).replaceWith(view);
+		} else {
+			$('#courseEntries').prepend(view);
+		}
 		if(contentShown)
 		{
 			$('#courseIndexEntryHeading'+event.courseId+' > .panel-title  a').trigger("click");
@@ -46,6 +53,12 @@ $("#courseEntries").on('courseChanged', function(event) {
 		});
 	}
 
+	function courseAddButtonClick() {
+		$.get('<?php echo $this->webroot?>Courses/add/',function(html) {
+			$('body').append(html);
+			$('body > .modal').modal('show');
+		});
+	}
 
 function courseEditFormAddSubmitEvent(courseId) {
 	var editForm = '#courseEditForm'+courseId;
