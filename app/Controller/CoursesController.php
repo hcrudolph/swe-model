@@ -167,10 +167,11 @@ class CoursesController extends AppController {
 
 				if ($this->Course->save($this->request->data)) {
 					$answer['success'] = true;
-					$answer['message'] = 'Der Kurs wurde bearbeitet';
+					$answer['message'] = 'Der Kurs wurde erstellt';
+					$answer['courseId'] = $this->Course->id;
 				} else {
 					$answer['success'] = false;
-					$answer['message'] = 'Der Kurs konnte nicht bearbeitet werden';
+					$answer['message'] = 'Der Kurs konnte nicht erstellt werden';
 					$answer['errors']['Course'] = $this->Course->validationErrors;
 				}
 				echo json_encode($answer);

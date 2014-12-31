@@ -16,7 +16,11 @@ $("#courseEntries").on('courseChanged', function(event) {
 		contentShown = true;
 	}
 	$.get('<?php echo $this->webroot?>Courses/indexElement/'+event.courseId, function(view) {
-		$('#courseIndexEntry'+event.courseId).replaceWith(view);
+		if($('#courseIndexEntry'+event.courseId).length) {
+			$('#courseIndexEntry'+event.courseId).replaceWith(view);
+		} else {
+			$('#courseEntries').prepend(view);
+		}
 		if(contentShown)
 		{
 			$('#courseIndexEntryHeading'+event.courseId+' > .panel-title  a').trigger("click");

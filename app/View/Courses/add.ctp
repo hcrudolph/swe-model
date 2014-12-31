@@ -55,10 +55,11 @@
                 if(json.success == true) {
                     notificateUser(json.message, 'success');
 
-                    $.get('<?php echo $this->webroot?>courses/listing/', function( data ) {
-                        $('#courses').replaceWith(data);
-                        $('.modal').modal('hide');
+                    $( "#courseEntries" ).trigger({
+                    type:"courseChanged",
+                    courseId:json.courseId
                     });
+                    $('.modal').modal('hide');
                 } else {
                     notificateUser(json.message);
 
