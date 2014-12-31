@@ -24,7 +24,11 @@
 									<div class="col-xs-6">
 										<div class="panel panel-default level">
 											<div class="panel-heading">Schwierigkeitsgrad</div>
-											<input type="input" class="form-control panel-body" name="data[Course][level]" value="<?php echo $course['Course']['level'];?>" placeholder="Schwierigkeitsgrad">
+											<select name="data[Course][level]" class="form-control panel-body" style="padding:0px;">
+												<?php for($i=0;$i<6;$i++) {
+													echo '<option value="'.$i.'" '.(($i==$course['Course']['level'])?'selected':'').'>'.$i.'</option>';
+;												}?>
+											</select>
 										</div>
 									</div>
 									<div class="col-xs-12">
