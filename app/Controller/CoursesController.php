@@ -229,21 +229,47 @@ class CoursesController extends AppController {
 /**
  * delete method
  *
- * @throws NotFoundException
+ * @throws AjaxImplementedException, MethodNotAllowedException, NotFoundException
  * @param string $id
  * @return void
  */
 	public function delete($id = null) {
-		$this->Course->id = $id;
-		if (!$this->Course->exists()) {
-			throw new NotFoundException(__('Invalid course'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Course->delete()) {
-			$this->Session->setFlash(__('The course has been deleted.'));
+		if($this->request->is('ajax')) {
+			if($this->Auth->user('role') == 0) {
+				throw new ForbiddenException;
+			}
+			$this->layout = 'ajax';
+			if ($this->request->is('post', 'delete')) {
+				if(!$this->Course->exists($id))
+				{
+					throw new NotFoundException;
+				}
+				$this->autoRender = false;
+				$this->layout = null;
+				$this->response->type('json');
+				$answer = array();
+
+				$course = $this->Course->findById($id);
+				if(count($course['Date']) == 0) {
+
+					if ($this->Course->delete($id)) {
+						$answer['success'] = true;
+						$answer['message'] = 'Der Kurs wurde gelöscht';
+					} else {
+						$answer['success'] = false;
+						$answer['message'] = 'Der Kurs konnte nicht gelöscht werden';
+					}
+				} else {
+					$answer['success'] = false;
+					$answer['message'] = 'Der Kurs hat noch Termine. Bitte erst alle Termine löschen.';
+				}
+				echo json_encode($answer);
+			} else
+			{
+				throw new MethodNotAllowedException;
+			}
 		} else {
-			$this->Session->setFlash(__('The course could not be deleted. Please, try again.'));
+			throw new AjaxImplementedException;
 		}
-		return $this->redirect(array('action' => 'index'));
 	}
 }

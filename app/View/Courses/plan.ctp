@@ -247,7 +247,7 @@
         var times = new Array();
         times[0] = new Array( $('#coursePlanSonntagVon').val(), $('#coursePlanSonntagBis').val());
         times[1] = new Array( $('#coursePlanMontagVon').val(), $('#coursePlanMontagBis').val());
-        times[2] = new Array( $('#coursePlanDinestagVon').val(), $('#coursePlanDienstagBis').val());
+        times[2] = new Array( $('#coursePlanDienstagVon').val(), $('#coursePlanDienstagBis').val());
         times[3] = new Array( $('#coursePlanMittwochVon').val(), $('#coursePlanMittwochBis').val());
         times[4] = new Array( $('#coursePlanDonnerstagVon').val(), $('#coursePlanDonnerstagBis').val());
         times[5] = new Array( $('#coursePlanFreitagVon').val(), $('#coursePlanFreitagBis').val());
@@ -268,8 +268,9 @@
                 var courseId = <?php echo $course['Course']['id']; ?>;
                 var dayTime = times[d.getDay()];
                 if(typeof dayTime != 'undefined') {
-                    var begDateTime = from+' '+dayTime[0];
-                    var endDateTime = from+' '+dayTime[1];
+                    var formatString = dateToString(d);
+                    var begDateTime = formatString+' '+dayTime[0];
+                    var endDateTime = formatString+' '+dayTime[1];
 
                     var beg = '<td class="begin"><div><span class="popoverElement">'+begDateTime+'</span></div></td>';
                     var end = '<td class="end"><div><span class="popoverElement">'+endDateTime+'</span></div></td>';
@@ -284,6 +285,16 @@
                 }
             }
         }
+    }
+    function dateToString(date) {
+        var day=date.getDate();
+        var month=date.getMonth()+1;
+        if((String(day)).length==1)
+        day='0'+day;
+        if((String(month)).length==1)
+        month='0'+month;
+
+        return day+ '.' + month + '.' + date.getFullYear();
     }
     function parseDate(input) {
     var parts = input.match(/(\d+)/g);

@@ -43,7 +43,17 @@ $("#courseEntries").on('courseChanged', function(event) {
 	});
 
 	function courseDelete(courseId) {
-		alert('Delete Course');
+		var del = confirm("Kurs #" + courseId + " löschen?");
+		if (del == true) {
+			$.post('<?php echo $this->webroot;?>courses/delete/'+ courseId, function (json) {
+				if (json.success == true) {
+					notificateUser(json.message, 'success');
+					$( "#courseIndexEntry"+courseId ).remove();
+				} else {
+					notificateUser(json.message, json.error);
+				}
+			}, 'json');
+		}
 	}
 
 	function courseEdit(courseId) {
