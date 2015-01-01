@@ -49,7 +49,6 @@ class DatesController extends AppController {
                     $answer['success'] = true;
                     $answer['message'] = 'Der Termin wurde erfolgreich gelöscht.';
                     $answer['courseId'] = $this->request->data['courseId'];
-                    $answer['date'] = $date;
 
                     $this->Post = ClassRegistry::init('Post');
                     $this->Post->create();
@@ -69,27 +68,24 @@ class DatesController extends AppController {
                         foreach($date['Account'] as $account)
                         {
                             $person = $account['Person'];
+                            $answer['person'] = $person;
                             if(!empty($person['email'])) {
                                 $email = new CakeEmail('noreplay');
                                 $email->to($person['email']);
-                                $email->subject('[Abgesagt]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].')');
-                                if($email->send("My Message")) {
-                                    $answer['mail'][$account['id']]['success'] = true;
-                                }
+                                $email->subject('[Abgesagt]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Course']['begin'])));
+                                $email->send("My Message");
                             } else {
-                                $answer['mail'][$account['id']]['success'] = false;
-                                $answer['mail'][$account['id']]['name'] = $person['name'];
-                                $answer['mail'][$account['id']]['surname'] = $person['surname'];
-                                $answer['mail'][$account['id']]['phone'] = $person['phone'];
-                                $answer['mail'][$account['id']]['adress']['plz']= $person['plz'];
-                                $answer['mail'][$account['id']]['adress']['city'] = $person['city'];
-                                $answer['mail'][$account['id']]['adress']['street'] = $person['street'];
-                                $answer['mail'][$account['id']]['adress']['hnextra'] = $person['hnextra'];
-                                $answer['mail'][$account['id']]['adress']['housenumber'] = $person['housenumber'];
+                                $answer['nomail'] = array();
+                                $answer['nomail'][count($answer['nomail'])]['name'] = $person['name'];
+                                $answer['nomail'][count($answer['nomail'])]['surname'] = $person['surname'];
+                                $answer['nomail'][count($answer['nomail'])]['phone'] = $person['phone'];
+                                $answer['nomail'][count($answer['nomail'])]['adress']['plz']= $person['plz'];
+                                $answer['nomail'][count($answer['nomail'])]['adress']['city'] = $person['city'];
+                                $answer['nomail'][count($answer['nomail'])]['adress']['street'] = $person['street'];
+                                $answer['nomail'][count($answer['nomail'])]['adress']['hnextra'] = $person['hnextra'];
+                                $answer['nomail'][count($answer['nomail'])]['adress']['housenumber'] = $person['housenumber'];
                             }
                         }
-                        //$date['Account']//Senden der Emails
-                        //Liste von Leuten ohne Email-adresse
                     }
 
                 } else {

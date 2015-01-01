@@ -123,13 +123,16 @@ function dateDelete(link, dateId, courseId) {
                     type:"courseChanged",
                     courseId:json.courseId
                 });
-                //Alle user benachrichtigt?
+                //Anzeige der User, die keine User bekommen haben.
             } else {
                 notificateUser(json.message, json.error);
             }
         }, 'json');
     }
 }
+
+
+
 
 function dateSignUpUser(dateId, link) {
     $.post(link+dateId,function(json) {
