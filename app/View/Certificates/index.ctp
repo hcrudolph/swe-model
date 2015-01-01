@@ -1,3 +1,5 @@
+<?php /* OLD index view, keep for referencing functionality
+
 <div class="certificates index">
 	<h2><?php echo __('Certificates'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
@@ -44,3 +46,45 @@
 		<li><?php echo $this->Html->link(__('New Certificate'), array('action' => 'add')); ?></li>
 	</ul>
 </div>
+
+*/ ?>
+
+<div class="actions">
+	<?php echo $this->Html->link(__('New Certificate'), array('action' => 'add')); ?>
+</div>
+
+<div id="certificates index" class="row list-group">
+    <?php foreach ($certificates as $certificate): ?>
+    <div class="item  col-xs-4">
+        <div class="thumbnail">
+            <div class="popover-wrapper" id="certificatePOP">
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        <?php echo h($certificate['Certificate']['name']); ?></h4>
+						<?php echo $this->Html->Link(__('edit'), array('action' => 'edit', $certificate['Certificate']['id'])); ?>
+	                    <?php echo $this->Form->postLink(__('delete'), array('action' => 'delete', $certificate['Certificate']['id']), array(), __('Are you sure you want to delete # %s?', $certificate['Certificate']['id'])); ?>
+
+                </div>
+                </a>
+
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div id="popContent" style="display: none">
+        <p><?php echo h($certificate['Certificate']['description']); ?></p>
+    </div>
+
+    <script>
+        $(function () {
+            $("#certificatePOP").popover({
+                placement: 'bottom',
+                trigger: 'hover',
+                html: true,
+                content: function () {
+                    return $('#popContent').html();
+                }
+            });
+        });
+    </script>
