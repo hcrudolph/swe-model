@@ -210,7 +210,7 @@ class UsersController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            if ($this->Auth->user('role') == 0) {
+            if ($this->Auth->user('role') < 2) {
                 throw new ForbiddenException;
             } else {
                 if ($this->request->is(array('post', 'delete'))) {
