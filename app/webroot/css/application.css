@@ -52,23 +52,23 @@
 
 #header {
     position: absolute;
-    height: 206px;
+    height: 208px;
     width: 998px;
-    border-bottom: 2px double darkgray;
+    border-bottom: 2px solid darkgray;
 }
 
 #postsBar {
     position: absolute;
     width: 500px;
     left: 0px;
-    height: 204px;
+    height: 206px;
 }
 #postsBarCarousel {
     background-color: #0070a3;
 }
 
 .carousel-image-placeholder {
-    height:204px;
+    height:206px;
 }
 
 #openingTimes {
@@ -76,8 +76,9 @@
     width: 300px;
     box-sizing: border-box;
     left: 500px;
-    height: 200px;
-    border-right: 2px double darkgray;
+    height: 206px;
+    border-right: 2px solid darkgray;
+    border-left: 2px solid darkgray;
 }
 
 #authentification{
@@ -107,7 +108,7 @@
     width: 788px;
     min-height: 400px;
     padding: 8px;
-    border-left: 2px double darkgray;
+    border-left: 2px solid darkgray;
 }
 
 
