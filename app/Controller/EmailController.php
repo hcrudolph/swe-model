@@ -1,5 +1,6 @@
 <?php
 set_time_limit(0);
+App::uses('CakeEmail', 'Network/Email');
 App::uses('AppController', 'Controller');
 
 class EmailController extends AppController {
