@@ -11,7 +11,9 @@
         </span>
         <input type="password" class="form-control" name="data[Account][password]" placeholder="Passwort">
     </div>
-    <button type="submit" class="btn btn-default pull-right" id="loginSubmit">Login</button>
+    <div class="input-group pull-right">
+        <button type="submit" class="btn btn-default" id="loginSubmit">Login</button>
+    </div>
 </form>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
     $(document).ready(function() {

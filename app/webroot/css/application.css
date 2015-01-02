@@ -1,55 +1,3 @@
-#user-group
-{
-    margin-bottom: 10px;
-}
-
-.panel-default
-{
-    margin-top:10px ;
-}
-
-#studioRechnungsdaten
-{
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-#studioAbrechnungsdaten
-{
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-#courseAddButton
-{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#certificateAddButton
-{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#userAddOpenButton
-{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#logoutButton
-{
-    margin-left: 50px;
-    margin-top: 10px;
-}
-
-#loginSubmit
-{
-    margin-top: 10px;
-    margin-left: 59px;
-}
-
 #header {
     position: absolute;
     height: 208px;
@@ -109,6 +57,10 @@
     min-height: 400px;
     padding: 8px;
     border-left: 2px solid darkgray;
+}
+
+.tab-content {
+    padding: 8px;
 }
 
 

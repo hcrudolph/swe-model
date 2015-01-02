@@ -1,6 +1,6 @@
 <?php
 if(!empty($user) AND $user['role'] > 0) { ?>
-    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="postsAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+    <button type="button" class="btn btn-default" onclick="postsAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
 <?php } ?>
 
 <div id="postEntries">
