@@ -19,4 +19,12 @@
             }
         }, 'json');
     }
+
+setInterval(function(){
+    $.get('<?php echo $this->webroot; ?>accounts/checklogin', function(json) {
+        if(!json.loggedin) {
+            window.location.href = '<?php echo $this->webroot; ?>';
+        }
+    });
+}, /*25000*60*/10000); //reload every 25 Minutes
 <?php echo $this->Html->scriptEnd(); ?>
