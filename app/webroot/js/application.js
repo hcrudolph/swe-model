@@ -1,9 +1,11 @@
-$(document).ready(function() {
-    $(window).load(function() {
-        //run code after everything is loaded
-    });
-});
+function loadPostsBar(webroot){
+    $('#postsBar').load(webroot+'posts/slider');
+}
 
+loadlink(); // This will run on page load
+setInterval(function(){
+    loadlink() // this will run after every 5 seconds
+}, 5000);
 //type: error, success, warning
 function notificateUser(message, type)
 {
