@@ -86,6 +86,43 @@
                     loadPostsBar('<?php echo $this->webroot; ?>');
                 }, 10000*60); //reload every 10 Minutes
                 <?php echo $this->Html->scriptEnd(); ?>
+                <style>
+                    #openingTimes>tbody>tr>td {
+                        line-height: 0.9;
+                    }
+                </style>
+                <table id="openingTimes" class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Montag</td>
+                            <td>13-15</td>
+                        </tr>
+                        <tr>
+                            <td>Dienstag</td>
+                            <td>13-15</td>
+                        </tr>
+                        <tr>
+                            <td>Mittwoch</td>
+                            <td>13-15</td>
+                        </tr>
+                        <tr>
+                            <td>Donnerstag</td>
+                            <td>13-15</td>
+                        </tr>
+                        <tr>
+                            <td>Freitag</td>
+                            <td>13-15</td>
+                        </tr>
+                        <tr>
+                            <td>Samstag</td>
+                            <td>13-15</td>
+                        </tr>
+                        <tr>
+                            <td>Sonntag</td>
+                            <td>13-15</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div id="authentification">
                     <?php if(empty($user))
                     {
