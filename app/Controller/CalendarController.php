@@ -12,4 +12,11 @@ class CalendarController extends AppController
             throw new AjaxImplementedException;
         }
     }
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->Auth->deny();
+        $this->Auth->allow(array('init'));
+        // erlaubt Kalender-Ansicht
+    }
 }

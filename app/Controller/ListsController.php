@@ -102,6 +102,8 @@ class ListsController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        //$this->Auth->deny(array('index', 'trainer', 'mitarbeiter', 'mitglieder'));
+        $this->Auth->deny();
+        $this->Auth->allow(array('index','trainer', 'mitarbeiter','kurse'));
+        // erlaubt view von Trainer, Mitarbeitern, Kurse
     }
 }
