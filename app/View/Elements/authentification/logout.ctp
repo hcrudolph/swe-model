@@ -1,5 +1,6 @@
-<?php echo $user['Person']['name']; ?>
-<button type="button" class="btn btn-default" id="logoutButton" onclick="logoutSubmit()">Logout</button>
+<p>Sie sind als <?php echo $user['Person']['surname']; ?> <?php echo $user['Person']['name']; ?> (<?php echo $user['username']; ?>) eingeloggt.</p>
+
+<button type="button" class="btn btn-default pull-right" id="logoutButton" onclick="logoutSubmit()">Logout</button>
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
     function logoutSubmit()
@@ -18,4 +19,12 @@
             }
         }, 'json');
     }
+
+setInterval(function(){
+    $.get('<?php echo $this->webroot; ?>accounts/checklogin', function(json) {
+        if(!json.loggedin) {
+            window.location.href = '<?php echo $this->webroot; ?>';
+        }
+    });
+}, 25000*60); //reload every 25 Minutes
 <?php echo $this->Html->scriptEnd(); ?>
