@@ -44,7 +44,7 @@ class EmailConfig {
         'from' => 'noreply@s18018513.onlinehome-server.info',
         'host' => 'localhost',
         'port' => '25',
-        'username' => 'Fitness-Meister',
+        #'username' => 'swe-user',
         #'password' => 'swe-user',
         'transport' => 'Smtp',
         #'tls' => false
