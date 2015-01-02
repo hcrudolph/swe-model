@@ -181,11 +181,8 @@ class UsersController extends AppController
                 $this->layout = null;
                 $this->response->type('json');
                 $answer = array();
-                /*CakeLog::write('info', 'Account is being changed..', array('AccountChanges'));
-                CakeLog::write('info', json_encode($this->request->data), array('AccountChanges'));*/
                 if($this->Account->saveAssociated($this->request->data/*, array('validate' => 'first', 'deep' => true)*/))
                 {
-                    //CakeLog::write('info', 'Data successfully saved.', array('AccountChanges'));
                     $answer['success'] = true;
                     $answer['message'] = "User erfolgreich bearbeitet";
                 } else
