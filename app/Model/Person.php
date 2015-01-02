@@ -23,6 +23,13 @@ class Person extends AppModel {
 
 	public function beforeSave($options = array())
 	{
+
+		foreach ($this->data[$this->alias] as $key => $val) {
+			if (!(!empty($val) || is_numeric($val))) {
+				$this->data[$this->alias][$key] = null;
+			}
+		}
+
 		if (!empty($this->data[$this->alias]['birthdate'])) {
 			$this->data[$this->alias]['birthdate'] = $this->dateFormatBeforeSave($this->data[$this->alias]['birthdate']);
 		}
