@@ -134,7 +134,7 @@ class AccountsController extends AppController {
             $this->layout=null;
             $this->response->type('json');
             $answer = array();
-            if(!empty($this->Auth->user)) {
+            if($this->Auth->loggedIn()) {
                 $answer['loggedin'] = true;
             } else {
                 $answer['loggedin'] = false;
