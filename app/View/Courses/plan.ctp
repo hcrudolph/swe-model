@@ -260,6 +260,53 @@
             }
         }
 
+        //Exception handling
+        if(from == '') {
+            $('#coursePlanDateFrom').parent().addClass('has-error');
+            $('#coursePlanDateFrom').popover({
+                trigger: 'hover',
+                placement: 'bottom',
+                content: 'Sie müssen ein Anfangsdatum für die Planung angeben.'
+            });
+        } else {
+            $('#coursePlanDateFrom').parent().removeClass('has-error');
+            $('#coursePlanDateFrom').popover('destroy');
+        }
+        if(to == '') {
+            $('#coursePlanDateTo').parent().addClass('has-error');
+            $('#coursePlanDateTo').popover({
+            trigger: 'hover',
+            placement: 'bottom',
+            content: 'Sie müssen ein Endedatum für die Planung angeben.'
+        });
+        } else {
+            $('#coursePlanDateTo').parent().removeClass('has-error');
+            $('#coursePlanDateTo').popover('destroy');
+        }
+        if(mincount == '') {
+            $('#coursePlanTeilnehmerMin').parent().addClass('has-error');
+            $('#coursePlanTeilnehmerMin').popover({
+            trigger: 'hover',
+            placement: 'bottom',
+            content: 'Sie müssen eine minimale Teilnehmerzahl angeben.'
+            });
+        } else {
+            $('#coursePlanTeilnehmerMin').parent().removeClass('has-error');
+            $('#coursePlanTeilnehmerMin').popover('destroy');
+        }
+        if(maxcount == '') {
+            $('#coursePlanTeilnehmerMax').parent().addClass('has-error');
+            $('#coursePlanTeilnehmerMax').popover({
+            trigger: 'hover',
+            placement: 'bottom',
+            content: 'Sie müssen eine maximale Teilnehmerzahl angeben.'
+            });
+        } else {
+            $('#coursePlanTeilnehmerMax').parent().removeClass('has-error');
+            $('#coursePlanTeilnehmerMax').popover('destroy');
+        }
+
+
         if(from != '' && to != '' && mincount != '' && maxcount != '') {
             var dateFrom = parseDate(from);
             var dateTo = parseDate(to);
