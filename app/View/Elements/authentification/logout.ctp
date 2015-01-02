@@ -26,5 +26,5 @@ setInterval(function(){
             window.location.href = '<?php echo $this->webroot; ?>';
         }
     });
-}, /*25000*60*/10000); //reload every 25 Minutes
+}, 25000*60); //reload every 25 Minutes
 <?php echo $this->Html->scriptEnd(); ?>
