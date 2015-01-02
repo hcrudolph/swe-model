@@ -7,7 +7,7 @@
         </li>
         <li role="presentation"><a href="#studioKurse" data-url="<?php echo $this->webroot; ?>Lists/kurse/">Kurse</a>
         </li>
-        <li role="presentation"><a href="#studioKurse" data-url="<?php echo $this->webroot; ?>Lists/tarife">Tarife</a>
+        <li role="presentation"><a href="#studioKurse" data-url="<?php echo $this->webroot; ?>Lists/tarife">Preise</a>
         </li>
     </ul>
     <div class="tab-content">

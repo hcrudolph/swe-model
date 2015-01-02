@@ -16,7 +16,7 @@ class ListsController extends AppController
      */
     public $components = array('Paginator');
 
-    var $uses = array('Date', 'Account', 'Person');
+    var $uses = array('Date', 'Account', 'Person', 'Tariff');
 
 
     /**
@@ -92,8 +92,10 @@ class ListsController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-
-            //DB Abfrage
+            $conditions = array('Tariff.description' => 'Grundbetrag');
+            $fields = array('Tariff.amount');
+            $results = $this->Tariff->find('all', array('conditions' => $conditions, 'fields' => $fields));
+            $this->set(compact('results'));
         } else {
             throw new AjaxImplementedException;
         }
