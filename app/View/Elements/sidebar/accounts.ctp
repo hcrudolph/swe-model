@@ -1,1 +1,0 @@
-<li><a href="/swe-project/accounts">Accounts</a></li>
