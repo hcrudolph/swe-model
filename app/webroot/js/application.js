@@ -1,9 +1,11 @@
-$(document).ready(function() {
-    $(window).load(function() {
-        //run code after everything is loaded
-    });
-});
+function loadPostsBar(webroot){
+    $('#postsBar').load(webroot+'posts/slider');
+}
 
+loadlink(); // This will run on page load
+setInterval(function(){
+    loadlink() // this will run after every 5 seconds
+}, 5000);
 //type: error, success, warning
 function notificateUser(message, type)
 {
@@ -124,6 +126,58 @@ function dateDelete(link, dateId, courseId) {
                     courseId:json.courseId
                 });
                 //Anzeige der User, die keine User bekommen haben.
+
+                var modalContainer = $('<div class="modal fade">');
+                var modalDialog = $('<div class="modal-dialog modal-lg">');
+                var modalContent = $('<div class="modal-content alert alert-danger">');
+                var modalHeader = $('<div class="modal-header">');
+                modalHeader.append('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+                modalHeader.append('<h4 class="modal-title">Mitglieder ohne Email-Adresse</h4>');
+                var modalBody = $('<div class="modal-body">');
+
+                var tableContainer = $('<table class="table">');
+                var tableHeader = $('<thead>');
+                tableHeader.append('<th>Vorname</th>');
+                tableHeader.append('<th>Nachname</th>');
+                tableHeader.append('<th>Telefonnummer</th>');
+                tableHeader.append('<th>PLZ</th>');
+                tableHeader.append('<th>Stadt</th>');
+                tableHeader.append('<th>Straße</th>');
+                tableHeader.append('<th>Hausnummer</th>');
+                var tableBody = $('<tbody>');
+
+                for (var userElement in json.nomail) {
+                    if (json.nomail.hasOwnProperty(userElement)) {
+                        var user = json.nomail[userElement];
+                        var entry = $('<tr>');
+                        entry.append('<td>'+user['surname']+'</td>');
+                        entry.append('<td>'+user['name']+'</td>');
+                        entry.append('<td>'+user['phone']+'</td>');
+                        entry.append('<td>'+user['adress']['plz']+'</td>');
+                        entry.append('<td>'+user['adress']['city']+'</td>');
+                        entry.append('<td>'+user['adress']['street']+'</td>');
+                        entry.append('<td>'+user['adress']['housenumber']+user['adress']['hnextra']+'</td>');
+                        tableBody.append(entry);
+                    }
+                }
+
+                tableContainer.append(tableHeader);
+                tableContainer.append(tableBody);
+                modalBody.append(tableContainer);
+
+                var modalFooter = $('<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button></div>');
+
+                modalContent.append(modalHeader);
+                modalContent.append(modalBody);
+                modalContent.append(modalFooter);
+                modalDialog.append(modalContent);
+                modalContainer.append(modalDialog);
+
+                $('body').append(modalContainer);
+                $('body > .modal').modal('show');
+                $('body > .modal').on('hidden.bs.modal', function (e) {
+                    $('.modal').remove();
+                });
             } else {
                 notificateUser(json.message, json.error);
             }

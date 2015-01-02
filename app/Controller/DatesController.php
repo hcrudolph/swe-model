@@ -72,18 +72,19 @@ class DatesController extends AppController {
                             if(!empty($person['email'])) {
                                 $email = new CakeEmail('noreplay');
                                 $email->to($person['email']);
-                                $email->subject('[Abgesagt]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Course']['begin'])));
+                                $email->subject('[Abgesagt]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
                                 $email->send("My Message");
                             } else {
                                 $answer['nomail'] = array();
-                                $answer['nomail'][count($answer['nomail'])]['name'] = $person['name'];
-                                $answer['nomail'][count($answer['nomail'])]['surname'] = $person['surname'];
-                                $answer['nomail'][count($answer['nomail'])]['phone'] = $person['phone'];
-                                $answer['nomail'][count($answer['nomail'])]['adress']['plz']= $person['plz'];
-                                $answer['nomail'][count($answer['nomail'])]['adress']['city'] = $person['city'];
-                                $answer['nomail'][count($answer['nomail'])]['adress']['street'] = $person['street'];
-                                $answer['nomail'][count($answer['nomail'])]['adress']['hnextra'] = $person['hnextra'];
-                                $answer['nomail'][count($answer['nomail'])]['adress']['housenumber'] = $person['housenumber'];
+                                $num = count($answer['nomail']);
+                                $answer['nomail'][$num]['name'] = $person['name'];
+                                $answer['nomail'][$num]['surname'] = $person['surname'];
+                                $answer['nomail'][$num]['phone'] = ((empty($person['phone']))?'--':$person['phone']);
+                                $answer['nomail'][$num]['adress']['plz']= $person['plz'];
+                                $answer['nomail'][$num]['adress']['city'] = $person['city'];
+                                $answer['nomail'][$num]['adress']['street'] = $person['street'];
+                                $answer['nomail'][$num]['adress']['hnextra'] = ((empty($person['hnextra']))?'':$person['hnextra']);
+                                $answer['nomail'][$num]['adress']['housenumber'] = $person['housenumber'];
                             }
                         }
                     }

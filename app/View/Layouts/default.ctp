@@ -81,9 +81,10 @@
                 <div id="postsBar">
                 </div>
                 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-                    $(function () {
-                        $('#postsBar').load('<?php echo $this->webroot; ?>posts/slider');
-                    });
+                loadPostsBar('<?php echo $this->webroot; ?>');
+                setInterval(function(){
+                    loadPostsBar('<?php echo $this->webroot; ?>');
+                }, 10000*60); //reload every 10 Minutes
                 <?php echo $this->Html->scriptEnd(); ?>
                 <div id="authentification">
                     <?php if(empty($user))
