@@ -43,7 +43,7 @@ class EmailConfig {
     public $noreplay = array(
         'from' => 'noreplay@fitnessadmin',
         'host' => 'localhost',
-        'port' => '',
+        'port' => '25',
         'username' => 'swe-user',
         'password' => 'swe-user',
         'transport' => 'Smtp',
