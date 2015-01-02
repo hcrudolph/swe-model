@@ -22,7 +22,7 @@ $accId = $account['id'];
                         <div class="col-xs-6">
                             <div class="panel panel-default role">
                                 <div class="panel-heading">Rolle des Nutzers</div>
-                                <fieldset <?php echo ((($user['role'] < $account['role']) OR $user['role']==0)?'disabled':'')?>>
+                                <fieldset <?php echo ((($user['role'] < $account['role']) OR $user['role']<2)?'disabled':'')?>>
                                     <select name="data[Account][role]" class="form-control panel-body" style="padding:0px;">
                                         <option value="0" <?php echo (($account['role']==0)?'selected="selected"':'');?>>Mitglied</option>
                                         <option value="1" <?php echo (($account['role']==1)?'selected="selected"':'');?>>Mitarbeiter</option>

@@ -1,5 +1,6 @@
 <?php
 set_time_limit(0);
+App::uses('CakeEmail', 'Network/Email');
 App::uses('AppController', 'Controller');
 
 class EmailController extends AppController {
@@ -8,7 +9,7 @@ class EmailController extends AppController {
     {
         $this->autoRender = false;
         $email = new CakeEmail('noreplay');
-        $email->to('Empfänger');
+        $email->to('zinkljannik@gmail.com');
         $email->subject('[Abgesagt] Kurs#1 (Schwierigkeitsgrad: 1) am 11.01.2015');
         $email->send("Hier steht ihre Nachricht!");
     }
