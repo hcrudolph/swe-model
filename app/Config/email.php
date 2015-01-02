@@ -41,13 +41,13 @@ class EmailConfig {
 
 
     public $noreplay = array(
-        'from' => 'noreplay@fitnessadmin',
-        'host' => '127.0.0.1',
+        'from' => 'swe-user@s18018513.onlinehome-server.info',
+        'host' => 'localhost',
         'port' => '25',
         'username' => 'swe-user',
         'password' => 'swe-user',
         'transport' => 'Smtp',
-        #'tls' => true
+        'tls' => true
     );
 
     public $default = array(
