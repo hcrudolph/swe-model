@@ -1,73 +1,45 @@
 <?php
 App::uses('Xml', 'Utility');
-class BilanzShell extends AppShell {
+class BilanzShell extends AppShell
+{
     public $uses = array('Course', 'Account', 'Person', 'Courses', 'Tariff');
 
-    public function findRelatedTariff($course_id){
-        $related_tariff = $this->Tariff->find('first', array(
-            'condition' => array('course_id' => $course_id),
-            'recursive' => -1
-        ));
-        return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
-    }
-
-    public function main(){
+    public function main()
+    {
         $this->Account->Behaviors->load('Containable');
 
-        $mitglieder = $this->Account->find('all', array(
-            'conditions' => array('role' => '0'),
-            'contain' => array(
-                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
-                'Date.begin', 'Date.end', 'Date.course_id'
-            ),
-        ));
+        $member = $this->findAccountsByRole(0);
+        $employees = $this->findAccountsByRole(1);
+        $admins = $this->findAccountsByRole(2);
 
-        $mitarbeiter = $this->Account->find('all', array(
-            'conditions' => array('role' => '1'),
-            'contain' => array(
-                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
-                'Date.begin', 'Date.end', 'Date.course_id'
-            )
-        ));
-
-        $admins = $this->Account->find('all', array(
-            'conditions' => array('role' => '2'),
-            'contain' => array(
-                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
-            )
-        ));
-
-        foreach ($mitglieder as $key => $value){
-            unset($mitglieder[$key]['Account']['password']);
-            unset($mitglieder[$key]['Account']['role']);
-            $mitglieder[$key]['Dates'] = array();
-            foreach ($mitarbeiter[$key]['Date'] as $date){
+        foreach ($member as $key => $value) {
+            unset($member[$key]['Account']['password']);
+            $member[$key]['Dates'] = array();
+            foreach ($employees[$key]['Date'] as $date) {
                 unset($date['director']);
-                array_push($mitglieder[$key]['Dates'], array('Date' => $date));
+                array_push($member[$key]['Dates'], array('Date' => $date));
             }
-            unset($mitglieder[$key]['Date']);
-            $newkey = 'mitglied' . $mitglieder[$key]['Account']['id'];
-            $mitglieder[$newkey] = $mitglieder[$key];
-            unset($mitglieder[$key]);
+            unset($member[$key]['Date']);
+            $newkey = 'member' . $member[$key]['Account']['id'];
+            $member[$newkey] = $member[$key];
+            unset($member[$key]);
         }
 
-        foreach ($mitarbeiter as $key => $value){
-            unset($mitarbeiter[$key]['Account']['password']);
-            unset($mitarbeiter[$key]['Account']['role']);
-            $mitarbeiter[$key]['Dates'] = array();
-            foreach ($mitarbeiter[$key]['Date'] as $date){
+        foreach ($employees as $key => $value) {
+            unset($employees[$key]['Account']['password']);
+            $employees[$key]['Dates'] = array();
+            foreach ($employees[$key]['Date'] as $date) {
                 unset($date['director']);
                 // push all <Date> tags to <Dates>
-                array_push($mitarbeiter[$key]['Dates'], array('Date' => $date));
+                array_push($employees[$key]['Dates'], array('Date' => $date));
             }
-            unset($mitarbeiter[$key]['Date']);
-            $newkey = 'employee' . $mitarbeiter[$key]['Account']['id'];
-            $mitarbeiter[$newkey] = $mitarbeiter[$key];
-            unset($mitarbeiter[$key]);
+            unset($employees[$key]['Date']);
+            $newkey = 'employee' . $employees[$key]['Account']['id'];
+            $employees[$newkey] = $employees[$key];
+            unset($employees[$key]);
         }
 
-
-        foreach ($admins as $key => $value){
+        foreach ($admins as $key => $value) {
             unset($admins[$key]['Account']['password']);
             unset($admins[$key]['Account']['role']);
             $newkey = 'admin' . $admins[$key]['Account']['id'];
@@ -76,30 +48,71 @@ class BilanzShell extends AppShell {
         }
 
         // Wrap in root elements and build core
-        $mitglieder = array('mitglieder' => $mitglieder);
-        $mitgliederObject = Xml::build($mitglieder);
-        $mitgliederString = $mitgliederObject->asXML();
+        $member = array('members' => $member);
+        $member = array('memberbill' => $member);
+        $memberObject = Xml::build($member);
+        $memberObject->addChild('tariff', $this->getTariffByRole(0));
+        $memberObject->addChild('timestamp', date("Y-m-d H:i:s"));
+        $memberString = $memberObject->asXML();
 
-        $mitarbeiter = array('employees' => $mitarbeiter);
-        $mitarbeiterObject = Xml::build($mitarbeiter);
-        $mitarbeiterString = $mitarbeiterObject->asXML();
+        $employees = array('employees' => $employees);
+        $employees = array('employeebill' => $employees);
+        $employeeObject = Xml::build($employees);
+        $employeeObject->addChild('timestamp', date("Y-m-d H:i:s"));
+        $employeeString = $employeeObject->asXML();
 
         $admins = array('admins' => $admins);
+        $admins = array('adminbill' => $admins);
         $adminObject = Xml::build($admins);
+        $adminObject->addChild('tariff', $this->getTariffByRole(2));
+        $adminObject->addChild('timestamp', date("Y-m-d H:i:s"));
         $adminString = $adminObject->asXML();
 
-        // Refactor
-        // Replace tag <emloyeeXY> with <emloyee>
-        $mitarbeiterString = preg_replace('/employee\\d+/', 'employee', $mitarbeiterString, -1);
+        /** Refactor XML **/
+        /** Members **/
+        // Replace tag <memberXY> with <member>
+        $memberString = preg_replace('/member\\d+/', 'member', $memberString, -1);
         // Put all <Date> tags in one single <Dates> element
         $toFind = '</Dates><Dates>';
-        $mitarbeiterString = preg_replace("/" .preg_quote($toFind, '/') . "/", '', $mitarbeiterString, -1);
+        $memberString = preg_replace("/" . preg_quote($toFind, '/') . "/", '', $memberString, -1);
+
+        /** Employees **/
+        // Replace tag <emloyeeXY> with <emloyee>
+        $employeeString = preg_replace('/employee\\d+/', 'employee', $employeeString, -1);
+        // Put all <Date> tags in one single <Dates> element
+        $toFind = '</Dates><Dates>';
+        $employeeString = preg_replace("/" . preg_quote($toFind, '/') . "/", '', $employeeString, -1);
         // add respective tariff to date
-        $mitarbeiterString = preg_replace('/<course_id>(\d+)<\/course_id>/', $this->findRelatedTariff('$1'), $mitarbeiterString);
+        $employeeString = preg_replace('/<course_id>(\d+)<\/course_id>/e', '$this->getCourseTariff("$1")', $employeeString);
+
+        /** Admins **/
+        // Replace tag <adminXY> with <admin>
+        $adminString = preg_replace('/admin\\d+/', 'admin', $adminString, -1);
 
         // print out XML
-        //print $mitgliederString;
-        print $mitarbeiterString;
-        //print $adminString;
+        print $memberString;
+        print $employeeString;
+        print $adminString;
+    }
+
+    private function getTariffByRole($role){
+        $tariff = $this->Tariff->findByRole($role);
+        return $tariff['Tariff']['amount'];
+    }
+
+    private function getCourseTariff($course_id){
+        $related_tariff = $this->Tariff->findByCourseId($course_id);
+        return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
+    }
+
+    private function findAccountsByRole($role){
+        $accounts = $this->Account->find('all', array(
+            'conditions' => array('role' => $role),
+            'contain' => array(
+                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
+                'Date.begin', 'Date.end', 'Date.course_id'
+            )
+        ));
+        return $accounts;
     }
 }
