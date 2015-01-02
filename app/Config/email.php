@@ -47,7 +47,7 @@ class EmailConfig {
         'username' => 'swe-user',
         'password' => 'swe-user',
         'transport' => 'Smtp',
-        'tls' => true
+        #'tls' => true
     );
 
     public $default = array(
