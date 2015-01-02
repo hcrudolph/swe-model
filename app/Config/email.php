@@ -44,10 +44,10 @@ class EmailConfig {
         'from' => 'swe-user@s18018513.onlinehome-server.info',
         'host' => 'localhost',
         'port' => '25',
-        'username' => 'swe-user',
-        'password' => 'swe-user',
+        #'username' => 'swe-user',
+        #'password' => 'swe-user',
         'transport' => 'Smtp',
-        'tls' => false
+        #'tls' => false
     );
 
     public $default = array(
