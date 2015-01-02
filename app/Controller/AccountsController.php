@@ -288,6 +288,22 @@ class AccountsController extends AppController {
             echo json_encode($answer);
         }
     }
+
+    public function checklogin() {
+        if($this->request->is('ajax'))
+        {
+            $this->autoRender = false;
+            $this->layout=null;
+            $this->response->type('json');
+            $answer = array();
+            if(!empty($this->Auth->user)) {
+                $answer['loggedin'] = true;
+            } else {
+                $answer['loggedin'] = false;
+            }
+            echo json_encode($answer);
+        }
+    }
     
     public function logout() {
         if($this->request->is('ajax'))
