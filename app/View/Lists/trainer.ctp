@@ -10,7 +10,7 @@
         <div class="col-xs-3">
             <div class="popoverElement">
                 <div class="thumbnail">
-                    <img class="trainerPicture" img-source="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $trid;?>.png"/>
+                    <img img-source="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $trid;?>.png"/>
                     <h4><?php echo $trsurname . "</br>" . $trname ?></h4>
                 </div>
                 <span class="popoverContent" style="display:none;">
