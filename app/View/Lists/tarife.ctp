@@ -9,7 +9,7 @@
             <tbody>
                 <tr>
                     <td>Grundbetrag</td>
-                    <td>xx,xx€</td>
+                    <td>29,99€</td>
                 </tr>
             </tbody>
             <thead>
