@@ -107,7 +107,7 @@ class BilanzShell extends AppShell
 
     private function findAccountsByRole($role){
         $accounts = $this->Account->find('all', array(
-            'conditions' => array('role' => $role,),
+            'conditions' => array('role' => $role),
             'contain' => array(
                 'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
                 'Date.begin' => array(
