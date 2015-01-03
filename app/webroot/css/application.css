@@ -27,8 +27,8 @@
     height: 206px;
     border-right: 2px solid darkgray;
     border-left: 2px solid darkgray;
-//padding-top: 20px;
-//padding-bottom: 30px;
+/*padding-top: 20px;
+padding-bottom: 30px;*/
 }
 
 #authentification{
@@ -81,7 +81,15 @@ div.postEntry {
     padding: 1px 1px 1px 5px;
 }
 
-#useraddopenbutton {
+#userAddOpenButton {
+    margin-bottom: 10px;
+}
+
+#tariffAddButton {
+    margin-bottom: 10px;
+}
+
+#certificateAddButton {
     margin-bottom: 10px;
 }
 
