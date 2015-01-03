@@ -27,6 +27,8 @@
     height: 206px;
     border-right: 2px solid darkgray;
     border-left: 2px solid darkgray;
+//padding-top: 20px;
+//padding-bottom: 30px;
 }
 
 #authentification{
@@ -63,8 +65,6 @@
     padding: 8px;
 }
 
-
-
 div.postEntry {
     width:100%;
     margin-top: 10px;
@@ -72,9 +72,21 @@ div.postEntry {
     border: 2px solid darkgray;
 }
 
+#user-group {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.form-control.panel-body {
+    padding: 1px 1px 1px 5px;
+}
+
+#useraddopenbutton {
+    margin-bottom: 10px;
+}
 
 #footer {
     position: absolute;
     visibility: hidden;
-    
+
 }
