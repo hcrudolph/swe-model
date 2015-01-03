@@ -17,8 +17,12 @@
                     <table class="table table-striped table-bordered">
                         <tbody>
                             <?php
-                            foreach($trainer['Certificate'] as $certificate) {
-                                echo '<tr><td>'. $certificate['name'] .'</td></tr>';
+                            if(count($trainer['Certificate']) > 0) {
+                                foreach ($trainer['Certificate'] as $certificate) {
+                                    echo '<tr><td>' . $certificate['name'] . '</td></tr>';
+                                }
+                            } else {
+                                echo 'Keine Zertifikate';
                             }
                             ?>
                         </tbody>
