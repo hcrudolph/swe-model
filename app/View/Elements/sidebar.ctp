@@ -14,7 +14,7 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
     <ul class="nav nav-pills nav-stacked">
         <li role="presentation" class="active"><a href="#content" data-url="<?php echo $this->webroot;?>posts"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> News</a></li>
         <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>calendar/init"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalender</a></li>
-        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>lists"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Listen</a></li>
+        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>lists"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Unser Studio</a></li>
         <?php
         if(!empty($user)){
         ?>
