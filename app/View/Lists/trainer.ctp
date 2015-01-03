@@ -1,46 +1,54 @@
 <div id="trainer">
     <?php
-    foreach ($results as $result) {
-        $trname = $result['Person']['name'];
-        $trsurname = $result['Person']['surname'];
-        $tremail = $result['Person']['email'];
-        $trid = $result['Person']['account_id'];
-        $certname = $result['Certificate']['name'];
-        $certdesc = $result['Certificate']['description'];
-        
+    foreach ($trainers as $trainer) {
+        $trname = $trainer['Person']['name'];
+        $trsurname = $trainer['Person']['surname'];
+        $tremail = $trainer['Person']['email'];
+        $trid = $trainer['Person']['account_id'];
         ?>
 
         <div class="col-xs-3">
             <div class="popoverElement">
-                    <span class="popoverContainer">
-                        <div class="thumbnail">
-                            <img src="<?php echo $this->webroot ?>/img/Mitarbeiter/<?php echo $trid ?>.png"
-                                 alt="<?php echo $this->webroot ?>/img/Mitarbeiter/default.png"
-                                 onError="this.onerror=null; this.src='<?php echo $this->webroot ?>/img/Mitarbeiter/default.png';"/>
-                            <h4><?php echo $trsurname . "</br>" . $trname ?></h4>
-                        </div>
-                    </span>
-                    <span class="popoverContent"
-                          style="display:none;"><h4><?php echo $certname.": ".$certdesc
-                            ?></h4>
-                    </span>
+                <div class="thumbnail">
+                    <img img-source="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $trid;?>.png"/>
+                    <h4><?php echo $trsurname . "</br>" . $trname ?></h4>
+                </div>
+                <span class="popoverContent" style="display:none;">
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <?php
+                            if(count($trainer['Certificate']) > 0) {
+                                foreach ($trainer['Certificate'] as $certificate) {
+                                    echo '<tr><td>' . $certificate['name'] . '</td></tr>';
+                                }
+                            } else {
+                                echo 'Keine Zertifikate';
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </span>
             </div>
         </div>
     <?php }
     ?>
+    <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+        $('.thumbnail img').each(function() {
+            $(this).error(function() { $(this).attr('src', '<?php echo $this->webroot; ?>img/Mitarbeiter/default.png'); })
+            .attr("src", $(this).attr('img-source'))
+        });
+
+
+        $('.popoverElement').each(function() {
+            $(this).popover({
+                html: true,
+                container: $(this),
+                trigger: 'hover',
+                placement: 'left',
+                content: function() {
+                    return $(this).children('.popoverContent').html();
+                }
+            });
+        });
+    <?php echo $this->Html->scriptEnd(); ?>
 </div>
-
-
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-$('.popoverElement').each(function() {
-$(this).popover({
-html: true,
-container: $(this).children('.popoverContainer'),
-trigger: 'hover',
-placement: 'bottom',
-content: function() {
-return $(this).children('.popoverContent').text();
-}
-});
-});
-<?php echo $this->Html->scriptEnd(); ?>
