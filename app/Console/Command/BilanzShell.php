@@ -107,12 +107,18 @@ class BilanzShell extends AppShell
 
     private function findAccountsByRole($role){
         $accounts = $this->Account->find('all', array(
-            'conditions' => array('role' => $role),
+            'conditions' => array('role' => $role,),
             'contain' => array(
                 'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
-                'Date.begin', 'Date.end', 'Date.course_id'
+                'Date.begin' => array(
+                    'conditions' => array(
+                        'Date.begin >' => date("Y-m-d H:i:s", strtotime("-1 month")),
+                        'Date.begin <' => date("Y-m-d H:i:s"),
+                        ),
+                'Date.end',
+                'Date.course_id'
             )
-        ));
+        )));
         return $accounts;
     }
 }
