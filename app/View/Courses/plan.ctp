@@ -319,12 +319,12 @@
                     var begDateTime = formatString+' '+dayTime[0];
                     var endDateTime = formatString+' '+dayTime[1];
 
-                    var beg = '<td class="begin"><div><span class="popoverElement">'+begDateTime+'</span></div></td>';
-                    var end = '<td class="end"><div><span class="popoverElement">'+endDateTime+'</span></div></td>';
-                    var director = '<td class="director"><div><span class="popoverElement">'+trainer.text()+'</span></div></td>';
-                    var raum = '<td class="room_id"><div><span class="popoverElement">'+room.text()+'</span></div></td>';
-                    var min = '<td class="mincount"><div><span class="popoverElement">'+mincount+'</span></div></td>';
-                    var max = '<td class="maxcount"><div><span class="popoverElement">'+maxcount+'</span></div></td>';
+                    var beg = '<td class="begin">'+begDateTime+'</td>';
+                    var end = '<td class="end">'+endDateTime+'</td>';
+                    var director = '<td class="director">'+trainer.text()+'</td>';
+                    var raum = '<td class="room_id">'+room.text()+'</td>';
+                    var min = '<td class="mincount">'+mincount+'</td>';
+                    var max = '<td class="maxcount">'+maxcount+'</td>';
                     var check = '<td><button class="btn btn-default" onclick="courseAddVorlageEntry('+courseId+',\''+begDateTime+'\',\''+endDateTime+'\','+trainer.val()+','+room.val()+','+mincount+','+maxcount+', '+planId+')">Buchen</button></td>';
 
                     $('#coursePlanTable > tbody').append('<tr id="coursePlanTableEntry'+planId+'">'+beg+end+director+raum+min+max+check+'</tr>');
@@ -374,10 +374,12 @@
                     for(var key in json.errors[controller]) {
                         if(json.errors[controller].hasOwnProperty(key)) {
                             notificateUser(json.errors[controller][key]);
-                            var ele = $('#coursePlanTableEntry'+tableEntryId);
-                            ele.children('.'+key).addClass('warning')
-                            ele.children('.'+key).children('div').children('.popoverElement').popover({
+                            var td = $('#coursePlanTableEntry'+tableEntryId).children('.'+key);
+                            td.addClass('warning');
+                            td.append('<span class="popoverContainer"></span>');
+                            td.popover({
                                 html: true,
+                                container: td.children('.popoverContainer'),
                                 trigger: 'hover',
                                 placement: 'top',
                                 content: json.errors[controller][key]
