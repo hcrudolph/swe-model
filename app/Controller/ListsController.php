@@ -34,7 +34,12 @@ class ListsController extends AppController
         }
     }
 
-
+    /**
+     * trainer method
+     *
+     * @throws AjaxImplementedException
+     * @return void
+     */
     public function trainer()
     {
         if ($this->request->is('ajax')) {
@@ -63,6 +68,12 @@ class ListsController extends AppController
         }
     }
 
+    /**
+     * mitarbeiter method
+     *
+     * @throws AjaxImplementedException
+     * @return void
+     */
     public function mitarbeiter()
     {
         if ($this->request->is('ajax')) {
@@ -77,6 +88,12 @@ class ListsController extends AppController
         }
     }
 
+    /**
+     * kurse method
+     *
+     * @throws AjaxImplementedException
+     * @return void
+     */
     public function kurse()
     {
         if ($this->request->is('ajax')) {
@@ -87,15 +104,16 @@ class ListsController extends AppController
             throw new AjaxImplementedException;
         }
     }
-
+    /**
+     * tarife method
+     *
+     * @throws AjaxImplementedException
+     * @return void
+     */
     public function tarife()
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            $conditions = array('Tariff.description' => 'Grundbetrag');
-            $fields = array('Tariff.amount');
-            $results = $this->Tariff->find('all', array('conditions' => $conditions, 'fields' => $fields));
-            $this->set(compact('results'));
         } else {
             throw new AjaxImplementedException;
         }
