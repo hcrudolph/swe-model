@@ -19,12 +19,12 @@
             </thead>
             <tbody>
             <tr>
-                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent" style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißshakes</td>
-                <td>xx,xx€</td>
+                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent" style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißshakes (500ml</td>
+                <td>3,69€</td>
             </tr>
             <tr>
-                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent" style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißriegel</td>
-                <td>xx,xx€</td>
+                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent" style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißriegel (50g)</td>
+                <td>2,00€</td>
             </tr>
             </tbody>
         </table>
