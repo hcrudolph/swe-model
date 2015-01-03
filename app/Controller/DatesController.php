@@ -110,7 +110,7 @@ class DatesController extends AppController {
     /**
      * add method
      *
-     * @throws AjaxImplementedException, ForbiddenException, NotFoundException
+     * @throws AjaxImplementedException, ForbiddenException
      * @param string $courseId
      * @return void
      */

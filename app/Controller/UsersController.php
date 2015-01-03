@@ -33,7 +33,7 @@ class UsersController extends AppController
     /**
      * listing method
      *
-     * @throws ForbiddenException, AjaxImplementedException
+     * @throws ForbiddenException, AjaxImplementedException, NotFoundException
      * @param $id
      * @return void
      */
@@ -206,6 +206,14 @@ class UsersController extends AppController
         }
     }
 
+
+    /**
+     * delete method
+     *
+     * @throws ForbiddenException, AjaxImplementedException, MethodNotAllowedException, NotFoundException
+     * @param string $id
+     * @return void
+     */
     public function delete($id = null)
     {
         if ($this->request->is('ajax')) {
@@ -231,7 +239,7 @@ class UsersController extends AppController
                     echo json_encode($answer);
                 } else
                 {
-                    throw new RequestTypeException;
+                    throw new MethodNotAllowedException;
                 }
             }
         } else {

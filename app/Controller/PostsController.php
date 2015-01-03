@@ -47,7 +47,7 @@ class PostsController extends AppController {
 /**
  * view method
  *
- * @throws AjaxImplementedException
+ * @throws AjaxImplementedException, NotFoundException
  * @param string $id
  * @return void
  */
@@ -123,8 +123,7 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             }
-            if(!$this->Post->exists($id))
-            {
+            if(!$this->Post->exists($id)) {
                 throw new NotFoundException;
             }
             $this->layout = 'ajax';
@@ -159,7 +158,7 @@ class PostsController extends AppController {
 /**
  * delete method
  *
- * @throws AjaxImplementedException, ForbiddenException
+ * @throws AjaxImplementedException, ForbiddenException, MethodNotAllowedException,NotFounrdException
  * @param string $id
  * @return void
  */
@@ -169,8 +168,7 @@ class PostsController extends AppController {
             if($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
             } else {
-                if(!$this->Post->exists($id))
-                {
+                if(!$this->Post->exists($id)) {
                     throw new NotFoundException;
                 }
                 $this->autoRender = false;
@@ -187,7 +185,7 @@ class PostsController extends AppController {
                         $answer['message'] = "Der Eintrag konnte nicht gelöscht werden.";
                     }
                 } else {
-                    throw new RequestTypeException;
+                    throw new MethodNotAllowedException;
                 }
                 echo json_encode($answer);
             }
