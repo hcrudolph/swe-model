@@ -91,7 +91,7 @@
                         line-height: 0.9;
                     }
                 </style>
-                <table id="openingTimes" class="table table-bordered">
+                <table id="openingTimes" class="table table-striped">
                     <tbody>
                         <tr>
                             <td>Montag</td>
