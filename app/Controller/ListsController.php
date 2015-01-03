@@ -54,15 +54,15 @@ class ListsController extends AppController
                     'conditions' => array('Date.director = Account.id')
                 )
             );
-            $results = $this->Account->find('all', array(/*'fields' => $fields,*/
+            $trainers = $this->Account->find('all', array(/*'fields' => $fields,*/
                 'joins' => $joins,
                 'group' => array('Date.director'),
                 'contain' => array(
                     'Person' => array(),
-                    'Certificates' => array()
+                    'Certificate' => array()
                 )
             ));
-            $this->set(compact('results'));
+            $this->set(compact('trainers'));
         } else {
             throw new AjaxImplementedException;
         }
