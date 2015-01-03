@@ -44,7 +44,7 @@
                 html: true,
                 container: $(this),
                 trigger: 'hover',
-                placement: 'left',
+                placement: 'bottom',
                 content: function() {
                     return $(this).children('.popoverContent').html();
                 }
