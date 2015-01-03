@@ -83,7 +83,7 @@ $courseId = $course['Course']['id'];
                                 $elements[1] = '<li><a>Ausgebucht</a></li>';
                             }
                             if($user['role'] > 0) {
-                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateEdit(\''.$this->webroot.'/Dates/edit/\', '.$date['id'].')"><i class="glyphicon glyphicon-pencil"></i>Bearbeiten</button>';
+                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateEdit(\''.$this->webroot.'/Dates/edit/\', '.$date['id'].')"><i class="glyphicon glyphicon-pencil"></i></button>';
                                 $elements[] = '<li class="divider"></li>';
                                 $elements[] = '<li><a href="javascript:void(0)" onclick="dateEdit(\''.$this->webroot.'/Dates/edit/\', '.$date['id'].')"> Bearbeiten</a></li>';
                                 $elements[] = '<li><a href="javascript:void(0)" onclick="dateDelete(\''.$this->webroot.'dates/delete/\', '.$date['id'].', '.$courseId.')"> Absagen</a></li>';
