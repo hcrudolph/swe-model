@@ -19,7 +19,7 @@
             </thead>
             <tbody>
             <tr>
-                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent" style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißshakes (500ml</td>
+                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent" style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißshakes (500ml)</td>
                 <td>3,69€</td>
             </tr>
             <tr>
