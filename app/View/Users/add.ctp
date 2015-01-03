@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default birthdate">
-                                <div class="panel-heading">Gerburtsdatum</div>
+                                <div class="panel-heading">Geburtsdatum</div>
                                 <div class="input-group input-append date">
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-calendar"></i>
