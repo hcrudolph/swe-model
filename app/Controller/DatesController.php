@@ -333,7 +333,8 @@ class DatesController extends AppController {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich abgemeldet";
                         $answer['courseId'] = $date['Date']['course_id'];
-                        $answer['usermail'] = $this->Auth->user('Person')->email;
+                        $person = $this->Auth->user('Person');
+                        $answer['usermail'] = $person['email'];
 
                         /*if(!empty($this->Auth->user('Person')['email'])) {
                             $email = new CakeEmail('noreplay');
