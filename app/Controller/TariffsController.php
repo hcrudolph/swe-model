@@ -49,6 +49,9 @@ class TariffsController extends AppController {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
+            if ($this->Auth->user('role') < 2) {
+                throw new ForbiddenException;
+            }
         } else
         {
             throw new AjaxImplementedException;
@@ -89,8 +92,12 @@ class TariffsController extends AppController {
 	public function edit($id = null) {
 		if (!$this->Tariff->exists($id)) {
 			throw new NotFoundException(__('Invalid tariff'));
+
 		}
-		if ($this->request->is(array('post', 'put'))) {
+        if ($this->Auth->user('role') < 2) {
+            throw new ForbiddenException;
+        }
+        else ($this->request->is(array('post', 'put'))) {
 			if ($this->Tariff->save($this->request->data)) {
 				$this->Session->setFlash(__('The tariff has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -115,6 +122,9 @@ class TariffsController extends AppController {
 		if (!$this->Tariff->exists()) {
 			throw new NotFoundException(__('Invalid tariff'));
 		}
+        if ($this->Auth->user('role') < 2) {
+            throw new ForbiddenException;
+        }
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Tariff->delete()) {
 			$this->Session->setFlash(__('The tariff has been deleted.'));
