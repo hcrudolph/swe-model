@@ -262,7 +262,6 @@ class DatesController extends AppController {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich angemeldet.";
                         $answer['courseId'] = $date['Date']['course_id'];
-                        $answer['usermail'] = $this->Auth->user('Person')->email;
 
                         $person = $this->Auth->user('Person');
 
@@ -279,7 +278,8 @@ class DatesController extends AppController {
                             $email-> template('Dates/signupuser');
                             $email->emailFormat('text');
                             $email->to($person['email']);
-                            $email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
+                            $email->subject('Betreff');
+                            //$email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
                             $email->send();
                         }
 
@@ -351,7 +351,8 @@ class DatesController extends AppController {
                             $email-> template('Dates/signoffuser');
                             $email->emailFormat('text');
                             $email->to($person['email']);
-                            $email->subject('[Abgemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
+                            $email->subject('Betreff');
+                            //$email->subject('[Abgemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
                             $email->send();
                         }
                     } else {
