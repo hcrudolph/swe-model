@@ -90,7 +90,7 @@ $courseId = $course['Course']['id'];
                             }
                             ?>
 
-                            <div class="btn-group">
+                            <div class="btn-group" style="display: flex;">
                                 <?php echo $elements[0];?>
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <span class="caret"></span>
