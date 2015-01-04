@@ -9,8 +9,8 @@
 
         <div class="col-xs-3">
             <div class="thumbnail">
-                <span class="glyphicon glyphicon-user" style="font-size: 10em;" aria-hidden="true"></span>
-                <img src="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $mrid;?>.png" style="display:none;" />
+                <span class="glyphicon glyphicon-user" style="font-size:150px;" aria-hidden="true"></span>
+                <img src="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $mrid;?>.png" style="display:none;height:150px;" />
                 <h4><?php echo $mrsurname . "</br>" . $mrname ?></h4>
             </div>
         </div>
