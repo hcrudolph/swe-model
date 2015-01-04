@@ -262,7 +262,7 @@ class DatesController extends AppController {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich angemeldet.";
                         $answer['courseId'] = $date['Date']['course_id'];
-                        $answer['usermail'] = $this->Auth->user('Person')['email'];
+                        $answer['usermail'] = $this->Auth->user('Person')->email;
 
                         /*if(!empty($this->Auth->user('Person')['email'])) {
                             $email = new CakeEmail('noreplay');
@@ -333,7 +333,7 @@ class DatesController extends AppController {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich abgemeldet";
                         $answer['courseId'] = $date['Date']['course_id'];
-                        $answer['usermail'] = $this->Auth->user('Person')['email'];
+                        $answer['usermail'] = $this->Auth->user('Person')->email;
 
                         /*if(!empty($this->Auth->user('Person')['email'])) {
                             $email = new CakeEmail('noreplay');
