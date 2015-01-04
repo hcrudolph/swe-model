@@ -1,10 +1,17 @@
 <div id="trainer">
     <?php
+    $trenner='';
+    $i = 0;
     foreach ($trainers as $trainer) {
         $trname = $trainer['Person']['name'];
         $trsurname = $trainer['Person']['surname'];
         $tremail = $trainer['Person']['email'];
         $trid = $trainer['Person']['account_id'];
+        
+        if(($i%4)==0){
+            echo $trenner;
+            $trenner = '</div><div class="row">';
+        }
         ?>
 
         <div class="col-xs-3">
@@ -34,8 +41,11 @@
                 </span>
             </div>
         </div>
-    <?php }
+        <?php
+        $i++;
+    }
     ?>
+    </div>
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
         $('.thumbnail img').each(function() {
             $(this).load(function() {
