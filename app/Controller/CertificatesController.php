@@ -72,6 +72,9 @@ class CertificatesController extends AppController {
         if($this->request->is('ajax'))
         {
             $this->layout = 'ajax';
+            //if ($this->Auth->user('role') < 2) {
+            //    throw new ForbiddenException;
+            //}
         } else
         {
             throw new AjaxImplementedException;
@@ -95,6 +98,10 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+
+        //if ($this->Auth->user('role') < 2) {
+        //    throw new ForbiddenException;
+        //}
 		if (!$this->Certificate->exists($id)) {
 			throw new NotFoundException(__('Invalid certificate'));
 		}
@@ -123,7 +130,11 @@ class CertificatesController extends AppController {
 		if (!$this->Certificate->exists()) {
 			throw new NotFoundException(__('Invalid certificate'));
 		}
+
 		$this->request->allowMethod('post', 'delete');
+        //if ($this->Auth->user('role') < 2) {
+        //    throw new ForbiddenException;
+        //}
 		if ($this->Certificate->delete()) {
 			$this->Session->setFlash(__('The certificate has been deleted.'));
 		} else {
