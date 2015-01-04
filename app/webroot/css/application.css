@@ -80,16 +80,7 @@ div.postEntry {
 .form-control.panel-body {
     padding: 1px 1px 1px 5px;
 }
-
-#userAddOpenButton {
-    margin-bottom: 10px;
-}
-
-#tariffAddButton {
-    margin-bottom: 10px;
-}
-
-#certificateAddButton {
+.btn.btn-default {
     margin-bottom: 10px;
 }
 
