@@ -1,3 +1,6 @@
 <?php
-echo var_dump($results);
+foreach($courses as $course)
+{
+  echo $course['Course']['name'].'<br>'.$course['Course']['description'].'<br><br><br>';
+}
 ?>
