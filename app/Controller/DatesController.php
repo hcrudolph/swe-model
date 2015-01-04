@@ -72,8 +72,8 @@ class DatesController extends AppController {
                             if(!empty($person['email'])) {
                                 $email = new CakeEmail('noreplay');
                                 $email->viewVars(array(
-                                    'nachname' => $account['name'],
-                                    'vorname' => $account['surname'],
+                                    'nachname' => $person['name'],
+                                    'vorname' => $person['surname'],
                                     'dateBegin' => $date['Date']['begin'],
                                     'courseName' => $date['Course']['name'],
                                     'courseLevel' => $date['Course']['level'],
@@ -273,7 +273,7 @@ class DatesController extends AppController {
                                 'courseLevel' => $date['Course']['level'],
 
                             ));
-                            $email-> template('Dates/delete');
+                            $email-> template('Dates/signupUser');
                             $email->emailFormat('text');
                             $email->to($this->Auth->user['Person']['email']);
                             $email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
