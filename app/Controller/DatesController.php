@@ -273,7 +273,7 @@ class DatesController extends AppController {
                                 'courseLevel' => $date['Course']['level'],
 
                             ));
-                            $email-> template('Dates/signupUser');
+                            $email-> template('Dates/signupuser');
                             $email->emailFormat('text');
                             $email->to($this->Auth->user('Person')['email']);
                             $email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
@@ -343,7 +343,7 @@ class DatesController extends AppController {
                                 'courseLevel' => $date['Course']['level'],
 
                             ));
-                            $email-> template('Dates/signoffUser');
+                            $email-> template('Dates/signoffuser');
                             $email->emailFormat('text');
                             $email->to($this->Auth->user('Person')['email']);
                             $email->subject('[Abgemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
