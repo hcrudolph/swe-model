@@ -10,7 +10,7 @@
         $mrid = $result['Person']['account_id'];
         if(($i%4)==0){
             echo $trenner;
-            $trenner = '</div><div class="row">'';
+            $trenner = '</div><div class="row">';
         };
         ?>
         <div class="col-xs-3">
