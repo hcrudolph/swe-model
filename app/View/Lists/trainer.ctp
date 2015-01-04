@@ -14,19 +14,20 @@
                     <h4><?php echo $trsurname . "</br>" . $trname ?></h4>
                 </div>
                 <span class="popoverContent" style="display:none;">
-                    <table class="table table-striped table-bordered">
-                        <tbody>
+                    <ul class="list-group">
                             <?php
                             if(count($trainer['Certificate']) > 0) {
                                 foreach ($trainer['Certificate'] as $certificate) {
-                                    echo '<tr><td>' . $certificate['name'] . '</td></tr>';
+                                    echo
+                                        '<li class="list-group-item">' . $certificate['name'] . ': </li>';
+                                    echo
+                                        '<li class="list-group-item">' . $certificate['description'] . '</li>';
                                 }
                             } else {
-                                echo 'Keine Zertifikate';
+                                echo '<li class="list-group-item">Keine Zertifikate</li>';
                             }
                             ?>
-                        </tbody>
-                    </table>
+                    </ul>
                 </span>
             </div>
         </div>
