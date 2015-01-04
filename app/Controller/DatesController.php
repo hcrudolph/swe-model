@@ -112,11 +112,6 @@ class DatesController extends AppController {
         }
     }
 
-
-
-
-    #####implemented
-
     /**
      * add method
      *
@@ -267,6 +262,23 @@ class DatesController extends AppController {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich angemeldet.";
                         $answer['courseId'] = $date['Date']['course_id'];
+
+                        if(!empty($this->Auth->user['Person']['email'])) {
+                            $email = new CakeEmail('noreplay');
+                            $email->viewVars(array(
+                                'nachname' => $this->Auth->user['Person']['name'],
+                                'vorname' => $this->Auth->user['Person']['surname'],
+                                'dateBegin' => $date['Date']['begin'],
+                                'courseName' => $date['Course']['name'],
+                                'courseLevel' => $date['Course']['level'],
+
+                            ));
+                            $email-> template('Dates/delete');
+                            $email->emailFormat('text');
+                            $email->to($this->Auth->user['Person']['email']);
+                            $email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
+                            $email->send();
+                        }
 
                     } else{
                         $answer['success'] = false;
