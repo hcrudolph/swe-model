@@ -266,7 +266,7 @@ class DatesController extends AppController {
 
                         $person = $this->Auth->user('Person');
 
-                        if(!empty$person['email'])) {
+                        if(!empty($person['email'])) {
                             $email = new CakeEmail('noreplay');
                             $email->viewVars(array(
                                 'nachname' => $person['name'],
@@ -338,7 +338,7 @@ class DatesController extends AppController {
 
                         $person = $this->Auth->user('Person');
 
-                        if(!empty$person['email'])) {
+                        if(!empty($person['email'])) {
                             $email = new CakeEmail('noreplay');
                             $email->viewVars(array(
                                 'nachname' => $person['name'],
