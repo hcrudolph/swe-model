@@ -39,7 +39,7 @@
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
         $('.thumbnail img').each(function() {
             $(this).load(function() {
-                $(this).css('display', 'none');
+                $(this).css('display', 'block');
                 $(this).parent().children('.glyphicon').css('display', 'none');
             })
         });
