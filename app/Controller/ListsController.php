@@ -79,7 +79,7 @@ class ListsController extends AppController
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-            $conditions = array('Account.role' => 1, 'Account.role' => 2);
+            $conditions = array('Account.role >' => 0);
             $fields = array('Account.id', 'Person.*');
             $results = $this->Account->find('all', array('conditions' => $conditions, 'fields' => $fields));
             $this->set(compact('results'));
