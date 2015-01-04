@@ -1,13 +1,17 @@
 <div id="mitarbeiter">
     <div class="row">
     <?php
+    $trenner='';
     $i = 0;
     foreach ($results as $result) {
         $mrname = $result['Person']['name'];
         $mrsurname = $result['Person']['surname'];
         $mremail = $result['Person']['email'];
         $mrid = $result['Person']['account_id'];
-        echo ((($i%4)==0)?'</div><div class="row">':'');
+        if(($i%4)==0){
+            echo $trenner;
+            $trenner = '</div><div class="row">'';
+        };
         ?>
         <div class="col-xs-3">
             <div class="thumbnail">
