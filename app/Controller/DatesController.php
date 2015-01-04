@@ -71,9 +71,19 @@ class DatesController extends AppController {
                             $answer['person'] = $person;
                             if(!empty($person['email'])) {
                                 $email = new CakeEmail('noreplay');
+                                $email->viewVars(array(
+                                    'nachname' => $account['name'],
+                                    'vorname' => $account['surname'],
+                                    'dateBegin' => $date['Date']['begin'],
+                                    'courseName' => $date['Course']['name'],
+                                    'courseLevel' => $date['Course']['level'],
+
+                                ));
+                                $email-> template('Dates/delete');
+                                $email->emailFormat('text');
                                 $email->to($person['email']);
                                 $email->subject('[Abgesagt]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
-                                $email->send("My Message");
+                                $email->send();
                             } else {
                                 $answer['nomail'] = array();
                                 $num = count($answer['nomail']);
