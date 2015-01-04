@@ -99,7 +99,7 @@ class ListsController extends AppController
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
             $fields = array('Course.name', 'Course.description');
-            $courses = $this->find('all', array('fields' => $fields));
+            $courses = $this->Course->find('all', array('fields' => $fields));
             $this->set(compact('courses'));
         } else {
             throw new AjaxImplementedException;
