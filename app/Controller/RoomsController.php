@@ -36,8 +36,13 @@ class RoomsController extends AppController {
 		if (!$this->Room->exists($id)) {
 			throw new NotFoundException(__('Invalid room'));
 		}
+        //if ($this->Auth->user('role') == 0) {
+        //    throw new ForbiddenException;
+        //}
+        //else {
 		$options = array('conditions' => array('Room.' . $this->Room->primaryKey => $id));
 		$this->set('room', $this->Room->find('first', $options));
+        // }
 	}
 
 /**
@@ -69,12 +74,15 @@ class RoomsController extends AppController {
 			throw new NotFoundException(__('Invalid room'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+            //if ($this->Auth->user('role') < 2) {
+            //    throw new ForbiddenException;
+            //} else {
 			if ($this->Room->save($this->request->data)) {
 				$this->Session->setFlash(__('The room has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The room could not be saved. Please, try again.'));
-			}
+			} // }
 		} else {
 			$options = array('conditions' => array('Room.' . $this->Room->primaryKey => $id));
 			$this->request->data = $this->Room->find('first', $options);
@@ -95,8 +103,12 @@ class RoomsController extends AppController {
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Room->delete()) {
+            //if ($this->Auth->user('role') < 2) {
+            //    throw new ForbiddenException;
+            //} else {
 			$this->Session->setFlash(__('The room has been deleted.'));
-		} else {
+		} // }
+        else {
 			$this->Session->setFlash(__('The room could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
