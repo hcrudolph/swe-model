@@ -16,7 +16,7 @@ class ListsController extends AppController
      */
     public $components = array('Paginator');
 
-    var $uses = array('Date', 'Account', 'Person', 'Tariff');
+    var $uses = array('Date', 'Account', 'Person', 'Course');
 
 
     /**
@@ -98,8 +98,9 @@ class ListsController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-
-            //DB Abfrage
+            $fields = array('Course.name', 'Course.description');
+            $courses = $this->find('all', array('fields' => $fields));
+            $this->set(compact('courses'));
         } else {
             throw new AjaxImplementedException;
         }
