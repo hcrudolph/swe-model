@@ -10,7 +10,8 @@
         <div class="col-xs-3">
             <div class="popoverElement">
                 <div class="thumbnail">
-                    <img img-source="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $trid;?>.png"/>
+                    <span class="glyphicon glyphicon-user" style="font-size: 10em;" aria-hidden="true"></span>
+                    <img src="<?php echo $this->webroot; ?>img/Mitarbeiter/<?php echo $trid;?>.png" style="display:none;" />
                     <h4><?php echo $trsurname . "</br>" . $trname ?></h4>
                 </div>
                 <span class="popoverContent" style="display:none;">
@@ -37,8 +38,10 @@
     ?>
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
         $('.thumbnail img').each(function() {
-            $(this).error(function() { $(this).attr('src', '<?php echo $this->webroot; ?>img/Mitarbeiter/default.png'); })
-            .attr("src", $(this).attr('img-source'))
+            $(this).load(function() {
+                $(this).css('display', 'none');
+                $(this).parent().children('.glyphicon').css('display', 'none');
+            })
         });
 
 
