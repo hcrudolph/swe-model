@@ -11,7 +11,7 @@
         if(($i%4)==0){
             echo $trenner;
             $trenner = '</div><div class="row">';
-        };
+        }
         ?>
         <div class="col-xs-3">
             <div class="thumbnail">
