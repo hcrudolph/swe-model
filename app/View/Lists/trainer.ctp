@@ -19,9 +19,9 @@
                             if(count($trainer['Certificate']) > 0) {
                                 foreach ($trainer['Certificate'] as $certificate) {
                                     echo
-                                        '<li class="list-group-item">' . $certificate['name'] . ': </li>';
-                                    echo
-                                        '<li class="list-group-item">' . $certificate['description'] . '</li>';
+                                        '<li class="list-group-item"><p>'.$certificate['name']'.</p>
+                                         <p>'.$certificate['description'].'</p>
+                                         </li>';
                                 }
                             } else {
                                 echo '<li class="list-group-item">Keine Zertifikate</li>';
