@@ -264,11 +264,13 @@ class DatesController extends AppController {
                         $answer['courseId'] = $date['Date']['course_id'];
                         $answer['usermail'] = $this->Auth->user('Person')->email;
 
-                        /*if(!empty($this->Auth->user('Person')['email'])) {
+                        $person = $this->Auth->user('Person');
+
+                        if(!empty$person['email'])) {
                             $email = new CakeEmail('noreplay');
                             $email->viewVars(array(
-                                'nachname' => $this->Auth->user('Person')['name'],
-                                'vorname' => $this->Auth->user('Person')['surname'],
+                                'nachname' => $person['name'],
+                                'vorname' => $person['surname'],
                                 'dateBegin' => $date['Date']['begin'],
                                 'courseName' => $date['Course']['name'],
                                 'courseLevel' => $date['Course']['level'],
@@ -276,10 +278,10 @@ class DatesController extends AppController {
                             ));
                             $email-> template('Dates/signupuser');
                             $email->emailFormat('text');
-                            $email->to($this->Auth->user('Person')['email']);
+                            $email->to($person['email']);
                             $email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
                             $email->send();
-                        }*/
+                        }
 
                     } else{
                         $answer['success'] = false;
@@ -333,14 +335,14 @@ class DatesController extends AppController {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich abgemeldet";
                         $answer['courseId'] = $date['Date']['course_id'];
-                        $person = $this->Auth->user('Person');
-                        $answer['usermail'] = $person['email'];
 
-                        /*if(!empty($this->Auth->user('Person')['email'])) {
+                        $person = $this->Auth->user('Person');
+
+                        if(!empty$person['email'])) {
                             $email = new CakeEmail('noreplay');
                             $email->viewVars(array(
-                                'nachname' => $this->Auth->user('Person')['name'],
-                                'vorname' => $this->Auth->user('Person')['surname'],
+                                'nachname' => $person['name'],
+                                'vorname' => $person['surname'],
                                 'dateBegin' => $date['Date']['begin'],
                                 'courseName' => $date['Course']['name'],
                                 'courseLevel' => $date['Course']['level'],
@@ -348,10 +350,10 @@ class DatesController extends AppController {
                             ));
                             $email-> template('Dates/signoffuser');
                             $email->emailFormat('text');
-                            $email->to($this->Auth->user('Person')['email']);
+                            $email->to($person['email']);
                             $email->subject('[Abgemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '+$date['Course']['level'].') am '+ date('d.m.Y', strtotime($date['Date']['begin'])));
                             $email->send();
-                        }*/
+                        }
                     } else {
                         $answer['success'] = false;
                         $answer['message'] = "Sie konnten nicht abgemeldet werden";
