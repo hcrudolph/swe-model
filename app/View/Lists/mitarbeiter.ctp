@@ -1,7 +1,7 @@
 <div id="mitarbeiter">
     <div class="row">
     <?php
-    $i = 1;
+    $i = 0;
     foreach ($results as $result) {
         $mrname = $result['Person']['name'];
         $mrsurname = $result['Person']['surname'];
