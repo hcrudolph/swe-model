@@ -1,8 +1,8 @@
 <div class="jumbotron">
     <div class="container">
-        <h1>Willkommen bei SWE-Fitness...</h1>
+        <h1 style="color:#f5f5f5">Willkommen bei SWE-Fitness...</h1>
 
-        <p>dem Marktführer für schwedische Fitness und innovative Trainingsmöglichkeiten.</p>
+        <p style="color:#f5f5f5">dem Marktführer für schwedische Fitness und innovative Trainingsmöglichkeiten.</p>
     </div>
 </div>
 
