@@ -2,7 +2,7 @@
     <div class="container">
         <h1>Willkommen bei SWE-Fitness...</h1>
 
-        <p>dem Marktführer für Swedische Fitness und innovative Trainingsmöglichkeiten.</p>
+        <p>dem Marktführer für schwedische Fitness und innovative Trainingsmöglichkeiten.</p>
     </div>
 </div>
 
