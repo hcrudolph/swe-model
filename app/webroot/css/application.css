@@ -89,3 +89,12 @@ div.postEntry {
     visibility: hidden;
 
 }
+
+.jumbotron {
+    margin-bottom: 100px;
+    background-position: 0% 25%;
+    background-image: url(http://82.165.45.70/dev/swe-project/app/webroot/img/bigpicture/jumbo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-shadow: black 0.3em 0.3em 0.3em;
+}
