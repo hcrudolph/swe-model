@@ -50,7 +50,7 @@
 */ ?>
 
 <div class="actions">
-	<?php echo $this->Html->link(__('New Certificate'), array('action' => 'add')); ?>
+	<button type="button" id="AddNewCert" class="btn btn-default" onclick="AddNewCert()"><i class="glyphicon glyphicon-plus"></i> Certificate</button>
 </div>
 
 <div id="certificates index" class="row list-group">
@@ -61,8 +61,8 @@
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         <?php echo h($certificate['Certificate']['name']); ?></h4>
-						<?php echo $this->Html->Link(__('edit'), array('action' => 'edit', $certificate['Certificate']['id'])); ?>
-	                    <?php echo $this->Form->postLink(__('delete'), array('action' => 'delete', $certificate['Certificate']['id']), array(), __('Are you sure you want to delete # %s?', $certificate['Certificate']['id'])); ?>
+						<a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="CertEdit('<?php echo $this->webroot;?>certificates/edit/',<?php echo $certificate['Certificate']['id']; ?>)">Bearbeiten</a>
+                   		<a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="CertDelete(<?php echo $this->webroot;?>certificates/delete/',<?php echo $certificate['Certificate']['id']; ?>);">Löschen</a>
 
                 </div>
                 </a>
