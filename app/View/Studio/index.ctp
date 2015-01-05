@@ -4,12 +4,14 @@
         <li role="presentation"><a href="#studioCourses" data-url="<?php echo $this->webroot;?>Courses/">Kurse</a></li>
         <li role="presentation"><a href="#studioTariffs" data-url="<?php echo $this->webroot; ?>Tariffs/listing/">Tarife</a></li>
         <li role="presentation"><a href="#studioCertificates" data-url="<?php echo $this->webroot; ?>Certificates/listing/">Zertifikate</a></li>
+        <li role="presentation"><a href="#studioRooms" data-url="<?php echo $this->webroot; ?>Rooms/listing/">Räume</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="studioAccounts"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioCourses"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioTariffs"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioCertificates"></div>
+        <div role="tabpanel" class="tab-pane fade" id="studioRooms"></div>
     </div>
 </div>
 

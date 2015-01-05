@@ -25,6 +25,19 @@ class RoomsController extends AppController {
 		$this->set('rooms', $this->Paginator->paginate());
 	}
 
+    public function listing() {
+        if($this->request->is('ajax')) {
+             $this->layout = 'ajax';
+
+             $fields = array("Room.name", 'Room.id');
+             $rooms = $this->Room->find('all', array('fields' => $fields));
+             $this->set(compact('rooms'));
+        } else
+        {
+             throw new AjaxImplementedException;
+        }
+    }
+
 /**
  * view method
  *
