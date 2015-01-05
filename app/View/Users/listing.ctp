@@ -2,8 +2,10 @@
 $userCount = sizeof($usersListing);
 ?>
 <div id="userListing">
+    <?php
+    if(!empty($user) AND $user['role'] > 0) { ?>
     <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="userAddOpen()"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
-
+    <?php } ?>
     <div class="panel-group" id="userEntries" role="tablist" aria-multiselectable="true">
         <?php
         for($i=0; $i < $userCount; $i++) {
