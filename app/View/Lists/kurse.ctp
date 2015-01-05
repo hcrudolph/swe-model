@@ -4,8 +4,8 @@ foreach ($courses as $course) {
     <div class="row">
         <div class="col-md-3 pull-left">
             <div class="thumbnail">
-                <span class="glyphicon glyphicon-picture" style="font-size:120px;" aria-hidden="true"></span>
-                <img src="<?php echo $this->webroot; ?>img/Kurse/<?php echo $course['Course']['id'];?>.jpg" style="display:none;">
+                <span class="glyphicon glyphicon-picture" style="font-size:150px;" aria-hidden="true"></span>
+                <img src="<?php echo $this->webroot; ?>img/Kurse/<?php echo $course['Course']['id'];?>.jpg" style="display:none;height=150";>
             </div>
         </div>
         <div class="col-md-9 pull-right">
