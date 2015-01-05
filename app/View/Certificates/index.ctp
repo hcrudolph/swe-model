@@ -50,7 +50,10 @@
 */ ?>
 
 <div class="actions">
+    <?php
+    if(!empty($user) AND $user['role'] > 0) { ?>
 	<button type="button" id="AddNewCert" class="btn btn-default" onclick="AddNewCert()"><i class="glyphicon glyphicon-plus"></i> Certificate</button>
+    <?php } ?>
 </div>
 
 <div id="certificates index" class="row list-group">
