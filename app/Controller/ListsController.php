@@ -105,6 +105,7 @@ class ListsController extends AppController
             throw new AjaxImplementedException;
         }
     }
+
     /**
      * tarife method
      *
@@ -120,11 +121,26 @@ class ListsController extends AppController
         }
     }
 
+    /**
+     * studio method
+     *
+     * @throws AjaxImplementedException
+     * @return void
+     */
+    public function studio()
+    {
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+        } else {
+            throw new AjaxImplementedException;
+        }
+    }
+
     public function beforeFilter()
     {
         parent::beforeFilter();
         $this->Auth->deny();
-        $this->Auth->allow(array('index','trainer', 'mitarbeiter','kurse', 'tarife'));
+        $this->Auth->allow(array('index', 'trainer', 'mitarbeiter', 'kurse', 'tarife'));
         // erlaubt view von Trainer, Mitarbeitern, Kurse, Preise
     }
 }
