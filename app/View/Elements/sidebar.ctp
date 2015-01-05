@@ -12,9 +12,10 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
 
 <div id="sidebar">
     <ul class="nav nav-pills nav-stacked">
-        <li role="presentation" class="active"><a href="#content" data-url="<?php echo $this->webroot;?>posts"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> News</a></li>
+        <li role="presentation" class="active"><a href="#content" data-url="<?php echo $this->webroot;?>lists"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Unser Studio</a></li>
+        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>posts"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> News</a></li>
         <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>calendar/init"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalender</a></li>
-        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>lists"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Unser Studio</a></li>
+
         <?php
         if(!empty($user)){
         ?>
@@ -41,7 +42,7 @@ $('#sidebar > .nav-pills a').click(function (e) {
 });
 
 // Content für angezeigten Tab
-$('#content').load('<?php echo $this->webroot;?>posts/',function(result){
+$('#content').load('<?php echo $this->webroot;?>lists/studio',function(result){
     $('#sidebar > .active a').tab('show');
 });
 <?php echo $this->Html->scriptEnd(); ?>
