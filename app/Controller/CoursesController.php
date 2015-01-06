@@ -137,7 +137,7 @@ class CoursesController extends AppController {
 			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
 			$this->loadModel('Room');
 			$rooms = $this->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
-			$tariffs = $this->Tariff->find('list');
+			$tariffs = $this->Course->Tariff->find('list');
 			$this->loadModel('Account');
 			$directors = $this->Account->find('all', array(
 				'conditions' => array('role >' => '0'),
