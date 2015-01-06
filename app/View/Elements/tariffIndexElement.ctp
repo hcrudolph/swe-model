@@ -6,7 +6,7 @@ $tariffId = $tariff['Tariff']['id'];
     <div class="panel-heading clearfix" role="tab" id="tariffIndexEntryHeading<?php echo $tariffId; ?>">
         <h4 class="panel-title pull-left">
             <a data-toggle="collapse" data-parent="#tariffEntries" data-url="<?php echo $this->webroot;?>tariffs/view/<?php echo $tariffId; ?>" href="#tariffIndexEntryCollapse<?php echo $tariffId;?>" aria-expanded="false" aria-controls="tariffIndexEntryCollapse<?php echo $tariffId; ?>">
-                <?php echo h($tariff['Tariff']['name']); ?>
+                <?php echo h($tariff['Tariff']['description']); ?>
             </a>
         </h4>
         <?php if(isset($user) AND $user['role'] > 0) {?>
