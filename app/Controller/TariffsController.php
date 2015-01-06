@@ -24,7 +24,7 @@ class TariffsController extends AppController {
         if($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-            $fields = array("Tarif.name", 'Tarif.id');
+            $fields = array("Tariff.name", 'Tariff.id');
             $tariffs = $this->Tariff->find('all', array('fields' => $fields));
             $this->set(compact('tariffs'));
         } else
@@ -40,8 +40,8 @@ class TariffsController extends AppController {
                 throw new NotFoundException;
             }
 
-            $fields = array("Tariffs.name", 'Tariffs.id');
-            $conditions = array('Tariffs.id' => $id);
+            $fields = array("Tariff.name", 'Tariff.id');
+            $conditions = array('Tariff.id' => $id);
             $this->set('tariff', $this->Tariff->find('first', array('conditions'=>$conditions, 'fields' => $fields)));
         } else
         {
