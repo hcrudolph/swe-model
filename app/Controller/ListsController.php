@@ -29,8 +29,6 @@ class ListsController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-        } else {
-            throw new AjaxImplementedException;
         }
     }
 
