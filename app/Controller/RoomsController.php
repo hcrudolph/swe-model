@@ -21,20 +21,31 @@ class RoomsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Room->recursive = 0;
-		$this->set('rooms', $this->Paginator->paginate());
-	}
-
-    public function listing() {
         if($this->request->is('ajax')) {
-             $this->layout = 'ajax';
+            $this->layout = 'ajax';
 
-             $fields = array("Room.name", 'Room.id');
-             $rooms = $this->Room->find('all', array('fields' => $fields));
-             $this->set(compact('rooms'));
+            $fields = array("Room.name", 'Room.id');
+            $rooms = $this->Room->find('all', array('fields' => $fields));
+            $this->set(compact('rooms'));
         } else
         {
-             throw new AjaxImplementedException;
+            throw new AjaxImplementedException;
+        }
+	}
+
+    public function indexElement($id=null) {
+        if($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if(is_null($id)) {
+                throw new NotFoundException;
+            }
+
+            $fields = array("Room.name", 'Room.id');
+            $conditions = array('Room.id' => $id);
+            $this->set('room', $this->Room->find('first', array('conditions'=>$conditions, 'fields' => $fields)));
+        } else
+        {
+            throw new AjaxImplementedException;
         }
     }
 
