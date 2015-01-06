@@ -1,41 +1,45 @@
-<div class="tariffs view">
-<h2><?php echo __('Tariff'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($tariff['Tariff']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Description'); ?></dt>
-		<dd>
-			<?php echo h($tariff['Tariff']['description']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Amount'); ?></dt>
-		<dd>
-			<?php echo h($tariff['Tariff']['amount']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Role'); ?></dt>
-		<dd>
-			<?php echo h($tariff['Tariff']['role']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Course'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($tariff['Course']['name'], array('controller' => 'courses', 'action' => 'view', $tariff['Course']['id'])); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Tariff'), array('action' => 'edit', $tariff['Tariff']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Tariff'), array('action' => 'delete', $tariff['Tariff']['id']), array(), __('Are you sure you want to delete # %s?', $tariff['Tariff']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tariffs'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tariff'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
-	</ul>
+<?php
+$tariffId = $tariff['tariff']['id'];
+?>
+<div id="tariffEntry<?php echo $tariffId; ?>" class="row">
+    <div class="col-xs-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tarifname</h3>
+            </div>
+            <div class="panel-body">
+                <?php echo h($tariff['tariff']['name']); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tarifbeschreibung</h3>
+            </div>
+            <div class="panel-body">
+                <?php echo nl2br(h($tariff['tariff']['description'])); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Betrag</h3>
+            </div>
+            <div class="panel-body">
+                <?php echo nl2br(h($tariff['tariff']['amount'])); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Lufzeit in Monaten</h3>
+            </div>
+            <div class="panel-body">
+                <?php echo nl2br(h($tariff['tariff']['term'])); ?>
+            </div>
+        </div>
+    </div>
 </div>

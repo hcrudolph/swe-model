@@ -132,23 +132,39 @@ class RoomsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->Room->exists($id)) {
-			throw new NotFoundException(__('Invalid room'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-            //if ($this->Auth->user('role') < 2) {
-            //    throw new ForbiddenException;
-            //} else {
-			if ($this->Room->save($this->request->data)) {
-				$this->Session->setFlash(__('The room has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The room could not be saved. Please, try again.'));
-			} // }
-		} else {
-			$options = array('conditions' => array('Room.' . $this->Room->primaryKey => $id));
-			$this->request->data = $this->Room->find('first', $options);
-		}
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post')) {
+                if(!$this->Room->exists($id))
+                {
+                    throw new NotFoundException;
+                }
+                $this->request->data['Room']['id'] = $id;
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                if ($this->Room->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Raum wurde bearbeitet';
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Raum konnte nicht bearbeitet werden';
+                    $answer['errors']['Room'] = $this->Room->validationErrors;
+                }
+                echo json_encode($answer);
+            } else
+            {
+                $options = array('conditions' => array('Room.' . $this->Room->primaryKey => $id));
+                $this->set('room', $this->Room->find('first', $options));
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
 	}
 
 /**
@@ -159,20 +175,35 @@ class RoomsController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->Room->id = $id;
-		if (!$this->Room->exists()) {
-			throw new NotFoundException(__('Invalid room'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Room->delete()) {
-            //if ($this->Auth->user('role') < 2) {
-            //    throw new ForbiddenException;
-            //} else {
-			$this->Session->setFlash(__('The room has been deleted.'));
-		} // }
-        else {
-			$this->Session->setFlash(__('The room could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post', 'delete')) {
+                if(!$this->Room->exists($id))
+                {
+                    throw new NotFoundException;
+                }
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                if ($this->Room->delete($id)) {
+                        $answer['success'] = true;
+                        $answer['message'] = 'Der Raum wurde gelöscht';
+                } else {
+                        $answer['success'] = false;
+                        $answer['message'] = 'Der Raum konnte nicht gelöscht werden';
+                }
+                echo json_encode($answer);
+            } else
+            {
+                throw new MethodNotAllowedException;
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
 	}
 }

@@ -1,24 +1,55 @@
-<div class="tariffs form">
-<?php echo $this->Form->create('Tariff'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Tariff'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('description');
-		echo $this->Form->input('amount');
-		echo $this->Form->input('role');
-		echo $this->Form->input('course_id');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Tariff.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Tariff.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Tariffs'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Courses'), array('controller' => 'courses', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Course'), array('controller' => 'courses', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Kurs bearbeiten</h4>
+            </div>
+            <div class="modal-body">
+                            <form id="tariffEditForm<?php echo $tariff['tariff']['id'];?>">
+                                <div class="control-group tariff row">
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default name">
+                                            <div class="panel-heading">Tarifname</div>
+                                            <input type="input" class="form-control panel-body" name="data[tariff][name]" value="<?php echo $tariff['tariff']['name'];?>" placeholder="Tarifname">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default name">
+                                            <div class="panel-heading">Betrag</div>
+                                            <input type="input" class="form-control panel-body" name="data[tariff][amount]" value="<?php echo $tariff['tariff']['amount'];?>" placeholder="Betrag">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default name">
+                                            <div class="panel-heading">Laufzeit</div>
+                                            <input type="input" class="form-control panel-body" name="data[tariff][term]" value="<?php echo $tariff['tariff']['term'];?>" placeholder="Laufzeit in Monaten">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="panel panel-default description">
+                                            <div class="panel-heading">Tarifbeschreibung</div>
+                                            <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Tarifbeschreibung"><?php echo $tariff['tariff']['description'];?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-primary" onclick="$('#tariffEditForm<?php echo $tariff['tariff']['id'];?>').submit();">Speichern</button>
+                </div>
+            </div>
+        </div>
+        <?php echo $this->Html->scriptStart(array('inline' => true));?>
+        $('#tariffEditTabbar > .nav-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        });
+        $('.modal').on('hidden.bs.modal', function (e) {
+        $('.modal').remove();
+        $('.bootstrap-datetimepicker-widget').remove();
+        });
+        tariffEditFormAddSubmitEvent(<?php echo $tariff['tariff']['id'];?>);
+        <?php echo $this->Html->scriptEnd();?>
+    </div>
