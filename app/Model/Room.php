@@ -23,7 +23,7 @@ class Room extends AppModel {
 		'name' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
+				'message' => 'Geben Sie einen Namen für den Raum an.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -31,7 +31,7 @@ class Room extends AppModel {
 			),
 			'alphaNumeric' => array(
 				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Geben Sie eine Raumnummer an.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule

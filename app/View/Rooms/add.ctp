@@ -17,7 +17,7 @@
                         <div class="col-xs-12">
                             <div class="panel panel-default description">
                                 <div class="panel-heading">Beschreibung</div>
-                                <textarea name="data[room][description]" class="body form-control panel-body" rows="3" placeholder="Kursbeschreibung"></textarea>
+                                <textarea name="data[room][description]" class="body form-control panel-body" rows="3" placeholder="Raumbeschreibung"></textarea>
                             </div>
                         </div>
                     </div>
