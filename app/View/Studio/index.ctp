@@ -3,7 +3,7 @@
         <li role="presentation" class="active"><a href="#studioAccounts" data-url="<?php echo $this->webroot; ?>Users/listing/">Accounts</a></li>
         <li role="presentation"><a href="#studioCourses" data-url="<?php echo $this->webroot;?>Courses/">Kurse</a></li>
         <li role="presentation"><a href="#studioTariffs" data-url="<?php echo $this->webroot; ?>Tariffs/">Tarife</a></li>
-        <li role="presentation"><a href="#studioCertificates" data-url="<?php echo $this->webroot; ?>Certificates/listing/">Zertifikate</a></li>
+        <li role="presentation"><a href="#studioCertificates" data-url="<?php echo $this->webroot; ?>Certificates/">Zertifikate</a></li>
         <li role="presentation"><a href="#studioRooms" data-url="<?php echo $this->webroot; ?>Rooms/">Räume</a></li>
     </ul>
     <div class="tab-content">
