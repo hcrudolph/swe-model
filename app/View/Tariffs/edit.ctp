@@ -7,13 +7,13 @@
             </div>
             <div class="modal-body">
                             <form id="tariffEditForm<?php echo $tariff['tariff']['id'];?>">
-                                <div class="control-group tariff row">
-                                    <div class="col-xs-6">
-                                        <div class="panel panel-default name">
-                                            <div class="panel-heading">Tarifname</div>
-                                            <input type="input" class="form-control panel-body" name="data[tariff][name]" value="<?php echo $tariff['tariff']['name'];?>" placeholder="Tarifname">
-                                        </div>
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default description">
+                                        <div class="panel-heading">Tarifbeschreibung</div>
+                                        <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Tarifbeschreibung"><?php echo $tariff['tariff']['description'];?></textarea>
                                     </div>
+                                </div>
+                                <div class="control-group tariff row">
                                     <div class="col-xs-6">
                                         <div class="panel panel-default name">
                                             <div class="panel-heading">Betrag</div>
@@ -24,12 +24,6 @@
                                         <div class="panel panel-default name">
                                             <div class="panel-heading">Laufzeit</div>
                                             <input type="input" class="form-control panel-body" name="data[tariff][term]" value="<?php echo $tariff['tariff']['term'];?>" placeholder="Laufzeit in Monaten">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <div class="panel panel-default description">
-                                            <div class="panel-heading">Tarifbeschreibung</div>
-                                            <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Tarifbeschreibung"><?php echo $tariff['tariff']['description'];?></textarea>
                                         </div>
                                     </div>
                                 </div>

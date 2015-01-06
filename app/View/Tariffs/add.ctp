@@ -3,21 +3,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Raum erstellen</h4>
+                <h4 class="modal-title">Tarif erstellen</h4>
             </div>
             <div class="modal-body">
                 <form id="tariffAddForm">
                     <div class="control-group tariff row">
-                        <div class="col-xs-6">
-                            <div class="panel panel-default name">
-                                <div class="panel-heading">Raumname</div>
-                                <input type="input" class="form-control panel-body" name="data[tariff][name]" placeholder="Raumname">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default description">
+                                <div class="panel-heading">Beschreibung</div>
+                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Tarifbeschreibung"></textarea>
                             </div>
                         </div>
                         <div class="col-xs-12">
                             <div class="panel panel-default description">
-                                <div class="panel-heading">Beschreibung</div>
-                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Raumbeschreibung"></textarea>
+                                <div class="panel-heading">Betrag</div>
+                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Betrag"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-default description">
+                                <div class="panel-heading">Laufzeit</div>
+                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Laufzeit in Monaten"></textarea>
                             </div>
                         </div>
                     </div>
