@@ -14,7 +14,7 @@
                                 <input type="input" class="form-control panel-body" name="data[Course][name]" placeholder="Kursname">
                             </div>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-3">
                             <div class="panel panel-default level">
                                 <div class="panel-heading">Schwierigkeitsgrad</div>
                                 <select name="data[Course][level]" class="form-control panel-body" style="padding:0px;">
@@ -25,6 +25,16 @@
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="panel panel-default tariff_id">
+                                <div class="panel-heading">Tarif</div>
+                                <select name="data[Course][tariff_id]" class="form-control panel-body" style="padding:0px;">
+                                    <?php foreach($tariffs as $tariff) {
+                                        echo '<option value="'.$tariff['Tariff']['id'].'">'.$tariff['Tariff']['description']. ')</option>';
+                                    } ?>
                                 </select>
                             </div>
                         </div>
