@@ -97,7 +97,7 @@ class TariffsController extends AppController {
         if ($this->Auth->user('role') < 2) {
             throw new ForbiddenException;
         }
-        else ($this->request->is(array('post', 'put'))) {
+        else if ($this->request->is(array('post', 'put'))) {
 			if ($this->Tariff->save($this->request->data)) {
 				$this->Session->setFlash(__('The tariff has been saved.'));
 				return $this->redirect(array('action' => 'index'));

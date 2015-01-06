@@ -57,16 +57,37 @@ class RoomsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Room->exists($id)) {
-			throw new NotFoundException(__('Invalid room'));
-		}
-        //if ($this->Auth->user('role') == 0) {
-        //    throw new ForbiddenException;
-        //}
-        //else {
-		$options = array('conditions' => array('Room.' . $this->Room->primaryKey => $id));
-		$this->set('room', $this->Room->find('first', $options));
-        // }
+        if($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if(!$this->Room->exists($id)) {
+                throw new NotFoundException;
+            }
+            $this->Room->Behaviors->load('Containable');
+
+            $contain = array(
+                'Date' => array(
+                    'Trainer' => array (
+                        'Person'
+                    ),
+                    'Account' => array(),
+                ),
+                'Tariff'
+            );
+            if($this->Auth->user('role') == 0) {
+                $contain['Date']['conditions'] = array(
+                    'Date.begin >=' => date('Y-m-d')
+                );
+            }
+
+            $conditions = array(
+                'Room.'.$this->Room->primaryKey => $id,
+            );
+            $room = $this->Room->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+            $this->set(compact('room'));
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
 	}
 
 /**
