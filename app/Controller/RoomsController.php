@@ -75,15 +75,32 @@ class RoomsController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->Room->create();
-			if ($this->Room->save($this->request->data)) {
-				$this->Session->setFlash(__('The room has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The room could not be saved. Please, try again.'));
-			}
-		}
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post', 'put')) {
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                if ($this->Room->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Raum wurde erstellt';
+                    $answer['roomId'] = $this->Room->id;
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Raum konnte nicht erstellt werden';
+                    $answer['errors']['Room'] = $this->Room->validationErrors;
+                }
+                echo json_encode($answer);
+            } else
+            {}
+        } else {
+            throw new AjaxImplementedException;
+        }
 	}
 
 /**
