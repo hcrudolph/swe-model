@@ -33,7 +33,7 @@
                                 <div class="panel-heading">Tarif</div>
                                 <select name="data[Course][tariff_id]" class="form-control panel-body" style="padding:0px;">
                                     <?php foreach($tariffs as $tariff) {
-                                        echo '<option value="'.$tariff['Tariff']['id'].'">'.$tariff['Tariff']['description']. ')</option>';
+                                        echo '<option value="'.$tariff['Tariff']['id'].'">'.$tariff['Tariff']['description']. '</option>';
                                     } ?>
                                 </select>
                             </div>

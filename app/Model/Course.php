@@ -89,7 +89,7 @@ class Course extends AppModel {
 	public $hasOne = array(
 		'Tariff' => array(
 			'className' => 'Tariff',
-			'foreignKey' => 'tariff_id',
+			'foreignKey' => 'course_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
