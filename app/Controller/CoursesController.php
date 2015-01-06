@@ -78,6 +78,7 @@ class CoursesController extends AppController {
 						),
 						'Room' => array(),
 						'Account' => array(),
+						'Tariff' => array(),
 						'order' => array('Date.begin' => 'DESC')
 					)
 			);
@@ -125,6 +126,7 @@ class CoursesController extends AppController {
 					),
 					'Room' => array(),
 					'Account' => array(),
+					'Tariff' => array(),
 					'order' => array('Date.begin' => 'DESC')
 				)
 			);
@@ -135,6 +137,7 @@ class CoursesController extends AppController {
 			$course = $this->Course->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
 			$this->loadModel('Room');
 			$rooms = $this->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
+			$tariffs = $this->Tariff->find('list');
 			$this->loadModel('Account');
 			$directors = $this->Account->find('all', array(
 				'conditions' => array('role >' => '0'),
@@ -142,7 +145,7 @@ class CoursesController extends AppController {
 				'contain' => array('Account'=>array('Person'=>array())),
 				'order' => array('Person.name' => 'ASC')
 			));
-			$this->set(compact('course', 'rooms', 'directors'));
+			$this->set(compact('course', 'rooms', 'directors', 'tariffs'));
 		} else {
 			throw new AjaxImplementedException;
 		}
