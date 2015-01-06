@@ -86,5 +86,19 @@ class Course extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-
+	public $hasOne = array(
+		'Tariff' => array(
+			'className' => 'Tariff',
+			'foreignKey' => 'tariff_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
 }
