@@ -80,7 +80,7 @@ class TariffsController extends AppController {
             }
 
             $conditions = array(
-                'Room.'.$this->Tariff->primaryKey => $id,
+                'Tariff.'.$this->Tariff->primaryKey => $id,
             );
             $tariff = $this->Tariff->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
             $this->set(compact('tariff'));

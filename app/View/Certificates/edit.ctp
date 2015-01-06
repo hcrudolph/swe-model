@@ -1,20 +1,39 @@
-<div class="certificates form">
-<?php echo $this->Form->create('Certificate'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Certificate'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('description');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Zertifikat bearbeiten</h4>
+            </div>
+            <div class="modal-body">
+                            <form id="certificateEditForm<?php echo $certificate['Certificate']['id'];?>">
+                                <div class="control-group certificate row">
+                                    <div class="col-xs-6">
+                                        <div class="panel panel-default name">
+                                            <div class="panel-heading">Zertifikat</div>
+                                            <input type="input" class="form-control panel-body" name="data[certificate][name]" value="<?php echo $certificate['Certificate']['name'];?>" placeholder="Zertifikat">
+                                        </div>
+                                    </div>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Certificate.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Certificate.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Certificates'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+                                    <div class="col-xs-12">
+                                        <div class="panel panel-default description">
+                                            <div class="panel-heading">Beschreibung</div>
+                                            <textarea name="data[certificate][description]" class="body form-control panel-body" rows="3" placeholder="Beschreibung des Zertifikat"><?php echo $certificate['Certificate']['description'];?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+            </div>
+        </div>
+        <?php echo $this->Html->scriptStart(array('inline' => true));?>
+        $('#certificateEditTabbar > .nav-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        });
+        $('.modal').on('hidden.bs.modal', function (e) {
+        $('.modal').remove();
+        $('.bootstrap-datetimepicker-widget').remove();
+        });
+        certificateEditFormAddSubmitEvent(<?php echo $certificate['certificate']['id'];?>);
+        <?php echo $this->Html->scriptEnd();?>
+    </div>

@@ -1,55 +1,77 @@
-<form id="certificateAddForm">
-    <div class="control-group Certificate">
-        <div class="name">
-            <input type="input" class="form-control" placeholder="Name">
+<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Zertifikat erstellen</h4>
+            </div>
+            <div class="modal-body">
+                <form id="certificateAddForm">
+                    <div class="control-group certificate row">
+                        <div class="col-xs-6">
+                            <div class="panel panel-default name">
+                                <div class="panel-heading">Zertifikat</div>
+                                <input type="input" class="form-control panel-body" name="data[certificate][name]" placeholder="Zertifikat">
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="panel panel-default description">
+                                <div class="panel-heading">Beschreibung</div>
+                                <textarea name="data[certificate][description]" class="body form-control panel-body" rows="3" placeholder="Beschreibung des Zertifikates"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-primary" onclick="$('#certificateAddForm').submit();">Speichern</button>
+            </div>
         </div>
-        <div class="description">
-            <input type="input" class="form-control" placeholder="Beschreibung">
-        </div>
-    <button type="submit" class="btn btn-default">Speichern</button>
     </div>
-</form>
 
-<?php echo $this->Html->scriptStart(array('inline' => true)); ?>
+    <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 
-    $(document).ready(function() {
-        $('#certificateAddForm').submit(function(event) {
-            $.post('<?php echo $this->webroot;?>certificates/add/', $('#certificateAddForm').serialize(), function(json) {
-                if(json.success == true) {
-                    notificatecertificate(json.message, 'success');
-
-                    $.get('<?php echo $this->webroot?>certificates/listing/', function( data ) {
-                    $('#certificates').replaceWith(data);
-                });
-                } else {
-                    notificatecertificate(json.message);
-
-                    //delete old errors
-                    $('#certificateAddForm').children().each(function() {
-                        $(this).children().each(function() {
-                            $(this).removeClass('has-error has-feedback');
-                            $(this).children('.glyphicon').remove();
-                            $(this).children('.control-label').remove();
-                        });
-                    })
-
-                    for(var controller in json.errors)
-                    {
-                        for(var key in json.errors[controller])
-                        {
-                            if(json.errors[controller].hasOwnProperty(key))
-                            {
-                                notificatecertificate(json.errors[controller][key]);
-                                var ele = $('#certificateAddForm > .'+controller+' > .'+key);
-                                ele.addClass('has-error has-feedback');
-                                ele.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-                                ele.append('<label class="control-label">'+json.errors[controller][key]+'</label>');
-                            }
-                        }
-                    }
-                }
-            }, 'json');
-            event.preventDefault();
-        });
+    $('.modal').on('hidden.bs.modal', function (e) {
+    $('.modal').remove();
     });
-<?php echo $this->Html->scriptEnd(); ?>
+
+    $('#certificateAddForm').submit(function(event) {
+    $.post('<?php echo $this->webroot;?>certificates/add/', $('#certificateAddForm').serialize(), function(json) {
+    if(json.success == true) {
+    notificateUser(json.message, 'success');
+
+    $( "#certificateEntries" ).trigger({
+    type:"certificateChanged",
+    certificateId:json.certificateId
+    });
+    $('.modal').modal('hide');
+    } else {
+    notificateUser(json.message);
+
+    //delete old errors
+    $('#certificateAddForm').children().each(function() {
+    $(this).children().each(function() {
+    $(this).children('div').each(function() {
+    $(this).addClass('panel-default').removeClass('panel-danger has-error');
+    $(this).children('.panel-footer').remove();
+    });
+    });
+    });
+
+    for(var controller in json.errors) {
+    for(var key in json.errors[controller]) {
+    if(json.errors[controller].hasOwnProperty(key)) {
+    notificateUser(json.errors[controller][key]);
+    var ele = $('#certificateAddForm > .'+controller+' > div > .'+key);
+    ele.addClass('panel-danger has-error');
+    ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+    }
+    }
+    }
+    }
+    }, 'json');
+    event.preventDefault();
+    });
+    <?php echo $this->Html->scriptEnd(); ?>
+</div>

@@ -21,29 +21,31 @@ class CertificatesController extends AppController {
  *
  * @return void
  */
-	public function index() {
-        if($this->request->is('ajax'))
-        {
+    public function index() {
+        if($this->request->is('ajax')) {
             $this->layout = 'ajax';
+
+            $fields = array("Certificate.description", 'Certificate.id');
+            $certificates = $this->Certificate->find('all', array('fields' => $fields));
+            $this->set(compact('certificates'));
         } else
         {
             throw new AjaxImplementedException;
         }
-		$this->Certificate->recursive = 0;
-		$this->set('certificates', $this->Paginator->paginate());
-	}
+    }
 
-    public function listing()
-    {
-        if ($this->request->is('ajax')) {
+    public function indexElement($id=null) {
+        if($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            if ($this->Auth->user('role') == 0) {
-                throw new ForbiddenException;
+            if(is_null($id)) {
+                throw new NotFoundException;
             }
-            #Sortierung? Anzeige des Templates
-            $certificates = $this->Certificate->find('all');
-            $this->set(compact('certificates'));
-        } else {
+
+            $fields = array("Certificate.description", 'Certificate.id');
+            $conditions = array('Certificate.id' => $id);
+            $this->set('certificate', $this->Certificate->find('first', array('conditions'=>$conditions, 'fields' => $fields)));
+        } else
+        {
             throw new AjaxImplementedException;
         }
     }
@@ -56,11 +58,37 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Certificate->exists($id)) {
-			throw new NotFoundException(__('Invalid certificate'));
-		}
-		$options = array('conditions' => array('Certificate.' . $this->Certificate->primaryKey => $id));
-		$this->set('certificate', $this->Certificate->find('first', $options));
+        if($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            if(!$this->Certificate->exists($id)) {
+                throw new NotFoundException;
+            }
+            $this->Certificate->Behaviors->load('Containable');
+
+            $contain = array(
+                'Date' => array(
+                    'Trainer' => array (
+                        'Person'
+                    ),
+                    'Account' => array(),
+                ),
+                'Tariff'
+            );
+            if($this->Auth->user('role') == 0) {
+                $contain['Date']['conditions'] = array(
+                    'Date.begin >=' => date('Y-m-d')
+                );
+            }
+
+            $conditions = array(
+                'Certificate.'.$this->Certificate->primaryKey => $id,
+            );
+            $certificate = $this->Certificate->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+            $this->set(compact('certificate'));
+        } else
+        {
+            throw new AjaxImplementedException;
+        }
 	}
 
 /**
@@ -69,25 +97,32 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function add() {
-        if($this->request->is('ajax'))
-        {
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
             $this->layout = 'ajax';
-            //if ($this->Auth->user('role') < 2) {
-            //    throw new ForbiddenException;
-            //}
-        } else
-        {
+            if ($this->request->is('post', 'put')) {
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
+
+                if ($this->Certificate->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Zertifikat wurde erstellt';
+                    $answer['certificateId'] = $this->Certificate->id;
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Zertifikat konnte nicht erstellt werden';
+                    $answer['errors']['Certificate'] = $this->Certificate->validationErrors;
+                }
+                echo json_encode($answer);
+            } else
+            {}
+        } else {
             throw new AjaxImplementedException;
         }
-		if ($this->request->is('post')) {
-			$this->Certificate->create();
-			if ($this->Certificate->save($this->request->data)) {
-				$this->Session->setFlash(__('The certificate has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The certificate could not be saved. Please, try again.'));
-			}
-		}
 	}
 
 /**
@@ -98,24 +133,39 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post')) {
+                if(!$this->Certificate->exists($id))
+                {
+                    throw new NotFoundException;
+                }
+                $this->request->data['Certificate']['id'] = $id;
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
 
-        //if ($this->Auth->user('role') < 2) {
-        //    throw new ForbiddenException;
-        //}
-		if (!$this->Certificate->exists($id)) {
-			throw new NotFoundException(__('Invalid certificate'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Certificate->save($this->request->data)) {
-				$this->Session->setFlash(__('The certificate has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The certificate could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('Certificate.' . $this->Certificate->primaryKey => $id));
-			$this->request->data = $this->Certificate->find('first', $options);
-		}
+                if ($this->Certificate->save($this->request->data)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Zertifikat wurde bearbeitet';
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Zertifikat konnte nicht bearbeitet werden';
+                    $answer['errors']['Certificate'] = $this->Certificate->validationErrors;
+                }
+                echo json_encode($answer);
+            } else
+            {
+                $options = array('conditions' => array('Certificate.' . $this->Certificate->primaryKey => $id));
+                $this->set('certificate', $this->Certificate->find('first', $options));
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
 	}
 
 /**
@@ -126,20 +176,35 @@ class CertificatesController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->Certificate->id = $id;
-		if (!$this->Certificate->exists()) {
-			throw new NotFoundException(__('Invalid certificate'));
-		}
+        if($this->request->is('ajax')) {
+            if($this->Auth->user('role') == 0) {
+                throw new ForbiddenException;
+            }
+            $this->layout = 'ajax';
+            if ($this->request->is('post', 'delete')) {
+                if(!$this->Certificate->exists($id))
+                {
+                    throw new NotFoundException;
+                }
+                $this->autoRender = false;
+                $this->layout = null;
+                $this->response->type('json');
+                $answer = array();
 
-		$this->request->allowMethod('post', 'delete');
-        //if ($this->Auth->user('role') < 2) {
-        //    throw new ForbiddenException;
-        //}
-		if ($this->Certificate->delete()) {
-			$this->Session->setFlash(__('The certificate has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The certificate could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
+                if ($this->Certificate->delete($id)) {
+                    $answer['success'] = true;
+                    $answer['message'] = 'Der Zertifikat wurde gelöscht';
+                } else {
+                    $answer['success'] = false;
+                    $answer['message'] = 'Der Zertifikat konnte nicht gelöscht werden';
+                }
+                echo json_encode($answer);
+            } else
+            {
+                throw new MethodNotAllowedException;
+            }
+        } else {
+            throw new AjaxImplementedException;
+        }
 	}
 }

@@ -1,93 +1,112 @@
-<?php /* OLD index view, keep for referencing functionality
-
-<div class="certificates index">
-	<h2><?php echo __('Certificates'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('description'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($certificates as $certificate): ?>
-	<tr>
-		<td><?php echo h($certificate['Certificate']['id']); ?>&nbsp;</td>
-		<td><?php echo h($certificate['Certificate']['name']); ?>&nbsp;</td>
-		<td><?php echo h($certificate['Certificate']['description']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $certificate['Certificate']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $certificate['Certificate']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $certificate['Certificate']['id']), array(), __('Are you sure you want to delete # %s?', $certificate['Certificate']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Certificate'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
-
-*/ ?>
-
-<div class="actions">
-    <?php
-    if(!empty($user) AND $user['role'] > 0) { ?>
-	<button type="button" id="AddNewCert" class="btn btn-default" onclick="AddNewCert()"><i class="glyphicon glyphicon-plus"></i> Certificate</button>
-    <?php } ?>
-</div>
-
-<div id="certificates index" class="row list-group">
-    <?php foreach ($certificates as $certificate): ?>
-    <div class="item  col-xs-4">
-        <div class="thumbnail">
-            <div class="popover-wrapper" id="certificatePOP">
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        <?php echo h($certificate['Certificate']['name']); ?></h4>
-						<a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="CertEdit('<?php echo $this->webroot;?>certificates/edit/',<?php echo $certificate['Certificate']['id']; ?>)">Bearbeiten</a>
-                   		<a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="CertDelete(<?php echo $this->webroot;?>certificates/delete/',<?php echo $certificate['Certificate']['id']; ?>);">Löschen</a>
-
-                </div>
-                </a>
-
-            </div>
-        </div>
-        <?php endforeach; ?>
+<?php if(!empty($user) AND $user['role'] > 0) { ?>
+    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="certificateAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+<?php } ?>
+    <div id="certificateEntries" role="tablist" aria-multiselectable="true">
+        <?php
+        foreach($certificates as $certificate) {
+            echo $this->element('certificateIndexElement', array('certificate' =>$certificate));
+        } ?>
     </div>
 
-    <div id="popContent" style="display: none">
-        <p><?php echo h($certificate['Certificate']['description']); ?></p>
-    </div>
 
-    <script>
-        $(function () {
-            $("#certificatePOP").popover({
-                placement: 'bottom',
-                trigger: 'hover',
-                html: true,
-                content: function () {
-                    return $('#popContent').html();
-                }
-            });
-        });
-    </script>
+<?php echo $this->Html->scriptStart(array('inline' => true));?>
+    $("#certificateEntries").on('certificateChanged', function(event) {
+    var contentShown = false;
+    if($('#certificateIndexEntryCollapse'+event.certificateId).hasClass('active')) {
+    contentShown = true;
+    }
+    $.get('<?php echo $this->webroot?>certificates/indexElement/'+event.certificateId, function(view) {
+    if($('#certificateIndexEntry'+event.certificateId).length) {
+    $('#certificateIndexEntry'+event.certificateId).replaceWith(view);
+    } else {
+    $('#certificateEntries').prepend(view);
+    }
+    if(contentShown)
+    {
+    $('#certificateIndexEntryHeading'+event.certificateId+' > .panel-title  a').trigger("click");
+    }
+    });
+    });
+
+
+    $('#certificateEntries > .panel > .panel-heading > .panel-title a').click(function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr("data-url");
+    var href = this.hash;
+    var pane = $(this);
+
+    // ajax load from data-url
+    $(href+' > .panel-body').load(url,function(result){
+    pane.tab('show');
+    });
+    });
+
+    function certificateDelete(certificateId) {
+    var del = confirm("Kurs #" + certificateId + " löschen?");
+    if (del == true) {
+    $.post('<?php echo $this->webroot;?>certificates/delete/'+ certificateId, function (json) {
+    if (json.success == true) {
+    notificateUser(json.message, 'success');
+    $( "#certificateIndexEntry"+certificateId ).remove();
+    } else {
+    notificateUser(json.message, json.error);
+    }
+    }, 'json');
+    }
+    }
+
+    function certificateEdit(certificateId) {
+    $.get('<?php echo $this->webroot?>certificates/edit/'+certificateId,function(html) {
+    $('body').append(html);
+    $('body > .modal').modal('show');
+    });
+    }
+
+    function certificateAddButtonClick() {
+    $.get('<?php echo $this->webroot?>certificates/add/',function(html) {
+    $('body').append(html);
+    $('body > .modal').modal('show');
+    });
+    }
+
+    function certificateEditFormAddSubmitEvent(certificateId) {
+    var editForm = '#certificateEditForm'+certificateId;
+    $(editForm).submit(function(event) {
+    $.post('<?php echo $this->webroot;?>certificates/edit/'+certificateId, $(editForm).serialize(), function(json) {
+    if(json.success == true) {
+    notificateUser(json.message, 'success');
+    $('.modal').modal('hide');
+    $( "#certificateEntries" ).trigger({
+    type:"certificateChanged",
+    certificateId:certificateId
+    });
+    } else {
+    notificateUser(json.message);
+
+    //delete old errors
+    $(editForm).children().each(function() {
+    $(this).children().each(function() {
+    $(this).children('div').each(function() {
+    $(this).addClass('panel-default').removeClass('panel-danger has-error');
+    $(this).children('.panel-footer').remove();
+    });
+    });
+    });
+
+    for(var controller in json.errors) {
+    for(var key in json.errors[controller]) {
+    if(json.errors[controller].hasOwnProperty(key)) {
+    notificateUser(json.errors[controller][key]);
+    var ele = $(editForm+' > .'+controller+' > div > .'+key);
+    ele.addClass('panel-danger has-error');
+    ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+    }
+    }
+    }
+    }
+    }, 'json');
+    event.preventDefault();
+    });
+    }
+<?php echo $this->Html->scriptEnd();?>
