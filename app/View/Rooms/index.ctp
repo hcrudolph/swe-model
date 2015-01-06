@@ -1,46 +1,112 @@
-<div class="rooms index">
-	<h2><?php echo __('Rooms'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($rooms as $room): ?>
-	<tr>
-		<td><?php echo h($room['Room']['id']); ?>&nbsp;</td>
-		<td><?php echo h($room['Room']['name']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $room['Room']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $room['Room']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $room['Room']['id']), array(), __('Are you sure you want to delete # %s?', $room['Room']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Room'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Dates'), array('controller' => 'dates', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Date'), array('controller' => 'dates', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<?php if(!empty($user) AND $user['role'] > 0) { ?>
+    <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="roomAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
+<?php } ?>
+    <div id="roomEntries" role="tablist" aria-multiselectable="true">
+        <?php
+        foreach($rooms as $room) {
+            echo $this->element('roomIndexElement', array('room' =>$room));
+        } ?>
+    </div>
+
+
+<?php echo $this->Html->scriptStart(array('inline' => true));?>
+    $("#roomEntries").on('roomChanged', function(event) {
+    var contentShown = false;
+    if($('#roomIndexEntryCollapse'+event.roomId).hasClass('active')) {
+    contentShown = true;
+    }
+    $.get('<?php echo $this->webroot?>rooms/indexElement/'+event.roomId, function(view) {
+    if($('#roomIndexEntry'+event.roomId).length) {
+    $('#roomIndexEntry'+event.roomId).replaceWith(view);
+    } else {
+    $('#roomEntries').prepend(view);
+    }
+    if(contentShown)
+    {
+    $('#roomIndexEntryHeading'+event.roomId+' > .panel-title  a').trigger("click");
+    }
+    });
+    });
+
+
+    $('#roomEntries > .panel > .panel-heading > .panel-title a').click(function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr("data-url");
+    var href = this.hash;
+    var pane = $(this);
+
+    // ajax load from data-url
+    $(href+' > .panel-body').load(url,function(result){
+    pane.tab('show');
+    });
+    });
+
+    function roomDelete(roomId) {
+    var del = confirm("Kurs #" + roomId + " löschen?");
+    if (del == true) {
+    $.post('<?php echo $this->webroot;?>rooms/delete/'+ roomId, function (json) {
+    if (json.success == true) {
+    notificateUser(json.message, 'success');
+    $( "#roomIndexEntry"+roomId ).remove();
+    } else {
+    notificateUser(json.message, json.error);
+    }
+    }, 'json');
+    }
+    }
+
+    function roomEdit(roomId) {
+    $.get('<?php echo $this->webroot?>rooms/edit/'+roomId,function(html) {
+    $('body').append(html);
+    $('body > .modal').modal('show');
+    });
+    }
+
+    function roomAddButtonClick() {
+    $.get('<?php echo $this->webroot?>rooms/add/',function(html) {
+    $('body').append(html);
+    $('body > .modal').modal('show');
+    });
+    }
+
+    function roomEditFormAddSubmitEvent(roomId) {
+    var editForm = '#roomEditForm'+roomId;
+    $(editForm).submit(function(event) {
+    $.post('<?php echo $this->webroot;?>rooms/edit/'+roomId, $(editForm).serialize(), function(json) {
+    if(json.success == true) {
+    notificateUser(json.message, 'success');
+    $('.modal').modal('hide');
+    $( "#roomEntries" ).trigger({
+    type:"roomChanged",
+    roomId:roomId
+    });
+    } else {
+    notificateUser(json.message);
+
+    //delete old errors
+    $(editForm).children().each(function() {
+    $(this).children().each(function() {
+    $(this).children('div').each(function() {
+    $(this).addClass('panel-default').removeClass('panel-danger has-error');
+    $(this).children('.panel-footer').remove();
+    });
+    });
+    });
+
+    for(var controller in json.errors) {
+    for(var key in json.errors[controller]) {
+    if(json.errors[controller].hasOwnProperty(key)) {
+    notificateUser(json.errors[controller][key]);
+    var ele = $(editForm+' > .'+controller+' > div > .'+key);
+    ele.addClass('panel-danger has-error');
+    ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+    }
+    }
+    }
+    }
+    }, 'json');
+    event.preventDefault();
+    });
+    }
+<?php echo $this->Html->scriptEnd();?>
