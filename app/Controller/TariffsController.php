@@ -24,7 +24,7 @@ class TariffsController extends AppController {
         if($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-            $fields = array("Tariff.name", 'Tariff.id');
+            $fields = array("Tarif.name", 'Tarif.id');
             $tariffs = $this->Tariff->find('all', array('fields' => $fields));
             $this->set(compact('tariffs'));
         } else
