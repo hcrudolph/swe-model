@@ -2,7 +2,7 @@
     <div class="panel panel-info">
         <div class="panel-heading clearfix">
             <h4 class="panel-title pull-left"><?php echo h($post['Post']['heading']); ?></h4>
-            <?php if(!empty($user)){?>
+                    <?php if(isset($user) AND $user['role'] > 0) {?>
                 <div class="btn-group pull-right">
                     <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="postEntryEdit(<?php echo h($post['Post']['id']); ?>);">Bearbeiten</a>
                     <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="postEntryDelete(<?php echo h($post['Post']['id']); ?>);">Löschen</a>
