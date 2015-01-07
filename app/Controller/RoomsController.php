@@ -50,31 +50,6 @@ class RoomsController extends AppController {
     }
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-        if($this->request->is('ajax')) {
-            $this->layout = 'ajax';
-            if(!$this->Room->exists($id)) {
-                throw new NotFoundException;
-            }
-
-            $conditions = array(
-                'Room.'.$this->Room->primaryKey => $id,
-            );
-            $room = $this->Room->find('first', array('conditions'=>$conditions));
-            $this->set(compact('room'));
-        } else
-        {
-            throw new AjaxImplementedException;
-        }
-	}
-
-/**
  * add method
  *
  * @return void
