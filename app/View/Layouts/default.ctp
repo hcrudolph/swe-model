@@ -76,9 +76,8 @@
         <!--Jquery-Setup-end-->
         <!--Setup for non-mobile-devices-->
         <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-            if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                alert('No mobile Device');
-                //$('#container').css('width:1000px;position:absolute;margin:0 auto;left:50%;margin-left:-500px');
+            if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Windows Phone|Opera Mini/i.test(navigator.userAgent) ) {
+                $('#container').css('width:1000px;position:absolute;margin:0 auto;left:50%;margin-left:-500px');
             }
         <?php echo $this->Html->scriptEnd(); ?>
         <!--Setup end-->
