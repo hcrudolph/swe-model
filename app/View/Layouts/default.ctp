@@ -79,7 +79,11 @@
             if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Windows Phone|Opera Mini/i)) {
                 alert('mobile Device');
             } else {
-                $('#container').css('width:1000px;position:absolute;margin:0 auto;left:50%;margin-left:-500px');
+                $('#container').css('width', '1000px');
+                $('#container').css('position','absolute);
+                $('#container').css('margin','0 auto');
+                $('#container').css('left', '50%');
+                $('#container').css('margin-left','-500px');
             }
         <?php echo $this->Html->scriptEnd(); ?>
         <!--Setup end-->
