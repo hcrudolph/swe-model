@@ -17,13 +17,7 @@
                         <div class="col-xs-12">
                             <div class="panel panel-default description">
                                 <div class="panel-heading">Betrag</div>
-                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Betrag"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="panel panel-default description">
-                                <div class="panel-heading">Laufzeit</div>
-                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Laufzeit in Monaten"></textarea>
+                                <textarea name="data[tariff][amount]" class="body form-control panel-body" rows="3" placeholder="Betrag"></textarea>
                             </div>
                         </div>
                     </div>
