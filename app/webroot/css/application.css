@@ -1,7 +1,6 @@
 #header {
     position: absolute;
     height: 210px;
-    left:6%;
     width: 1000px;
     padding:2px;
     border: 1px solid darkgray;
@@ -45,14 +44,16 @@ padding-bottom: 30px;*/
 
 #container {
     width: 1000px;
-    left:8%;
-    hight:100%;
+    /*left: 3px;*/
+    height:100%;
     position: absolute;
+    margin:0 auto;
+    left:50%;
+    margin-left:-500px;
 }
 
 #sidebar{
     width:200px;
-    left:6%;
     min-height: 400px;
     top: 206px;
     position: absolute;
@@ -71,7 +72,7 @@ padding-bottom: 30px;*/
     border: 1px darkgray solid ;
     border-radius: 5px;
     margin-top: 15px;
-    left:27%;
+    left: 208px;
 }
 
 .tab-content {
