@@ -94,8 +94,38 @@
 								</div>
 							</form>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="dateEditTeilnehmer">
-							Teilnehmer
+						<div role="tabpanel" class="tab-pane fade" id="dateEditTeilnehmer" style="height:300px;overflow: scroll">
+							<table class="table">
+								<thead>
+								<tr>
+									<th>Name</th>
+									<th>Username</th>
+									<th>Aktion</th>
+								</tr>
+								</thead>
+								<tbody>
+								<?php foreach($accounts as $account)
+								{
+									$accountSignedUp = false;
+									foreach($date['Account'] as $signedUpUser) {
+										if($signedUpUser['id'] == $account['Account']['id']) {$accountSignedUp = true; }
+									}
+
+									echo '<tr>';
+									echo '<td>'.$account['Person']['surname'].' '.$account['Person']['name'].'</td>';
+									echo '<td>'.$account['Account']['username'].'</td><td>';
+									if(!$accountSignedUp) {
+										echo '<button type="button" class="btn btn-default" onclick="dateSignUpUser('.$date['Date']['id'].', \''.$this->webroot.'dates/signupUser/\', '.$account['Account']['id'].');$(this).remove();">Anmelden</button>';
+									} else {
+										echo '<button type="button" class="btn btn-default" onclick="dateSignOffUser('.$date['Date']['id'].', \''.$this->webroot.'dates/signoffUser/\', '.$account['Account']['id'].');$(this).remove();">Abmelden</button>';
+									}
+									echo '</td><td></td>';
+									echo '</tr>';
+								}
+
+								?>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

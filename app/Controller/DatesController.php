@@ -216,7 +216,10 @@ class DatesController extends AppController {
                     'order' => array('Person.name' => 'ASC')
                 ));
                 $rooms = $this->Date->Room->find('list', array('fields' => array('Room.id', 'Room.name')));
-                $this->set(compact('courses', 'date', 'directors', 'rooms'));
+                $accounts = $this->Date->Account->find('all', array(
+                    'fields' => array('Account.id', 'Account.username', 'Person.name', 'Person.surname')
+                ));
+                $this->set(compact('courses', 'date', 'directors', 'rooms', 'accounts'));
             }
         } else {
             throw new AjaxImplementedException;
@@ -236,12 +239,21 @@ class DatesController extends AppController {
             if (!$this->Date->exists($id)) {
                 throw new NotFoundException;
             }
+            
+            if($this->Auth->user('role') > 0 AND !empty($this->request->data['accountId']))
+            {
+                $signupId = $this->request->data['accountId'];
+            } else {
+                $signupId = $this->Auth->user('id');
+            }
+            
+            
             if ($this->request->is('post', 'put')) {
                 $conditions = array('Date.' . $this->Date->primaryKey => $id);
                 $date = $this->Date->find('first', array('conditions' => $conditions));
                 $userSignedUp = false;
                 foreach ($date['Account'] as $account) {
-                    if ($this->Auth->user('id') == $account['id']) {
+                    if ($signupId== $account['id']) {
                         $userSignedUp = true;
                     }
                 }
@@ -257,19 +269,24 @@ class DatesController extends AppController {
                     $answer['error'] = 'warning';
                     $answer['message'] = 'Sie sind bereits angemeldet.';
                 } elseif (count($date['Account']) < $this->Date->field('maxcount')) {
-                    if($this->Date->habtmAdd('Account', $id, $this->Auth->user('id')))
+                    if($this->Date->habtmAdd('Account', $id, $signupId))
                     {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich angemeldet.";
                         $answer['courseId'] = $date['Date']['course_id'];
 
-                        $person = $this->Auth->user('Person');
 
-                        if(!empty($person['email'])) {
+                        
+                        $person = $this->Date->Account->Person->find('first', array(
+                            'conditions' => array ('Person.account_id' => $signupId),
+                            'fields' => array('Person.name','Person.surname', 'Person.email')
+                        ));
+
+                        if(!empty($person['Person']['email'])) {
                             $email = new CakeEmail('noreplay');
                             $email->viewVars(array(
-                                'nachname' => $person['name'],
-                                'vorname' => $person['surname'],
+                                'nachname' => $person['Person']['name'],
+                                'vorname' => $person['Person']['surname'],
                                 'dateBegin' => $date['Date']['begin'],
                                 'courseName' => $date['Course']['name'],
                                 'courseLevel' => $date['Course']['level'],
@@ -277,7 +294,7 @@ class DatesController extends AppController {
                             ));
                             $email-> template('Dates/signupuser');
                             $email->emailFormat('text');
-                            $email->to($person['email']);
+                            $email->to($person['Person']['email']);
                             $email->subject('[Angemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '.$date['Course']['level'].') am '. date('d.m.Y', strtotime($date['Date']['begin'])));
                             $email->send();
                         }
@@ -313,12 +330,20 @@ class DatesController extends AppController {
             if (!$this->Date->exists($id)) {
                 throw new NotFoundException;
             }
+
+            if($this->Auth->user('role') > 0 AND !empty($this->request->data['accountId']))
+            {
+                $signoffId = $this->request->data['accountId'];
+            } else {
+                $signoffId = $this->Auth->user('id');
+            }
+            
             if ($this->request->is('post', 'delete')) {
                 $conditions = array('Date.' . $this->Date->primaryKey => $id);
                 $date = $this->Date->find('first', array('conditions' => $conditions));
                 $userSignedUp = false;
                 foreach ($date['Account'] as $account) {
-                    if ($this->Auth->user('id') == $account['id']) {
+                    if ($signoffId == $account['id']) {
                         $userSignedUp = true;
                     }
                 }
@@ -330,18 +355,21 @@ class DatesController extends AppController {
 
 
                 if ($userSignedUp) {
-                    if($this->Date->habtmDelete('Account', $id, $this->Auth->user('id'))) {
+                    if($this->Date->habtmDelete('Account', $id, $signoffId)) {
                         $answer['success'] = true;
                         $answer['message'] = "Sie wurden erfolgreich abgemeldet";
                         $answer['courseId'] = $date['Date']['course_id'];
 
-                        $person = $this->Auth->user('Person');
+                        $person = $this->Date->Account->Person->find('first', array(
+                            'conditions' => array ('Person.account_id' => $signoffId),
+                            'fields' => array('Person.name','Person.surname', 'Person.email')
+                        ));
 
-                        if(!empty($person['email'])) {
+                        if(!empty($person['Person']['email'])) {
                             $email = new CakeEmail('noreplay');
                             $email->viewVars(array(
-                                'nachname' => $person['name'],
-                                'vorname' => $person['surname'],
+                                'nachname' => $person['Person']['name'],
+                                'vorname' => $person['Person']['surname'],
                                 'dateBegin' => $date['Date']['begin'],
                                 'courseName' => $date['Course']['name'],
                                 'courseLevel' => $date['Course']['level'],
@@ -349,7 +377,7 @@ class DatesController extends AppController {
                             ));
                             $email-> template('Dates/signoffuser');
                             $email->emailFormat('text');
-                            $email->to($person['email']);
+                            $email->to($person['Person']['email']);
                             $email->subject('[Abgemeldet]'.$date['Course']['name'].' (Schwierigkeitsgrad: '.$date['Course']['level'].') am '. date('d.m.Y', strtotime($date['Date']['begin'])));
                             $email->send();
                         }

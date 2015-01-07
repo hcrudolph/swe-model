@@ -187,8 +187,8 @@ function dateDelete(link, dateId, courseId) {
 
 
 
-function dateSignUpUser(dateId, link) {
-    $.post(link+dateId,function(json) {
+function dateSignUpUser(dateId, link, accountId) {
+    $.post(link+dateId,{accountId:accountId}, function(json) {
         if(json.success == true) {
             notificateUser(json.message, 'success');
             $( "#courseEntries" ).trigger({
@@ -201,8 +201,8 @@ function dateSignUpUser(dateId, link) {
     }, 'json');
 }
 
-function dateSignOffUser(dateId, link) {
-    $.post(link+dateId,function(json) {
+function dateSignOffUser(dateId, link, accountId) {
+    $.post(link+dateId, {accountId:accountId}, function(json) {
         if(json.success == true) {
             notificateUser(json.message, 'success');
             $( "#courseEntries" ).trigger({
