@@ -53,6 +53,7 @@
 						<div role="tabpanel" class="tab-pane fade" id="courseEditPlanner"></div>
 					</div>
 				</div>
+			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
 				<button type="button" class="btn btn-primary" onclick="$('#courseEditForm<?php echo $course['Course']['id'];?>').submit();">Speichern</button>
