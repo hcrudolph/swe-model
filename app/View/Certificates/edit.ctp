@@ -49,11 +49,7 @@
         </div>
     </div>
     <?php echo $this->Html->scriptStart(array('inline' => true));?>
-    $('#certificateEditTabbar > .nav-tabs a').click(function (e) {
-        e.preventDefault();
-            $(this).tab('show');
-        });
-        $('.modal').on('hidden.bs.modal', function (e) {
+    $('.modal').on('hidden.bs.modal', function (e) {
         $('.modal').remove();
     });
     certificateEditFormAddSubmitEvent(<?php echo $certificate['Certificate']['id'];?>);

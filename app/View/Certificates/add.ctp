@@ -33,7 +33,7 @@
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 
     $('.modal').on('hidden.bs.modal', function (e) {
-    $('.modal').remove();
+        $('.modal').remove();
     });
 
     $('#certificateAddForm').submit(function(event) {
