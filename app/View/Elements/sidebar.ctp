@@ -1,20 +1,20 @@
 <?php
 $controllerIndex = array(
-    'posts' => 0,
-    'calendar' => 1,
-    'lists' => 2,
+    'lists' => 0,
+    'posts' => 1,
+    'calendar' => 2,
     'studio' => 3,
-    'user' => 4,
-    'Kurs' => 5
+    'users' => 4,
+    'courses' => 5
 );
 $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex))?$controllerIndex[$this->params['controller']]:0);
 ?>
 
 <div id="sidebar">
     <ul class="nav nav-pills nav-stacked">
-        <li role="presentation" class="active"><a href="#content" data-url="<?php echo $this->webroot;?>lists"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Unser Studio</a></li>
-        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>posts"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> News</a></li>
-        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>calendar/init"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalender</a></li>
+        <li role="presentation" class="<?php echo (($sidebarIndex == 0)?'active':''); ?>"><a href="#content" data-url="<?php echo $this->webroot;?>lists"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Unser Studio</a></li>
+        <li role="presentation" class="<?php echo (($sidebarIndex == 1)?'active':''); ?>"><a href="#content" data-url="<?php echo $this->webroot;?>posts"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> News</a></li>
+        <li role="presentation" class="<?php echo (($sidebarIndex == 2)?'active':''); ?>"><a href="#content" data-url="<?php echo $this->webroot;?>calendar/init"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalender</a></li>
 
         <?php
         if(!empty($user)){

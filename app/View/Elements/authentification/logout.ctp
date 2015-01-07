@@ -11,8 +11,6 @@
                 notificateUser(json.message, 'success');
                 $('#sidebar').replaceWith(json.sidebar);
                 $('#authentification').html(json.login);
-                //startpage always posts
-                $('#content').load('<?php echo $this->webroot;?>posts/index')
             } else
             {
                 notificateUser(json.message);
