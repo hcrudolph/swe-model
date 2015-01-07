@@ -76,15 +76,15 @@
         <!--Jquery-Setup-end-->
         <!--Setup for non-mobile-devices-->
         <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-            if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Windows Phone|Opera Mini/i)) {
-                alert('mobile Device');
-            } else {
-                $('#container').css('width', '1000px');
-                $('#container').css('position','absolute');
-                $('#container').css('margin','0 auto');
-                $('#container').css('left', '50%');
-                $('#container').css('margin-left','-500px');
-            }
+            $(document).ready(function() {
+                if (!navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Windows Phone|Opera Mini/i)) {
+                    $('#container').css('width', '1000px');
+                    $('#container').css('position','absolute');
+                    $('#container').css('margin','0 auto');
+                    $('#container').css('left', '50%');
+                    $('#container').css('margin-left','-500px');
+                }
+            });
         <?php echo $this->Html->scriptEnd(); ?>
         <!--Setup end-->
     </head>
