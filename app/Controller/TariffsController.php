@@ -24,7 +24,7 @@ class TariffsController extends AppController {
         if($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-            $fields = array("Tariff.description", 'Tariff.id');
+            $fields = array('Tariff.id', "Tariff.description");
             $tariffs = $this->Tariff->find('all', array('fields' => $fields));
             $this->set(compact('tariffs'));
         } else
@@ -48,47 +48,6 @@ class TariffsController extends AppController {
             throw new AjaxImplementedException;
         }
     }
-
-    /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-        if($this->request->is('ajax')) {
-            $this->layout = 'ajax';
-            if(!$this->Tariff->exists($id)) {
-                throw new NotFoundException;
-            }
-            $this->Tariff->Behaviors->load('Containable');
-
-            $contain = array(
-                'Date' => array(
-                    'Trainer' => array (
-                        'Person'
-                    ),
-                    'Account' => array(),
-                ),
-                'Tariff'
-            );
-            if($this->Auth->user('role') == 0) {
-                $contain['Date']['conditions'] = array(
-                    'Date.begin >=' => date('Y-m-d')
-                );
-            }
-
-            $conditions = array(
-                'Tariff.'.$this->Tariff->primaryKey => $id,
-            );
-            $tariff = $this->Tariff->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
-            $this->set(compact('tariff'));
-        } else
-        {
-            throw new AjaxImplementedException;
-        }
-	}
 
 /**
  * add method

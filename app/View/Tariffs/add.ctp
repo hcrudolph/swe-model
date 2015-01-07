@@ -39,45 +39,45 @@
     <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 
     $('.modal').on('hidden.bs.modal', function (e) {
-    $('.modal').remove();
+        $('.modal').remove();
     });
 
     $('#tariffAddForm').submit(function(event) {
-    $.post('<?php echo $this->webroot;?>tariffs/add/', $('#tariffAddForm').serialize(), function(json) {
-    if(json.success == true) {
-    notificateUser(json.message, 'success');
+        $.post('<?php echo $this->webroot;?>tariffs/add/', $('#tariffAddForm').serialize(), function(json) {
+            if(json.success == true) {
+                notificateUser(json.message, 'success');
 
-    $( "#tariffEntries" ).trigger({
-    type:"tariffChanged",
-    tariffId:json.tariffId
-    });
-    $('.modal').modal('hide');
-    } else {
-    notificateUser(json.message);
+                $( "#tariffEntries" ).trigger({
+                    type:"tariffChanged",
+                    tariffId:json.tariffId
+                });
+                $('.modal').modal('hide');
+            } else {
+                notificateUser(json.message);
 
-    //delete old errors
-    $('#tariffAddForm').children().each(function() {
-    $(this).children().each(function() {
-    $(this).children('div').each(function() {
-    $(this).addClass('panel-default').removeClass('panel-danger has-error');
-    $(this).children('.panel-footer').remove();
-    });
-    });
-    });
+                //delete old errors
+                $('#tariffAddForm').children().each(function() {
+                    $(this).children().each(function() {
+                        $(this).children('div').each(function() {
+                            $(this).addClass('panel-default').removeClass('panel-danger has-error');
+                            $(this).children('.panel-footer').remove();
+                        });
+                    });
+                });
 
-    for(var controller in json.errors) {
-    for(var key in json.errors[controller]) {
-    if(json.errors[controller].hasOwnProperty(key)) {
-    notificateUser(json.errors[controller][key]);
-    var ele = $('#tariffAddForm > .'+controller+' > div > .'+key);
-    ele.addClass('panel-danger has-error');
-    ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
-    }
-    }
-    }
-    }
-    }, 'json');
-    event.preventDefault();
+                for(var controller in json.errors) {
+                    for(var key in json.errors[controller]) {
+                        if(json.errors[controller].hasOwnProperty(key)) {
+                            notificateUser(json.errors[controller][key]);
+                            var ele = $('#tariffAddForm > .'+controller+' > div > .'+key);
+                            ele.addClass('panel-danger has-error');
+                            ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+                        }
+                    }
+                }
+            }
+        }, 'json');
+        event.preventDefault();
     });
     <?php echo $this->Html->scriptEnd(); ?>
 </div>
