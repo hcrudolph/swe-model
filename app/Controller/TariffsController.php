@@ -133,7 +133,7 @@ class TariffsController extends AppController {
  */
 	public function edit($id = null) {
         if($this->request->is('ajax')) {
-            if($this->Auth->user('role') == 0) {
+            if($this->Auth->user('role') < 2) {
                 throw new ForbiddenException;
             }
             $this->layout = 'ajax';
@@ -176,7 +176,7 @@ class TariffsController extends AppController {
  */
 	public function delete($id = null) {
         if($this->request->is('ajax')) {
-            if($this->Auth->user('role') == 0) {
+            if($this->Auth->user('role') < 2) {
                 throw new ForbiddenException;
             }
             $this->layout = 'ajax';
