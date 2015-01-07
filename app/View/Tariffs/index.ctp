@@ -2,8 +2,7 @@
     <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="tariffAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
 <?php } ?>
 
-
-<table id="tariffEntries">
+<table id="tariffEntries" class="table">
     <thead>
     <tr>
         <th>Name</th>
