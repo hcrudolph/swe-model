@@ -31,10 +31,10 @@
                         <div class="col-xs-3">
                             <div class="panel panel-default tariff_id">
                                 <div class="panel-heading">Tarif</div>
-                                <select name="data[Course][tariff_id]" class="form-control panel-body" style="padding:0px;">
-                                    <option selected>Tarif</option>
+                                <select name="data[Tariff][tariff_id]" class="form-control panel-body" style="padding:0px;">
+                                    <option selected>-- Tarif --</option>
                                     <?php foreach($tariffs as $tariff) {
-                                        echo '<option value="'.$tariff['Tariff']['id'].'">'.$tariff['Tariff']['description'] . ' ('.$tariff['Tariff']['amount'].')</option>';
+                                        echo '<option value="'.$tariff['Tariff']['id'].'">'.$tariff['Tariff']['description'] . ' ('.$tariff['Tariff']['amount'].'€/Std)</option>';
                                     } ?>
                                 </select>
                             </div>

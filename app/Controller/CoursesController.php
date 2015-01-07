@@ -162,6 +162,10 @@ class CoursesController extends AppController {
 				throw new ForbiddenException;
 			}
 			$this->layout = 'ajax';
+			$this->set('tariffs', $this->Course->Tariff->find('all', array(
+				'fields' => array('Tariff.id', 'Tariff.amount', 'Tariff.description'),
+				'conditions' => array('not' => array ( 'Tariff.course_id' => null))
+			)));
 			if ($this->request->is('post', 'put')) {
 				$this->autoRender = false;
 				$this->layout = null;
@@ -223,6 +227,10 @@ class CoursesController extends AppController {
 			{
 				$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
 				$this->set('course', $this->Course->find('first', $options));
+				$this->set('tariffs', $this->Course->Tariff->find('all', array(
+					'fields' => array('Tariff.id', 'Tariff.amount', 'Tariff.description'),
+					'conditions' => array('not' => array ( 'Tariff.course_id' => null))
+				)));
 			}
 		} else {
 			throw new AjaxImplementedException;
