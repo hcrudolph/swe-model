@@ -80,7 +80,7 @@
                 alert('mobile Device');
             } else {
                 $('#container').css('width', '1000px');
-                $('#container').css('position','absolute);
+                $('#container').css('position','absolute');
                 $('#container').css('margin','0 auto');
                 $('#container').css('left', '50%');
                 $('#container').css('margin-left','-500px');
