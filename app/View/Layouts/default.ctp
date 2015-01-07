@@ -74,6 +74,11 @@
             });
         <?php echo $this->Html->scriptEnd(); ?>
         <!--Jquery-Setup-end-->
+        <!--Setup for non-mobile-devices-->
+        if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $('#container').css('width:1000px;position:absolute;margin:0 auto;left:50%;margin-left:-500px');
+        }
+        <!--Setup end-->
     </head>
     <body>
         <div id="container">
