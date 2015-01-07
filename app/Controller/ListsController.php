@@ -138,7 +138,7 @@ class ListsController extends AppController
     {
         parent::beforeFilter();
         $this->Auth->deny();
-        $this->Auth->allow(array('index', 'trainer', 'mitarbeiter', 'kurse', 'tarife', 'studio'));
+        $this->Auth->allow(array('index', 'trainer', 'mitarbeiter', 'kurse', 'studio'));
         // erlaubt view von Studio, Trainer, Mitarbeitern, Kurse, Preise
     }
 }
