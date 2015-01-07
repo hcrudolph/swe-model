@@ -5,7 +5,6 @@ App::uses('AppController', 'Controller');
  *
  * @property Certificate $Certificate
  * @property PaginatorComponent $Paginator
- * @property SessionComponent $Session
  */
 class CertificatesController extends AppController {
 
@@ -14,7 +13,7 @@ class CertificatesController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	public $components = array('Paginator');
 
 /**
  * index method
@@ -25,7 +24,7 @@ class CertificatesController extends AppController {
         if($this->request->is('ajax')) {
             $this->layout = 'ajax';
 
-            $fields = array("Certificate.description", 'Certificate.id');
+            $fields = array('Certificate.id', 'Certificate.name', 'Certificate.description');
             $certificates = $this->Certificate->find('all', array('fields' => $fields));
             $this->set(compact('certificates'));
         } else
@@ -41,7 +40,7 @@ class CertificatesController extends AppController {
                 throw new NotFoundException;
             }
 
-            $fields = array("Certificate.description", 'Certificate.id');
+            $fields = array('Certificate.id', 'Certificate.name', 'Certificate.description');
             $conditions = array('Certificate.id' => $id);
             $this->set('certificate', $this->Certificate->find('first', array('conditions'=>$conditions, 'fields' => $fields)));
         } else
@@ -63,27 +62,11 @@ class CertificatesController extends AppController {
             if(!$this->Certificate->exists($id)) {
                 throw new NotFoundException;
             }
-            $this->Certificate->Behaviors->load('Containable');
-
-            $contain = array(
-                'Date' => array(
-                    'Trainer' => array (
-                        'Person'
-                    ),
-                    'Account' => array(),
-                ),
-                'Tariff'
-            );
-            if($this->Auth->user('role') == 0) {
-                $contain['Date']['conditions'] = array(
-                    'Date.begin >=' => date('Y-m-d')
-                );
-            }
 
             $conditions = array(
                 'Certificate.'.$this->Certificate->primaryKey => $id,
             );
-            $certificate = $this->Certificate->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+            $certificate = $this->Certificate->find('first', array('conditions'=>$conditions));
             $this->set(compact('certificate'));
         } else
         {
@@ -149,9 +132,12 @@ class CertificatesController extends AppController {
                 $this->response->type('json');
                 $answer = array();
 
-                if ($this->Certificate->save($this->request->data)) {
+
+
+                if ($this->Certificate->saveAll($this->request->data)) {
                     $answer['success'] = true;
                     $answer['message'] = 'Der Zertifikat wurde bearbeitet';
+
                 } else {
                     $answer['success'] = false;
                     $answer['message'] = 'Der Zertifikat konnte nicht bearbeitet werden';
@@ -160,8 +146,18 @@ class CertificatesController extends AppController {
                 echo json_encode($answer);
             } else
             {
-                $options = array('conditions' => array('Certificate.' . $this->Certificate->primaryKey => $id));
-                $this->set('certificate', $this->Certificate->find('first', $options));
+                $this->Certificate->Behaviors->load('Containable');
+
+                $contain = array(
+                    'Account' => array (
+                        'fields' => array('Account.id')
+                    )
+                );
+                $conditions = array('Certificate.' . $this->Certificate->primaryKey => $id);
+                $certificate = $this->Certificate->find('first', array('conditions'=>$conditions, 'contain' => $contain));
+                $this->loadModel('Account');
+                $users = $this->Account->find('all', array('recursive'=>1, 'conditions'=>array('Account.role > '=>0), 'fields'=> array('Account.id', 'Account.username', 'Person.name', 'Person.surname')));
+                $this->set(compact('certificate', 'users'));
             }
         } else {
             throw new AjaxImplementedException;

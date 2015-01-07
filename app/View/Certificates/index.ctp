@@ -57,10 +57,10 @@
     }
 
     function certificateEdit(certificateId) {
-    $.get('<?php echo $this->webroot?>certificates/edit/'+certificateId,function(html) {
-    $('body').append(html);
-    $('body > .modal').modal('show');
-    });
+        $.get('<?php echo $this->webroot?>certificates/edit/'+certificateId,function(html) {
+            $('body').append(html);
+            $('body > .modal').modal('show');
+        });
     }
 
     function certificateAddButtonClick() {
@@ -71,42 +71,40 @@
     }
 
     function certificateEditFormAddSubmitEvent(certificateId) {
-    var editForm = '#certificateEditForm'+certificateId;
-    $(editForm).submit(function(event) {
-    $.post('<?php echo $this->webroot;?>certificates/edit/'+certificateId, $(editForm).serialize(), function(json) {
-    if(json.success == true) {
-    notificateUser(json.message, 'success');
-    $('.modal').modal('hide');
-    $( "#certificateEntries" ).trigger({
-    type:"certificateChanged",
-    certificateId:certificateId
-    });
-    } else {
-    notificateUser(json.message);
+        var editForm = '#certificateEditForm';
+        $(editForm).submit(function(event) {
+            $.post('<?php echo $this->webroot;?>certificates/edit/'+certificateId, $(editForm).serialize(), function(json) {
+                if(json.success == true) {
+                    notificateUser(json.message, 'success');
+                    $('.modal').modal('hide');
+                    $( "#certificateEntries" ).trigger({
+                        type:"certificateChanged",
+                        certificateId:certificateId
+                    });
+                } else {
+                    notificateUser(json.message);
 
-    //delete old errors
-    $(editForm).children().each(function() {
-    $(this).children().each(function() {
-    $(this).children('div').each(function() {
-    $(this).addClass('panel-default').removeClass('panel-danger has-error');
-    $(this).children('.panel-footer').remove();
-    });
-    });
-    });
+                    //delete old errors
+                    $(editForm).find('.'+controller).each(function() {
+                        $(this).find('.panel').each(function() {
+                            $(this).addClass('panel-default').removeClass('panel-danger has-error');
+                            $(this).children('.panel-footer').remove();
+                        });
+                    });
 
-    for(var controller in json.errors) {
-    for(var key in json.errors[controller]) {
-    if(json.errors[controller].hasOwnProperty(key)) {
-    notificateUser(json.errors[controller][key]);
-    var ele = $(editForm+' > .'+controller+' > div > .'+key);
-    ele.addClass('panel-danger has-error');
-    ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
-    }
-    }
-    }
-    }
-    }, 'json');
-    event.preventDefault();
-    });
+                    for(var controller in json.errors) {
+                        for(var key in json.errors[controller]) {
+                            if(json.errors[controller].hasOwnProperty(key)) {
+                                notificateUser(json.errors[controller][key]);
+                                var ele = $(editForm).find('.'+controller).find('.'+key);
+                                ele.addClass('panel-danger has-error');
+                                ele.append('<div class="panel-footer">'+json.errors[controller][key]+'</div>');
+                            }
+                        }
+                    }
+                }
+            }, 'json');
+            event.preventDefault();
+        });
     }
 <?php echo $this->Html->scriptEnd();?>

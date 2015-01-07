@@ -48,4 +48,25 @@ class Certificate extends AppModel {
 			),
 		),
 	);
+
+	/**
+	 * hasAndBelongsToMany associations
+	 *
+	 * @var array
+	 */
+	public $hasAndBelongsToMany = array(
+		'Account' => array(
+			'className' => 'Account',
+			'joinTable' => 'accounts_certificates',
+			'foreignKey' => 'certificate_id',
+			'associationForeignKey' => 'account_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+		)
+	);
 }
