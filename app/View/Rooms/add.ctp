@@ -1,5 +1,5 @@
 <div class="modal fade">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -7,17 +7,11 @@
             </div>
             <div class="modal-body">
                 <form id="roomAddForm">
-                    <div class="control-group room row">
-                        <div class="col-xs-6">
+                    <div class="control-group Room row">
+                        <div class="col-xs-12">
                             <div class="panel panel-default name">
                                 <div class="panel-heading">Raumname</div>
-                                <input type="input" class="form-control panel-body" name="data[room][name]" placeholder="Raumname">
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="panel panel-default description">
-                                <div class="panel-heading">Beschreibung</div>
-                                <textarea name="data[room][description]" class="body form-control panel-body" rows="3" placeholder="Raumbeschreibung"></textarea>
+                                <input type="input" class="form-control panel-body" name="data[Room][name]" placeholder="Raumname">
                             </div>
                         </div>
                     </div>

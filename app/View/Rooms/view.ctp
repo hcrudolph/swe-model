@@ -12,14 +12,4 @@ $roomId = $room['Room']['id'];
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Raumbeschreibung</h3>
-            </div>
-            <div class="panel-body">
-                <?php echo nl2br(h($room['Room']['description'])); ?>
-            </div>
-        </div>
-    </div>
 </div>

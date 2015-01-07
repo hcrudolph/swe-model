@@ -62,27 +62,11 @@ class RoomsController extends AppController {
             if(!$this->Room->exists($id)) {
                 throw new NotFoundException;
             }
-            $this->Room->Behaviors->load('Containable');
-
-            $contain = array(
-                'Date' => array(
-                    'Trainer' => array (
-                        'Person'
-                    ),
-                    'Account' => array(),
-                ),
-                'Tariff'
-            );
-            if($this->Auth->user('role') == 0) {
-                $contain['Date']['conditions'] = array(
-                    'Date.begin >=' => date('Y-m-d')
-                );
-            }
 
             $conditions = array(
                 'Room.'.$this->Room->primaryKey => $id,
             );
-            $room = $this->Room->find('first', array('conditions'=>$conditions, 'contain'=>$contain));
+            $room = $this->Room->find('first', array('conditions'=>$conditions));
             $this->set(compact('room'));
         } else
         {
