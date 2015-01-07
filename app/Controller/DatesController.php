@@ -268,7 +268,7 @@ class DatesController extends AppController {
                     $answer['success'] = false;
                     $answer['error'] = 'warning';
                     $answer['message'] = 'Sie sind bereits angemeldet.';
-                } elseif (count($date['Account']) < $this->Date->field('maxcount')) {
+                } elseif (count($date['Account']) <= $date['Date']['maxcount']) {
                     if($this->Date->habtmAdd('Account', $id, $signupId))
                     {
                         $answer['success'] = true;
