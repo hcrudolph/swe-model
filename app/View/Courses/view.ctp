@@ -12,23 +12,13 @@ $courseId = $course['Course']['id'];
             </div>
         </div>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Schwierigkeitsgrad</h3>
             </div>
             <div class="panel-body">
                 <?php echo h($course['Course']['level']); ?>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Tarif</h3>
-            </div>
-            <div class="panel-body">
-                <?php echo h($course['Course']['tariff_id']); ?>
             </div>
         </div>
     </div>
