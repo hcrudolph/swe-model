@@ -28,11 +28,10 @@
     position: absolute;
     width: 300px;
     box-sizing: border-box;
+    top: 5px;
     left: 500px;
     height: 200px;
     border: 1px solid darkgray;
-/*padding-top: 20px;
-padding-bottom: 30px;*/
 }
 
 #authentification{
@@ -106,8 +105,13 @@ div.postEntry {
 
 #footer {
     position: absolute;
-    visibility: hidden;
-
+    top: 616px;
+    width: 200px;
+    padding: 5px;
+    border: 1px darkgray solid ;
+    border-radius: 5px;
+    margin:15px 5px 10px 0px;
+    box-shadow: 0px 0px 5px darkgray;
 }
 
 .jumbotron {
@@ -120,3 +124,8 @@ div.postEntry {
     border: solid 2px darkgray;
     border-radius: 5px;
 }
+
+#openingTimes>tbody>tr>td { line-height: 1; padding: 10px 5px 10px 5px; }
+.openheader {text-align: center; font-weight: bold; font-size: 175%;}
+.openvon {text-align: center;}
+.openbis {text-align: center;}

@@ -99,40 +99,29 @@
                     loadPostsBar('<?php echo $this->webroot; ?>');
                 }, 10000*60); //reload every 10 Minutes
                 <?php echo $this->Html->scriptEnd(); ?>
-                <style>
-                    #openingTimes>tbody>tr>td {
-                        line-height: 0.9;
-                    }
-                </style>
                 <table id="openingTimes" class="table table-striped">
                     <tbody>
                         <tr>
-                            <td>Montag</td>
-                            <td>13-15</td>
+                            <td colspan="3" class="openheader" height=44px >Öffnungszeiten</td>
                         </tr>
                         <tr>
-                            <td>Dienstag</td>
-                            <td>13-15</td>
+                            <td height=30px ></td>
+                            <td class="openvon" height=30px style="padding:8px;">von</td>
+                            <td class="openbis" height=30px style="padding:8px;">bis</td>
+                        <tr>
+                            <td class="opentage" height=40px style="padding:5px 5px 5px 15px;">Montag bis <br>Donnerstag</td>
+                            <td class="openvon" height=40px style="padding:13px 7px 13px 7px;">7:00 Uhr </td>
+                            <td class="openbis" height=40px style="padding:13px 7px 13px 7px;">22:00 Uhr</td>
                         </tr>
                         <tr>
-                            <td>Mittwoch</td>
-                            <td>13-15</td>
+                            <td class="opentage" height=40px style="padding:5px 5px 5px 15px;">Freitag und <br>Samstag</td>
+                            <td class="openvon" height=40px style="padding:13px 7px 13px 7px;">7:00 Uhr </td>
+                            <td class="openbis" height=40px style="padding:13px 7px 13px 7px;">24:00 Uhr</td>
                         </tr>
                         <tr>
-                            <td>Donnerstag</td>
-                            <td>13-15</td>
-                        </tr>
-                        <tr>
-                            <td>Freitag</td>
-                            <td>13-15</td>
-                        </tr>
-                        <tr>
-                            <td>Samstag</td>
-                            <td>13-15</td>
-                        </tr>
-                        <tr>
-                            <td>Sonntag</td>
-                            <td>13-15</td>
+                            <td class="opentage" height=40px style="padding:13px 5px 13px 15px;">Sonntag</td>
+                            <td class="openvon" height=40px style="padding:13px 7px 13px 7px;">8:00 Uhr </td>
+                            <td class="openbis" height=40px style="padding:13px 7px 13px 7px;">20:00 Uhr</td>
                         </tr>
                     </tbody>
                 </table>
@@ -154,7 +143,15 @@
             </div>
 
             <div id="footer">
-                footer
+                <b>SWE Fitness GmbH</b><br>
+                Gustav-Freytag-Str. 42<br>
+                04277 Leipzig<br>
+<br>
+                <b>Telefon:</b><br> +49 (0) 1806 - 6666-66<br>
+                <b>Telefax:</b><br> +49 (0) 1806 - 6666-67<br>
+<br>
+                <b>E-Mail:</b> <br>info@swe-fitness.com<br>
+                <b>Internet:</b> <br><a href="http://82.165.45.70/dev/swe-project/">www.swe-fitness.com</a><br>
             </div>
         </div>
     </body>

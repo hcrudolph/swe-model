@@ -29,7 +29,3 @@
             massa justo sit amet risus.</p>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <p>Öffnungszeiten</p>
-    </div>
