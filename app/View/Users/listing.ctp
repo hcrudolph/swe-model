@@ -27,7 +27,10 @@ $userCount = sizeof($usersListing);
                 </h4>
                 <div class="btn-group pull-right">
                     <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="userEdit('<?php echo $this->webroot;?>users/edit/',<?php echo $accId; ?>)">Bearbeiten</a>
+                    <?php
+                    if(!empty($user) AND $user['role'] > 1) { ?>
                     <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="userDelete(<?php echo $accId; ?>);">Löschen</a>
+                    <?php } ?>
                 </div>
             </div>
             <div id="userEntryCollapse<?php echo $accId;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="userEntryHeading<?php echo $accId; ?>">
