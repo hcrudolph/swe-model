@@ -13,7 +13,7 @@ if(!empty($user) AND $user['role'] > 0) { ?>
 </div>
 <nav>
     <ul class="pagination">
-        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        <li <?php echo (($page==0)?'class="disabled"':'');?>><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
         <?php
         for($i=0;$i<$postCount;$i=$i+$limit)
         {
