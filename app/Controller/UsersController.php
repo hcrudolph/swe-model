@@ -165,8 +165,7 @@ class UsersController extends AppController
                 $this->request->data['Account']['id'] = $id;
                 
                 if ($id != $this->Auth->user('id') && $this->Auth->user('role') == 1) {
-                    if(empty($this->request->data['Account']['password']) && empty($this->request->data['Account']['passwordRepeat']))
-                    {
+                    if(empty($this->request->data['Account']['password']) && empty($this->request->data['Account']['passwordRepeat'])) {
                         unset($this->request->data['Account']['password']);
                         unset($this->request->data['Account']['passwordRepeat']);
                     }
