@@ -27,8 +27,7 @@ class Account extends AppModel {
  */
 
     public function beforeSave($options = array()) {
-    	if(array_key_exists ( 'password' , $this->data[$this->alias])
-    	{
+    	if(array_key_exists ( 'password' , $this->data[$this->alias])) {
 		if (!(!empty($this->data[$this->alias]['password']) || is_numeric($this->data[$this->alias]['password']))) {
 			unset($this->data[$this->alias]['password']);
 		}
