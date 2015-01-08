@@ -157,20 +157,23 @@ class UsersController extends AppController
                     throw new ForbiddenException;
                 }
             }
-            if ($id != $this->Auth->user('id') && $this->Auth->user('role') == 1) {
-                if(empty($this->request->data['Account']['password']))
-                    unset($this->request->data['Account']['password']);
-
-                if(isset($this->request->data['Account']['role']))
-                    unset($this->request->data['Account']['role']);
-            }
             if(!$this->Account->exists($id))
             {
                 throw new NotFoundException;
             }
             if ($this->request->is(array('post', 'put'))) {
                 $this->request->data['Account']['id'] = $id;
-
+                
+                if ($id != $this->Auth->user('id') && $this->Auth->user('role') == 1) {
+                    if(empty($this->request->data['Account']['password']) && empty($this->request->data['Account']['passwordRepeat']))
+                    {
+                        unset($this->request->data['Account']['password']);
+                        unset($this->request->data['Account']['passwordRepeat']);
+                    }
+    
+                    if(isset($this->request->data['Account']['role']))
+                        unset($this->request->data['Account']['role']);
+                }
                 //related Model needs id
                 $conditions = array('Person.account_id' => $this->request->data['Account']['id']);
                 $fields = array('Person.id');
