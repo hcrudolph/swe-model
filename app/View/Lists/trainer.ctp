@@ -1,4 +1,5 @@
 <div id="trainer">
+    <div class="row">
     <?php
     $trenner = '';
     $i = 0;
@@ -46,6 +47,7 @@
         $i++;
     }
     ?>
+    </div>
 </div>
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
 $('.thumbnail img').each(function() {
