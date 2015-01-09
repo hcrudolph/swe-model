@@ -10,22 +10,23 @@
     <div class="col-md-4">
         <h2>Kursangebot</h2>
 
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
+        <p>Unser umfangreiches Kursangebot bietet genau für Ihre Ansprüche das passende Training.
+        Bringen Sie sich mit genau auf sie abgestimmte Kursen in Bestform. Zum Beispiel mit dem
+        Bodypump-Langhanteltraining oder BODYFIT. Trainieren Sie Ihre Körpermitte mit CXWorx.
+        Oder verbessern Sie Ihre Koordniation mit Tae Bo, dem Trendsport aus den USA.</p>
     </div>
     <div class="col-md-4">
         <h2>Kompetente Trainer</h2>
 
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
+        <p>Unsere kompententen Trainer stehen ihnen nicht nur während den Kursen jederzeit helfend zur Seite,
+        sondern unterstützen sich auch bei der Erstellung ihres individuellen Trainingsplans.</p>
     </div>
     <div class="col-md-4">
         <h2>Lifestyle @ SWE-Fitness</h2>
 
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
-            felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
-            massa justo sit amet risus.</p>
+        <p>Bei SWE-Fitness trainieren Sie auf höchstem Niveau. In ansprechendem Ambiente bietet Ihnen das
+        Studio unter anderem eine große Auswahl an neuesten Trainingsgeräten, ein vielseitiges Kursangebot,
+        persönliche Beratung und viele professionelle Trainer – und das alles im Herzen von Leipzig. Erreichen
+        Sie gemeinsam mit unserem Trainer-Team Ihre persönlichen Ziele.</p>
     </div>
 </div>

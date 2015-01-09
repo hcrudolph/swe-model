@@ -147,8 +147,8 @@
                 Gustav-Freytag-Str. 42<br>
                 04277 Leipzig<br>
 <br>
-                <b>Telefon:</b><br> +49 (0) 1806 - 6666-66<br>
-                <b>Telefax:</b><br> +49 (0) 1806 - 6666-67<br>
+                <b>Telefon:</b><br> +49 (0) 0000 - 0000-01<br>
+                <b>Telefax:</b><br> +49 (0) 0000 - 0000-02<br>
 <br>
                 <b>E-Mail:</b> <br>info@swe-fitness.com<br>
                 <b>Internet:</b> <br><a href="http://82.165.45.70/dev/swe-project/">www.swe-fitness.com</a><br>
