@@ -16,21 +16,6 @@ class UsersController extends AppController
     var $uses = array('Account', 'Person');
 
     /**
-     * index method
-     *
-     * @throws ForbiddenException, AjaxImplementedException
-     * @return void
-     */
-    public function index()
-    {
-        if ($this->request->is('ajax')) {
-            $this->layout = 'ajax';
-        } else {
-            throw new AjaxImplementedException;
-        }
-    }
-
-    /**
      * listing method
      *
      * @throws ForbiddenException, AjaxImplementedException, NotFoundException
