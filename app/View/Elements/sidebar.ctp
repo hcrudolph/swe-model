@@ -28,21 +28,21 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
 
 
 <?php echo $this->Html->scriptStart(array('inline' => true)); ?>
-$('#sidebar > .nav-pills a').click(function (e) {
-    e.preventDefault();
+    $('#sidebar > .nav-pills a').click(function (e) {
+        e.preventDefault();
 
-    var url = $(this).attr("data-url");
-    var href = this.hash;
-    var pane = $(this);
+        var url = $(this).attr("data-url");
+        var href = this.hash;
+        var pane = $(this);
 
-    // ajax load from data-url
-    $(href).load(url,function(result){
-        pane.tab('show');
+        // ajax load from data-url
+        $(href).load(url,function(result){
+            pane.tab('show');
+        });
     });
-});
 
-// Content für angezeigten Tab
-$('#content').load('<?php echo $this->webroot;?>lists/studio',function(result){
-    $('#sidebar > .active a').tab('show');
-});
+    //Laden der aktiven Seite
+    $('#content').load($('#sidebar > .active a').attr('data-url'), function() {
+        $('#sidebar > .active a').tab('show');
+    });
 <?php echo $this->Html->scriptEnd(); ?>
