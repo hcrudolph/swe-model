@@ -56,20 +56,19 @@ class Course extends AppModel {
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Die Kursbeschreibung darf nicht leer sein.',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'required' => true
 			),
 		),
 		'tariff_id' => array(
+			'required',
 			'numeric' => array(
 				'rule' => array('numeric'),
 				'message' => 'Der Kurs benötigt ein Tarifmodell für den Trainer.',
-				//'allowEmpty' => false,
-				//'required' => true,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'exists'=>array(
+				'model'=>'Tariff',
+				'field'=>'id',
+				'message'=>'Invalider Tarif'
 			),
 		),
 	);

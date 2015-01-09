@@ -20,6 +20,16 @@ class AccountsTraining extends AppModel {
  * @var array
  */
 	public $validate = array(
+		'account_id' => array(
+			'account_id' => array(
+				'required',
+				'exists'=>array(
+					'model'=>'Account',
+					'field'=>'id',
+					'message'=>'Invalider Account'
+				)
+			)
+		),
 		'downloadlink' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
