@@ -120,33 +120,14 @@ class Date extends AppModel {
 		),
 		'room_id' => array(
 			'roomFree'    => array(
-				'rule'    => array('roomFree'),
+				'rule'      => array('roomFree'),
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
-			),
-			'exists'=>array(
-				'model'=>'Room',
-				'field'=>'id',
-				'message'=>'Invalider Raum'
 			)
 		),
 		'director' => array(
-			'required',
-			'exists'=>array(
-				'model'=>'Account',
-				'field'=>'id',
-				'message'=>'Invalider Account'
-			),
-			'mitarbeiterFree' => array(
-				'rule' => array('mitarbeiterFree'),
+			'mitarbeiterFree'    => array(
+				'rule'      => array('mitarbeiterFree'),
 				'message' => 'In diesem Zeitraum ist der Mitarbeiter bereits verplant.',
-			)
-		),
-		'course_id' => array(
-			'required',
-			'exists'=>array(
-				'model'=>'Course',
-				'field'=>'id',
-				'message'=>'Invalid Course'
 			)
 		),
 		'end' => array(
@@ -277,6 +258,8 @@ class Date extends AppModel {
 		$count = $this->find('count', array('conditions' => $conditions));
 		return (($count==0)?true:false);
 	}
+
+
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 

@@ -1,18 +1,19 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Course Model
+ * Bill Model
  *
- * @property Date $Date
+ * @property Account $Account
+ * @property Tariff $Tariff
  */
-class Course extends AppModel {
+class Bill extends AppModel {
 
 /**
  * Display field
  *
  * @var string
  */
-	public $displayField = 'name';
+	public $displayField = 'id';
 
 /**
  * Validation rules
@@ -20,54 +21,48 @@ class Course extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
+		'year' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Der Kursname darf nicht leer sein.',
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
+				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'level' => array(
+		'month' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Der Schwierigkeitsgrad darf nicht leer sein.',
+				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'numeric' => array(
-				'rule' => array('numeric'),
-				'message' => 'Bitte geben Sie eine valide Ganzzahl an.',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'range' => array(
-				'rule' => array('range', -1, 6),
-				'message' => 'Der Schwierigkeitsgrad muss einer Zahl zwischen 0 und 5 entsprechen.'
-			)
-		),
-		'description' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				'message' => 'Die Kursbeschreibung darf nicht leer sein.',
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
+				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'tariff_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				'message' => 'Der Kurs benötigt ein Tarifmodell für den Trainer.',
+		'payed' => array(
+			'boolean' => array(
+				'rule' => array('boolean'),
+				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
-				//'required' => true,
+				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -77,38 +72,39 @@ class Course extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * hasMany associations
+ * belongsTo associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'Date' => array(
-			'className' => 'Date',
-			'foreignKey' => 'course_id',
-			'dependent' => false,
+	public $belongsTo = array(
+		'Account' => array(
+			'className' => 'Account',
+			'foreignKey' => 'account_id',
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'order' => ''
 		)
 	);
-	public $hasOne = array(
+
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+	public $hasAndBelongsToMany = array(
 		'Tariff' => array(
 			'className' => 'Tariff',
-			'foreignKey' => 'course_id',
-			'dependent' => false,
+			'joinTable' => 'bills_tariffs',
+			'foreignKey' => 'bill_id',
+			'associationForeignKey' => 'tariff_id',
+			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
-			'exclusive' => '',
 			'finderQuery' => '',
-			'counterQuery' => ''
 		)
 	);
+
 }

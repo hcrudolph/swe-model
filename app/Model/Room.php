@@ -24,8 +24,10 @@ class Room extends AppModel {
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Geben Sie einen Namen für den Raum an.',
-				'allowEmpty' => false,
-				'required' => true
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);

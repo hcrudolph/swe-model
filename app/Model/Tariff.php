@@ -20,32 +20,32 @@ class Tariff extends AppModel {
 	 * @var array
 	 */
 	public $validate = array(
-		'course_id' => array(
-			'required',
-			'exists'=>array(
-				'model'=>'Course',
-				'field'=>'id',
-				'message'=>'Invalider Kurs'
-			),
-		),
 		'description' => array(
-			'required',
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Sie müssen eine Tarifbeschreibung angeben',
-				'allowEmpty' => false,
-				'required' => true
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'amount' => array(
-			'required',
 			'numeric' => array(
 				'rule' => array('numeric'),
-				'message' => 'Der Betrag muss numerisch sein',
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				'message' => 'Sie müssen einen Betrag angeben',
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);
