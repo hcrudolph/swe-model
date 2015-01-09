@@ -67,7 +67,7 @@ class Course extends AppModel {
 				'rule' => array('notEmpty'),
 				'message' => 'Der Kurs benötigt ein Tarifmodell für den Trainer.',
 				//'allowEmpty' => false,
-				//'required' => false,
+				'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
