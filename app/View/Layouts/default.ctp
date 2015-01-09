@@ -119,9 +119,9 @@
                             <td class="openbis" height=40px style="padding:13px 7px 13px 7px;">24:00 Uhr</td>
                         </tr>
                         <tr>
-                            <td class="opentage" height=40px style="padding:13px 5px 13px 15px;">Sonntag</td>
-                            <td class="openvon" height=40px style="padding:13px 7px 13px 7px;">8:00 Uhr </td>
-                            <td class="openbis" height=40px style="padding:13px 7px 13px 7px;">20:00 Uhr</td>
+                            <td class="opentage" height=37px style="padding:12px 5px 11px 15px;">Sonntag</td>
+                            <td class="openvon" height=37px style="padding:12px 7px 11px 7px;">8:00 Uhr </td>
+                            <td class="openbis" height=37px style="padding:12px 7px 11px 7px;">20:00 Uhr</td>
                         </tr>
                     </tbody>
                 </table>

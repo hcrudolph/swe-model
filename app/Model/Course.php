@@ -62,6 +62,16 @@ class Course extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'tariff_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Der Kurs benötigt ein Tarifmodell für den Trainer.',
+				//'allowEmpty' => false,
+				//'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

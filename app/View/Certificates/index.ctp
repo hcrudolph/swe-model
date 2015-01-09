@@ -70,7 +70,7 @@
                     notificateUser(json.message);
 
                     //delete old errors
-                    $(editForm).find('.'+controller).each(function() {
+                    $(editForm).find('.Certificate').each(function(){
                         $(this).find('.panel').each(function() {
                             $(this).addClass('panel-default').removeClass('panel-danger has-error');
                             $(this).children('.panel-footer').remove();
