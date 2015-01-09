@@ -20,7 +20,7 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
         if(!empty($user)){
         ?>
         <?php echo (($user['role'] > 0)?'<li role="presentation"><a href="#content" data-url="'.$this->webroot.'studio"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Studiomanagement</a></li>':'');?>
-        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>users"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Usermanagement</a></li>
+        <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>users/listing/<?php echo $user['id']; ?>"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Usermanagement</a></li>
         <li role="presentation"><a href="#content" data-url="<?php echo $this->webroot;?>Courses"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> Kursmanagement</a></li>
         <?php } ?>
     </ul>
