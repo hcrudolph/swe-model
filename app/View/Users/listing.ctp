@@ -28,7 +28,7 @@ $userCount = sizeof($usersListing);
                 <div class="btn-group pull-right">
                     <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="userEdit('<?php echo $this->webroot;?>users/edit/',<?php echo $accId; ?>)">Bearbeiten</a>
                     <?php
-                    if(!empty($user) AND $user['role'] > 1) { ?>
+                    if(!empty($user) AND $user['role'] > 0) { ?>
                     <a class="btn btn-default btn-sm" href="javascript:void(0)" onclick="userDelete(<?php echo $accId; ?>);">Löschen</a>
                     <?php } ?>
                 </div>

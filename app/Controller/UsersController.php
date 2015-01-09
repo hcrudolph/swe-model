@@ -205,9 +205,39 @@ class UsersController extends AppController
     {
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
-            if ($this->Auth->user('role') < 2) {
+            $deleteUser = $this->Account->find('first', array('conditions'=> array('Account.id' => $id), 'fields'=>array('Account.role')));
+            $userrolle = $deleteUser['Account']['role'];
+            if ($this->Auth->user('role') == 0) {
                 throw new ForbiddenException;
-            } else {
+            }
+            elseif ($this->Auth->user('role') == 1) {
+                if ($userrolle > 0) {
+                    throw new ForbiddenException;
+                }
+                else {
+                    if ($this->request->is(array('post', 'delete'))) {
+                        $this->autoRender = false;
+                        $this->layout = null;
+                        $this->response->type('json');
+                        $answer = array();
+                        //Löschen des Users über alle verknüpften Models
+                        if(!is_null($id) AND $this->Account->delete($id, true))
+                        {
+                            $answer['success'] = true;
+                            $answer['message'] = "Der Account und alle zugehörigen Daten wurden gelöscht .. Rolle: ". $userrolle;
+                        } else
+                        {
+                            $answer['success'] = false;
+                            $answer['message'] = "Der Account und alle zugehörigen Daten konnten nicht gelöscht werden";
+                        }
+                        echo json_encode($answer);
+                    } else
+                    {
+                        throw new MethodNotAllowedException;
+                    }
+                }
+            }
+            else {
                 if ($this->request->is(array('post', 'delete'))) {
                     $this->autoRender = false;
                     $this->layout = null;
