@@ -93,6 +93,14 @@ class Post extends AppModel {
  * @var array
  */
 	public $validate = array(
+		'account_id' => array(
+			'required',
+			'exists'=>array(
+				'model'=>'Account',
+				'field'=>'id',
+				'message'=>'Invalider Account'
+			),
+		),
 		'heading' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
