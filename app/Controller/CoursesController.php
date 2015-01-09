@@ -169,10 +169,6 @@ class CoursesController extends AppController {
 			if ($this->request->is('post', 'put')) {
 				$this->autoRender = false;
 				$this->layout = null;
-				if(!$this->Course->Tariff->exists($this->request->data['Course']['tariff_id']))
-				{
-					throw new NotFoundException;
-				}
 				$this->response->type('json');
 				$answer = array();
 
@@ -209,10 +205,6 @@ class CoursesController extends AppController {
 			$this->layout = 'ajax';
 			if ($this->request->is('post')) {
 				if(!$this->Course->exists($id))
-				{
-					throw new NotFoundException;
-				}
-				if(!$this->Course->Tariff->exists($this->request->data['Course']['tariff_id']))
 				{
 					throw new NotFoundException;
 				}
