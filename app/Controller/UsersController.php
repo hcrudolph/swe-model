@@ -193,7 +193,6 @@ class UsersController extends AppController
         }
     }
 
-
     /**
      * delete method
      *
@@ -224,7 +223,7 @@ class UsersController extends AppController
                         if(!is_null($id) AND $this->Account->delete($id, true))
                         {
                             $answer['success'] = true;
-                            $answer['message'] = "Der Account und alle zugehörigen Daten wurden gelöscht .. Rolle: ". $userrolle;
+                            $answer['message'] = "Der Account und alle zugehörigen Daten wurden gelöscht.";
                         } else
                         {
                             $answer['success'] = false;
