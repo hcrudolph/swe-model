@@ -1,14 +1,12 @@
 <div id="studioTabbar" role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#studioAccounts" data-url="<?php echo $this->webroot; ?>Users/listing/">Accounts</a></li>
-        <li role="presentation"><a href="#studioCourses" data-url="<?php echo $this->webroot;?>Courses/">Kurse</a></li>
         <li role="presentation"><a href="#studioTariffs" data-url="<?php echo $this->webroot; ?>Tariffs/">Tarife</a></li>
         <li role="presentation"><a href="#studioCertificates" data-url="<?php echo $this->webroot; ?>Certificates/">Zertifikate</a></li>
         <li role="presentation"><a href="#studioRooms" data-url="<?php echo $this->webroot; ?>Rooms/">Räume</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="studioAccounts"></div>
-        <div role="tabpanel" class="tab-pane fade" id="studioCourses"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioTariffs"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioCertificates"></div>
         <div role="tabpanel" class="tab-pane fade" id="studioRooms"></div>

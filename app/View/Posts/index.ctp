@@ -16,8 +16,13 @@ if(!empty($user) AND $user['role'] > 0) { ?>
         <?php
         for($i=0;$i<$postCount;$i=$i+$limit)
         {
-            echo '<li '.(($page==$i/$limit)?'class="active"':'').'><a href="javascript:void(0);" onclick="loadPage('.($i/$limit).')">'.(($i/$limit)+1).'<span class="sr-only">(current)</span></a></li>';
-        }
+            if ($postCount > 5) {
+                echo '<li ' . (($page == $i / $limit) ? 'class="active"' : '') . '><a href="javascript:void(0);" onclick="loadPage(' . ($i / $limit) . ')">' . (($i / $limit) + 1) . '<span class="sr-only">(current)</span></a></li>';
+            }
+            else if ($postCount == 0) {
+                echo '<span class="label label-info">Es sind keine Einträge vorhanden.</span>';
+            }
+         }
         ?>
     </ul>
 </nav>
