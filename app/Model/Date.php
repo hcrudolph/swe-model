@@ -124,6 +124,14 @@ class Date extends AppModel {
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
 			)
 		),
+        /*
+        'course_id' => array(
+                'exists' => array('model'=>'Course', 'field'=>'id',
+                'message' => 'Invalid course ID'
+                )
+
+        ),
+        */
 		'director' => array(
 			'mitarbeiterFree'    => array(
 				'rule'      => array('mitarbeiterFree'),
