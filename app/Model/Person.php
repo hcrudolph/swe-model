@@ -73,14 +73,6 @@ class Person extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'account_id' => array(
-			'required',
-			'exists'=>array(
-				'model'=>'Account',
-				'field'=>'id',
-				'message'=>'Invalider Account'
-			),
-		),
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
