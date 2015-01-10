@@ -189,6 +189,8 @@ class UsersController extends AppController
                         unset($this->request->data['Account']['password']);
                         unset($this->request->data['Account']['passwordRepeat']);
                     }
+                    if (isset($this->request->data['Account']['username']))
+                        unset($this->request->data['Account']['username']);
                     if (isset($this->request->data['Account']['password']))
                         unset($this->request->data['Account']['password']);
                     if (isset($this->request->data['Account']['passwordRepeat']))
@@ -197,10 +199,14 @@ class UsersController extends AppController
                         unset($this->request->data['Account']['role']);
                     if(isset($this->request->data['Person']['name']))
                         unset($this->request->data['Person']['name']);
+                    if(isset($this->request->data['Person']['email']))
+                        unset($this->request->data['Person']['email']);
                     if(isset($this->request->data['Person']['surname']))
                         unset($this->request->data['Person']['surname']);
                     if(isset($this->request->data['Person']['plz']))
                         unset($this->request->data['Person']['plz']);
+                    if(isset($this->request->data['Person']['phone']))
+                        unset($this->request->data['Person']['phone']);
                     if(isset($this->request->data['Person']['city']))
                         unset($this->request->data['Person']['city']);
                     if(isset($this->request->data['Person']['street']))

@@ -16,7 +16,7 @@ $accId = $account['id'];
                         <div class="col-xs-6">
                             <div class="panel panel-default username">
                                 <div class="panel-heading">Username</div>
-                                <input type="input" class="form-control" name="data[Account][username]" value="<?php echo $account['username']; ?>" placeholder="Username">
+                                <input type="input" class="form-control" name="data[Account][username]" value="<?php echo $account['username']; ?>" <?php echo (($user['role'] < $account['role'])?'disabled':'')?> placeholder="Username">
                             </div>
                         </div>
                         <div class="col-xs-6">
@@ -34,13 +34,13 @@ $accId = $account['id'];
                         <div class="col-xs-6">
                             <div class="panel panel-default password">
                                 <div class="panel-heading">Passwort</div>
-                                <input type="password" class="form-control panel-body" name="data[Account][password]" placeholder="Passwort">
+                                <input type="password" class="form-control panel-body" name="data[Account][password]" <?php echo (($user['role'] < $account['role'])?'disabled':'')?> placeholder="Passwort">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default passwordRepeat">
                                 <div class="panel-heading">Passwort wiederholen</div>
-                                <input type="password" class="form-control panel-body" name="data[Account][passwordRepeat]" placeholder="Passwort wiederholen">
+                                <input type="password" class="form-control panel-body" name="data[Account][passwordRepeat]" <?php echo (($user['role'] < $account['role'])?'disabled':'')?> placeholder="Passwort wiederholen">
                             </div>
                         </div>
                     </div>
@@ -48,55 +48,55 @@ $accId = $account['id'];
                         <div class="col-xs-6">
                             <div class="panel panel-default email">
                                 <div class="panel-heading">Email</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][email]" value="<?php echo $person['email']; ?>" placeholder="Email">
+                                <input type="input" class="form-control panel-body" name="data[Person][email]" value="<?php echo $person['email']; ?>" <?php echo (($user['role'] < $account['role'])?'disabled':'')?> placeholder="Email">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default name">
                                 <div class="panel-heading">Nachname</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][name]" value="<?php echo $person['name']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Nachname">
+                                <input type="input" class="form-control panel-body" name="data[Person][name]" value="<?php echo $person['name']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Nachname">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default surname">
                                 <div class="panel-heading">Vorname</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][surname]" value="<?php echo $person['surname']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Vorname">
+                                <input type="input" class="form-control panel-body" name="data[Person][surname]" value="<?php echo $person['surname']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Vorname">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default phone">
                                 <div class="panel-heading">Telefon/Handy</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][phone]" value="<?php echo $person['phone']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Telefon/Handy">
+                                <input type="input" class="form-control panel-body" name="data[Person][phone]" value="<?php echo $person['phone']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Telefon/Handy">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default plz">
                                 <div class="panel-heading">Postleitzahl</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][plz]" value="<?php echo $person['plz']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="PLZ">
+                                <input type="input" class="form-control panel-body" name="data[Person][plz]" value="<?php echo $person['plz']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="PLZ">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default city">
                                 <div class="panel-heading">Stadt</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][city]" value="<?php echo $person['city']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Stadt">
+                                <input type="input" class="form-control panel-body" name="data[Person][city]" value="<?php echo $person['city']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Stadt">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default street">
                                 <div class="panel-heading">Straße</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][street]" value="<?php echo $person['street']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Straße">
+                                <input type="input" class="form-control panel-body" name="data[Person][street]" value="<?php echo $person['street']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Straße">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default housenumber">
                                 <div class="panel-heading">Hausnummer</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][housenumber]" value="<?php echo $person['housenumber']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Hausnummer">
+                                <input type="input" class="form-control panel-body" name="data[Person][housenumber]" value="<?php echo $person['housenumber']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Hausnummer">
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="panel panel-default hnextra">
                                 <div class="panel-heading">Hausnummerzusatz</div>
-                                <input type="input" class="form-control panel-body" name="data[Person][hnextra]" value="<?php echo $person['hnextra']; ?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Zusatz">
+                                <input type="input" class="form-control panel-body" name="data[Person][hnextra]" value="<?php echo $person['hnextra']; ?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Zusatz">
                             </div>
                         </div>
                         <div class="col-xs-6">
@@ -106,7 +106,7 @@ $accId = $account['id'];
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </span>
-                                    <input type="text" name="data[Person][birthdate]" class="form-control" value="<?php echo $person['birthdate'];?>" <?php echo (($user['role']==0)?'disabled':'')?> placeholder="Geburtsdatum">
+                                    <input type="text" name="data[Person][birthdate]" class="form-control" value="<?php echo $person['birthdate'];?>" <?php echo ((($user['role'] < $account['role']) OR $user['role']== 0)?'disabled':'')?> placeholder="Geburtsdatum">
                                 </div>
                             </div>
                         </div>
