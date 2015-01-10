@@ -24,7 +24,7 @@
             if($('#tariffIndexEntry'+event.tariffId).length) {
                 $('#tariffIndexEntry'+event.tariffId).replaceWith(view);
             } else {
-                $('#tariffEntries').prepend(view);
+                $('#tariffEntries > tbody').prepend(view);
             }
         });
     });
