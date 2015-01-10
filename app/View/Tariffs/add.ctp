@@ -1,5 +1,5 @@
 <div class="modal fade">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -7,17 +7,17 @@
             </div>
             <div class="modal-body">
                 <form id="tariffAddForm">
-                    <div class="control-group tariff row">
-                        <div class="col-xs-12">
+                    <div class="control-group Tariff row">
+                        <div class="col-xs-6">
                             <div class="panel panel-default description">
                                 <div class="panel-heading">Beschreibung</div>
-                                <textarea name="data[tariff][description]" class="body form-control panel-body" rows="3" placeholder="Tarifbeschreibung"></textarea>
+                                <input type="input" class="form-control panel-body" name="data[Tariff][description]" placeholder="Beschreibung">
                             </div>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-6">
                             <div class="panel panel-default description">
                                 <div class="panel-heading">Betrag</div>
-                                <textarea name="data[tariff][amount]" class="body form-control panel-body" rows="3" placeholder="Betrag"></textarea>
+                                <input type="input" class="form-control panel-body" name="data[Tariff][amount]" placeholder="Betrag">
                             </div>
                         </div>
                     </div>
