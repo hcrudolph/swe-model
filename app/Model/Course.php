@@ -71,8 +71,18 @@ class Course extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+            'TariffExists' => array (
+                'rule' => array('TariffExists'),
+                'message' => 'Es existiert kein Tarifmodell für diesen Kurs.',
+            )
 		),
 	);
+
+    public function TariffExists() {
+        if(!$this->Tariff->exists())
+            return true;
+    }
+
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 

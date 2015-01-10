@@ -152,8 +152,18 @@ class Post extends AppModel {
 				'rule'      => array('endBiggerEqual'),
 				'message' => 'Das Endedatum muss mindestens dem Beginndatum entsprechen.',
 			)
-		)
+		),
+        'account_id' => array(
+            'AccountExists' => array (
+                'rule' => array('AccountExists'),
+                'message' => 'Dieser Nutzer existiert nicht.',
+            )
+        ),
 	);
+    public function AccountExists() {
+        if(!$this->Account->exists())
+            return true;
+    }
 
 	public function hasEnd()
 	{

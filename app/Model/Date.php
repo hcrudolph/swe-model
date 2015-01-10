@@ -122,7 +122,11 @@ class Date extends AppModel {
 			'roomFree'    => array(
 				'rule'      => array('roomFree'),
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
-			)
+			),
+            'RoomExists' => array (
+                'rule' => array('RoomExists'),
+                'message' => 'Dieser Raum existiert nicht.',
+                )
 		),
 
         'course_id' => array(
@@ -136,7 +140,12 @@ class Date extends AppModel {
 			'mitarbeiterFree'    => array(
 				'rule'      => array('mitarbeiterFree'),
 				'message' => 'In diesem Zeitraum ist der Mitarbeiter bereits verplant.',
-			)
+			),
+            'DirectorExists' => array (
+                'rule' => array('DirectorExists'),
+                'message' => 'Dieser Mitarbeiter existiert nicht.',
+            )
+
 		),
 		'end' => array(
 			'notEmpty' => array(
@@ -223,7 +232,14 @@ class Date extends AppModel {
         if(!$this->Course->exists())
             return true;
         }
-
+    public function RoomExists() {
+        if(!$this->Room->exists())
+            return true;
+    }
+    public function DirectorExists() {
+        if(!$this->Account->exists())
+            return true;
+    }
 	public function roomFree() {
 		$conditions = array(
 			'Date.room_id' => $this->data[$this->alias]['room_id'],
