@@ -158,6 +158,61 @@ class UsersController extends AppController
                     if(isset($this->request->data['Account']['role']))
                         unset($this->request->data['Account']['role']);
                 }
+                if ($this->Auth->user('role') == 0) {
+                    if(empty($this->request->data['Account']['password']) && empty($this->request->data['Account']['passwordRepeat'])) {
+                        unset($this->request->data['Account']['password']);
+                        unset($this->request->data['Account']['passwordRepeat']);
+                    }
+                    if(isset($this->request->data['Account']['role']))
+                        unset($this->request->data['Account']['role']);
+                    if(isset($this->request->data['Person']['name']))
+                        unset($this->request->data['Person']['name']);
+                    if(isset($this->request->data['Person']['surname']))
+                        unset($this->request->data['Person']['surname']);
+                    if(isset($this->request->data['Person']['plz']))
+                        unset($this->request->data['Person']['plz']);
+                    if(isset($this->request->data['Person']['city']))
+                        unset($this->request->data['Person']['city']);
+                    if(isset($this->request->data['Person']['street']))
+                        unset($this->request->data['Person']['street']);
+                    if(isset($this->request->data['Person']['housenumber']))
+                        unset($this->request->data['Person']['housenumber']);
+                    if(isset($this->request->data['Person']['hnextra']))
+                        unset($this->request->data['Person']['hnextra']);
+                    if(isset($this->request->data['Person']['birthdate']))
+                        unset($this->request->data['Person']['birthdate']);
+                }
+                $editUser = $this->Account->find('first', array('conditions'=> array('Account.id' => $id), 'fields'=>array('Account.role')));
+                $userrolle = $editUser['Account']['role'];
+                if ($this->Auth->user('role') == 1 && $userrolle > 1) {
+                    if(empty($this->request->data['Account']['password']) && empty($this->request->data['Account']['passwordRepeat'])) {
+                        unset($this->request->data['Account']['password']);
+                        unset($this->request->data['Account']['passwordRepeat']);
+                    }
+                    if (isset($this->request->data['Account']['password']))
+                        unset($this->request->data['Account']['password']);
+                    if (isset($this->request->data['Account']['passwordRepeat']))
+                        unset($this->request->data['Account']['passwordRepeat']);
+                    if(isset($this->request->data['Account']['role']))
+                        unset($this->request->data['Account']['role']);
+                    if(isset($this->request->data['Person']['name']))
+                        unset($this->request->data['Person']['name']);
+                    if(isset($this->request->data['Person']['surname']))
+                        unset($this->request->data['Person']['surname']);
+                    if(isset($this->request->data['Person']['plz']))
+                        unset($this->request->data['Person']['plz']);
+                    if(isset($this->request->data['Person']['city']))
+                        unset($this->request->data['Person']['city']);
+                    if(isset($this->request->data['Person']['street']))
+                        unset($this->request->data['Person']['street']);
+                    if(isset($this->request->data['Person']['housenumber']))
+                        unset($this->request->data['Person']['housenumber']);
+                    if(isset($this->request->data['Person']['hnextra']))
+                        unset($this->request->data['Person']['hnextra']);
+                    if(isset($this->request->data['Person']['birthdate']))
+                        unset($this->request->data['Person']['birthdate']);
+                }
+
                 //related Model needs id
                 $conditions = array('Person.account_id' => $this->request->data['Account']['id']);
                 $fields = array('Person.id');
