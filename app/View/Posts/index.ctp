@@ -14,7 +14,7 @@ if(!empty($user) AND $user['role'] > 0) { ?>
 <nav>
     <ul class="pagination">
         <?php
-        for($i=0;$i<$postCount;$i=$i+$limit)
+        for($i=0;$i<=$postCount;$i=$i+$limit)
         {
             if ($postCount > 5) {
                 echo '<li ' . (($page == $i / $limit) ? 'class="active"' : '') . '><a href="javascript:void(0);" onclick="loadPage(' . ($i / $limit) . ')">' . (($i / $limit) + 1) . '<span class="sr-only">(current)</span></a></li>';
