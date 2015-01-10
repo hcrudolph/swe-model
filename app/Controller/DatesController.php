@@ -421,7 +421,8 @@ class DatesController extends AppController {
             echo '{';
             echo '"title":"'.$event['Course']['name'].'",';
             echo '"start":"'.$start->format(DateTime::ISO8601).'",';
-            echo '"end":"'.$end->format(DateTime::ISO8601).'"';
+            echo '"end":"'.$end->format(DateTime::ISO8601).'",';
+            echo '"color":"#337ab7"';
             echo '}';
             $trenner = ',';
         }
