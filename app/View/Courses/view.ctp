@@ -73,10 +73,10 @@ $courseId = $course['Course']['id'];
                             }
                             $elements = array();
                             if($userSignedUp) {
-                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateSignOffUser(' . $date['id'] . ', \''.$this->webroot.'dates/signoffUser/\')">Abmelden</button>';
+                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateSignOffUser(' . $date['id'] . ', \''.$this->webroot.'dates/signoffUser/\')"><i class="glyphicon glyphicon-remove"></i></button>';
                                 $elements[1] = '<li><a href="javascript:void(0)" onclick="dateSignOffUser(' . $date['id'] . ', \''.$this->webroot.'dates/signoffUser/\')"> Abmelden</a></li>';
                             } elseif(count($date['Account']) < $date['maxcount']) {
-                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateSignUpUser(' . $date['id'] . ', \''.$this->webroot.'dates/signupUser/\')">Anmelden</button>';
+                                $elements[0] = '<button type="button" class="btn btn-default" onclick="dateSignUpUser(' . $date['id'] . ', \''.$this->webroot.'dates/signupUser/\')"><i class="glyphicon glyphicon-ok"></i></button>';
                                 $elements[1] = '<li><a href="javascript:void(0)" onclick="dateSignUpUser(' . $date['id'] . ', \''.$this->webroot.'dates/signupUser/\')"> Anmelden</a></li>';
                             } else {
                                 $elements[0] = '<span class="btn btn-default">Ausgebucht</span>';
