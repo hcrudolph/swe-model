@@ -20,9 +20,16 @@ if(!empty($user) AND $user['role'] > 0) { ?>
                 echo '<li ' . (($page == $i / $limit) ? 'class="active"' : '') . '><a href="javascript:void(0);" onclick="loadPage(' . ($i / $limit) . ')">' . (($i / $limit) + 1) . '<span class="sr-only">(current)</span></a></li>';
             }
             else if ($postCount == 0) {
-                echo '<span class="label label-info">Es sind keine Einträge vorhanden.</span>';
+                echo '<span id="no-entries" class="label label-info">Es sind keine Einträge vorhanden.</span>';
             }
          }
+        /* if ($postCount > 0)
+         {
+         <script>
+         document.getElementById('no-entries').style.visibility = 'hidden';
+         </script>
+         }
+         */
         ?>
     </ul>
 </nav>
