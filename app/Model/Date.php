@@ -124,14 +124,14 @@ class Date extends AppModel {
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
 			)
 		),
-        /*
-        'course_id' => array(
-                'exists' => array('model'=>'Course', 'field'=>'id',
-                'message' => 'Invalid course ID'
-                )
 
+        'course_id' => array(
+            'CourseExists' => array (
+                'rule' => array('CourseExists'),
+                'message' => 'Dieser Kurs existiert nicht.',
+                )
         ),
-        */
+
 		'director' => array(
 			'mitarbeiterFree'    => array(
 				'rule'      => array('mitarbeiterFree'),
@@ -219,6 +219,11 @@ class Date extends AppModel {
 	public function maxcountBiggerEqual() {
 		return ($this->data[$this->alias]['maxcount'] >= $this->data[$this->alias]['mincount']);
 	}
+    public function CourseExists() {
+        if(!$this->Course->exists())
+            return true;
+        }
+
 	public function roomFree() {
 		$conditions = array(
 			'Date.room_id' => $this->data[$this->alias]['room_id'],
