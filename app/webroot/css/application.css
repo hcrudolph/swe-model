@@ -1,0 +1,131 @@
+#header {
+    position: absolute;
+    height: 210px;
+    width: 1000px;
+    padding:2px;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    margin-top: 3px;
+    box-shadow: 0px 0px 5px darkgray;
+}
+
+#postsBar {
+    position: absolute;
+    width: 500px;
+    left: 0px;
+    height: 198px;
+    padding: 3px 3px 3px 5px;
+}
+#postsBarCarousel {
+   background-color: #0070a3;
+}
+
+.carousel-image-placeholder {
+    height:198px;
+}
+
+#openingTimes {
+    position: absolute;
+    width: 300px;
+    box-sizing: border-box;
+    top: 5px;
+    left: 500px;
+    height: 200px;
+    border: 1px solid darkgray;
+}
+
+#authentification{
+    position: absolute;
+    width: 180px;
+    box-sizing: border-box;
+    left: 810px;
+    height: 200px;
+}
+
+#container {
+    width: 1000px;
+    /*left: 3px;*/
+    height:100%;
+    position: absolute;
+}
+
+#sidebar{
+    width:200px;
+    min-height: 400px;
+    top: 206px;
+    position: absolute;
+    padding: 5px;
+    border: 1px darkgray solid ;
+    border-radius: 5px;
+    margin:15px 5px 10px 0px;
+    box-shadow: 0px 0px 5px darkgray;
+}
+
+#content {
+    position: absolute;
+    top: 206px;
+    width: 792px;
+    min-height: 400px;
+    padding: 8px;
+    border: 1px darkgray solid ;
+    border-radius: 5px;
+    margin-top: 15px;
+    left: 208px;
+    box-shadow: 0px 0px 5px darkgray;
+}
+
+.tab-content {
+    padding: 8px;
+}
+
+div.postEntry {
+    width:100%;
+    margin-top: 10px;
+    padding: 2px;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+}
+
+#user-group {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.form-control.panel-body {
+    padding: 1px 1px 1px 5px;
+}
+
+.btn.btn-default {
+    margin-bottom: 10px;
+}
+
+.modal-footer .btn+.btn {
+    margin-bottom: 10px;
+}
+
+#footer {
+    position: absolute;
+    top: 616px;
+    width: 200px;
+    padding: 5px;
+    border: 1px darkgray solid ;
+    border-radius: 5px;
+    margin:15px 5px 10px 0px;
+    box-shadow: 0px 0px 5px darkgray;
+}
+
+.jumbotron {
+    margin-bottom: 100px;
+    background-position: 0% 25%;
+    background-image: url(http://82.165.45.70/dev/swe-project/app/webroot/img/bigpicture/jumbo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-shadow: black 0.3em 0.3em 0.3em;
+    border: solid 2px darkgray;
+    border-radius: 5px;
+}
+
+#openingTimes>tbody>tr>td { line-height: 1; padding: 10px 5px 10px 5px; }
+.openheader {text-align: center; font-weight: bold; font-size: 175%;}
+.openvon {text-align: center;}
+.openbis {text-align: center;}
