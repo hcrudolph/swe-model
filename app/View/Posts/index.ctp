@@ -28,6 +28,7 @@ if(!empty($user) AND $user['role'] > 0) { ?>
          <script>
          document.getElementById('no-entries').style.visibility = 'hidden';
          </script>
+
          }
          */
         ?>
