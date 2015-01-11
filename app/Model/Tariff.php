@@ -59,10 +59,10 @@ class Tariff extends AppModel {
         return $results;
     }
 
-    public function beforeSave($options = array())
+    public function beforeValidate($options = array())
     {
         if (!empty($this->data['Tariff']['amount'])) {
-            $this->data['Tariff']['amount'] = $this->NumberFormatBeforeSave($this->data['Tariff']['amount']);
+            $this->data['Tariff']['amount'] = $this->NumberFormatBeforeValidate($this->data['Tariff']['amount']);
         }
 
         return true;
@@ -80,7 +80,12 @@ class Tariff extends AppModel {
         return ($NumberString);
     }
 
-    public function NumberFormatBeforeSave($NumberString) {
+/**
+     * NumberFormatBeforeValidate()
+     *
+     * @return $NumberString
+     */
+    public function NumberFormatBeforeValidate($NumberString) {
         $string = $NumberString;
         $NumberString = str_replace(',', '.', $string);
         return ($NumberString);
