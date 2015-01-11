@@ -1,4 +1,4 @@
-<?php if(!empty($user) AND $user['role'] > 0) { ?>
+<?php if(!empty($user) AND $user['role'] > 1) { ?>
     <button type="button" id="userAddOpenButton" class="btn btn-default" onclick="roomAddButtonClick();"><i class="glyphicon glyphicon-plus"></i>Hinzufügen</button>
 <?php } ?>
     <table class="table" id="roomEntries">
