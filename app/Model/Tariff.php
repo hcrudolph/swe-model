@@ -23,7 +23,7 @@ class Tariff extends AppModel {
 		'description' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
+				'message' => 'Das Tarifmodell benötigt einen Namen',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -31,14 +31,14 @@ class Tariff extends AppModel {
 			),
 		),
 		'amount' => array(
-			//'numeric' => array(
-			//	'rule' => array('alphanumeric'),
-				//'message' => 'Your custom message here',
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Sie müssen eine Zahl eingeben.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			//),
+			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Bitte geben Sie einen Betrag ein.',
@@ -59,7 +59,7 @@ class Tariff extends AppModel {
         return $results;
     }
 
-    public function beforeValidate($options = array())
+    public function beforeSave($options = array())
     {
         if (!empty($this->data['Tariff']['amount'])) {
             $this->data['Tariff']['amount'] = $this->NumberFormatBeforeSave($this->data['Tariff']['amount']);
