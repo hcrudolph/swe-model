@@ -20,17 +20,9 @@ if(!empty($user) AND $user['role'] > 0) { ?>
                 echo '<li ' . (($page == $i / $limit) ? 'class="active"' : '') . '><a href="javascript:void(0);" onclick="loadPage(' . ($i / $limit) . ')">' . (($i / $limit) + 1) . '<span class="sr-only">(current)</span></a></li>';
             }
             else if ($postCount == 0) {
-                echo '<span id="no-entries" class="label label-info">Es sind keine Einträge vorhanden.</span>';
+                echo '<h3><span id="no-entries" class="label label-primary">Es sind keine Einträge vorhanden.</span></h3>';
             }
          }
-        /* if ($postCount > 0)
-         {
-         <script>
-         document.getElementById('no-entries').style.visibility = 'hidden';
-         </script>
-
-         }
-         */
         ?>
     </ul>
 </nav>
@@ -57,6 +49,10 @@ function postEntryDelete(postId)
             if(json.success == true)
             {
                 notificateUser(json.message, 'success');
+                $.get('<?php echo $this->webroot;?>posts/', function( view ) {
+                $('#content').html(view);
+                $('.modal').modal('hide');
+                });
                 $('#postEntry'+postId).remove();
             } else
             {
@@ -94,8 +90,8 @@ function postAddFormAddSubmitEvent()
         $.post('<?php echo $this->webroot;?>posts/add/', $(addForm).serialize(), function(json) {
             if(json.success == true) {
                 notificateUser(json.message, 'success');
-                $.get('<?php echo $this->webroot;?>posts/view/'+json.id, function( view ) {
-                    $('#postEntries').prepend(view);
+                $.get('<?php echo $this->webroot;?>posts/', function( view ) {
+                    $('#content').html(view);
                     $('.modal').modal('hide');
                 });
             } else {
