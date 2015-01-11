@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="col-xs-6">
-                            <div class="panel panel-default description">
+                            <div class="panel panel-default amount">
                                 <div class="panel-heading">Betrag</div>
                                 <input type="input" class="form-control panel-body" name="data[Tariff][amount]" value="<?php echo $tariff['Tariff']['amount'];?>" placeholder="Betrag">
                             </div>
