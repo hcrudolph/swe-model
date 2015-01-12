@@ -54,9 +54,15 @@ class Person extends AppModel {
 	 */
 
 	public function afterFind($results, $primary = false) {
-		foreach ($results as $key => $val) {
-			if (array_key_exists("birthdate", $results[$key]['Person'])) {
-				$results[$key]['Person']['birthdate'] = $this->dateFormatAfterFind($val['Person']['birthdate']);
+		if($primary) {
+			if (array_key_exists('birthdate', $results['Person'])) {
+					$results['Person']['birthdate'] = $this->dateFormatAfterFind($results['Person']['birthdate']);
+				}
+		} else {
+			foreach ($results as $key => $val) {
+				if (array_key_exists('birthdate', $val['Person'])) {
+					$results[$key]['Person']['birthdate'] = $this->dateFormatAfterFind($val['Person']['birthdate']);
+				}
 			}
 		}
 		return $results;
