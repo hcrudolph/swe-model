@@ -107,12 +107,11 @@ class BilanzShell extends AppShell
     }
 
     private function getCourseTariff($course_id){
-        $related_tariff = $this->Course->find('first', array(
-            'condition' => array('Course.id' => $course_id),
-            'contain' => array('Tariff.amount')
-        ));
-        pr($related_tariff);
-        return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
+        $related_tariff = $this->Course->findById($course_id);
+        if($related_tariff['Tariff']['amount']){
+            return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
+        }
+            return '<tariff>missing</tariff>';
     }
 
     private function findAccountsByRole($role){
@@ -120,12 +119,15 @@ class BilanzShell extends AppShell
             'conditions' => array('role' => $role),
             'contain' => array(
                 'Date' => array(
+                    'fields' => array('id', 'course_id', 'begin', 'end'),
                     'conditions' => array(
                         'Date.begin >' => date("Y-m-d H:i:s", strtotime("-1 month")),
                         'Date.begin <' => date("Y-m-d H:i:s"),
                         )
                 ),
-                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
+                'Person' => array(
+                    'fields' => array('name', 'surname', 'city', 'street', 'housenumber', 'hnextra')
+                )
             )
         ));
         return $accounts;
