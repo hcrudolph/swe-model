@@ -248,8 +248,7 @@ class Date extends AppModel {
 	 * @return boolean
 	 */
 	public function CourseExists() {
-		if(!$this->Course->exists())
-			return true;
+		return $this->Course->exists($this->data[$this->alias]['course_id']);
 	}
 
 	/**
@@ -258,8 +257,7 @@ class Date extends AppModel {
 	 * @return boolean
 	 */
 	public function RoomExists() {
-		if(!$this->Room->exists())
-			return true;
+		return $this->Room->exists($this->data[$this->alias]['room_id']);
 	}
 
 	/**
@@ -268,8 +266,7 @@ class Date extends AppModel {
 	 * @return boolean
 	 */
 	public function DirectorExists() {
-		if(!$this->Account->exists())
-			return true;
+		return $this->Account->exists($this->data[$this->alias]['director']);
 	}
 	/**
 	 * roomFree()
