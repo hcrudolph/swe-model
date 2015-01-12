@@ -42,7 +42,7 @@ $sidebarIndex = ((array_key_exists($this->params['controller'], $controllerIndex
     });
 
     //Laden der aktiven Seite
-    $('#content').load($('#sidebar > .active a').attr('data-url'), function() {
-        $('#sidebar > .active a').tab('show');
+    $('#content').load($('#sidebar > .nav > .active a').attr('data-url'), function() {
+        $('#sidebar > .nav > .active a').tab('show');
     });
 <?php echo $this->Html->scriptEnd(); ?>
