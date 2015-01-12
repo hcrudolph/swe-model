@@ -215,19 +215,9 @@ class Person extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-        'account_id' => array(
-            'AccountExists' => array (
-                'rule' => array('AccountExists'),
-                'message' => 'Dieser Nutzer existiert nicht.',
-            )
-	)
-    );
+		)
+	);
 
-    public function AccountExists() {
-        if(!$this->Account->exists())
-            return true;
-    }
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
