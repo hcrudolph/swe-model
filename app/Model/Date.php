@@ -235,7 +235,7 @@ class Date extends AppModel {
 	 * @return boolean
 	 */
 	public function maxcountBiggerEqualTeilnehmer() {
-		$date = $this->Date->findById($this->data[$this->alias]['id']);
+		$date = $this->find('first', array( 'conditions' => array('Date.id' => $this->data[$this->alias]['id'])));
 		return ($this->data[$this->alias]['maxcount'] >=  count($date['Account']));
 	}
 
