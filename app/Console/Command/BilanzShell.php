@@ -96,7 +96,7 @@ class BilanzShell extends AppShell
     }
 
     private function getTariffByRole($role){
-        $tariff = $this->Tariff->findByRole($role);
+        $tariff = $this->Course->Tariff->findByRole($role);
         return $tariff['Tariff']['amount'];
     }
 
@@ -109,16 +109,15 @@ class BilanzShell extends AppShell
         $accounts = $this->Account->find('all', array(
             'conditions' => array('role' => $role),
             'contain' => array(
-                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
-                'Date.begin' => array(
+                'Date' => array(
                     'conditions' => array(
                         'Date.begin >' => date("Y-m-d H:i:s", strtotime("-1 month")),
                         'Date.begin <' => date("Y-m-d H:i:s"),
-                        ),
-                'Date.end',
-                'Date.course_id'
+                        )
+                ),
+                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
             )
-        )));
+        ));
         return $accounts;
     }
 }
