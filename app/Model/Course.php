@@ -78,6 +78,11 @@ class Course extends AppModel {
 		),
 	);
 
+	/**
+	 * TariffExists()
+	 *
+	 * @return boolean
+	 */
     public function TariffExists() {
         if(!$this->Tariff->exists())
             return true;
