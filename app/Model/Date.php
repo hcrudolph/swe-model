@@ -241,14 +241,32 @@ class Date extends AppModel {
 		$date = $this->findById($this->data[$this->alias]['id']);
 		return ($this->data[$this->alias]['maxcount'] >=  count($date['Account']));
 	}
+
+	/**
+	 * CourseExists()
+	 *
+	 * @return boolean
+	 */
 	public function CourseExists() {
 		if(!$this->Course->exists())
 			return true;
 	}
+
+	/**
+	 * RoomExists()
+	 *
+	 * @return boolean
+	 */
 	public function RoomExists() {
 		if(!$this->Room->exists())
 			return true;
 	}
+
+	/**
+	 * DirectorExists()
+	 *
+	 * @return boolean
+	 */
 	public function DirectorExists() {
 		if(!$this->Account->exists())
 			return true;
