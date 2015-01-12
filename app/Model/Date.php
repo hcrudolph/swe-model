@@ -123,29 +123,26 @@ class Date extends AppModel {
 				'rule'      => array('roomFree'),
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
 			),
-            'RoomExists' => array (
-                'rule' => array('RoomExists'),
-                'message' => 'Dieser Raum existiert nicht.',
-                )
+            		'RoomExists' => array (
+		                'rule' => array('RoomExists'),
+		                'message' => 'Dieser Raum existiert nicht.',
+	                )
 		),
-
-        'course_id' => array(
-            'CourseExists' => array (
-                'rule' => array('CourseExists'),
-                'message' => 'Dieser Kurs existiert nicht.',
-                )
-        ),
-
+	        'course_id' => array(
+	            'CourseExists' => array (
+	                'rule' => array('CourseExists'),
+	                'message' => 'Dieser Kurs existiert nicht.',
+	                )
+	        ),
 		'director' => array(
 			'mitarbeiterFree'    => array(
 				'rule'      => array('mitarbeiterFree'),
 				'message' => 'In diesem Zeitraum ist der Mitarbeiter bereits verplant.',
 			),
-            'DirectorExists' => array (
-                'rule' => array('DirectorExists'),
-                'message' => 'Dieser Mitarbeiter existiert nicht.',
-            )
-
+			'DirectorExists' => array (
+			'rule' => array('DirectorExists'),
+			'message' => 'Dieser Mitarbeiter existiert nicht.',
+		)	
 		),
 		'end' => array(
 			'notEmpty' => array(
@@ -238,7 +235,7 @@ class Date extends AppModel {
 	 * @return boolean
 	 */
 	public function maxcountBiggerEqualTeilnehmer() {
-		$date = $this->findById($this->data[$this->alias]['id']);
+		$date = $this->Date->findById($this->data[$this->alias]['id']);
 		return ($this->data[$this->alias]['maxcount'] >=  count($date['Account']));
 	}
 
