@@ -23,9 +23,6 @@
                 {
                     notificateUser(json.message, 'success');
                     $('#sidebar').replaceWith(json.sidebar);
-                    $('#content').load($('#sidebar > .active a').attr('data-url'), function() {
-                        $('#sidebar > .active a').tab('show');
-                    });
                     $('#authentification').html(json.logout);
                 } else
                 {
