@@ -37,6 +37,11 @@ class Person extends AppModel {
 		return true;
 	}
 
+	/**
+	 * dateFormatBeforeSave()
+	 *
+	 * @return $dateString
+	 */
 	public function dateFormatBeforeSave($dateString) {
 		return date('Y-m-d', strtotime($dateString));
 	}
