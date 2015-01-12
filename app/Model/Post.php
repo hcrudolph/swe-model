@@ -155,16 +155,32 @@ class Post extends AppModel {
 		)
 	);
 
+
+	/**
+	 * hasEnd()
+	 *
+	 * @return boolean
+	 */
 	public function hasEnd()
 	{
 		return (!empty($this->data[$this->alias]['visiblebegin']) AND !empty($this->data[$this->alias]['visibleend']));
 	}
 
+	/**
+	 * hasStart()
+	 *
+	 * @return boolean
+	 */
 	public function hasStart()
 	{
 		return (!empty($this->data[$this->alias]['visibleend']) AND !empty($this->data[$this->alias]['visiblebegin']));
 	}
 
+	/**
+	 * endBiggerEqual()
+	 *
+	 * @return boolean
+	 */
 	public function endBiggerEqual()
 	{
 		return ((new DateTime($this->data[$this->alias]['visibleend'])) >= (new DateTime($this->data[$this->alias]['visiblebegin'])));
