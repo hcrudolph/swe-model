@@ -96,12 +96,16 @@ class BilanzShell extends AppShell
     }
 
     private function getTariffByRole($role){
-        $tariff = $this->Course->Tariff->findByRole($role);
+        $tariff = $this->Tariff->findByRole($role);
         return $tariff['Tariff']['amount'];
     }
 
     private function getCourseTariff($course_id){
-        $related_tariff = $this->Tariff->findByCourseId($course_id);
+        $related_tariff = $this->Course->find('first', array(
+            'condition' => array('Course.id' => $course_id),
+            'contain' => array('Tariff.amount')
+        ));
+        pr($related_tariff);
         return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
     }
 
