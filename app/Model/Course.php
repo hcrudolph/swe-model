@@ -73,7 +73,7 @@ class Course extends AppModel {
 			),
             'TariffExists' => array (
                 'rule' => array('TariffExists'),
-                'message' => 'Es existiert kein Tarifmodell für diesen Kurs.',
+                'message' => 'Der Tarif exisitert nicht.',
             )
 		),
 	);
@@ -84,8 +84,7 @@ class Course extends AppModel {
 	 * @return boolean
 	 */
     public function TariffExists() {
-        if(!$this->Tariff->exists())
-            return true;
+		return $this->Tariff->exists($this->data[$this->alias]['tariff_id']);
     }
 
 
