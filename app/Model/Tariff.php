@@ -99,13 +99,19 @@ class Tariff extends AppModel {
 	 *
 	 * @var array
 	 */
-	/*public $belongsTo = array(
+	public $hasMany = array(
 		'Course' => array(
 			'className' => 'Course',
-			'foreignKey' => 'course_id',
+			'foreignKey' => 'tariff_id',
+			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => ''
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
-	);*/
+	);
 }
