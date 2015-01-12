@@ -115,7 +115,7 @@
 									echo '<td>'.$account['Person']['surname'].' '.$account['Person']['name'].'</td>';
 									echo '<td>'.$account['Account']['username'].'</td><td>';
 									if(!$accountSignedUp) {
-										if(count($date['Account']) < $date['Course']['maxcount']) {
+										if(count($date['Account']) < $date['Date']['maxcount']) {
 											echo '<button type="button" class="btn btn-default" onclick="dateSignUpUser('.$date['Date']['id'].', \''.$this->webroot.'dates/signupUser/\', '.$account['Account']['id'].');$(this).remove();">Anmelden</button>';
 										} else {
 											echo '<button type="button" class="btn btn-default">Voll</button>';
