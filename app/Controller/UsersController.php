@@ -15,6 +15,12 @@ class UsersController extends AppController
     public $components = array('Paginator');
     var $uses = array('Account', 'Person');
 
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->Auth->deny('listing', 'view', 'add', 'edit', 'delete');
+    }
+
     /**
      * listing method
      *
