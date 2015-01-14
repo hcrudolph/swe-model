@@ -9,14 +9,6 @@
     box-shadow: 0px 0px 5px darkgray;
 }
 
-#no-entries{
-    position: relative;
-}
-
-#popoverheadline{
-    text-align: center;
-}
-
 #postsBar {
     position: absolute;
     width: 500px;
