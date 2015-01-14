@@ -163,7 +163,7 @@ class CoursesController extends AppController {
 			}
 			$this->layout = 'ajax';
 			$this->set('tariffs', $this->Course->Tariff->find('all', array(
-				'fields' => array('Tariff.id', 'Tariff.amount', 'Tariff.description'),
+				'fields' => array('Tariff.id', 'Tariff.amount', 'Tariff.description')
 			)));
 			if ($this->request->is('post', 'put')) {
 				$this->autoRender = false;
@@ -227,7 +227,7 @@ class CoursesController extends AppController {
 				$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
 				$this->set('course', $this->Course->find('first', $options));
 				$this->set('tariffs', $this->Course->Tariff->find('all', array(
-					'fields' => array('Tariff.id', 'Tariff.amount', 'Tariff.description'),
+					'fields' => array('Tariff.id', 'Tariff.amount', 'Tariff.description')
 				)));
 			}
 		} else {
