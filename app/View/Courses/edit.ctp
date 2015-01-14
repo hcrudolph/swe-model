@@ -36,7 +36,7 @@
 											<div class="panel-heading">Tarif</div>
 											<select name="data[Course][tariff_id]" class="form-control panel-body" style="padding:0px;">
 												<?php foreach($tariffs as $tariff) {
-													echo '<option value="'.$tariff['Tariff']['id'].'" '.(($tariff['Tariff']['id']==$course['Course']['tariff_id'])?'selectd':'').'>'.$tariff['Tariff']['description']. '('.$tariff['Tariff']['amount'].'€/Std)</option>';
+													echo '<option value="'.$tariff['Tariff']['id'].'" '.(($tariff['Tariff']['id']==$course['Course']['tariff_id'])?'selected':'').'>'.$tariff['Tariff']['description']. '('.$tariff['Tariff']['amount'].'€/Std)</option>';
 													};?>
 											</select>
 										</div>
