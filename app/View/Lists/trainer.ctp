@@ -17,7 +17,7 @@
         <div class="col-xs-3">
             <a href="javascript:void(0)" class="thumbnail" style="text-decoration: none;color:inherit;">
                 <span class="popoverContent" style="display:none;">
-                   <span><h3 id="popoverheadline">Zertifkate</h3></span>
+                   <h3>Zertifkate</h3>
                     <ul class="list-group">
                         <?php
                         if (count($trainer['Certificate']) > 0) {
@@ -39,15 +39,15 @@
                     <h3>E-Mail</h3>
                     <ul class="list-group">
                     <?php if ($tremail != null) {?>
-                                <li class="list-group-item">
-                                    <h4 class="list-group-item-heading"><?php echo $tremail;?></h4>
-                                    <span class="popoverContentInfo" style="display:none;">
-                                        <?php echo $tremail;?>
-                                    </span>
-                                </li>
-                                <?php } else {
-                                echo '<li class="list-group-item">Keine E-Mail Adresse</li>';
-                                }?>
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading"><?php echo $tremail;?></h4>
+                            <span class="popoverContentInfo" style="display:none;">
+                                <?php echo $tremail;?>
+                            </span>
+                        </li>
+                        <?php } else {
+                        echo '<li class="list-group-item">Keine E-Mail Adresse</li>';
+                        }?>
                     </ul>
                     <?php }?>
                 </span>
