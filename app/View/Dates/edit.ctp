@@ -115,7 +115,11 @@
 									echo '<td>'.$account['Person']['surname'].' '.$account['Person']['name'].'</td>';
 									echo '<td>'.$account['Account']['username'].'</td><td>';
 									if(!$accountSignedUp) {
-										echo '<button type="button" class="btn btn-default" onclick="dateSignUpUser('.$date['Date']['id'].', \''.$this->webroot.'dates/signupUser/\', '.$account['Account']['id'].');$(this).remove();">Anmelden</button>';
+										if(count($date['Account']) < $date['Date']['maxcount']) {
+											echo '<button type="button" class="btn btn-default" onclick="dateSignUpUser('.$date['Date']['id'].', \''.$this->webroot.'dates/signupUser/\', '.$account['Account']['id'].');$(this).remove();">Anmelden</button>';
+										} else {
+											echo '<button type="button" class="btn btn-default">Voll</button>';
+										}
 									} else {
 										echo '<button type="button" class="btn btn-default" onclick="dateSignOffUser('.$date['Date']['id'].', \''.$this->webroot.'dates/signoffUser/\', '.$account['Account']['id'].');$(this).remove();">Abmelden</button>';
 									}

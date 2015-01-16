@@ -37,6 +37,11 @@ class Person extends AppModel {
 		return true;
 	}
 
+	/**
+	 * dateFormatBeforeSave()
+	 *
+	 * @return $dateString
+	 */
 	public function dateFormatBeforeSave($dateString) {
 		return date('Y-m-d', strtotime($dateString));
 	}
@@ -49,9 +54,15 @@ class Person extends AppModel {
 	 */
 
 	public function afterFind($results, $primary = false) {
-		foreach ($results as $key => $val) {
-			if (!empty($val['Person']['birthdate'])) {
-				$results[$key]['Person']['birthdate'] = $this->dateFormatAfterFind($val['Person']['birthdate']);
+		if($primary) {
+			foreach ($results as $key => $val) {
+				if (array_key_exists('birthdate', $val['Person'])) {
+					$results[$key]['Person']['birthdate'] = $this->dateFormatAfterFind($val['Person']['birthdate']);
+				}
+			}
+		} else {
+			if (array_key_exists('birthdate', $results)) {
+				$results['birthdate'] = $this->dateFormatAfterFind($results['birthdate']);
 			}
 		}
 		return $results;
@@ -210,19 +221,9 @@ class Person extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-        'account_id' => array(
-            'AccountExists' => array (
-                'rule' => array('AccountExists'),
-                'message' => 'Dieser Nutzer existiert nicht.',
-            )
-	)
-    );
+		)
+	);
 
-    public function AccountExists() {
-        if(!$this->Account->exists())
-            return true;
-    }
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**

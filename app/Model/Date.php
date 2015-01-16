@@ -123,29 +123,26 @@ class Date extends AppModel {
 				'rule'      => array('roomFree'),
 				'message' => 'In diesem Zeitraum ist der Raum bereits belegt.',
 			),
-            'RoomExists' => array (
-                'rule' => array('RoomExists'),
-                'message' => 'Dieser Raum existiert nicht.',
-                )
+            		'RoomExists' => array (
+		                'rule' => array('RoomExists'),
+		                'message' => 'Dieser Raum existiert nicht.',
+	                )
 		),
-
-        'course_id' => array(
-            'CourseExists' => array (
-                'rule' => array('CourseExists'),
-                'message' => 'Dieser Kurs existiert nicht.',
-                )
-        ),
-
+	        'course_id' => array(
+	            'CourseExists' => array (
+	                'rule' => array('CourseExists'),
+	                'message' => 'Dieser Kurs existiert nicht.',
+	                )
+	        ),
 		'director' => array(
 			'mitarbeiterFree'    => array(
 				'rule'      => array('mitarbeiterFree'),
 				'message' => 'In diesem Zeitraum ist der Mitarbeiter bereits verplant.',
 			),
-            'DirectorExists' => array (
-                'rule' => array('DirectorExists'),
-                'message' => 'Dieser Mitarbeiter existiert nicht.',
-            )
-
+			'DirectorExists' => array (
+			'rule' => array('DirectorExists'),
+			'message' => 'Dieser Mitarbeiter existiert nicht.',
+		)	
 		),
 		'end' => array(
 			'notEmpty' => array(
@@ -207,6 +204,10 @@ class Date extends AppModel {
 			'maxcountBigger'    => array(
 				'rule'      => array('maxcountBiggerEqual'),
 				'message' => 'Die maximale Teilnehmerzahl muss mindestens der Minimalen entsprechen.',
+			),
+			'maxcountBiggerEqualTeilnehmer' => array (
+				'rule'      => array('maxcountBiggerEqualTeilnehmer'),
+				'message' => 'Die neue maximale Teilnehmerzahl ist geringer als die Zahl bereits angemeldeter Nutzer.',
 			)
 		)
 	);
@@ -228,18 +229,51 @@ class Date extends AppModel {
 	public function maxcountBiggerEqual() {
 		return ($this->data[$this->alias]['maxcount'] >= $this->data[$this->alias]['mincount']);
 	}
-    public function CourseExists() {
-        if(!$this->Course->exists())
-            return true;
-        }
-    public function RoomExists() {
-        if(!$this->Room->exists())
-            return true;
-    }
-    public function DirectorExists() {
-        if(!$this->Account->exists())
-            return true;
-    }
+	/**
+	 * maxcountBiggerEqualTeilnehmer()
+	 *
+	 * @return boolean
+	 */
+	public function maxcountBiggerEqualTeilnehmer() {
+		if (array_key_exists('id',$this->data[$this->alias])) {
+			$date = $this->find('first', array( 'conditions' => array('Date.id' => $this->data[$this->alias]['id'])));
+			return ($this->data[$this->alias]['maxcount'] >=  count($date['Account']));
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * CourseExists()
+	 *
+	 * @return boolean
+	 */
+	public function CourseExists() {
+		return $this->Course->exists($this->data[$this->alias]['course_id']);
+	}
+
+	/**
+	 * RoomExists()
+	 *
+	 * @return boolean
+	 */
+	public function RoomExists() {
+		return $this->Room->exists($this->data[$this->alias]['room_id']);
+	}
+
+	/**
+	 * DirectorExists()
+	 *
+	 * @return boolean
+	 */
+	public function DirectorExists() {
+		return $this->Account->exists($this->data[$this->alias]['director']);
+	}
+	/**
+	 * roomFree()
+	 *
+	 * @return boolean
+	 */
 	public function roomFree() {
 		$conditions = array(
 			'Date.room_id' => $this->data[$this->alias]['room_id'],
@@ -264,6 +298,11 @@ class Date extends AppModel {
 		return (($count==0)?true:false);
 	}
 
+	/**
+	 * mitarbeiterFree()
+	 *
+	 * @return boolean
+	 */
 	public function mitarbeiterFree() {
 		$conditions = array(
 			'Date.director' => $this->data[$this->alias]['director'],

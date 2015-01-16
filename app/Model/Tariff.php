@@ -23,7 +23,7 @@ class Tariff extends AppModel {
 		'description' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
+				'message' => 'Das Tarifmodell benötigt einen Namen',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -33,7 +33,7 @@ class Tariff extends AppModel {
 		'amount' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Sie müssen eine Zahl eingeben.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -41,7 +41,7 @@ class Tariff extends AppModel {
 			),
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
+				'message' => 'Bitte geben Sie einen Betrag ein.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -50,6 +50,48 @@ class Tariff extends AppModel {
 		),
 	);
 
+    public function afterFind($results, $primary = false) {
+        foreach ($results as $key => $val) {
+            if (isset($val['Tariff']['amount'])) {
+                $results[$key]['Tariff']['amount'] = $this->NumberFormatAfterFind($val['Tariff']['amount']);
+            }
+        }
+        return $results;
+    }
+
+    public function beforeValidate($options = array())
+    {
+        if (!empty($this->data['Tariff']['amount'])) {
+            $this->data['Tariff']['amount'] = $this->NumberFormatBeforeValidate($this->data['Tariff']['amount']);
+        }
+
+        return true;
+    }
+
+    /**
+     * NumberFormatAfterFind()
+     *
+     * @return $NumberString
+     */
+
+    public function NumberFormatAfterFind($NumberString) {
+        $string = $NumberString;
+        $NumberString = str_replace('.', ',', $string);
+        return ($NumberString);
+    }
+
+/**
+     * NumberFormatBeforeValidate()
+     *
+     * @return $NumberString
+     */
+    public function NumberFormatBeforeValidate($NumberString) {
+        $string = $NumberString;
+        $NumberString = str_replace(',', '.', $string);
+        return ($NumberString);
+    }
+
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	/**
@@ -57,13 +99,19 @@ class Tariff extends AppModel {
 	 *
 	 * @var array
 	 */
-	/*public $belongsTo = array(
+	public $hasMany = array(
 		'Course' => array(
 			'className' => 'Course',
-			'foreignKey' => 'course_id',
+			'foreignKey' => 'tariff_id',
+			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => ''
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
-	);*/
+	);
 }

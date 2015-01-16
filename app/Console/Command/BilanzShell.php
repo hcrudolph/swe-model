@@ -7,6 +7,7 @@ class BilanzShell extends AppShell
     public function main()
     {
         $this->Account->Behaviors->load('Containable');
+        $this->Course->Behaviors->load('Containable');
 
         $member = $this->findAccountsByRole(0);
         $employees = $this->findAccountsByRole(1);
@@ -51,7 +52,7 @@ class BilanzShell extends AppShell
         $member = array('members' => $member);
         $member = array('memberbill' => $member);
         $memberObject = Xml::build($member);
-        $memberObject->addChild('tariff', $this->getTariffByRole(0));
+        $memberObject->addChild('tariff', $this->getGrundbetrag());
         $memberObject->addChild('timestamp', date("Y-m-d H:i:s"));
         $memberString = $memberObject->asXML();
 
@@ -64,7 +65,7 @@ class BilanzShell extends AppShell
         $admins = array('admins' => $admins);
         $admins = array('adminbill' => $admins);
         $adminObject = Xml::build($admins);
-        $adminObject->addChild('tariff', $this->getTariffByRole(2));
+        $adminObject->addChild('tariff', $this->getAdminbetrag());
         $adminObject->addChild('timestamp', date("Y-m-d H:i:s"));
         $adminString = $adminObject->asXML();
 
@@ -95,30 +96,40 @@ class BilanzShell extends AppShell
         print $adminString;
     }
 
-    private function getTariffByRole($role){
-        $tariff = $this->Tariff->findByRole($role);
+    private function getGrundbetrag(){
+        $tariff = $this->Tariff->findByDescription('Grundbetrag');
+        return $tariff['Tariff']['amount'];
+    }
+
+    private function getAdminbetrag(){
+        $tariff = $this->Tariff->findByDescription('Adminbetrag');
         return $tariff['Tariff']['amount'];
     }
 
     private function getCourseTariff($course_id){
-        $related_tariff = $this->Tariff->findByCourseId($course_id);
-        return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
+        $related_tariff = $this->Course->findById($course_id);
+        if($related_tariff['Tariff']['amount']){
+            return '<tariff>' . $related_tariff['Tariff']['amount'] . '</tariff>';
+        }
+            return '<tariff>missing</tariff>';
     }
 
     private function findAccountsByRole($role){
         $accounts = $this->Account->find('all', array(
             'conditions' => array('role' => $role),
             'contain' => array(
-                'Person.name', 'Person.surname', 'Person.city', 'Person.street', 'Person.housenumber', 'Person.hnextra',
-                'Date.begin' => array(
+                'Date' => array(
+                    'fields' => array('id', 'course_id', 'begin', 'end'),
                     'conditions' => array(
                         'Date.begin >' => date("Y-m-d H:i:s", strtotime("-1 month")),
                         'Date.begin <' => date("Y-m-d H:i:s"),
-                        ),
-                'Date.end',
-                'Date.course_id'
+                        )
+                ),
+                'Person' => array(
+                    'fields' => array('name', 'surname', 'city', 'street', 'housenumber', 'hnextra')
+                )
             )
-        )));
+        ));
         return $accounts;
     }
 }

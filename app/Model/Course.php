@@ -73,14 +73,18 @@ class Course extends AppModel {
 			),
             'TariffExists' => array (
                 'rule' => array('TariffExists'),
-                'message' => 'Es existiert kein Tarifmodell für diesen Kurs.',
+                'message' => 'Der Tarif exisitert nicht.',
             )
 		),
 	);
 
+	/**
+	 * TariffExists()
+	 *
+	 * @return boolean
+	 */
     public function TariffExists() {
-        if(!$this->Tariff->exists())
-            return true;
+		return $this->Tariff->exists($this->data[$this->alias]['tariff_id']);
     }
 
 
@@ -106,19 +110,13 @@ class Course extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-	public $hasOne = array(
+	public $belongsTo = array(
 		'Tariff' => array(
 			'className' => 'Tariff',
-			'foreignKey' => 'course_id',
-			'dependent' => false,
+			'foreignKey' => 'tariff_id',
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'order' => ''
 		)
 	);
 }

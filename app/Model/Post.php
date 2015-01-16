@@ -152,29 +152,35 @@ class Post extends AppModel {
 				'rule'      => array('endBiggerEqual'),
 				'message' => 'Das Endedatum muss mindestens dem Beginndatum entsprechen.',
 			)
-		),
-        'account_id' => array(
-            'AccountExists' => array (
-                'rule' => array('AccountExists'),
-                'message' => 'Dieser Nutzer existiert nicht.',
-            )
-        ),
+		)
 	);
-    public function AccountExists() {
-        if(!$this->Account->exists())
-            return true;
-    }
 
+
+	/**
+	 * hasEnd()
+	 *
+	 * @return boolean
+	 */
 	public function hasEnd()
 	{
 		return (!empty($this->data[$this->alias]['visiblebegin']) AND !empty($this->data[$this->alias]['visibleend']));
 	}
 
+	/**
+	 * hasStart()
+	 *
+	 * @return boolean
+	 */
 	public function hasStart()
 	{
 		return (!empty($this->data[$this->alias]['visibleend']) AND !empty($this->data[$this->alias]['visiblebegin']));
 	}
 
+	/**
+	 * endBiggerEqual()
+	 *
+	 * @return boolean
+	 */
 	public function endBiggerEqual()
 	{
 		return ((new DateTime($this->data[$this->alias]['visibleend'])) >= (new DateTime($this->data[$this->alias]['visiblebegin'])));
