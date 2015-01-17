@@ -40,8 +40,7 @@
                     <ul class="list-group">
                     <?php if ($tremail != null) {?>
                                 <li class="list-group-item">
-                                    <h4 class="list-group-item-heading"><?php echo $tremail;?></h4>
-                                    <span class="popoverContentInfo" style="display:none;">
+                                    <span class="popoverContentInfo" style="display:block;">
                                         <?php echo $tremail;?>
                                     </span>
                                 </li>
