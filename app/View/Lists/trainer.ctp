@@ -45,7 +45,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>a href="mailto:<?php echo $tremail;?>"><?php echo $tremail;?></a></td>
+                                <td><a href="mailto:<?php echo $tremail;?>"><?php echo $tremail;?></a></td>
                             </tr>
                         </tbody>
                     </table>
