@@ -25,7 +25,7 @@
                         </thead>
                         <tbody>
                             <?php if (count($trainer['Certificate']) > 0) {
-                            foreach(($trainer['Certificate']) as $certificate) {?>
+                            foreach($trainer['Certificate'] as $certificate) {?>
                             <tr>
                                 <td><?php echo $certificate['name'];?></td>
                             </tr>
@@ -36,7 +36,7 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                    <?php if(!empty($user) AND !is_null($tremail)) {?>
+                    <?php if(!empty($user) && (!is_null($tremail))) {?>
                     <table class="table striped">
                         <thead>
                             <tr>
