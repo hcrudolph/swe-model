@@ -24,11 +24,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (count($trainer['Certificate']) > 0) { ?>
+                            <?php if (count($trainer['Certificate']) > 0) {
+                            foreach(($trainer['Certificate']) as $certificate) {?>
                             <tr>
                                 <td><?php echo $certificate['name'];?></td>
                             </tr>
-                            <?php } else { ?>
+                            <?php }} else { ?>
                             <tr>
                                 <td>Keine Zertifikate</td>
                             </tr>
