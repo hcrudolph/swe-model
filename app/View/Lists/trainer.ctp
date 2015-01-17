@@ -32,7 +32,7 @@
                             <tr>
                                 <td>Keine Zertifikate</td>
                             </tr>
-                            ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                     <?php if(!empty($user) AND !is_null($tremail)) {?>
