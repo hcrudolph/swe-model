@@ -17,36 +17,38 @@
         <div class="col-xs-3">
             <a href="javascript:void(0)" class="thumbnail" style="text-decoration: none;color:inherit;">
                 <span class="popoverContent" style="display:none;">
-                   <span><h3 id="popoverheadline">Zertifkate</h3></span>
-                    <ul class="list-group">
-                        <?php
-                        if (count($trainer['Certificate']) > 0) {
-                            foreach ($trainer['Certificate'] as $certificate) {?>
-                                <li class="list-group-item">
-                                    <h4 class="list-group-item-heading"><?php echo $certificate['name'];?></h4>
-                                    <span class="popoverContentInfo" style="display:none;">
-                                        <?php echo $certificate['description'];?>
-                                    </span>
-                                </li>
-                            <?php
-                            }
-                        } else {
-                            echo '<li class="list-group-item">Keine Zertifikate</li>';
-                        }
-                        ?>
-                    </ul>
-                    <?php if(!empty($user) && $tremail != null){?>
-                    <h3>E-Mail</h3>
-                    <ul class="list-group">
-                               <li class="list-group-item">
-                                    <span class="popoverContentInfo">
-                                        <?php echo $tremail;?>
-                                    </span>
-                                </li>
-                                <?php } else {
-                                echo '<li class="list-group-item">Keine E-Mail Adresse</li>';
-                                }?>
-                    </ul>
+                    <table class="table striped">
+                        <thead>
+                            <tr>
+                                <th>Zertifkate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (count($trainer['Certificate']) > 0) {
+                            foreach($trainer['Certificate'] as $certificate) {?>
+                            <tr>
+                                <td><?php echo $certificate['name'];?></td>
+                            </tr>
+                            <?php }} else { ?>
+                            <tr>
+                                <td>Keine Zertifikate</td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    <?php if(!empty($user) && (!is_null($tremail))) {?>
+                    <table class="table striped">
+                        <thead>
+                            <tr>
+                                <th>E-Mail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="mailto:<?php echo $tremail;?>"><?php echo $tremail;?></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <?php }?>
                 </span>
                 <span class="glyphicon glyphicon-user" style="font-size: 150px; display: block;" aria-hidden="true"></span>
@@ -76,15 +78,6 @@
                 placement: 'left',
                 content: function() {
                     return $(this).children('.popoverContent').html();
-                }
-            });
-            $(this).children('.popoverContent').children('.list-group').children('.list-group-item').popover({
-                html: true,
-                container: $(this),
-                trigger: 'hover',
-                placement: 'right',
-                content: function() {
-                    return $(this).children('.popoverContentInfo').html();
                 }
             });
         });
