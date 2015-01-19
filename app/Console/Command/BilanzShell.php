@@ -1,5 +1,6 @@
 <?php
 App::uses('Xml', 'Utility');
+App::uses('CakeEmail', 'Network/Email');
 class BilanzShell extends AppShell
 {
     public $uses = array('Course', 'Account', 'Person', 'Courses', 'Tariff');
