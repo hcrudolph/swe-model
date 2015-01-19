@@ -35,13 +35,11 @@
                         }
                         ?>
                     </ul>
-                    <?php if(!empty($user)){?>
+                    <?php if(!empty($user) && $tremail != null){?>
                     <h3>E-Mail</h3>
                     <ul class="list-group">
-                    <?php if ($tremail != null) {?>
-                                <li class="list-group-item">
-                                    <h4 class="list-group-item-heading"><?php echo $tremail;?></h4>
-                                    <span class="popoverContentInfo" style="display:none;">
+                               <li class="list-group-item">
+                                    <span class="popoverContentInfo">
                                         <?php echo $tremail;?>
                                     </span>
                                 </li>
