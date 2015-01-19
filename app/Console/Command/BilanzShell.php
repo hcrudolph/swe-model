@@ -15,8 +15,7 @@ class BilanzShell extends AppShell
 
         foreach ($member as $key => $value) {
 
-            echo var_dump($member[$key])."\n";
-            /*$person = $member[$key]['Person'];
+            $person = $member[$key]['Person'];
             if(!is_null($person['email'])) {
                 echo $person['surname'].' '.$person['name']."\n";
                 $email = new CakeEmail('noreplay');
@@ -24,10 +23,11 @@ class BilanzShell extends AppShell
                 $email->to($person['email']);
                 $email->subject('Abrechnung erstellt');
                 $message = 'Hallo '.$person['surname'].",\n\n";
-                $message.= 'für dich wurden heute die Rechnung erstellt.\n';
+                $message.= 'für dich wurden heute eine Rechnung erstellt.\n';
                 $message.= "Freundliche Grüße,\n dein Fitnessstudio";
                 $email->send($message);
-            }*/
+            }
+            unset($member[$key]['Person']['email']);
 
             unset($member[$key]['Account']['password']);
             $member[$key]['Dates'] = array();
@@ -141,7 +141,7 @@ class BilanzShell extends AppShell
                         )
                 ),
                 'Person' => array(
-                    'fields' => array('name', 'surname', 'city', 'street', 'housenumber', 'hnextra')
+                    'fields' => array('name', 'surname', 'city', 'street', 'housenumber', 'hnextra', 'email')
                 )
             )
         ));
