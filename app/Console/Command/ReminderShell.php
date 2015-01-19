@@ -30,10 +30,10 @@ class ReminderShell extends AppShell
                     $email->emailFormat('text');
                     $email->to($person['email']);
                     $email->subject('[Erinnerung]'.$date['Course']['name'].' (Schwierigkeitsgrad: '.$date['Course']['level'].') am '. date('d.m.Y', strtotime($date['Date']['begin'])));
-                    $message = 'Hallo '.$person['surname'].",\n\n";
-                    $message.= 'wir wollen dich erinnern, dass dein Kurs "'.$date['Course']['name'].'" heute um '.date('H:i:s', strtotime($date['Date']['begin']))." beginnt.\n\n";
-                    $message.= "Freundliche Grüße,\n dein Fitnessstudio";
 
+                    $message = 'Hallo '.$person['surname'].",\n\n";
+                    $message.= 'wir wollen dich erinnern, dass der Kurs "'.$date['Course']['name'].'" heute um '.date('H:i:s', strtotime($date['Date']['begin']))." beginnt.\n\n";
+                    $message.= "Freundliche Grüße,\n dein Fitnessstudio";
                     $email->send($message);
 
                     echo $person['surname'].' '.$person['name']."\n";

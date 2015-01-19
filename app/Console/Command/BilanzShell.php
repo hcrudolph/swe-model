@@ -1,5 +1,6 @@
 <?php
 App::uses('Xml', 'Utility');
+App::uses('CakeEmail', 'Network/Email');
 class BilanzShell extends AppShell
 {
     public $uses = array('Course', 'Account', 'Person', 'Courses', 'Tariff');
@@ -14,20 +15,21 @@ class BilanzShell extends AppShell
         $admins = $this->findAccountsByRole(2);
 
         foreach ($member as $key => $value) {
-            
-            $person = $member[$key]['Account']['Person'];
-                if(!is_null($person['email'])) {
-                    echo $person['surname'].' '.$person['name']."\n";
-                    $email = new CakeEmail('noreplay');
-                    $email->emailFormat('text');
-                    $email->to($person['email']);
-                    $email->subject('Abrechnung erstellt');
-                    $message = 'Hallo '.$person['surname'].",\n\n";
-                    $message.= 'für dich wurden heute die Rechnung erstellt.\n';
-                    $message.= "Freundliche Grüße,\n dein Fitnessstudio";
-                    $email->send($message);
-                }
-            
+
+            $person = $member[$key]['Person'];
+            if(!is_null($person['email'])) {
+                echo $person['surname'].' '.$person['name']."\n";
+                $email = new CakeEmail('noreplay');
+                $email->emailFormat('text');
+                $email->to($person['email']);
+                $email->subject('Abrechnung erstellt');
+                $message = 'Hallo '.$person['surname'].",\n\n";
+                $message.= 'für dich wurden heute eine Rechnung erstellt.\n';
+                $message.= "Freundliche Grüße,\n dein Fitnessstudio";
+                $email->send($message);
+            }
+            unset($member[$key]['Person']['email']);
+
             unset($member[$key]['Account']['password']);
             $member[$key]['Dates'] = array();
             foreach ($employees[$key]['Date'] as $date) {
@@ -140,7 +142,7 @@ class BilanzShell extends AppShell
                         )
                 ),
                 'Person' => array(
-                    'fields' => array('name', 'surname', 'city', 'street', 'housenumber', 'hnextra')
+                    'fields' => array('name', 'surname', 'city', 'street', 'housenumber', 'hnextra', 'email')
                 )
             )
         ));
