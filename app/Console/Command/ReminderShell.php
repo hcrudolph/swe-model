@@ -27,14 +27,6 @@ class ReminderShell extends AppShell
                 $person = $account['Person'];
                 if(!is_null($person['email'])) {
                     $email = new CakeEmail('noreplay');
-                    $email->viewVars(array(
-                        'nachname' => $person['name'],
-                        'vorname' => $person['surname'],
-                        'dateBegin' => $date['Date']['begin'],
-                        'courseName' => $date['Course']['name'],
-                        'courseLevel' => $date['Course']['level'],
-
-                    ));
                     $email->emailFormat('text');
                     $email->to($person['email']);
                     $email->subject('[Erinnerung]'.$date['Course']['name'].' (Schwierigkeitsgrad: '.$date['Course']['level'].') am '. date('d.m.Y', strtotime($date['Date']['begin'])));
@@ -42,7 +34,6 @@ class ReminderShell extends AppShell
                     $message = 'Sehr geehrte(r) '.$person['surname'].' '.$person['name'].",\n\n";
                     $message.= 'wir wollen Sie erinnern, dass ihr Kurs "'.$date['Course']['name'].'" heute um '.date('H:i:s', strtotime($date['Date']['begin']))." beginnt.\n\n";
                     $message.= "Freundliche Grüße,\n ihr Fitnessstudio";
-
                     $email->send($message);
 
                     echo $person['surname'].' '.$person['name']."\n";
