@@ -1,8 +1,8 @@
-Hallo Herr <?php echo $vorname; ?> <?php echo $nachname;?>,
+Hallo <?php echo $vorname; ?>,
 
-Sie haben sich von "<?php echo $courseName;?> (Schwierigkeitsgrad: <?php echo $courseLevel;?>)" am <?php echo $dateBegin;?> erfolgreich abgemeldet.
-Wir freuen uns schon auf Ihren Besuch.
+du wurdest von "<?php echo $courseName;?> (Schwierigkeitsgrad: <?php echo $courseLevel;?>)" am <?php echo $dateBegin;?> erfolgreich abgemeldet.
+Wir freuen uns schon auf deinen Besuch.
 
 
 Freundliche Grüße,
-Ihr Fitnessstudio
+Dein Fitnessstudio
