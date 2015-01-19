@@ -14,10 +14,23 @@
             </tbody>
             <thead>
             <tr>
-                <th>Getränke</th>
+                <th>Sonstiges</th>
             </tr>
             </thead>
             <tbody>
+            <tr>
+                            <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent"
+                                                                                                   style="display:none;">Vanille, Schokolade</span>Olimp Whey Protein Complex (700 g)
+                </td>
+                <td>29,99€</td>
+            </tr>
+            <tr>
+                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent"
+                                                                                       style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißshakes
+                    (300ml)
+                </td>
+                <td>1,99€</td>
+            </tr>
             <tr>
                 <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent"
                                                                                        style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißshakes
@@ -27,10 +40,17 @@
             </tr>
             <tr>
                 <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent"
-                                                                                       style="display:none;">Vanille, Erdbeere, Schokolade</span>Eiweißriegel
+                                                                                       style="display:none;">Cookie-Cream, Banane</span>Peak Protein Bar
                     (50g)
                 </td>
                 <td>2,00€</td>
+            </tr>
+            <tr>
+                <td class="popoverElement"><span class="popoverContainer"></span><span class="popoverContent"
+                                                                                       style="display:none;">Ananas-Schoko, Blueberry-Vanilla, Erdbeer-Joghurt, Schokolade</span>IronMaxx Protein Riegel
+                    (35g)
+                </td>
+                <td>1,00€</td>
             </tr>
             </tbody>
         </table>
