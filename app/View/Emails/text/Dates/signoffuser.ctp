@@ -5,4 +5,4 @@ Wir freuen uns schon auf deinen Besuch.
 
 
 Freundliche Grüße,
-Dein Fitnessstudio
+dein Fitnessstudio
