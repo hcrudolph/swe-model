@@ -41,7 +41,7 @@ class EmailConfig {
 
 
     public $noreplay = array(
-        'from' => 'noreply@s18018513.onlinehome-server.info',
+        'from' => 'noreply@swe-fitness.de',
         'host' => 'localhost',
         'port' => '25',
         #'username' => 'swe-user',
