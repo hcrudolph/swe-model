@@ -30,7 +30,7 @@
     });
 
     function tariffDelete(tariffId) {
-        var del = confirm("Kurs #" + tariffId + " löschen?");
+        var del = confirm("Tarif #" + tariffId + " löschen?");
         if (del == true) {
             $.post('<?php echo $this->webroot;?>tariffs/delete/'+ tariffId, function (json) {
                 if (json.success == true) {

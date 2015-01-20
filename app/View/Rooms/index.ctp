@@ -30,7 +30,7 @@
     });
 
     function roomDelete(roomId) {
-        var del = confirm("Kurs #" + roomId + " löschen?");
+        var del = confirm("Raum #" + roomId + " löschen?");
         if (del == true) {
             $.post('<?php echo $this->webroot;?>rooms/delete/'+ roomId, function (json) {
                 if (json.success == true) {

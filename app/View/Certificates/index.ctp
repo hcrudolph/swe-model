@@ -28,7 +28,7 @@
     });
 
     function certificateDelete(certificateId) {
-        var del = confirm("Kurs #" + certificateId + " löschen?");
+        var del = confirm("Zertifikat #" + certificateId + " löschen?");
         if (del == true) {
             $.post('<?php echo $this->webroot;?>certificates/delete/'+ certificateId, function (json) {
                 if (json.success == true) {
